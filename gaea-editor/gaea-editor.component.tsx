@@ -1,8 +1,8 @@
 import * as React from 'react'
-import * as typings from './gaea.type'
+import * as typings from './gaea-editor.type'
 import * as classNames from 'classnames'
 
-export default class Gaea extends React.Component <typings.PropsDefine, typings.StateDefine> {
+export default class GaeaEditor extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 

@@ -1,6 +1,6 @@
-import Gaea from './gaea/gaea.component'
-import {PropsDefine as GaeaPropsDefine} from './gaea/gaea.type'
+import GaeaEditor from './gaea-editor/gaea-editor.component'
+import {PropsDefine as GaeaEditorPropsDefine} from './gaea-editor/gaea-editor.type'
 
-export {Gaea, GaeaPropsDefine}
-export default Gaea
+export {GaeaEditor, GaeaEditorPropsDefine}
+export default GaeaEditor
                 
