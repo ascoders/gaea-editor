@@ -1,0 +1,22 @@
+{
+  "name": "gaea",
+  "version": "0.0.1",
+  "description": "盖亚",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ascoders/gaea.git"
+  },
+  "keywords": [
+    "gaea"
+  ],
+  "author": "ascoders",
+  "license": "ISC",
+  "dependencies": {
+    "classnames": "^2.2.5"
+  },
+  "peerDependencies": {
+    "react": "^0.14.0 || ^15.0.0"
+  }
+}
