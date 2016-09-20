@@ -1,5 +1,5 @@
 {
-  "name": "gaea",
+  "name": "gaea-editor",
   "version": "0.0.3",
   "description": "盖亚",
   "main": "lib/index.js",
