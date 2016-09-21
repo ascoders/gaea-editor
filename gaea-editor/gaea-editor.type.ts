@@ -1,6 +1,7 @@
 import * as React from 'react'
+import {TransparentlyPropsPropsDefine} from '../../../common/transparently-props/index'
 
-export interface PropsDefine extends CommonModel.TransmitTransparentlyProps {
+export interface PropsDefine extends TransparentlyPropsPropsDefine {
 
 }
 
