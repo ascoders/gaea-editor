@@ -22,6 +22,7 @@ export default class EditComponentText extends React.Component <typings.PropsDef
                 this.props.viewport.updateComponentOptionsValue(this.props.editOption, event.target.value)
             }
         }
+
         return (
             <Input {...textOpts}/>
         )

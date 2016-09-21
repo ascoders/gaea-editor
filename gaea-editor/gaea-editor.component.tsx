@@ -47,7 +47,7 @@ export default class GaeaEditor extends React.Component <typings.PropsDefine, ty
     setPropsToApplication(props: typings.PropsDefine) {
         this.applicationStore.setInitPropsToApplication({
             title: props.title,
-            baseComponents: this.props.baseComponents,
+            baseComponents: props.baseComponents,
             customComponents: props.customComponents,
             isHideCustomComponents: props.isHideCustomComponents,
             height: props.height,

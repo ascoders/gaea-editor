@@ -97,7 +97,7 @@ export class PropsGaea {
 }
 
 export class Props extends PropsGaea implements PropsDefine {
-    title = 'Fit-Gaea'
+    title = 'GaeaEditor'
     version = '0.0.0'
     customComponents = [] as Array<React.ComponentClass<FitGaea.ComponentProps>>
     isHideCustomComponents = false
