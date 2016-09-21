@@ -1,0 +1,21 @@
+& {
+    &.selected {
+        outline: 2px solid #CCC;
+        z-index: 9;
+    }
+    &.gaea-layout-active {
+        .gaea-layout {
+            background-color: whitesmoke !important;
+            border: 2px dotted #ddd !important;
+        }
+        .gaea-layout-no-width {
+            min-width: 100px !important;
+        }
+        .gaea-layout-no-height {
+            min-height: 40px !important;
+        }
+    }
+    &.gaea-selected {
+        border: 2px dashed #1c9aa0 !important;
+    }
+}

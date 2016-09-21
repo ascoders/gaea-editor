@@ -1,0 +1,114 @@
+& {
+    position: relative;
+    padding: 10px;
+    .basic-title-container {
+        display: flex;
+        align-items: center;
+        .component-icon-container {
+            width: 30px;
+            height: 30px;
+            z-index: 5;
+            top: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            i {
+                font-size: 20px;
+                color: #666;
+            }
+        }
+    }
+}
+
+.title-name {
+    margin: 0 0 0 10px;
+    width: 100%;
+    .input {
+        color: #666;
+        font-weight: bold;
+        border-bottom: 2px solid #ccc;
+        width: 100%;
+    }
+}
+
+.edit-item-container {
+    padding: 10px 0;
+}
+
+.bottom-addon {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.array-group-container {
+    margin-top: 20px;
+    border-left: 5px solid whitesmoke;
+    .array-group-content {
+
+    }
+    .add {
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+}
+
+.array-group-title {
+    padding: 5px 10px;
+    color: #333;
+    font-weight: bold;
+    background: whitesmoke;
+}
+
+.group-item-container {
+    position: relative;
+    .group-item {
+        padding: 0 0 10px 10px;
+        overflow: hidden;
+    }
+    .split {
+        background: whitesmoke;
+        width: 100%;
+        height: 5px;
+    }
+    .close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 10px;
+        z-index: 1;
+        color: #999;
+        transition: color .3s;
+        cursor: pointer;
+        &:hover {
+            color: #333;
+        }
+    }
+}
+
+.edit-line-container {
+    display: flex;
+    padding: 5px 0;
+    .edit-line-label {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        width: 0;
+        font-size: 12px;
+        color: #666;
+        font-weight: bold;
+        &.disabled {
+            color: #ccc;
+        }
+    }
+    .edit-line-editor {
+        flex-grow: 3;
+        width: 0;
+    }
+}
+
+// reset input 样式
+.lib-pc-input-src-input {
+    margin-top: 10px !important;
+}

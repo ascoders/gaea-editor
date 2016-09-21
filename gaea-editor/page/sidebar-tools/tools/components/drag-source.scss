@@ -1,0 +1,57 @@
+&.drag-box {
+    padding: 0 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    height: 38px;
+    user-select: none;
+    &:hover {
+        cursor: move;
+        background: whitesmoke;
+    }
+}
+
+&.components-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    .container {
+        width: 0;
+        flex-grow: 4;
+        overflow-y: auto;
+    }
+    .switch {
+        width: 0;
+        flex-grow: 1;
+        border-left: 1px solid #ddd;
+
+        // reset button
+        .btn {
+            border-radius: 0 !important;
+        }
+    }
+}
+
+.icons {
+    color: #999;
+    width: 15px;
+    text-align: center;
+    margin-right: 5px;
+    &.gaea {
+        color: #7266ba;
+    }
+}
+
+// reset button-group
+.button-group {
+    width: 100%;
+}
+
+.button-container {
+    font-size: 12px;
+    .text-child {
+        padding: 0 10px;
+    }
+}

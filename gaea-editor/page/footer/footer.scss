@@ -1,0 +1,37 @@
+& {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    background: whitesmoke;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.footer-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    color: #666;
+    font-size: 13px;
+    &:hover {
+        cursor: pointer;
+        color: black;
+        transition: color 0.2s;
+    }
+    .right-icon-container {
+        overflow: hidden;
+        position: relative;
+        width: 20px;
+        height: 25px;
+        margin-left: 5px;
+        .right-icon {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            transform: rotate(45deg);
+            right: 7px;
+            border: 1px solid #ddd;
+        }
+    }
+}

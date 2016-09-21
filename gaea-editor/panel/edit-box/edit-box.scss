@@ -1,0 +1,40 @@
+& {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    background: white;
+    &.container-box {
+        position: relative;
+        height: 100%;
+        .handle-drag-close {
+            color: #999;
+            cursor: pointer;
+            padding: 10px 15px 10px 15px;
+            user-select: none;
+            z-index: 12;
+            position: absolute;
+            right: 0;
+            top: 0;
+            &:hover {
+                color: #333;
+                transition: color .3s;
+            }
+        }
+    }
+}
+
+.edit-box-handle {
+    height: 100%;
+}
+
+.edit-container {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}

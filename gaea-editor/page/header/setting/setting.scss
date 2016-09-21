@@ -1,0 +1,24 @@
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.left-right {
+    display: flex;
+    padding: 10px 0;
+    .left {
+        display: flex;
+        justify-content: flex-start;
+        flex-grow: 3;
+        width: 0;
+    }
+    .right {
+        display: flex;
+        justify-content: flex-end;
+        flex-grow: 1;
+        width: 0;
+    }
+}
