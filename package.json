@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "盖亚",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -14,7 +14,8 @@
   "author": "ascoders",
   "license": "ISC",
   "dependencies": {
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "nt-transparently-props": "^0.0.1"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0"
