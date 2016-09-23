@@ -3,6 +3,7 @@ import Event from './event';
 export default class Application {
     event: Event;
     headerHeight: number;
+    leftSidebarWidth: number;
     sidebarWidth: number;
     footerHeight: number;
     viewportWidth: number;

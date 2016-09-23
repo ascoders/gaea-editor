@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "盖亚",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -22,19 +22,19 @@
     "classnames": "^2.2.5",
     "nt-web-modal": "^0.0.4",
     "nt-web-switch": "^1.0.4",
+    "mobx": "^2.4.3",
     "lodash": "^4.15.0",
-    "gaea-preview": "^0.0.8",
+    "gaea-preview": "^0.0.9",
     "nt-web-button": "^1.0.4",
     "sortablejs": "git://github.com/RubaXa/Sortable.git#dev",
     "nt-web-tabs": "^1.0.4",
-    "mobx": "^2.4.3",
     "nt-web-checkbox": "^1.0.4",
     "nt-web-input": "^1.0.4",
     "nt-web-margin-padding-editor": "^1.1.5",
     "nt-web-select": "^0.0.2",
     "nt-web-tree": "^1.0.4",
     "jquery": "^3.1.0",
-    "gaea-model": "^0.0.7"
+    "gaea-model": "^0.0.8"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0",

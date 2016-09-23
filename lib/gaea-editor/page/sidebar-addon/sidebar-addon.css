@@ -1,16 +1,5 @@
 .nt-editor-gaea-editor-gaea_editor-page-sidebar_addon {
-  width: 240px;
   background: white;
-  box-shadow: -1px 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
-  border-left: 2px solid #eee;
+  height: 100%;
   z-index: 10;
-  overflow: hidden;
-  -webkit-transition: all .2s;
-  transition: all .2s;
-  margin-left: -242px;
-  -webkit-transform: translate3d(242px, 0, 0);
-          transform: translate3d(242px, 0, 0); }
-  .nt-editor-gaea-editor-gaea_editor-page-sidebar_addon.show {
-    margin-left: 0;
-    -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0); }
+  overflow: hidden; }
