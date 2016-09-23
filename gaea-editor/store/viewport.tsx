@@ -89,7 +89,7 @@ export default class Viewport {
 
         // 开始重置
         transaction(()=> {
-            component.props = extendObservable({}, ComponentClass.defaultProps)
+            component.props = extendObservable({}, _.cloneDeep(ComponentClass.defaultProps))
         })
     }
 
@@ -535,7 +535,7 @@ export default class Viewport {
         const ComponentClass = this.application.getComponentByUniqueKey(uniqueId)
 
         // 从 startDragging 设置的 uniqueKey 生成新组件并且绑定上
-        const newProps = extendObservable({}, ComponentClass.defaultProps)
+        const newProps = extendObservable({}, _.cloneDeep(ComponentClass.defaultProps))
 
         let component: FitGaea.ViewportComponentInfo = {
             props: newProps,
@@ -670,7 +670,7 @@ export default class Viewport {
                 this.deleteComponent(operate.mapUniqueKey)
                 break
             case 'update':
-                this.components.get(operate.mapUniqueKey).props = extendObservable({}, (operate.update.oldValue))
+                this.components.get(operate.mapUniqueKey).props = extendObservable({}, _.cloneDeep(operate.update.oldValue))
                 break
             case 'exchange':
                 this.sortComponents(operate.mapUniqueKey, operate.exchange.newIndex, operate.exchange.oldIndex)
@@ -717,7 +717,7 @@ export default class Viewport {
                 this.addNewComponent(operate.mapUniqueKey, operate.add.parentMapUniqueKey, operate.add.uniqueId, operate.add.index)
                 break
             case 'update':
-                this.components.get(operate.mapUniqueKey).props = extendObservable({}, (operate.update.newValue))
+                this.components.get(operate.mapUniqueKey).props = extendObservable({}, _.cloneDeep(operate.update.newValue))
                 break
             case 'exchange':
                 this.sortComponents(operate.mapUniqueKey, operate.exchange.oldIndex, operate.exchange.newIndex)
@@ -736,7 +736,7 @@ export default class Viewport {
                 break
             case 'reset':
                 const ComponentClass = this.application.getComponentByUniqueKey(operate.reset.beforeProps.gaeaUniqueKey)
-                this.components.get(operate.mapUniqueKey).props = extendObservable({}, (ComponentClass.defaultProps))
+                this.components.get(operate.mapUniqueKey).props = extendObservable({}, _.cloneDeep(ComponentClass.defaultProps))
                 break
             case 'addCombo':
                 this.addComplexComponent(operate.addCombo.parentMapUniqueKey, operate.mapUniqueKey, operate.addCombo.index, operate.addCombo.componentInfo)

@@ -33,7 +33,7 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
             this.props.viewport.createRootUniqueId()
             const LayoutClass = this.props.application.getComponentByUniqueKey('gaea-layout')
             // 布置最外层的画布
-            let layoutProps = extendObservable({}, LayoutClass.defaultProps)
+            let layoutProps = extendObservable({}, _.cloneDeep(LayoutClass.defaultProps))
 
             if (this.props.application.isReactNative) {
                 layoutProps['flex'] = 1
