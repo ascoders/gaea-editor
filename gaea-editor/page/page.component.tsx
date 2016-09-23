@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as typings from './page.type'
+import {extendObservable} from 'mobx'
 import {observer, inject} from 'mobx-react'
 
 import * as classNames from 'classnames'
@@ -17,6 +18,7 @@ import ViewportSidebarResize from './viewport-sidebar-resize/viewport-sidebar-re
 import HeaderNav from './header/header.component'
 import SidebarAddon from './sidebar-addon/sidebar-addon.component'
 import OuterMoveBox from './outer-move-box/outer-move-box.component'
+import LeftAbsoluteBar from './left-absolute-bar/left-absolute-bar.component'
 
 import './page.scss'
 
@@ -31,7 +33,7 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
             this.props.viewport.createRootUniqueId()
             const LayoutClass = this.props.application.getComponentByUniqueKey('gaea-layout')
             // 布置最外层的画布
-            let layoutProps = _.cloneDeep(LayoutClass.defaultProps)
+            let layoutProps = extendObservable({}, LayoutClass.defaultProps)
 
             if (this.props.application.isReactNative) {
                 layoutProps['flex'] = 1
@@ -87,6 +89,19 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
             'preview': this.props.application.isPreview
         })
 
+        const viewportMainContainerStyle = {
+            marginLeft: this.props.viewport.leftBarType !== '' ? 0 : -this.props.application.leftSidebarWidth + 37,
+            marginRight: this.props.viewport.isShowSidebarAddon ? 0 : -this.props.application.sidebarWidth
+        }
+
+        const leftBarStyle = {
+            width: this.props.application.leftSidebarWidth
+        }
+
+        const rightBarStyle = {
+            width: this.props.application.sidebarWidth
+        }
+
         return (
             <div className="_namespace"
                  style={{height:this.props.application.height}}>
@@ -104,26 +119,36 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
                     <div className="section-container"
                          ref={this.getSectionContainerRef}
                          style={{height:`calc(100% - ${this.props.application.headerHeight + this.props.application.footerHeight}px)`}}>
+                        <LeftAbsoluteBar/>
 
-                        <LeftBar/>
+                        <div className="viewport-main-container"
+                             style={viewportMainContainerStyle}>
+                            <div className="left-bar"
+                                 style={leftBarStyle}>
+                                <LeftBar/>
+                            </div>
 
-                        <div className="viewport-main-container">
-                            <div className="viewport-main-content"
-                                 style={{width: `${this.props.application.viewportWidth}%`}}>
-                                <Viewport/>
-                                <OuterMoveBox/>
+                            <div className="viewport-main-content-outer">
+                                <div className="viewport-main-content"
+                                     style={{width: `${this.props.application.viewportWidth}%`}}>
+                                    <Viewport/>
+                                    <OuterMoveBox/>
 
-                                {this.props.application.isPreview &&
-                                <div className="preview-container">
-                                    <Preview value={this.props.viewport.getIncrementComponentsInfo()}
-                                             baseComponents={this.props.application.baseComponents}
-                                             customComponents={this.props.application.customComponents}/>
+                                    {this.props.application.isPreview &&
+                                    <div className="preview-container">
+                                        <Preview value={this.props.viewport.getIncrementComponentsInfo()}
+                                                 baseComponents={this.props.application.baseComponents}
+                                                 customComponents={this.props.application.customComponents}/>
+                                    </div>
+                                    }
                                 </div>
-                                }
+                            </div>
+
+                            <div className="right-bar"
+                                 style={rightBarStyle}>
+                                <SidebarAddon/>
                             </div>
                         </div>
-
-                        <SidebarAddon/>
                     </div>
 
                     <Footer />

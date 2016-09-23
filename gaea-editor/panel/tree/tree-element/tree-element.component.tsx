@@ -151,6 +151,7 @@ export default class TreeElement extends React.Component <typings.PropsDefine, t
         let childProps = {
             render: this.treeNameRender,
             defaultExpendAll: true,
+            toggleByArrow: true,
             onMouseOver: this.handleMouseOver,
             onClick: this.handleClick,
             ref: (ref: React.ReactInstance)=> {

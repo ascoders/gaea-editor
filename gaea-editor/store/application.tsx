@@ -15,7 +15,12 @@ export default class Application {
     @observable headerHeight = 37
 
     /**
-     * 侧边栏宽度
+     * 左侧边栏宽度
+     */
+    @observable leftSidebarWidth = 240
+
+    /**
+     * 右侧边栏宽度
      */
     @observable sidebarWidth = 240
 

@@ -109,7 +109,8 @@ export default class Tree extends React.Component <typings.PropsDefine, typings.
                 </div>
 
                 <div ref={this.setChildRef}>
-                    <TreeComponent defaultExpendAll={true}>
+                    <TreeComponent defaultExpendAll={true}
+                                   toggleByArrow={true}>
                         <TreeElement mapUniqueKey={this.props.viewport.rootMapUniqueKey}
                                      ref={`tree-${this.props.viewport.rootMapUniqueKey}`}/>
                     </TreeComponent>

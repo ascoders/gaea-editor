@@ -2,7 +2,7 @@
  * 编辑可视区域
  */
 
-import {observable, computed, map, transaction, ObservableMap} from 'mobx'
+import {observable, computed, map, transaction, ObservableMap, extendObservable} from 'mobx'
 import * as _ from 'lodash'
 import Application from './application'
 
@@ -89,7 +89,7 @@ export default class Viewport {
 
         // 开始重置
         transaction(()=> {
-            component.props = _.cloneDeep(ComponentClass.defaultProps)
+            component.props = extendObservable({}, ComponentClass.defaultProps)
         })
     }
 
@@ -535,7 +535,7 @@ export default class Viewport {
         const ComponentClass = this.application.getComponentByUniqueKey(uniqueId)
 
         // 从 startDragging 设置的 uniqueKey 生成新组件并且绑定上
-        const newProps = _.cloneDeep(ComponentClass.defaultProps)
+        const newProps = extendObservable({}, ComponentClass.defaultProps)
 
         let component: FitGaea.ViewportComponentInfo = {
             props: newProps,
@@ -576,11 +576,11 @@ export default class Viewport {
     addComplexComponent(parentMapUniqueKey: string, mapUniqueKey: string, index: number, componentFullInfo: FitGaea.ViewportComponentFullInfo) {
         // 先把子元素添加回来
         Object.keys(componentFullInfo.childs).forEach(childMapUniqueKey=> {
-            this.setComponents(childMapUniqueKey, _.cloneDeep(componentFullInfo.childs[childMapUniqueKey]))
+            this.setComponents(childMapUniqueKey, JSON.parse(JSON.stringify(componentFullInfo.childs[childMapUniqueKey])))
         })
 
         // 再把这个组件添加回来
-        this.setComponents(mapUniqueKey, _.cloneDeep(componentFullInfo.componentInfo))
+        this.setComponents(mapUniqueKey, JSON.parse(JSON.stringify(componentFullInfo.componentInfo)))
 
         // 加到父级上
         this.addToParent(mapUniqueKey, parentMapUniqueKey, index)
@@ -670,7 +670,7 @@ export default class Viewport {
                 this.deleteComponent(operate.mapUniqueKey)
                 break
             case 'update':
-                this.components.get(operate.mapUniqueKey).props = _.cloneDeep(operate.update.oldValue)
+                this.components.get(operate.mapUniqueKey).props = extendObservable({}, (operate.update.oldValue))
                 break
             case 'exchange':
                 this.sortComponents(operate.mapUniqueKey, operate.exchange.newIndex, operate.exchange.oldIndex)
@@ -717,7 +717,7 @@ export default class Viewport {
                 this.addNewComponent(operate.mapUniqueKey, operate.add.parentMapUniqueKey, operate.add.uniqueId, operate.add.index)
                 break
             case 'update':
-                this.components.get(operate.mapUniqueKey).props = _.cloneDeep(operate.update.newValue)
+                this.components.get(operate.mapUniqueKey).props = extendObservable({}, (operate.update.newValue))
                 break
             case 'exchange':
                 this.sortComponents(operate.mapUniqueKey, operate.exchange.oldIndex, operate.exchange.newIndex)
@@ -736,7 +736,7 @@ export default class Viewport {
                 break
             case 'reset':
                 const ComponentClass = this.application.getComponentByUniqueKey(operate.reset.beforeProps.gaeaUniqueKey)
-                this.components.get(operate.mapUniqueKey).props = _.cloneDeep(ComponentClass.defaultProps)
+                this.components.get(operate.mapUniqueKey).props = extendObservable({}, (ComponentClass.defaultProps))
                 break
             case 'addCombo':
                 this.addComplexComponent(operate.addCombo.parentMapUniqueKey, operate.mapUniqueKey, operate.addCombo.index, operate.addCombo.componentInfo)

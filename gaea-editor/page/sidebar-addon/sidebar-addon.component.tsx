@@ -15,12 +15,16 @@ export default class SidebarAddon extends React.Component <typings.PropsDefine, 
 
     render() {
         const classes = classNames({
-            '_namespace': true,
-            'show': this.props.viewport.isShowSidebarAddon
+            '_namespace': true
         })
 
+        const style = {
+            width: this.props.application.sidebarWidth
+        }
+
         return (
-            <div className={classes}>
+            <div className={classes}
+                 style={style}>
                 <EditBox/>
             </div>
         )

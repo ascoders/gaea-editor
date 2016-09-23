@@ -25,17 +25,8 @@ export default class SidebarAddon extends React.Component <typings.PropsDefine, 
     }
 
     render() {
-        const templateClasses = classNames({
-            'menu-item': true,
-            'active': this.props.viewport.isShowLeftBar
-        })
-
-        const showLayoutClasses = classNames({
-            'menu-item': true,
-            'active': this.props.viewport.isMovingComponent || this.props.viewport.showLayoutBorder
-        })
-
         const extendClasses = classNames({
+            '_namespace': true,
             'extend-container': true,
             'show': this.props.viewport.isShowLeftBar
         })
@@ -49,22 +40,6 @@ export default class SidebarAddon extends React.Component <typings.PropsDefine, 
 
         return (
             <div className="_namespace">
-                <div className="container">
-                    <div className="top">
-                        <div className={templateClasses}
-                             onClick={this.toggleShowTemplate.bind(this)}>
-                            <i className="fa fa-list-alt"/>
-                        </div>
-                    </div>
-
-                    <div className="bottom">
-                        <div className={showLayoutClasses}
-                             onClick={this.toggleShowLayoutBorder.bind(this)}>
-                            <i className="fa fa-eye"/>
-                        </div>
-                    </div>
-                </div>
-
                 <div className={extendClasses}>
                     {templateChildren}
                 </div>
