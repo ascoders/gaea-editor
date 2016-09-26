@@ -55,7 +55,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     private isMovingComponent = false
 
     componentWillReact() {
-        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey === null && this.props.setting.showLayoutWhenDragging) {
+        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey === null && this.props.setting.showLayout) {
             if (this.props.viewport.isMovingComponent || this.props.viewport.showLayoutBorder) {
                 if (!hasClass(this.selfDomInstance, 'gaea-layout-active')) {
                     this.selfDomInstance.className += ' gaea-layout-active'

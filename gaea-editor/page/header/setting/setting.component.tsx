@@ -35,8 +35,8 @@ export default class Setting extends React.Component <typings.PropsDefine, typin
         this.props.setting.setConfirmWhenRemoveComponent(checked)
     }
 
-    @autoBindMethod setShowLayoutWhenDragging(checked: boolean) {
-        this.props.setting.setShowLayoutWhenDragging(checked)
+    @autoBindMethod setShowLayout(checked: boolean) {
+        this.props.setting.setShowLayout(checked)
     }
 
     render() {
@@ -62,8 +62,8 @@ export default class Setting extends React.Component <typings.PropsDefine, typin
                         <div className="left-right">
                             <div className="left">拖动时显示所有布局元素</div>
                             <div className="right">
-                                <Switch checked={this.props.setting.showLayoutWhenDragging}
-                                        onChange={this.setShowLayoutWhenDragging}/>
+                                <Switch checked={this.props.setting.showLayout}
+                                        onChange={this.setShowLayout}/>
                             </div>
                         </div>
 

@@ -90,16 +90,18 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
         })
 
         const viewportMainContainerStyle = {
-            marginLeft: this.props.viewport.leftBarType !== '' ? 0 : -this.props.application.leftSidebarWidth + 37,
-            marginRight: this.props.viewport.isShowSidebarAddon ? 0 : -this.props.application.sidebarWidth
+            marginLeft: this.props.viewport.leftBarType === '' ? 36 : this.props.application.leftSidebarWidth + 36,
+            marginRight: this.props.viewport.isShowSidebarAddon ? this.props.application.sidebarWidth : 0
         }
 
         const leftBarStyle = {
-            width: this.props.application.leftSidebarWidth
+            width: this.props.application.leftSidebarWidth,
+            left: -this.props.application.leftSidebarWidth
         }
 
         const rightBarStyle = {
-            width: this.props.application.sidebarWidth
+            width: this.props.application.sidebarWidth,
+            right: -this.props.application.sidebarWidth - 1
         }
 
         return (

@@ -2,7 +2,7 @@
  * 整体应用的信息,一个 app 通用的配置信息
  */
 
-import {observable} from 'mobx'
+import {observable, action} from 'mobx'
 import * as React from 'react'
 import Event from './event'
 
@@ -34,30 +34,6 @@ export default class Application {
      */
     @observable viewportWidth = 100
 
-    setViewportWidth(width: number) {
-        this.viewportWidth = width
-    }
-
-    /**
-     * 设置侧边栏宽度
-     */
-    setSidebarWidth(value: number) {
-        if (value < 180) {
-            value = 180
-        }
-        if (value > 600) {
-            value = 600
-        }
-        this.sidebarWidth = value
-    }
-
-    /**
-     * 设置侧边栏是否在移动状态
-     */
-    setSidebarMoving(isMoving: boolean) {
-        this.isSidebarMoving = isMoving
-    }
-
     /**
      * 是否正在移动侧边栏
      */
@@ -69,11 +45,24 @@ export default class Application {
     @observable isPreview = false
 
     /**
-     * 修改预览状态
+     * 组合组件
      */
-    setPreview(isPreview: boolean) {
-        this.isPreview = isPreview
-    }
+    @observable comboComponents: Array<FitGaea.ComboComponentInfo> = []
+
+    /**
+     * 基础组件
+     */
+    baseComponents: Array<React.ComponentClass<FitGaea.ComponentProps>> = []
+
+    /**
+     * 定制组件
+     */
+    customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>> = []
+
+    /**
+     * 是否隐藏通用组件
+     */
+    isHideCustomComponents = false
 
     /**
      * 标题名称
@@ -81,7 +70,7 @@ export default class Application {
     title = ''
 
     /**
-     * 页面默认编辑信息
+     * 页面显示 json
      */
     defaultValue: {
         [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
@@ -97,10 +86,7 @@ export default class Application {
      */
     isReactNative: boolean
 
-    /**
-     * 将接收到的 props 赋值到 application 中
-     */
-    setInitPropsToApplication(props: {
+    @action('初始化配置') setInitPropsToApplication(props: {
         title: string,
         baseComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>,
         customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>,
@@ -120,39 +106,15 @@ export default class Application {
         this.isReactNative = props.isReactNative
     }
 
-    /**
-     * 基础组件
-     */
-    baseComponents: Array<React.ComponentClass<FitGaea.ComponentProps>> = []
-
-    /**
-     * 定制组件
-     */
-    customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>> = []
-
-    /**
-     * 设置定制组件
-     */
-    setCustomComponents(customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>) {
+    @action('设置定制组件') setCustomComponents(customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>) {
         this.customComponents = customComponents
     }
 
-    /**
-     * 组合组件
-     */
-    @observable comboComponents: Array<FitGaea.ComboComponentInfo> = []
-
-    /**
-     * 添加一个组合
-     */
-    addComboComponent(comboComponent: FitGaea.ComboComponentInfo) {
+    @action('添加一个组合') addComboComponent(comboComponent: FitGaea.ComboComponentInfo) {
         this.comboComponents.push(comboComponent)
     }
 
-    /**
-     * 根据 uniqueKey 获取组件
-     */
-    getComponentByUniqueKey(uniqueKey: string) {
+    @action('根据 uniqueKey 获取组件 Class') getComponentByUniqueKey(uniqueKey: string) {
         if (this.baseComponents) {
             for (let component of this.baseComponents) {
                 if (component.defaultProps.gaeaUniqueKey === uniqueKey) {
@@ -170,8 +132,25 @@ export default class Application {
         return null
     }
 
-    /**
-     * 是否隐藏通用组件
-     */
-    isHideCustomComponents = false
+    @action('设置视图区域宽度') setViewportWidth(width: number) {
+        this.viewportWidth = width
+    }
+
+    @action('设置侧边栏宽度') setSidebarWidth(value: number) {
+        if (value < 180) {
+            value = 180
+        }
+        if (value > 600) {
+            value = 600
+        }
+        this.sidebarWidth = value
+    }
+
+    @action('设置侧边栏是否在移动状态') setSidebarMoving(isMoving: boolean) {
+        this.isSidebarMoving = isMoving
+    }
+
+    @action('修改预览状态') setPreview(isPreview: boolean) {
+        this.isPreview = isPreview
+    }
 }

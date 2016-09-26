@@ -17,7 +17,7 @@ export default class Tree extends React.Component <typings.PropsDefine, typings.
         const style = {
             left: this.props.viewport.treeHoverComponentSpec.left,
             top: this.props.viewport.treeHoverComponentSpec.top,
-            width: this.props.viewport.treeHoverComponentSpec.width - 6,
+            width: this.props.viewport.treeHoverComponentSpec.width - 4,
             height: this.props.viewport.treeHoverComponentSpec.height - 4,
         }
 
