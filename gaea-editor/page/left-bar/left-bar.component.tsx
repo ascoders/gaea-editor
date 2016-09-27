@@ -3,9 +3,9 @@ import * as typings from './left-bar.type'
 import {observer, inject} from 'mobx-react'
 import * as classNames from 'classnames'
 
-import './left-bar.scss'
-
 import Template from './template/template.component'
+
+import './left-bar.scss'
 
 @inject('application', 'viewport') @observer
 export default class SidebarAddon extends React.Component <typings.PropsDefine, typings.StateDefine> {

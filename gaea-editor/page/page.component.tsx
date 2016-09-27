@@ -100,7 +100,7 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
         }
 
         const rightBarStyle = {
-            width: this.props.application.sidebarWidth,
+            width: this.props.application.sidebarWidth - 1,
             right: -this.props.application.sidebarWidth - 1
         }
 
