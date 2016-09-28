@@ -15,7 +15,7 @@ export default class EditComponentText extends React.Component <typings.PropsDef
     render() {
         this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
         const textOpts = {
-            label: this.props.editOption.label,
+            label: '',
             disabled: !this.props.editOption.editable || this.props.editOption.isNull,
             value: this.props.editOption.isNull ? this.props.editOption.notNullValue as string : this.componentInfo.props[this.props.editOption.field] as string,
             onChange: (event: any)=> {
