@@ -18,8 +18,8 @@ export default class EditComponentText extends React.Component <typings.PropsDef
             label: '',
             disabled: !this.props.editOption.editable || this.props.editOption.isNull,
             value: this.props.editOption.isNull ? this.props.editOption.notNullValue as string : this.componentInfo.props[this.props.editOption.field] as string,
-            onChange: (event: any)=> {
-                this.props.viewport.updateComponentOptionsValue(this.props.editOption, event.target.value)
+            onChange: (value: string)=> {
+                this.props.viewport.updateComponentOptionsValue(this.props.editOption, value)
             }
         }
 
