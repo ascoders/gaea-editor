@@ -16,6 +16,7 @@ import SelectEditor from './edit-components/select/select.component'
 import SwitchEditor from './edit-components/switch/switch.component'
 import ArrayEditor from './edit-components/array/array.component'
 import MarginPaddingEditor from './edit-components/margin-padding/margin-padding.component'
+import NumberEditor from './edit-components/number/number.component'
 
 import './basic.scss'
 
@@ -108,6 +109,11 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
                             <MarginPaddingEditor editOption={editOption}/>
                         )
                         break
+                    case 'number':
+                        EditElement = (
+                            <NumberEditor editOption={editOption}/>
+                        )
+                        break
                 }
 
                 const editLineLabelClasses = classNames({
@@ -119,7 +125,7 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
                     <div key={key}
                          className="edit-line-container">
                         <div className={editLineLabelClasses}>
-                            {editOption.canNull &&
+                            {editOption.canNull && editOption.editable &&
                             <Checkbox checked={!editOption.isNull}
                                       onChange={this.handleToggleOptionEnable.bind(this, editOption)}/>
                             }
