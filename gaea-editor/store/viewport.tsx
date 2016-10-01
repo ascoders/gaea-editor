@@ -535,7 +535,7 @@ export default class Viewport {
         const ComponentClass = this.application.getComponentByUniqueKey(uniqueId)
 
         // 从 startDragging 设置的 uniqueKey 生成新组件并且绑定上
-        const newProps = extendObservable({}, _.cloneDeep(ComponentClass.defaultProps))
+        const newProps = _.cloneDeep(ComponentClass.defaultProps)
 
         let component: FitGaea.ViewportComponentInfo = {
             props: newProps,

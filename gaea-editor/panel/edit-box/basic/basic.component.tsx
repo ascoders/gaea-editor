@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as typings from './basic.type'
+import {isObservable} from 'mobx'
 import {observer, inject} from 'mobx-react'
 import * as classNames from 'classnames'
 
@@ -38,8 +39,8 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
     /**
      * 修改组件标题
      */
-    @autoBindMethod handleChangeName(event: any) {
-        this.componentInfo.props.gaeaName = event.target.value
+    @autoBindMethod handleChangeName(value: string) {
+        this.componentInfo.props.gaeaName = value
     }
 
     /**

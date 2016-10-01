@@ -11,9 +11,9 @@ export class Props implements PropsDefine {
 }
 
 export interface StateDefine {
-
+    unit?: string
 }
 
 export class State implements StateDefine {
-
+    unit = ''
 }
