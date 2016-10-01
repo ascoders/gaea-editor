@@ -125,6 +125,7 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
                 return (
                     <div key={key}
                          className="edit-line-container">
+                        {editOption.label !== '' &&
                         <div className={editLineLabelClasses}>
                             {editOption.canNull && editOption.editable &&
                             <Checkbox checked={!editOption.isNull}
@@ -132,6 +133,7 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
                             }
                             {editOption.label}
                         </div>
+                        }
                         <div className="edit-line-editor">
                             {EditElement}
                         </div>
@@ -162,7 +164,7 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
                         <i className={`fa fa-${this.componentInfo.props.gaeaIcon}`}/>
                     </div>
                     <Input className="title-name"
-                           label="组件名"
+                           label=""
                            key={this.props.viewport.currentEditComponentMapUniqueKey}
                            onChange={this.handleChangeName}
                            rightRender={this.titleInputRightRender}

@@ -52,7 +52,7 @@ export default class EditComponentText extends React.Component <typings.PropsDef
 
     render() {
         return (
-            <MarginPaddingEditor size={160}
+            <MarginPaddingEditor size={220}
                                  marginLeft={this.componentInfo.props['marginLeft']}
                                  marginTop={this.componentInfo.props['marginTop']}
                                  marginRight={this.componentInfo.props['marginRight']}
