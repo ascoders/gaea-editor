@@ -18,13 +18,8 @@ export default class SidebarAddon extends React.Component <typings.PropsDefine, 
             '_namespace': true
         })
 
-        const style = {
-            width: this.props.application.sidebarWidth
-        }
-
         return (
-            <div className={classes}
-                 style={style}>
+            <div className={classes}>
                 <EditBox/>
             </div>
         )

@@ -33,19 +33,19 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
             this.props.viewport.createRootUniqueId()
             const LayoutClass = this.props.application.getComponentByUniqueKey('gaea-layout')
             // 布置最外层的画布
-            let layoutProps = extendObservable({}, _.cloneDeep(LayoutClass.defaultProps))
+            let layoutProps = extendObservable({}, _.cloneDeep(LayoutClass.defaultProps)) as FitGaea.ComponentProps
 
             if (this.props.application.isReactNative) {
-                layoutProps['flex'] = 1
-                layoutProps['overflowY'] = 'auto'
-                layoutProps['flexDirection'] = 'column'
+                layoutProps.style.flex = 1
+                layoutProps.style.overflowY = 'auto'
+                layoutProps.style.flexDirection = 'column'
             } else {
-                layoutProps['flexGrow'] = 1
-                layoutProps['flexDirection'] = 'column'
-                layoutProps['display'] = 'block'
-                layoutProps['overflow'] = null
-                layoutProps['overflowX'] = 'hidden'
-                layoutProps['overflowY'] = 'auto'
+                layoutProps.style.flexGrow = 1
+                layoutProps.style.flexDirection = 'column'
+                layoutProps.style.display = 'block'
+                layoutProps.style.overflow = null
+                layoutProps.style.overflowX = 'hidden'
+                layoutProps.style.overflowY = 'auto'
             }
 
             this.props.viewport.setComponents(this.props.viewport.rootMapUniqueKey, {
@@ -91,7 +91,7 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
 
         const viewportMainContainerStyle = {
             marginLeft: this.props.viewport.leftBarType === '' ? 36 : this.props.application.leftSidebarWidth + 36,
-            marginRight: this.props.viewport.isShowSidebarAddon ? this.props.application.sidebarWidth : 0
+            marginRight: this.props.viewport.isShowSidebarAddon ? this.props.application.sidebarAddonWidth : 0
         }
 
         const leftBarStyle = {
@@ -100,8 +100,8 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
         }
 
         const rightBarStyle = {
-            width: this.props.application.sidebarWidth - 1,
-            right: -this.props.application.sidebarWidth - 1
+            width: this.props.application.sidebarAddonWidth - 1,
+            right: -this.props.application.sidebarAddonWidth - 1
         }
 
         return (

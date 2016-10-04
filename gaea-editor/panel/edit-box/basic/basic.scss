@@ -26,7 +26,6 @@
     .input {
         color: #666;
         font-weight: bold;
-        border-bottom: 2px solid #ccc;
         width: 100%;
     }
 }
@@ -111,4 +110,14 @@
 // reset input 样式
 .lib-pc-input-src-input {
     margin-top: 10px !important;
+}
+
+.header-title {
+    background: whitesmoke;
+    padding: 5px 10px;
+    margin-left: -10px;
+    margin-right: -10px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
 }

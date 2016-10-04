@@ -18,6 +18,10 @@ import SwitchEditor from './edit-components/switch/switch.component'
 import ArrayEditor from './edit-components/array/array.component'
 import MarginPaddingEditor from './edit-components/margin-padding/margin-padding.component'
 import NumberEditor from './edit-components/number/number.component'
+import WidthHeightEditor from './edit-components/width-height/width-height.component'
+import LayoutEditor from './edit-components/layout/layout.component'
+import OverflowEditor from './edit-components/overflow/overflow.component'
+import BackgroundEditor from './edit-components/background/background.component'
 
 import './basic.scss'
 
@@ -57,20 +61,6 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
         )
     }
 
-    /**
-     * 修改一个字段是否生效
-     */
-    handleToggleOptionEnable(editOption: FitGaea.ComponentPropsGaeaEdit, checked: boolean) {
-        editOption.isNull = !checked
-        if (!checked) {
-            // 暂存非空的值
-            editOption.notNullValue = this.componentInfo.props[editOption.field]
-            this.props.viewport.updateComponentOptionsValue(editOption, null)
-        } else {
-            this.props.viewport.updateComponentOptionsValue(editOption, editOption.notNullValue)
-        }
-    }
-
     render() {
         if (!this.props.viewport.currentEditComponentMapUniqueKey) {
             return null
@@ -80,9 +70,19 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
         this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
 
         const Editors = this.componentInfo.props.gaeaEdit && this.componentInfo.props.gaeaEdit.map((editOption, index)=> {
-                const key = `${this.props.viewport.currentEditComponentMapUniqueKey}-${editOption.field}`
+                let key = `${this.props.viewport.currentEditComponentMapUniqueKey}-${editOption.field}-${editOption.editor}`
 
                 let EditElement: React.ReactElement<any> = null
+
+                // 如果是纯字符串，作为标题呈现
+                if (editOption.constructor.name === 'String') {
+                    key = `${this.props.viewport.currentEditComponentMapUniqueKey}-${editOption.toString()}`
+                    return (
+                        <div className="header-title"
+                             style={{marginTop:index===0?0:5}}
+                             key={key}>{editOption.toString()}</div>
+                    )
+                }
 
                 switch (editOption.editor) {
                     case 'text':
@@ -115,22 +115,33 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
                             <NumberEditor editOption={editOption}/>
                         )
                         break
+                    case 'widthHeight':
+                        EditElement = (
+                            <WidthHeightEditor editOption={editOption}/>
+                        )
+                        break
+                    case 'layout':
+                        EditElement = (
+                            <LayoutEditor editOption={editOption}/>
+                        )
+                        break
+                    case 'overflow':
+                        EditElement = (
+                            <OverflowEditor editOption={editOption}/>
+                        )
+                        break
+                    case 'background':
+                        EditElement = (
+                            <BackgroundEditor editOption={editOption}/>
+                        )
+                        break
                 }
-
-                const editLineLabelClasses = classNames({
-                    'edit-line-label': true,
-                    'disabled': editOption.isNull
-                })
 
                 return (
                     <div key={key}
                          className="edit-line-container">
                         {editOption.label !== '' &&
-                        <div className={editLineLabelClasses}>
-                            {editOption.canNull && editOption.editable &&
-                            <Checkbox checked={!editOption.isNull}
-                                      onChange={this.handleToggleOptionEnable.bind(this, editOption)}/>
-                            }
+                        <div className="edit-line-label">
                             {editOption.label}
                         </div>
                         }

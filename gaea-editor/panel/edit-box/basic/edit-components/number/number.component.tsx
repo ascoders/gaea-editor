@@ -51,9 +51,13 @@ export default class EditComponentNumber extends React.Component <typings.PropsD
     render() {
         this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
 
-        const inputValue = this.props.editOption.isNull ? parseInputToOutRange(parseFloat(this.props.editOption.notNullValue), this.props.editOption.number.outputRange, this.props.editOption.number.inputRange).toString() : parseInputToOutRange(this.componentInfo.props[this.props.editOption.field], this.props.editOption.number.outputRange, this.props.editOption.number.inputRange).toString()
+        let inputValue = this.props.viewport.getPropsByFieldWithEditor(this.componentInfo.props, this.props.editOption)
+        // 如果不为空，进行输入转换
+        if (inputValue !== '') {
+            inputValue = parseInputToOutRange(parseFloat(inputValue), this.props.editOption.number.outputRange, this.props.editOption.number.inputRange).toString()
+        }
 
-        const disabled = !this.props.editOption.editable || this.props.editOption.isNull
+        const disabled = !this.props.editOption.editable
 
         const textOpts = {
             label: '',

@@ -42,23 +42,6 @@ export default class Viewport {
      * 添加一个新实例元素, 不要用 componentsSet
      */
     setComponents(mapUniqueKey: string, componentInfo: FitGaea.ViewportComponentInfo) {
-        // 遍历 gaeaEdit, 如果值是 undefined || null , 设置为 isNull
-        if (componentInfo.props.gaeaEdit) {
-            componentInfo.props.gaeaEdit = componentInfo.props.gaeaEdit.map(gaeaEdit=> {
-                // 豁免一些类型
-                if (['marginPadding'].findIndex(name=>name === gaeaEdit.editor) > -1) {
-                    gaeaEdit.isNull = false
-                } else {
-                    if (componentInfo.props[gaeaEdit.field] === undefined || componentInfo.props[gaeaEdit.field] === null) {
-                        gaeaEdit.isNull = true
-                    } else {
-                        gaeaEdit.isNull = false
-                    }
-                }
-
-                return gaeaEdit
-            })
-        }
         this.components.set(mapUniqueKey, componentInfo)
     }
 
@@ -400,7 +383,7 @@ export default class Viewport {
     }
 
     /**
-     * 编辑当前组件, 某个选项的值，附带保存历史
+     * 根据 editOptions 更新组件某个值
      */
     updateComponentOptionsValue(editOptions: FitGaea.ComponentPropsGaeaEdit, value: FitGaea.ComponentPropsOptionValue) {
         let componentInfo = this.components.get(this.currentEditComponentMapUniqueKey)
@@ -416,7 +399,6 @@ export default class Viewport {
             type: 'update',
             mapUniqueKey: this.currentEditComponentMapUniqueKey,
             update: {
-                editOptions: JSON.parse(JSON.stringify(editOptions)),
                 oldValue,
                 newValue
             }
@@ -424,41 +406,179 @@ export default class Viewport {
     }
 
     /**
+     * 直接更新组件某个值
+     */
+    updateComponentValue(field: string|Array<string>, value: FitGaea.ComponentPropsOptionValue) {
+        let componentInfo = this.components.get(this.currentEditComponentMapUniqueKey)
+        const oldValue = JSON.parse(JSON.stringify(componentInfo.props))
+
+        this.setPropsByField(componentInfo.props, field, value)
+
+        const newValue = JSON.parse(JSON.stringify(componentInfo.props))
+
+        // 保存操作
+        this.saveOperate({
+            type: 'update',
+            mapUniqueKey: this.currentEditComponentMapUniqueKey,
+            update: {
+                oldValue,
+                newValue
+            }
+        })
+    }
+
+    /**
+     * 开始准备记录历史
+     */
+    prepareWriteHistory() {
+        let componentInfo = this.components.get(this.currentEditComponentMapUniqueKey)
+        // 存储旧的值
+        this.oldProps = JSON.parse(JSON.stringify(componentInfo.props))
+    }
+
+    /**
+     * 记录一下历史
+     */
+    writeHistory() {
+        let componentInfo = this.components.get(this.currentEditComponentMapUniqueKey)
+        const newValue = JSON.parse(JSON.stringify(componentInfo.props))
+
+        // 保存操作
+        this.saveOperate({
+            type: 'update',
+            mapUniqueKey: this.currentEditComponentMapUniqueKey,
+            update: {
+                oldValue: this.oldProps,
+                newValue
+            }
+        })
+    }
+
+    /**
+     * 直接更新组件某个值，不记录历史
+     */
+    updateComponentValueWithNoHistory(field: string|Array<string>, value: FitGaea.ComponentPropsOptionValue) {
+        let componentInfo = this.components.get(this.currentEditComponentMapUniqueKey)
+        this.setPropsByField(componentInfo.props, field, value)
+    }
+
+    /**
+     * 临时存储两个操作之间的 props，用来灵活记录历史记录
+     */
+    oldProps: FitGaea.ComponentProps = null
+
+    /**
      * 根据 editOption 修改值
      */
     updateComponentOptionsValueByOptions(mapUniqueKey: string, editOptions: FitGaea.ComponentPropsGaeaEdit, value: FitGaea.ComponentPropsOptionValue) {
         let componentInfo = this.components.get(mapUniqueKey)
 
-        if (value !== null) {
-            // 不能让 null 设置无效, 所以非 null 才做转换
-            switch (editOptions.type) {
-                case 'string':
-                    value = value.toString()
-                    break
-                case 'number':
-                    value = Number(value)
-                    break
-                case 'boolean':
-                    value = Boolean(value)
-                    break
-            }
-        }
-
         // 修改组件值
         switch (editOptions.editor) {
             case 'marginPadding':
-                componentInfo.props['marginLeft'] = value['marginLeft']
-                componentInfo.props['marginTop'] = value['marginTop']
-                componentInfo.props['marginRight'] = value['marginRight']
-                componentInfo.props['marginBottom'] = value['marginBottom']
-                componentInfo.props['paddingLeft'] = value['paddingLeft']
-                componentInfo.props['paddingTop'] = value['paddingTop']
-                componentInfo.props['paddingRight'] = value['paddingRight']
-                componentInfo.props['paddingBottom'] = value['paddingBottom']
+                componentInfo.props.style.marginLeft = value['marginLeft']
+                componentInfo.props.style.marginTop = value['marginTop']
+                componentInfo.props.style.marginRight = value['marginRight']
+                componentInfo.props.style.marginBottom = value['marginBottom']
+                componentInfo.props.style.paddingLeft = value['paddingLeft']
+                componentInfo.props.style.paddingTop = value['paddingTop']
+                componentInfo.props.style.paddingRight = value['paddingRight']
+                componentInfo.props.style.paddingBottom = value['paddingBottom']
+                break
+            case 'widthHeight':
+                componentInfo.props.style.width = value['width']
+                componentInfo.props.style.minWidth = value['minWidth']
+                componentInfo.props.style.maxWidth = value['maxWidth']
+                componentInfo.props.style.height = value['height']
+                componentInfo.props.style.minHeight = value['minHeight']
+                componentInfo.props.style.maxHeight = value['maxHeight']
                 break
             default:
-                componentInfo.props[editOptions.field] = value
+                this.setPropsByFieldWithEditor(componentInfo.props, editOptions, value)
         }
+    }
+
+    /**
+     * 根据字符串或者数组，获取对象的值
+     */
+    getPropsByField(props: FitGaea.ComponentProps, editOptions: FitGaea.ComponentPropsGaeaEdit) {
+        if (editOptions.field.constructor.name === 'ObservableArray') {
+            let fields = editOptions.field as Array<string>
+            if (fields.length === 0) {
+                return props[fields[0]]
+            } else {
+                let target: any = props
+                fields.forEach((field, index)=> {
+                    if (index !== fields.length - 1) {
+                        target = target[field]
+                    }
+                })
+                return target[fields[fields.length - 1]]
+            }
+        } else {
+            return props[editOptions.field as string]
+        }
+    }
+
+    /**
+     * 获取适应编辑器的 props 值
+     */
+    getPropsByFieldWithEditor(props: FitGaea.ComponentProps, editOptions: FitGaea.ComponentPropsGaeaEdit) {
+        let value = this.getPropsByField(props, editOptions)
+
+        if (value === null || value === editOptions.emptyValue) {
+            return ''
+        }
+        return value
+    }
+
+    /**
+     * 根据字符串或者数组，设置对象的值
+     */
+    setPropsByField(props: FitGaea.ComponentProps, field: string|Array<string>, value: FitGaea.ComponentPropsOptionValue) {
+        if (field.constructor.name === 'ObservableArray' || field.constructor.name === 'Array') {
+            let fields = field as Array<string>
+            if (fields.length === 0) {
+                props[fields[0]] = value
+            } else {
+                let target: any = props
+                fields.forEach((field, index)=> {
+                    if (index !== fields.length - 1) {
+                        target = target[field]
+                    } else {
+                        target[field] = value
+                    }
+                })
+            }
+        } else {
+            props[field as string] = value
+        }
+    }
+
+    /**
+     * 从编辑器设置 props 值
+     */
+    setPropsByFieldWithEditor(props: FitGaea.ComponentProps, editOptions: FitGaea.ComponentPropsGaeaEdit, value: FitGaea.ComponentPropsOptionValue) {
+        // 从编辑器来的值不可能是 null undefined，空值都用 '' 表示
+        // 如果有 type，根据 type 做转换
+        switch (editOptions.type) {
+            case 'string':
+                value = value.toString()
+                break
+            case 'number':
+                value = Number(value)
+                break
+            case 'boolean':
+                value = Boolean(value)
+                break
+        }
+
+        if (value === '') {
+            // 如果值是空，则赋值为空值，默认是 null
+            value = editOptions.emptyValue || null
+        }
+
+        this.setPropsByField(props, editOptions.field, value)
     }
 
     /**
@@ -535,7 +655,7 @@ export default class Viewport {
         const ComponentClass = this.application.getComponentByUniqueKey(uniqueId)
 
         // 从 startDragging 设置的 uniqueKey 生成新组件并且绑定上
-        const newProps = _.cloneDeep(ComponentClass.defaultProps)
+        const newProps = extendObservable({}, _.cloneDeep(ComponentClass.defaultProps))
 
         let component: FitGaea.ViewportComponentInfo = {
             props: newProps,

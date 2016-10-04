@@ -25,6 +25,11 @@ export default class Application {
     @observable sidebarWidth = 240
 
     /**
+     * 右附加侧边栏宽度
+     */
+    @observable sidebarAddonWidth = 280
+
+    /**
      * 底部栏高度
      */
     @observable footerHeight = 25

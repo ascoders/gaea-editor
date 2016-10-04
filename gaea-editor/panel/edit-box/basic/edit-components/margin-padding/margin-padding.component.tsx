@@ -5,6 +5,8 @@ import * as _ from 'lodash'
 
 import MarginPaddingEditor from '../../../../../../../../web-common/margin-padding-editor/index'
 
+import './margin-padding.scss'
+
 @inject('viewport') @observer
 export default class EditComponentText extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
@@ -23,15 +25,22 @@ export default class EditComponentText extends React.Component <typings.PropsDef
 
     componentWillMount() {
         this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
+        this.init()
+    }
 
-        this.marginPaddingValues['marginLeft'] = this.componentInfo.props['marginLeft']
-        this.marginPaddingValues['marginTop'] = this.componentInfo.props['marginTop']
-        this.marginPaddingValues['marginRight'] = this.componentInfo.props['marginRight']
-        this.marginPaddingValues['marginBottom'] = this.componentInfo.props['marginBottom']
-        this.marginPaddingValues['paddingLeft'] = this.componentInfo.props['paddingLeft']
-        this.marginPaddingValues['paddingTop'] = this.componentInfo.props['paddingTop']
-        this.marginPaddingValues['paddingRight'] = this.componentInfo.props['paddingRight']
-        this.marginPaddingValues['paddingBottom'] = this.componentInfo.props['paddingBottom']
+    componentWillReceiveProps() {
+        this.init()
+    }
+
+    init() {
+        this.marginPaddingValues['marginLeft'] = this.componentInfo.props.style.marginLeft
+        this.marginPaddingValues['marginTop'] = this.componentInfo.props.style.marginTop
+        this.marginPaddingValues['marginRight'] = this.componentInfo.props.style.marginRight
+        this.marginPaddingValues['marginBottom'] = this.componentInfo.props.style.marginBottom
+        this.marginPaddingValues['paddingLeft'] = this.componentInfo.props.style.paddingLeft
+        this.marginPaddingValues['paddingTop'] = this.componentInfo.props.style.paddingTop
+        this.marginPaddingValues['paddingRight'] = this.componentInfo.props.style.paddingRight
+        this.marginPaddingValues['paddingBottom'] = this.componentInfo.props.style.paddingBottom
         this.marginPaddingOldValue = _.cloneDeep(this.marginPaddingValues)
     }
 
@@ -52,17 +61,19 @@ export default class EditComponentText extends React.Component <typings.PropsDef
 
     render() {
         return (
-            <MarginPaddingEditor size={220}
-                                 marginLeft={this.componentInfo.props['marginLeft']}
-                                 marginTop={this.componentInfo.props['marginTop']}
-                                 marginRight={this.componentInfo.props['marginRight']}
-                                 marginBottom={this.componentInfo.props['marginBottom']}
-                                 paddingLeft={this.componentInfo.props['paddingLeft']}
-                                 paddingTop={this.componentInfo.props['paddingTop']}
-                                 paddingRight={this.componentInfo.props['paddingRight']}
-                                 paddingBottom={this.componentInfo.props['paddingBottom']}
-                                 onChange={this.handleChange.bind(this)}
-                                 onFinalChange={this.handleFinalChange.bind(this)}/>
+            <div className="_namespace">
+                <MarginPaddingEditor size={220}
+                                     marginLeft={this.componentInfo.props.style.marginLeft}
+                                     marginTop={this.componentInfo.props.style.marginTop}
+                                     marginRight={this.componentInfo.props.style.marginRight}
+                                     marginBottom={this.componentInfo.props.style.marginBottom}
+                                     paddingLeft={this.componentInfo.props.style.paddingLeft}
+                                     paddingTop={this.componentInfo.props.style.paddingTop}
+                                     paddingRight={this.componentInfo.props.style.paddingRight}
+                                     paddingBottom={this.componentInfo.props.style.paddingBottom}
+                                     onChange={this.handleChange.bind(this)}
+                                     onFinalChange={this.handleFinalChange.bind(this)}/>
+            </div>
         )
     }
 }

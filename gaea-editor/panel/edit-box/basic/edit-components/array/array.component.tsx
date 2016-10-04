@@ -12,35 +12,41 @@ export default class EditComponentText extends React.Component <typings.PropsDef
     // 当前编辑的组件
     private componentInfo: FitGaea.ViewportComponentInfo
 
-    /**
-     * 新增一项配置
-     */
-    handleAdd() {
-        let field = this.componentInfo.props[this.props.editOption.field] as Array<any>
-        if (field === null) {
-            field = []
-        }
-
-        field.push({})
-        this.componentInfo.props[this.props.editOption.field] = field
-    }
+    // /**
+    //  * 新增一项配置
+    //  */
+    // handleAdd() {
+    //     let field = this.componentInfo.props[this.props.editOption.field] as Array<any>
+    //     if (field === null) {
+    //         field = []
+    //     }
+    //
+    //     field.push({})
+    //     this.componentInfo.props[this.props.editOption.field] = field
+    // }
 
     render() {
         this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
 
-        let field = this.componentInfo.props[this.props.editOption.field] as Array<any>
+        //let field = this.componentInfo.props[this.props.editOption.field] as Array<any>
 
-        const Element = field.constructor.name === 'Array' && field.map(item=> {
-                return (
-                    <div>111</div>
-                )
-            })
+        // const Element = field.constructor.name === 'Array' && field.map(item=> {
+        //         return (
+        //             <div>111</div>
+        //         )
+        //     })
 
         return (
             <div>
-                {Element}
-                <Button onClick={this.handleAdd.bind(this)}>+</Button>
+
             </div>
         )
     }
 }
+//
+// return (
+//     <div>
+//         {Element}
+//         <Button onClick={this.handleAdd.bind(this)}>+</Button>
+//     </div>
+// )
