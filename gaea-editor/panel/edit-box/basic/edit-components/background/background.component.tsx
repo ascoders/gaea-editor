@@ -5,6 +5,7 @@ import * as _ from 'lodash'
 
 import {ChromePicker} from 'react-color'
 import {Input} from '../../../../../../../../web-common/input/index'
+import {RenderTo} from '../../../../../../../../web-common/render-to/index'
 
 import './background.scss'
 
@@ -52,6 +53,15 @@ export default class EditComponentBackground extends React.Component <typings.Pr
     }
 
     render() {
+        const shadow = {
+            position: 'absolute',
+            left: -1000,
+            top: -1000,
+            width: 10000,
+            height: 10000,
+            zIndex: 99
+        }
+
         return (
             <div className="_namespace">
                 <div className="row-container">
@@ -65,7 +75,7 @@ export default class EditComponentBackground extends React.Component <typings.Pr
                         </div>
                         { this.state.displayColorPicker &&
                         <div>
-                            <div className="shadow"
+                            <div style={shadow}
                                  onClick={this.handleClose.bind(this)}/>
                             <div className="picker-container">
                                 <ChromePicker label="hex"

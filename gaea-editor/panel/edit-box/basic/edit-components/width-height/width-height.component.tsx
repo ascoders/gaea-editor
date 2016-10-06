@@ -38,32 +38,16 @@ export default class EditComponentWidthHeight extends React.Component <typings.P
 
     componentWillMount() {
         this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
-        this.init()
-    }
-
-    componentWillReceiveProps() {
-        this.init()
-    }
-
-    init() {
-        this.setState({
-            width: this.componentInfo.props.style.width || '',
-            minWidth: this.componentInfo.props.style.minWidth || '',
-            maxWidth: this.componentInfo.props.style.maxWidth || '',
-            height: this.componentInfo.props.style.height || '',
-            minHeight: this.componentInfo.props.style.minHeight || '',
-            maxHeight: this.componentInfo.props.style.maxHeight || ''
-        })
     }
 
     renderInput(label: string, field: string) {
-        const currentUnit = _.endsWith(this.state[field], '%') ? '%' : ''
+        const currentUnit = _.endsWith(this.componentInfo.props.style[field], '%') ? '%' : ''
 
         return (
             <div className="input-container">
                 <span className="input-container-label">{label}</span>
                 <Number label=""
-                        value={this.state[field]}
+                        value={this.componentInfo.props.style[field]}
                         placeholder="null"
                         units={units}
                         currentUnit={currentUnit}
@@ -78,16 +62,8 @@ export default class EditComponentWidthHeight extends React.Component <typings.P
     handleChangeValue(field: string, value: string, unit: string) {
         this.setState({
             [field]: value
-        }, ()=> {
-            this.props.viewport.updateComponentOptionsValue(this.props.editOption, {
-                width: parseInputValue(this.state.width, unit),
-                minWidth: parseInputValue(this.state.minWidth, unit),
-                maxWidth: parseInputValue(this.state.maxWidth, unit),
-                height: parseInputValue(this.state.height, unit),
-                minHeight: parseInputValue(this.state.minHeight, unit),
-                maxHeight: parseInputValue(this.state.maxHeight, unit)
-            })
         })
+        this.props.viewport.updateComponentValue(['style', field], parseInputValue(value, unit))
     }
 
     render() {

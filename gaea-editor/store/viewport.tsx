@@ -485,14 +485,6 @@ export default class Viewport {
                 componentInfo.props.style.paddingRight = value['paddingRight']
                 componentInfo.props.style.paddingBottom = value['paddingBottom']
                 break
-            case 'widthHeight':
-                componentInfo.props.style.width = value['width']
-                componentInfo.props.style.minWidth = value['minWidth']
-                componentInfo.props.style.maxWidth = value['maxWidth']
-                componentInfo.props.style.height = value['height']
-                componentInfo.props.style.minHeight = value['minHeight']
-                componentInfo.props.style.maxHeight = value['maxHeight']
-                break
             default:
                 this.setPropsByFieldWithEditor(componentInfo.props, editOptions, value)
         }
