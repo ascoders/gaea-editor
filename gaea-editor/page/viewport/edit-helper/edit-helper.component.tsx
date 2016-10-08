@@ -127,6 +127,17 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
                                     componentInfo: component
                                 }
                             })
+                        } else if (this.props.viewport.currentMovingComponent.uniqueKey === 'source') {
+                            // 新增自由模板
+                            this.props.viewport.saveOperate({
+                                type: 'addSource',
+                                mapUniqueKey,
+                                addSource: {
+                                    parentMapUniqueKey: this.props.mapUniqueKey,
+                                    index: event.newIndex as number,
+                                    componentInfo: component
+                                }
+                            })
                         } else {
                             // 新增普通组件
                             this.props.viewport.saveOperate({

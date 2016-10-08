@@ -16,6 +16,16 @@ export interface StateDefine {
      * 选中组件类别
      */
     selectedType?: string
+
+    /**
+     * 点击导出的组件信息
+     */
+    exportComponentInfo?: FitGaea.ComboComponentInfo
+
+    /**
+     * 是否显示导出模态框
+     */
+    showExportModal?: boolean
 }
 
 export class State implements StateDefine {

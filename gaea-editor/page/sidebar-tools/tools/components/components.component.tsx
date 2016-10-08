@@ -5,8 +5,11 @@ import {observer, inject} from 'mobx-react'
 
 import {autoBindMethod} from '../../../../../../../common/auto-bind/index'
 import {Button, ButtonGroup} from '../../../../../../../web-common/button/index'
+import {Modal} from '../../../../../../../web-common/modal/index'
 import * as Sortable from 'sortablejs'
 import DragSource from './drag-source.component'
+
+import './components.scss'
 
 const switchTypes = [{
     type: 'custom',
@@ -28,7 +31,6 @@ export default class Components extends React.Component <typings.PropsDefine, ty
     private dragContainerInstance: React.ReactInstance
     // 拖拽元素 dom 对象
     private dragContainerDomInstance: Element
-
     // 保存上一次拖拽的位置
     private lastDragStartIndex: number
 
@@ -126,6 +128,25 @@ export default class Components extends React.Component <typings.PropsDefine, ty
     }
 
     /**
+     * 导出按钮被点击
+     */
+    handleExport(component: FitGaea.ComboComponentInfo) {
+        this.setState({
+            exportComponentInfo: component,
+            showExportModal: true
+        })
+    }
+
+    /**
+     * 关闭导出弹层
+     */
+    handleCancelExportModal() {
+        this.setState({
+            showExportModal: false
+        })
+    }
+
+    /**
      * 渲染拖拽组件
      */
     @autoBindMethod renderDragComponents() {
@@ -152,8 +173,17 @@ export default class Components extends React.Component <typings.PropsDefine, ty
                 return this.props.application.comboComponents.map((component, index)=> {
                     return (
                         <DragSource key={index}>
-                            <i className={`fa fa-cubes icons gaea`}/>
-                            {component.name}
+                            <div className="group-container">
+                                <div className="group-container-title">
+                                    <i className={`fa fa-cubes icons gaea`}/>
+                                    {component.name}
+                                </div>
+
+                                <div className="export"
+                                     onClick={this.handleExport.bind(this, component)}>
+                                    导出
+                                </div>
+                            </div>
                         </DragSource>
                     )
                 })
@@ -174,6 +204,20 @@ export default class Components extends React.Component <typings.PropsDefine, ty
                     <ButtonGroup className="button-group"
                                  vertical>{SwitchButtonGroup}</ButtonGroup>
                 </div>
+                <Modal className="_namespace"
+                       show={this.state.showExportModal}
+                       onCancel={this.handleCancelExportModal.bind(this)}
+                       onOk={this.handleCancelExportModal.bind(this)}
+                       title={this.state.exportComponentInfo && this.state.exportComponentInfo.name}>
+                    {this.state.exportComponentInfo &&
+                    <div>
+                        <textarea className="export-textarea"
+                                  onChange={()=>{}}
+                                  value={JSON.stringify(this.state.exportComponentInfo)}/>
+                        复制输入框中的内容，并截图组件，发送给 huangziyi01@baidu.com，通过审核后您的组合会出现在左侧模板区域中（必须完全由基础组件组成）。
+                    </div>
+                    }
+                </Modal>
             </div>
         )
     }

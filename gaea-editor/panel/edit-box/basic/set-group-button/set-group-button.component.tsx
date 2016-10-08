@@ -40,9 +40,9 @@ export default class SetGroupButton extends React.Component <typings.PropsDefine
         })
     }
 
-    handleChangeName(event: any) {
+    handleChangeName(value: string) {
         this.setState({
-            name: event.target.value
+            name: value
         })
     }
 

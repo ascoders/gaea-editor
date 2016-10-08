@@ -9,3 +9,11 @@
     background-color: whitesmoke;
     padding: 10px;
 }
+
+.template-item {
+    padding: 10px;
+    cursor: pointer;
+    &:hover {
+        background: whitesmoke;
+    }
+}

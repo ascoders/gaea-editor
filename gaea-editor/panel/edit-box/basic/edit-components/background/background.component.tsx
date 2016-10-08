@@ -44,11 +44,11 @@ export default class EditComponentBackground extends React.Component <typings.Pr
 
     handleColorChange(color: any) {
         this.props.viewport.prepareWriteHistory()
-        this.props.viewport.updateComponentValueWithNoHistory(['style', 'backgroundColor'], `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`)
+        this.props.viewport.updateComponentValueWithNoHistory('style.backgroundColor', `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`)
     }
 
     handleColorChangeComplete(color: any) {
-        this.props.viewport.updateComponentValueWithNoHistory(['style', 'backgroundColor'], `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`)
+        this.props.viewport.updateComponentValueWithNoHistory('style.backgroundColor', `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`)
         this.props.viewport.writeHistory()
     }
 

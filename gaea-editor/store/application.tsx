@@ -4,6 +4,8 @@
 
 import {observable, action} from 'mobx'
 import * as React from 'react'
+import * as _ from 'lodash'
+import deepDiff from '../utils/deep-diff'
 import Event from './event'
 
 export default class Application {
@@ -116,6 +118,12 @@ export default class Application {
     }
 
     @action('添加一个组合') addComboComponent(comboComponent: FitGaea.ComboComponentInfo) {
+        // 添加之前，把能删的都删掉
+        comboComponent.componentInfo = this.cleanComponent(comboComponent.componentInfo)
+        comboComponent.childs && Object.keys(comboComponent.childs).forEach(childMapUniqueKey=> {
+            comboComponent.childs[childMapUniqueKey] = this.cleanComponent(comboComponent.childs[childMapUniqueKey])
+        })
+
         this.comboComponents.push(comboComponent)
     }
 
@@ -157,5 +165,58 @@ export default class Application {
 
     @action('修改预览状态') setPreview(isPreview: boolean) {
         this.isPreview = isPreview
+    }
+
+    /************************************************************
+     * 辅助方法
+     ************************************************************/
+
+    /**
+     * 将 componentInfo 不需要保存的信息都移除
+     */
+    cleanComponent(componentInfo: FitGaea.ViewportComponentInfo) {
+        // 转成标准格式
+        const planComponentInfo: FitGaea.ViewportComponentInfo = JSON.parse(JSON.stringify(componentInfo))
+
+        // 获取这个组件的 defaultProps
+        const defaultProps = _.cloneDeep(this.getComponentByUniqueKey(planComponentInfo.props.gaeaUniqueKey).defaultProps)
+
+        // 把 defaultProps 中相同的内容从 props 中剥离掉
+        const deepDiffProps = deepDiff(planComponentInfo.props, defaultProps)
+
+        // 一定要留着 gaeaUniqueKey
+        deepDiffProps.gaeaUniqueKey = planComponentInfo.props.gaeaUniqueKey
+
+        planComponentInfo.props = deepDiffProps
+
+        // layoutChilds 长度为 0 就干掉
+        if (planComponentInfo.layoutChilds && planComponentInfo.layoutChilds.length === 0) {
+            delete planComponentInfo.layoutChilds
+        }
+
+        // 如果 props 已经被删完了, 直接删掉 props
+        if (!planComponentInfo.props || Object.keys(planComponentInfo.props).length === 0) {
+            delete planComponentInfo.props
+        }
+
+        delete planComponentInfo.props.gaeaEdit
+        delete planComponentInfo.props.gaeaIcon
+
+        return JSON.parse(JSON.stringify(planComponentInfo))
+    }
+
+    /**
+     * 把组件完整信息补回来，根据 defaultProps
+     */
+    expendComponent(componentInfo: FitGaea.ViewportComponentInfo) {
+        // 转成标准格式
+        const planComponentInfo = _.toPlainObject<FitGaea.ViewportComponentInfo>(componentInfo)
+
+        // 获取这个组件的 defaultProps
+        const defaultProps = _.cloneDeep(this.getComponentByUniqueKey(planComponentInfo.props.gaeaUniqueKey).defaultProps)
+
+        planComponentInfo.props = _.merge(defaultProps, planComponentInfo.props)
+
+        return planComponentInfo
     }
 }

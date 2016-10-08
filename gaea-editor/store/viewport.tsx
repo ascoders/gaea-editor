@@ -89,12 +89,21 @@ export default class Viewport {
                 mapUniqueKey: copyCombo.mapUniqueKey,
                 component: copyCombo
             }
+        } else if (this.currentMovingComponent.uniqueKey === 'source') {
+            const copySource = this.createCopyComponentWithNewUniqueKey(JSON.parse(this.currentMovingComponent.source) as FitGaea.ViewportComponentFullInfo, parentMapUniqueKey)
+            this.addComplexComponent(parentMapUniqueKey, copySource.mapUniqueKey, index, copySource)
+            return {
+                mapUniqueKey: copySource.mapUniqueKey,
+                component: copySource
+            }
         } else {
             let mapUniqueKey: string
 
             if (this.currentMovingComponent.isNew) {
                 // 添加一个全新的 component
                 mapUniqueKey = this.createUniqueId()
+
+                // 是从预在 viewport 里配置好的地方创建新组件
                 this.addNewComponent(mapUniqueKey, parentMapUniqueKey, this.currentMovingComponent.uniqueKey, index)
             } else {
                 // 添加一个已存在的 component
@@ -144,8 +153,9 @@ export default class Viewport {
 
     /**
      * 开始拖拽
+     * source 如果不为空，说明是灵活配置，直接将 source 生成到页面中
      */
-    startDragging(childMapUniqueKey: string, uniqueKey: string, isNew: boolean, dragStartParentElement: Element = null, dragStartIndex = 0) {
+    startDragging(childMapUniqueKey: string, uniqueKey: string, isNew: boolean, dragStartParentElement: Element = null, dragStartIndex = 0, source = '') {
         this.isMovingComponent = true
         this.dragStartParentElement = dragStartParentElement
         this.dragStartIndex = dragStartIndex
@@ -153,7 +163,8 @@ export default class Viewport {
             mapUniqueKey: childMapUniqueKey,
             // 组件的唯一标识
             uniqueKey,
-            isNew
+            isNew,
+            source
         }
     }
 
@@ -408,7 +419,7 @@ export default class Viewport {
     /**
      * 直接更新组件某个值
      */
-    updateComponentValue(field: string|Array<string>, value: FitGaea.ComponentPropsOptionValue) {
+    updateComponentValue(field: string, value: FitGaea.ComponentPropsOptionValue) {
         let componentInfo = this.components.get(this.currentEditComponentMapUniqueKey)
         const oldValue = JSON.parse(JSON.stringify(componentInfo.props))
 
@@ -457,7 +468,7 @@ export default class Viewport {
     /**
      * 直接更新组件某个值，不记录历史
      */
-    updateComponentValueWithNoHistory(field: string|Array<string>, value: FitGaea.ComponentPropsOptionValue) {
+    updateComponentValueWithNoHistory(field: string, value: FitGaea.ComponentPropsOptionValue) {
         let componentInfo = this.components.get(this.currentEditComponentMapUniqueKey)
         this.setPropsByField(componentInfo.props, field, value)
     }
@@ -474,42 +485,14 @@ export default class Viewport {
         let componentInfo = this.components.get(mapUniqueKey)
 
         // 修改组件值
-        switch (editOptions.editor) {
-            case 'marginPadding':
-                componentInfo.props.style.marginLeft = value['marginLeft']
-                componentInfo.props.style.marginTop = value['marginTop']
-                componentInfo.props.style.marginRight = value['marginRight']
-                componentInfo.props.style.marginBottom = value['marginBottom']
-                componentInfo.props.style.paddingLeft = value['paddingLeft']
-                componentInfo.props.style.paddingTop = value['paddingTop']
-                componentInfo.props.style.paddingRight = value['paddingRight']
-                componentInfo.props.style.paddingBottom = value['paddingBottom']
-                break
-            default:
-                this.setPropsByFieldWithEditor(componentInfo.props, editOptions, value)
-        }
+        this.setPropsByFieldWithEditor(componentInfo.props, editOptions, value)
     }
 
     /**
      * 根据字符串或者数组，获取对象的值
      */
     getPropsByField(props: FitGaea.ComponentProps, editOptions: FitGaea.ComponentPropsGaeaEdit) {
-        if (editOptions.field.constructor.name === 'ObservableArray') {
-            let fields = editOptions.field as Array<string>
-            if (fields.length === 0) {
-                return props[fields[0]]
-            } else {
-                let target: any = props
-                fields.forEach((field, index)=> {
-                    if (index !== fields.length - 1) {
-                        target = target[field]
-                    }
-                })
-                return target[fields[fields.length - 1]]
-            }
-        } else {
-            return props[editOptions.field as string]
-        }
+        return _.at(props, editOptions.field) as FitGaea.ComponentPropsOptionValue
     }
 
     /**
@@ -527,24 +510,8 @@ export default class Viewport {
     /**
      * 根据字符串或者数组，设置对象的值
      */
-    setPropsByField(props: FitGaea.ComponentProps, field: string|Array<string>, value: FitGaea.ComponentPropsOptionValue) {
-        if (field.constructor.name === 'ObservableArray' || field.constructor.name === 'Array') {
-            let fields = field as Array<string>
-            if (fields.length === 0) {
-                props[fields[0]] = value
-            } else {
-                let target: any = props
-                fields.forEach((field, index)=> {
-                    if (index !== fields.length - 1) {
-                        target = target[field]
-                    } else {
-                        target[field] = value
-                    }
-                })
-            }
-        } else {
-            props[field as string] = value
-        }
+    setPropsByField(props: FitGaea.ComponentProps, field: string, value: FitGaea.ComponentPropsOptionValue) {
+        _.set(props, field, value)
     }
 
     /**
@@ -593,47 +560,7 @@ export default class Viewport {
         const cloneComponents = JSON.parse(JSON.stringify(this.components.toJSON()))
 
         Object.keys(cloneComponents).map(key=> {
-            // icon 不会变
-            delete cloneComponents[key].props.icon
-
-            // 获取这个组件的 defaultProps
-            const defaultProps = this.application.getComponentByUniqueKey(cloneComponents[key].props.gaeaUniqueKey).defaultProps
-
-            // 如果 name 相同, 删了
-            if (cloneComponents[key].props.name == defaultProps.name) {
-                delete cloneComponents[key].props.name
-            }
-
-            // 对 props 进行瘦身
-            const props = cloneComponents[key].props
-            props && Object.keys(props).forEach(propsKey=> {
-                // gaeaUniqueKey 必须留着
-                if (propsKey === 'gaeaUniqueKey') {
-                    return
-                }
-
-                // gaeaEdit 直接删
-                if (propsKey === 'gaeaEdit') {
-                    delete props[propsKey]
-                    return
-                }
-
-                // 判断值相等就行了
-                if (props[propsKey] == defaultProps[propsKey]) {
-                    // 如果和初始值相同, 就销毁
-                    delete props[propsKey]
-                }
-            })
-
-            // layoutChilds 长度为 0 就干掉
-            if (cloneComponents[key].layoutChilds.length === 0) {
-                delete cloneComponents[key].layoutChilds
-            }
-
-            // 如果 props 已经被删完了, 直接删掉 props
-            if (!props || Object.keys(props).length === 0) {
-                delete cloneComponents[key].props.options
-            }
+            cloneComponents[key] = this.application.cleanComponent(cloneComponents[key])
         })
 
         return cloneComponents
@@ -651,8 +578,7 @@ export default class Viewport {
 
         let component: FitGaea.ViewportComponentInfo = {
             props: newProps,
-            parentMapUniqueKey: parentMapUniqueKey,
-            layoutChilds: []
+            parentMapUniqueKey: parentMapUniqueKey
         }
 
         if (uniqueId === 'gaea-layout') {
@@ -660,9 +586,7 @@ export default class Viewport {
             component.layoutChilds = []
         }
 
-        transaction(()=> {
-            this.setComponents(mapUniqueKey, component)
-        })
+        this.setComponents(mapUniqueKey, component)
 
         // 在父级中插入子元素
         this.components.get(parentMapUniqueKey).layoutChilds.splice(index, 0, mapUniqueKey)
@@ -688,11 +612,35 @@ export default class Viewport {
     addComplexComponent(parentMapUniqueKey: string, mapUniqueKey: string, index: number, componentFullInfo: FitGaea.ViewportComponentFullInfo) {
         // 先把子元素添加回来
         Object.keys(componentFullInfo.childs).forEach(childMapUniqueKey=> {
-            this.setComponents(childMapUniqueKey, JSON.parse(JSON.stringify(componentFullInfo.childs[childMapUniqueKey])))
+            const expendComponentInfo = this.application.expendComponent(JSON.parse(JSON.stringify(componentFullInfo.childs[childMapUniqueKey])))
+
+            let component: FitGaea.ViewportComponentInfo = {
+                props: extendObservable({}, expendComponentInfo.props),
+                parentMapUniqueKey: expendComponentInfo.parentMapUniqueKey
+            }
+
+            if (expendComponentInfo.props.gaeaUniqueKey === 'gaea-layout') {
+                // 如果是个布局元素, 将其 layoutChilds 设置为数组
+                component.layoutChilds = expendComponentInfo.layoutChilds
+            }
+
+            this.setComponents(childMapUniqueKey, component)
         })
 
         // 再把这个组件添加回来
-        this.setComponents(mapUniqueKey, JSON.parse(JSON.stringify(componentFullInfo.componentInfo)))
+        const expendRootComponentInfo = this.application.expendComponent(JSON.parse(JSON.stringify(componentFullInfo.componentInfo)))
+
+        let rootComponent: FitGaea.ViewportComponentInfo = {
+            props: extendObservable({}, expendRootComponentInfo.props),
+            parentMapUniqueKey: expendRootComponentInfo.parentMapUniqueKey
+        }
+
+        if (expendRootComponentInfo.props.gaeaUniqueKey === 'gaea-layout') {
+            // 如果是个布局元素, 将其 layoutChilds 设置为数组
+            rootComponent.layoutChilds = expendRootComponentInfo.layoutChilds
+        }
+
+        this.setComponents(mapUniqueKey, rootComponent)
 
         // 加到父级上
         this.addToParent(mapUniqueKey, parentMapUniqueKey, index)
@@ -805,6 +753,9 @@ export default class Viewport {
             case 'addCombo':
                 this.deleteComponent(operate.mapUniqueKey)
                 break
+            case 'addSource':
+                this.deleteComponent(operate.mapUniqueKey)
+                break
         }
 
         this.nowOperateIndex -= 1
@@ -852,6 +803,9 @@ export default class Viewport {
                 break
             case 'addCombo':
                 this.addComplexComponent(operate.addCombo.parentMapUniqueKey, operate.mapUniqueKey, operate.addCombo.index, operate.addCombo.componentInfo)
+                break
+            case 'addSource':
+                this.addComplexComponent(operate.addSource.parentMapUniqueKey, operate.mapUniqueKey, operate.addSource.index, operate.addSource.componentInfo)
                 break
         }
     }
@@ -933,10 +887,14 @@ export default class Viewport {
 
         Object.keys(originComponent.childs).forEach(mapUniqueKey=> {
             const originChild = originComponent.childs[mapUniqueKey]
+
             childs[uniqueKeyMap.get(mapUniqueKey)] = {
                 parentMapUniqueKey: uniqueKeyMap.get(originChild.parentMapUniqueKey),
-                props: JSON.parse(JSON.stringify(originChild.props)),
-                layoutChilds: originChild.layoutChilds.map(childMapUniqueKey=>uniqueKeyMap.get(childMapUniqueKey))
+                props: JSON.parse(JSON.stringify(originChild.props))
+            }
+
+            if (originChild.layoutChilds) {
+                childs[uniqueKeyMap.get(mapUniqueKey)].layoutChilds = originChild.layoutChilds.map(childMapUniqueKey=>uniqueKeyMap.get(childMapUniqueKey))
             }
         })
 
@@ -945,10 +903,13 @@ export default class Viewport {
             mapUniqueKey: uniqueKeyMap.get(originComponent.mapUniqueKey),
             componentInfo: {
                 parentMapUniqueKey: parentMapUniqueKey,
-                props: JSON.parse(JSON.stringify(originComponent.componentInfo.props)),
-                layoutChilds: originComponent.componentInfo.layoutChilds.map(childMapUniqueKey=>uniqueKeyMap.get(childMapUniqueKey))
+                props: JSON.parse(JSON.stringify(originComponent.componentInfo.props))
             },
             childs: childs
+        }
+
+        if (originComponent.componentInfo.layoutChilds) {
+            newCopyComponent.componentInfo.layoutChilds = originComponent.componentInfo.layoutChilds.map(childMapUniqueKey=>uniqueKeyMap.get(childMapUniqueKey))
         }
 
         return newCopyComponent
@@ -998,7 +959,7 @@ export default class Viewport {
     }
 
     /**
-     * 获取一个已存在组件的完整信息
+     * 获取一个已存在组件的完整信息, 返回的是一个新对象, 不用担心引用问题
      */
     getComponentFullInfoByMapUniqueKey(mapUniqueKey: string): FitGaea.ViewportComponentFullInfo {
         const componentInfo = this.components.get(mapUniqueKey)
@@ -1011,7 +972,7 @@ export default class Viewport {
         const mapChilds = (component: FitGaea.ViewportComponentInfo, childs: {
             [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
         })=> {
-            if (component.props.gaeaUniqueKey === 'gaea-layout') {
+            if (component.props.gaeaUniqueKey === 'gaea-layout' && component.layoutChilds) {
                 JSON.parse(JSON.stringify(component.layoutChilds)).forEach((componentMapUniqueKey: string)=> {
                     const childInfo = this.components.get(componentMapUniqueKey)
                     childs[componentMapUniqueKey] = JSON.parse(JSON.stringify(childInfo))

@@ -8,7 +8,7 @@ import {Tooltip} from '../../../../../../../../web-common/tooltip/index'
 
 import './overflow.scss'
 
-@inject('viewport') @observer
+@inject('viewport', 'application') @observer
 export default class EditComponentOverflow extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -25,8 +25,13 @@ export default class EditComponentOverflow extends React.Component <typings.Prop
         this.init(nextProps)
     }
 
+    // 判断 overflowX 和 overflowY 是否相同
+    isOverflowXYEqual() {
+        return this.componentInfo.props.style.overflowX === this.componentInfo.props.style.overflowY || (this.componentInfo.props.style.overflowX === null || this.componentInfo.props.style.overflowX === 'auto') && (this.componentInfo.props.style.overflowY === null || this.componentInfo.props.style.overflowY === 'auto')
+    }
+
     init(props: typings.PropsDefine) {
-        if (this.componentInfo.props.style.overflowX === this.componentInfo.props.style.overflowY) {
+        if (this.isOverflowXYEqual()) {
             this.setState({
                 expand: false
             })
@@ -41,25 +46,25 @@ export default class EditComponentOverflow extends React.Component <typings.Prop
     isStatu(statu: string) {
         const style = this.componentInfo.props.style
 
-        if (style.overflow === null && style.overflowX === null && style.overflowY === null) {
+        if ((style.overflow === null || style.overflow === 'auto') && (style.overflowX === null || style.overflowX === 'auto') && (style.overflowY === null || style.overflowY === 'auto')) {
             return statu === 'auto'
         }
 
         return (style.overflow === statu && style.overflowX === null && style.overflowY === null) || style.overflow === null && style.overflowX === statu && style.overflowY === statu
     }
 
-    handleUpdateCompressValue(field: string|Array<string>, value: FitGaea.ComponentPropsOptionValue) {
+    handleUpdateCompressValue(field: string, value: FitGaea.ComponentPropsOptionValue) {
         this.props.viewport.prepareWriteHistory()
         this.props.viewport.updateComponentValueWithNoHistory(field, value)
-        this.props.viewport.updateComponentValueWithNoHistory(['style', 'overflowX'], null)
-        this.props.viewport.updateComponentValueWithNoHistory(['style', 'overflowY'], null)
+        this.props.viewport.updateComponentValueWithNoHistory('style.overflowX', null)
+        this.props.viewport.updateComponentValueWithNoHistory('style.overflowY', null)
         this.props.viewport.writeHistory()
     }
 
-    handleUpdateExpandValue(field: string|Array<string>, value: FitGaea.ComponentPropsOptionValue) {
+    handleUpdateExpandValue(field: string, value: FitGaea.ComponentPropsOptionValue) {
         this.props.viewport.prepareWriteHistory()
         this.props.viewport.updateComponentValueWithNoHistory(field, value)
-        this.props.viewport.updateComponentValueWithNoHistory(['style', 'overflow'], null)
+        this.props.viewport.updateComponentValueWithNoHistory('style.overflow', null)
         this.props.viewport.writeHistory()
     }
 
@@ -80,22 +85,24 @@ export default class EditComponentOverflow extends React.Component <typings.Prop
             <ButtonGroup>
                 <Tooltip title="Auto">
                     <Button active={this.isStatu('auto')}
-                            onClick={this.handleUpdateCompressValue.bind(this, ['style','overflow'], 'auto')}>1</Button>
+                            onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'auto')}>1</Button>
                 </Tooltip>
 
                 <Tooltip title="Visible">
                     <Button active={this.isStatu('visible')}
-                            onClick={this.handleUpdateCompressValue.bind(this, ['style','overflow'], 'visible')}>2</Button>
+                            onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'visible')}>2</Button>
                 </Tooltip>
 
+                {!this.props.application.isReactNative &&
                 <Tooltip title="Scroll">
                     <Button active={this.isStatu('scroll')}
-                            onClick={this.handleUpdateCompressValue.bind(this, ['style','overflow'], 'scroll')}>3</Button>
+                            onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'scroll')}>3</Button>
                 </Tooltip>
+                }
 
                 <Tooltip title="Hidden">
                     <Button active={this.isStatu('hidden')}
-                            onClick={this.handleUpdateCompressValue.bind(this, ['style','overflow'], 'hidden')}>4</Button>
+                            onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'hidden')}>4</Button>
                 </Tooltip>
             </ButtonGroup>
         )
@@ -123,44 +130,48 @@ export default class EditComponentOverflow extends React.Component <typings.Prop
                 <ButtonGroup>
                     <Tooltip title="Auto">
                         <Button active={this.isExpandStatu('overflowX', 'auto')}
-                                onClick={this.handleUpdateExpandValue.bind(this, ['style','overflowX'], 'auto')}>1</Button>
+                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'auto')}>1</Button>
                     </Tooltip>
 
                     <Tooltip title="Visible">
                         <Button active={this.isExpandStatu('overflowX', 'visible')}
-                                onClick={this.handleUpdateExpandValue.bind(this, ['style','overflowX'], 'visible')}>2</Button>
+                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'visible')}>2</Button>
                     </Tooltip>
 
+                    {!this.props.application.isReactNative &&
                     <Tooltip title="Scroll">
                         <Button active={this.isExpandStatu('overflowX', 'scroll')}
-                                onClick={this.handleUpdateExpandValue.bind(this, ['style','overflowX'], 'scroll')}>3</Button>
+                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'scroll')}>3</Button>
                     </Tooltip>
+                    }
 
                     <Tooltip title="Hidden">
                         <Button active={this.isExpandStatu('overflowX', 'hidden')}
-                                onClick={this.handleUpdateExpandValue.bind(this, ['style','overflowX'], 'hidden')}>4</Button>
+                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'hidden')}>4</Button>
                     </Tooltip>
                 </ButtonGroup>
 
                 <ButtonGroup>
                     <Tooltip title="Auto">
                         <Button active={this.isExpandStatu('overflowY', 'auto')}
-                                onClick={this.handleUpdateExpandValue.bind(this, ['style','overflowY'], 'auto')}>1</Button>
+                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'auto')}>1</Button>
                     </Tooltip>
 
                     <Tooltip title="Visible">
                         <Button active={this.isExpandStatu('overflowY', 'visible')}
-                                onClick={this.handleUpdateExpandValue.bind(this, ['style','overflowY'], 'visible')}>2</Button>
+                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'visible')}>2</Button>
                     </Tooltip>
 
+                    {!this.props.application.isReactNative &&
                     <Tooltip title="Scroll">
                         <Button active={this.isExpandStatu('overflowY', 'scroll')}
-                                onClick={this.handleUpdateExpandValue.bind(this, ['style','overflowY'], 'scroll')}>3</Button>
+                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'scroll')}>3</Button>
                     </Tooltip>
+                    }
 
                     <Tooltip title="Hidden">
                         <Button active={this.isExpandStatu('overflowY', 'hidden')}
-                                onClick={this.handleUpdateExpandValue.bind(this, ['style','overflowY'], 'hidden')}>4</Button>
+                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'hidden')}>4</Button>
                     </Tooltip>
                 </ButtonGroup>
             </div>
@@ -169,7 +180,7 @@ export default class EditComponentOverflow extends React.Component <typings.Prop
 
     render() {
         const canExpand = !this.state.expand
-        const canCompress = this.state.expand && this.componentInfo.props.style.overflowX === this.componentInfo.props.style.overflowY
+        const canCompress = this.state.expand && this.isOverflowXYEqual()
 
         return (
             <div className="_namespace">

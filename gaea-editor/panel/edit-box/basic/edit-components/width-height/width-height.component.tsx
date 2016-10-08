@@ -7,14 +7,6 @@ import {Number} from '../../../../../../../../web-common/number/index'
 
 import './width-height.scss'
 
-const units = [{
-    key: '',
-    value: 'px'
-}, {
-    key: '%',
-    value: '%'
-}]
-
 /**
  * 处理一下输入框结果
  */
@@ -28,7 +20,7 @@ const parseInputValue = (value: string, unit: string): number | string=> {
     }
 }
 
-@inject('viewport') @observer
+@inject('viewport', 'application') @observer
 export default class EditComponentWidthHeight extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -41,13 +33,20 @@ export default class EditComponentWidthHeight extends React.Component <typings.P
     }
 
     renderInput(label: string, field: string) {
-        const currentUnit = _.endsWith(this.componentInfo.props.style[field], '%') ? '%' : ''
+        const units = this.props.application.isReactNative ? null : [{
+            key: '',
+            value: 'px'
+        }, {
+            key: '%',
+            value: '%'
+        }]
+        const currentUnit = this.props.application.isReactNative ? null : _.endsWith(this.componentInfo.props.style[field], '%') ? '%' : ''
 
         return (
             <div className="input-container">
                 <span className="input-container-label">{label}</span>
                 <Number label=""
-                        value={this.componentInfo.props.style[field]}
+                        value={this.componentInfo.props.style[field] || ''}
                         placeholder="null"
                         units={units}
                         currentUnit={currentUnit}
@@ -63,7 +62,11 @@ export default class EditComponentWidthHeight extends React.Component <typings.P
         this.setState({
             [field]: value
         })
-        this.props.viewport.updateComponentValue(['style', field], parseInputValue(value, unit))
+        if (this.props.application.isReactNative) {
+            this.props.viewport.updateComponentValue(`style.${field}`, parseInt(value))
+        } else {
+            this.props.viewport.updateComponentValue(`style.${field}`, parseInputValue(value, unit))
+        }
     }
 
     render() {
