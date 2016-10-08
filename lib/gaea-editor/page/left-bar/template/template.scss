@@ -1,0 +1,19 @@
+& {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.title {
+    border-bottom: 1px solid #ddd;
+    background-color: whitesmoke;
+    padding: 10px;
+}
+
+.template-item {
+    padding: 10px;
+    cursor: pointer;
+    &:hover {
+        background: whitesmoke;
+    }
+}

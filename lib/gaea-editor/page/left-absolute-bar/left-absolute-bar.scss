@@ -1,0 +1,32 @@
+& {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 35px;
+    height: 100%;
+    background-color: white;
+    z-index: 11;
+    border-right: 1px solid #eee;
+}
+
+.top, .bottom {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    cursor: pointer;
+    &:hover {
+        background-color: whitesmoke;
+    }
+    &.active {
+        background-color: #eee;
+    }
+}

@@ -1,0 +1,11 @@
+& {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-left: 2px solid #eee;
+    overflow-x: hidden;
+    transition: all .2s;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}

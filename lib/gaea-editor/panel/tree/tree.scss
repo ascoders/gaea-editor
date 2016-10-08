@@ -1,0 +1,29 @@
+& {
+    height: 0;
+    flex-grow: 2;
+    border-top: 1px solid #eee;
+    overflow-y: auto;
+    position: relative;
+    overflow-x: hidden;
+    background: #f9f9f9;
+}
+
+.component-count {
+    position: fixed;
+    padding: 5px;
+    background-color: white;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    font-size: 12px;
+    color: #666;
+    border-top-left-radius: 5px;
+    bottom: 0;
+    right: 0;
+    user-select: none;
+    cursor: default;
+}
+
+// reset fit-tree
+.title {
+    height: 25px;
+}
