@@ -30,6 +30,13 @@ export default class EditBox extends React.Component <typings.PropsDefine, typin
         this.props.viewport.cancelEditComponent()
     }
 
+    /**
+     * 遮罩层被点击
+     */
+    handleShadowClick() {
+        this.props.viewport.setShowEditorPanelShadow(false)
+    }
+
     render() {
         if (this.props.viewport.currentEditComponentMapUniqueKey === null) {
             return null
@@ -44,6 +51,9 @@ export default class EditBox extends React.Component <typings.PropsDefine, typin
             <div className="_namespace container-box">
                         <span className="handle-drag-close"
                               onClick={this.handleCloseClick}>x</span>
+
+                {this.props.viewport.showEditorPanelShadow && <div className="shadow-container"
+                                                                  onClick={this.handleShadowClick.bind(this)}/>}
 
                 <Tabs defaultActiveKey="basic"
                       type="retro"

@@ -1,7 +1,7 @@
 import * as React from 'react'
-import Setting from '../../../store/setting'
-import Viewport from '../../../store/viewport'
-import Application from '../../../store/application'
+import Setting from '../../../../store/setting'
+import Viewport from '../../../../store/viewport'
+import Application from '../../../../store/application'
 
 export interface PropsDefine {
     setting?: Setting

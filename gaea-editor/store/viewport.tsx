@@ -5,6 +5,7 @@
 import {observable, computed, map, transaction, ObservableMap, extendObservable} from 'mobx'
 import * as _ from 'lodash'
 import Application from './application'
+import * as LZString from 'lz-string'
 
 export default class Viewport {
     private application: Application
@@ -90,7 +91,7 @@ export default class Viewport {
                 component: copyCombo
             }
         } else if (this.currentMovingComponent.uniqueKey === 'source') {
-            const copySource = this.createCopyComponentWithNewUniqueKey(JSON.parse(this.currentMovingComponent.source) as FitGaea.ViewportComponentFullInfo, parentMapUniqueKey)
+            const copySource = this.createCopyComponentWithNewUniqueKey(JSON.parse(LZString.decompressFromBase64(this.currentMovingComponent.source)) as FitGaea.ViewportComponentFullInfo, parentMapUniqueKey)
             this.addComplexComponent(parentMapUniqueKey, copySource.mapUniqueKey, index, copySource)
             return {
                 mapUniqueKey: copySource.mapUniqueKey,
@@ -178,7 +179,7 @@ export default class Viewport {
     /**
      * 是否显示布局元素轮廓
      */
-    @observable showLayoutBorder = false
+    @observable showLayoutBorder = true
 
     setShowLayoutBorder(isShow: boolean) {
         this.showLayoutBorder = isShow
@@ -563,7 +564,7 @@ export default class Viewport {
             cloneComponents[key] = this.application.cleanComponent(cloneComponents[key])
         })
 
-        return cloneComponents
+        return LZString.compressToBase64(JSON.stringify(cloneComponents))
     }
 
     /**
@@ -621,7 +622,7 @@ export default class Viewport {
 
             if (expendComponentInfo.props.gaeaUniqueKey === 'gaea-layout') {
                 // 如果是个布局元素, 将其 layoutChilds 设置为数组
-                component.layoutChilds = expendComponentInfo.layoutChilds
+                component.layoutChilds = expendComponentInfo.layoutChilds || []
             }
 
             this.setComponents(childMapUniqueKey, component)
@@ -637,7 +638,7 @@ export default class Viewport {
 
         if (expendRootComponentInfo.props.gaeaUniqueKey === 'gaea-layout') {
             // 如果是个布局元素, 将其 layoutChilds 设置为数组
-            rootComponent.layoutChilds = expendRootComponentInfo.layoutChilds
+            rootComponent.layoutChilds = expendRootComponentInfo.layoutChilds || []
         }
 
         this.setComponents(mapUniqueKey, rootComponent)
@@ -1031,4 +1032,20 @@ export default class Viewport {
         this.leftBarType = ''
         this.isShowLeftBar = false
     }
+
+    // 是否显示编辑区域的遮罩层
+    @observable showEditorPanelShadow = false
+
+    /**
+     * 设置是否显示编辑区域遮罩层
+     */
+    setShowEditorPanelShadow(show: boolean) {
+        this.showEditorPanelShadow = show
+        // 发送一个遮罩层关闭的事件
+        if (!show) {
+            this.application.event.emit(this.application.event.editorPanelShadowClose)
+        }
+    }
 }
+
+

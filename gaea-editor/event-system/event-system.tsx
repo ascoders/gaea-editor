@@ -39,9 +39,11 @@ export default class EventSystem {
             return false
         }
 
-        this.events.get(eventType).filter(event=> {
+        const events = this.events.get(eventType).filter(event=> {
             return event.callback !== callback
         })
+
+        this.events.set(eventType, events)
 
         return true
     }

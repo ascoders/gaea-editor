@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as typings from './components.type'
 import {observer, inject} from 'mobx-react'
+import * as LZString from 'lz-string'
 
 import {autoBindMethod} from '../../../../../../../common/auto-bind/index'
 import {Button, ButtonGroup} from '../../../../../../../web-common/button/index'
@@ -213,7 +214,7 @@ export default class Components extends React.Component <typings.PropsDefine, ty
                     <div>
                         <textarea className="export-textarea"
                                   onChange={()=>{}}
-                                  value={JSON.stringify(this.state.exportComponentInfo)}/>
+                                  value={LZString.compressToBase64(JSON.stringify(this.state.exportComponentInfo))}/>
                         复制输入框中的内容，并截图组件，发送给 huangziyi01@baidu.com，通过审核后您的组合会出现在左侧模板区域中（必须完全由基础组件组成）。
                     </div>
                     }

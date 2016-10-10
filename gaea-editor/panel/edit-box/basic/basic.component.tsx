@@ -22,6 +22,8 @@ import WidthHeightEditor from './edit-components/width-height/width-height.compo
 import LayoutEditor from './edit-components/layout/layout.component'
 import OverflowEditor from './edit-components/overflow/overflow.component'
 import BackgroundEditor from './edit-components/background/background.component'
+import FontEditor from './edit-components/font/font.component'
+import BorderEditor from './edit-components/border/border.component'
 
 import './basic.scss'
 
@@ -133,6 +135,16 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
                     case 'background':
                         EditElement = (
                             <BackgroundEditor editOption={editOption}/>
+                        )
+                        break
+                    case 'font':
+                        EditElement = (
+                            <FontEditor editOption={editOption}/>
+                        )
+                        break
+                    case 'border':
+                        EditElement = (
+                            <BorderEditor editOption={editOption}/>
                         )
                         break
                 }

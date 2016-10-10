@@ -44,7 +44,11 @@ export default class EditComponentText extends React.Component <typings.PropsDef
     }
 
     handleFlexGrowChange(value: string) {
-        this.handleUpdateValue('style.flexGrow', value || null)
+        if (this.props.application.isReactNative) {
+            this.handleUpdateValue('style.flex', parseInt(value) || null)
+        } else {
+            this.handleUpdateValue('style.flexGrow', parseInt(value) || null)
+        }
     }
 
     /**
@@ -69,7 +73,12 @@ export default class EditComponentText extends React.Component <typings.PropsDef
         }
 
         // 获取 flex-grow 的输入框格式
-        let flexGrowString = this.componentInfo.props.style.flexGrow ? this.componentInfo.props.style.flexGrow.toString() : ''
+        let flexGrowString = ''
+        if (this.props.application.isReactNative){
+            flexGrowString = this.componentInfo.props.style.flex ? this.componentInfo.props.style.flex.toString() : ''
+        }else{
+            flexGrowString = this.componentInfo.props.style.flexGrow ? this.componentInfo.props.style.flexGrow.toString() : ''
+        }
 
         return (
             <div>

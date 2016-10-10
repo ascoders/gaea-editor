@@ -34,7 +34,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     public state: typings.StateDefine = new typings.State()
 
     // 装饰器给外部用挺方便,这个专门给自己用 ^_^
-    static ObserveEditHelper = inject('application', 'viewport')(observer(EditHelper))
+    static ObserveEditHelper = inject('application', 'viewport', 'setting')(observer(EditHelper))
 
     // 自身真实组件的 class
     private SelfComponent: React.ComponentClass<FitGaea.ComponentProps>
@@ -55,7 +55,8 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     private isMovingComponent = false
 
     componentWillReact() {
-        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey === null && this.props.setting.showLayout) {
+        // 给最外层加上 class 让子元素是否显示边框
+        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey === null) {
             if (this.props.viewport.isMovingComponent || this.props.viewport.showLayoutBorder) {
                 if (!hasClass(this.selfDomInstance, 'gaea-layout-active')) {
                     this.selfDomInstance.className += ' gaea-layout-active'
@@ -246,23 +247,6 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey !== null) {
             if (!hasClass(this.selfDomInstance, 'gaea-layout')) {
                 this.selfDomInstance.className += ' gaea-layout'
-            }
-
-            const selfBoundingClientRect = this.selfDomInstance.getBoundingClientRect()
-            if (selfBoundingClientRect.width < 100) {
-                if (!hasClass(this.selfDomInstance, 'gaea-layout-no-width')) {
-                    this.selfDomInstance.className += ' gaea-layout-no-width'
-                }
-            } else {
-                removeClass(this.selfDomInstance, 'gaea-layout-no-width')
-            }
-
-            if (selfBoundingClientRect.height < 40) {
-                if (!hasClass(this.selfDomInstance, 'gaea-layout-no-height')) {
-                    this.selfDomInstance.className += ' gaea-layout-no-height'
-                }
-            } else {
-                removeClass(this.selfDomInstance, 'gaea-layout-no-height')
             }
         }
     }

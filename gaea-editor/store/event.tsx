@@ -24,4 +24,9 @@ export default class EventSystem extends Event {
      * 触发了保存
      */
     onSave = 'onSave'
+
+    /**
+     * 编辑区域遮罩层关闭了
+     */
+    editorPanelShadowClose = 'editorPanelShadowClose'
 }

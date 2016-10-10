@@ -81,9 +81,7 @@ export default class GaeaEditor extends React.Component <typings.PropsDefine, ty
     /**
      * 触发保存
      */
-    handleOnSave(context: any, componentsInfo: {
-        [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
-    }) {
+    handleOnSave(context: any, componentsInfo: string) {
         this.props.onSave(componentsInfo)
     }
 

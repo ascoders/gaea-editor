@@ -47,7 +47,7 @@ export default class EditComponentWidthHeight extends React.Component <typings.P
                 <span className="input-container-label">{label}</span>
                 <Number label=""
                         value={this.componentInfo.props.style[field] || ''}
-                        placeholder="null"
+                        placeholder="Null"
                         units={units}
                         currentUnit={currentUnit}
                         onChange={this.handleChangeValue.bind(this,field)}/>

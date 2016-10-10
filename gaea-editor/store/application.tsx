@@ -7,6 +7,7 @@ import * as React from 'react'
 import * as _ from 'lodash'
 import deepDiff from '../utils/deep-diff'
 import Event from './event'
+import * as LZString from 'lz-string'
 
 export default class Application {
     public event = new Event()
@@ -99,16 +100,18 @@ export default class Application {
         customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>,
         isHideCustomComponents: boolean,
         height: number,
-        defaultValue: {
-            [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
-        },
+        defaultValue: string,
         isReactNative: boolean
     }) {
         this.title = props.title
         this.baseComponents = props.baseComponents
         this.setCustomComponents(props.customComponents)
         this.isHideCustomComponents = props.isHideCustomComponents
-        this.defaultValue = props.defaultValue
+        if (props.defaultValue) {
+            this.defaultValue = JSON.parse(LZString.decompressFromBase64(props.defaultValue)) as {
+                [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
+            }
+        }
         this.height = props.height
         this.isReactNative = props.isReactNative
     }

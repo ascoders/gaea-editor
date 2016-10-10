@@ -27,18 +27,14 @@ export interface PropsDefine extends TransparentlyPropsPropsDefine {
     /**
      * 页面初始化信息
      */
-    defaultValue?: {
-        [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
-    }
+    defaultValue?: string
 
     /**
      * 点击保存后会返回页面结构树信息
      * info.saveToVersion() 被执行后,本地会在顶部新增一个版本信息
      * 同时要后端把 info.pageInfo 和当前时间戳 存储起来,下次刷新时候获取,并且塞入到 versionInit 可以显示版本快照信息
      */
-    onSave?: (info?: {
-        [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
-    }) => void
+    onSave?: (info?: string) => void
 
     /**
      * 工具栏:是否只显示定制组件

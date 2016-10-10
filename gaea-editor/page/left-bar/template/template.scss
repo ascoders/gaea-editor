@@ -12,8 +12,8 @@
 
 .template-item {
     padding: 10px;
-    cursor: pointer;
+    cursor: move;
     &:hover {
-        background: whitesmoke;
+        font-weight: bold;
     }
 }
