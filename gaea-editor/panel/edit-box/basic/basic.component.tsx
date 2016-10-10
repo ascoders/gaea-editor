@@ -24,6 +24,7 @@ import OverflowEditor from './edit-components/overflow/overflow.component'
 import BackgroundEditor from './edit-components/background/background.component'
 import FontEditor from './edit-components/font/font.component'
 import BorderEditor from './edit-components/border/border.component'
+import InstanceEditor from './edit-components/instance/instance.component'
 
 import './basic.scss'
 
@@ -145,6 +146,11 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
                     case 'border':
                         EditElement = (
                             <BorderEditor editOption={editOption}/>
+                        )
+                        break
+                    case 'instance':
+                        EditElement = (
+                            <InstanceEditor editOption={editOption}/>
                         )
                         break
                 }
