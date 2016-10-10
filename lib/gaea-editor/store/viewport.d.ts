@@ -91,4 +91,6 @@ export default class Viewport {
     leftBarType: string;
     showLeftBar(leftBarType: string): void;
     hideLeftBar(): void;
+    showEditorPanelShadow: boolean;
+    setShowEditorPanelShadow(show: boolean): void;
 }

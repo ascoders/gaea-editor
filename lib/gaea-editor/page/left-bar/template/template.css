@@ -17,6 +17,6 @@
 
 .nt-editor-gaea-editor-gaea_editor-page-left_bar-template .template-item {
   padding: 10px;
-  cursor: pointer; }
+  cursor: move; }
   .nt-editor-gaea-editor-gaea_editor-page-left_bar-template .template-item:hover {
-    background: whitesmoke; }
+    font-weight: bold; }

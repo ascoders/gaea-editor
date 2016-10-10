@@ -14,8 +14,6 @@ export default class GaeaEditor extends React.Component<typings.PropsDefine, typ
     getRootRef(ref: React.ReactInstance): void;
     addListener(): void;
     removeListener(): void;
-    handleOnSave(context: any, componentsInfo: {
-        [mapUniqueKey: string]: FitGaea.ViewportComponentInfo;
-    }): void;
+    handleOnSave(context: any, componentsInfo: string): void;
     render(): JSX.Element;
 }

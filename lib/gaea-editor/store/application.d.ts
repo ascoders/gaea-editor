@@ -26,9 +26,7 @@ export default class Application {
         customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>;
         isHideCustomComponents: boolean;
         height: number;
-        defaultValue: {
-            [mapUniqueKey: string]: FitGaea.ViewportComponentInfo;
-        };
+        defaultValue: string;
         isReactNative: boolean;
     }): void;
     setCustomComponents(customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>): void;

@@ -4,4 +4,5 @@ export default class EventSystem extends Event {
     viewportOrTreeRootComponentMouseLeave: string;
     changeComponentSelectStatusEvent: string;
     onSave: string;
+    editorPanelShadowClose: string;
 }

@@ -5,12 +5,8 @@ export interface PropsDefine extends TransparentlyPropsPropsDefine {
     height?: number;
     customComponents?: Array<React.ComponentClass<FitGaea.ComponentProps>>;
     baseComponents?: Array<React.ComponentClass<FitGaea.ComponentProps>>;
-    defaultValue?: {
-        [mapUniqueKey: string]: FitGaea.ViewportComponentInfo;
-    };
-    onSave?: (info?: {
-        [mapUniqueKey: string]: FitGaea.ViewportComponentInfo;
-    }) => void;
+    defaultValue?: string;
+    onSave?: (info?: string) => void;
     isHideCustomComponents?: boolean;
     versionInit?: (saveVersion?: (versions?: Array<FitGaea.SaveInfo>) => void, hasNext?: boolean) => void;
     onLoadMoreVersionClick?: (saveVersion?: (versions?: Array<FitGaea.SaveInfo>) => void, hasNext?: boolean) => void;

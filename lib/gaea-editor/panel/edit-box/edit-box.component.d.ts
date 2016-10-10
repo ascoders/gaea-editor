@@ -7,5 +7,6 @@ export default class EditBox extends React.Component<typings.PropsDefine, typing
     private domInstance;
     componentDidMount(): void;
     handleCloseClick(): void;
+    handleShadowClick(): void;
     render(): JSX.Element;
 }

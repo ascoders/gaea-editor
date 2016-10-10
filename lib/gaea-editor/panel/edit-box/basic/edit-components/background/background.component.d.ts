@@ -5,6 +5,7 @@ export default class EditComponentBackground extends React.Component<typings.Pro
     static defaultProps: typings.PropsDefine;
     state: typings.StateDefine;
     private componentInfo;
+    private colorChangeStatus;
     componentWillMount(): void;
     componentWillReceiveProps(nextProps: typings.PropsDefine): void;
     init(props: typings.PropsDefine): void;
