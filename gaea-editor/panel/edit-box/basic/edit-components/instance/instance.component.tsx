@@ -22,9 +22,22 @@ export default class EditComponentInstance extends React.Component <typings.Prop
         this.ComponentClass = this.props.application.getComponentByUniqueKey(this.componentInfo.props.gaeaUniqueKey)
     }
 
+    handleApplyProps(props: any) {
+        this.props.viewport.prepareWriteHistory()
+        Object.keys(props).forEach(key=> {
+            this.props.viewport.updateComponentValueWithNoHistory(key, props[key])
+        })
+        this.props.viewport.writeHistory()
+    }
+
     render() {
-        const componentInstances = this.props.editOption.instance.map((instance, index)=> {
-            return React.createElement(this.ComponentClass, Object.assign({}, instance, {key: index}))
+        const componentInstances = this.props.editOption.instance.map((props, index)=> {
+            const instanceElement = React.createElement(this.ComponentClass, props)
+            return (
+                <div key={index}
+                     onClick={this.handleApplyProps.bind(this, props)}
+                     className="instance-item">{instanceElement}</div>
+            )
         })
 
         return (
