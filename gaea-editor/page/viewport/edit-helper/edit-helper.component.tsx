@@ -55,16 +55,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     private isMovingComponent = false
 
     componentWillReact() {
-        // 给最外层加上 class 让子元素是否显示边框
-        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey === null) {
-            if (this.props.viewport.isMovingComponent || this.props.viewport.showLayoutBorder) {
-                if (!hasClass(this.selfDomInstance, 'gaea-layout-active')) {
-                    this.selfDomInstance.className += ' gaea-layout-active'
-                }
-            } else {
-                removeClass(this.selfDomInstance, 'gaea-layout-active')
-            }
-        }
+        this.setLayoutActive()
     }
 
     componentWillMount() {
@@ -85,6 +76,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         this.selfDomInstance.className += ' _namespace'
 
         this.setDraggingClass()
+        this.setLayoutActive()
 
         // 如果自己是布局元素, 给子元素绑定 sortable
         if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout') {
@@ -238,6 +230,21 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         // 移除事件绑定
         this.selfDomInstance.removeEventListener('mouseover', this.handleMouseOver)
         this.selfDomInstance.removeEventListener('click', this.handleClick)
+    }
+
+    /**
+     * 给最外层加上 class 让子元素是否显示边框
+     */
+    setLayoutActive() {
+        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey === null) {
+            if (this.props.viewport.isMovingComponent || this.props.viewport.showLayoutBorder) {
+                if (!hasClass(this.selfDomInstance, 'gaea-layout-active')) {
+                    this.selfDomInstance.className += ' gaea-layout-active'
+                }
+            } else {
+                removeClass(this.selfDomInstance, 'gaea-layout-active')
+            }
+        }
     }
 
     /**

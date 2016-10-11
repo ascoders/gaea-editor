@@ -34,6 +34,7 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
             const LayoutClass = this.props.application.getComponentByUniqueKey('gaea-layout')
             // 布置最外层的画布
             let layoutProps = extendObservable({}, _.cloneDeep(LayoutClass.defaultProps)) as FitGaea.ComponentProps
+            layoutProps.style.backgroundColor = 'white'
 
             if (this.props.application.isReactNative) {
                 layoutProps.style.flex = 1
@@ -64,13 +65,10 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
                     this.props.viewport.setRootUniqueId(mapUniqueKey)
                 }
 
-                let props = _.cloneDeep(ComponentClass.defaultProps)
-                defaultInfo.props && Object.keys(defaultInfo.props).forEach(propsKey=> {
-                    props[propsKey] = defaultInfo.props[propsKey]
-                })
+                const props = _.merge({}, _.cloneDeep(ComponentClass.defaultProps), defaultInfo.props || {})
 
                 this.props.viewport.setComponents(mapUniqueKey, {
-                    props,
+                    props: extendObservable({}, props),
                     layoutChilds: defaultInfo.layoutChilds || [],
                     parentMapUniqueKey: defaultInfo.parentMapUniqueKey
                 })
@@ -160,7 +158,3 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
         )
     }
 }
-//
-// <Header height={this.props.application.headerHeight}>
-//     <HeaderNav />
-// </Header>

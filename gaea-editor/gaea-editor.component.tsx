@@ -90,9 +90,7 @@ export default class GaeaEditor extends React.Component <typings.PropsDefine, ty
             <Provider application={this.applicationStore}
                       viewport={this.viewport}
                       setting={this.setting}>
-                <div ref={this.getRootRef.bind(this)}>
-                    <Page/>
-                </div>
+                <Page ref={this.getRootRef.bind(this)}/>
             </Provider>
         )
     }

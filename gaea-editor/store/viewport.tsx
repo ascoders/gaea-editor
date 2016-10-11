@@ -179,7 +179,7 @@ export default class Viewport {
     /**
      * 是否显示布局元素轮廓
      */
-    @observable showLayoutBorder = true
+    @observable showLayoutBorder = false
 
     setShowLayoutBorder(isShow: boolean) {
         this.showLayoutBorder = isShow

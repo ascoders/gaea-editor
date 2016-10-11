@@ -42,45 +42,6 @@ export interface PropsDefine extends TransparentlyPropsPropsDefine {
     isHideCustomComponents?: boolean
 
     /**
-     * 第一次切换到版本记录页,填充版本纪录,每条记录格式如下:
-     * info: 与 onSave 的 info.pageInfo 相同,表示这个快照的内容
-     * date: javascript 的 Date 时间戳,表示当前修改的时间
-     */
-    versionInit?: (saveVersion?: (versions?: Array<FitGaea.SaveInfo>)=>void, hasNext?: boolean)=>void
-
-    /**
-     * 点击版本记录页的加载更多按钮,加载到哪和加载逻辑需要在业务中处理
-     */
-    onLoadMoreVersionClick?: (saveVersion?: (versions?: Array<FitGaea.SaveInfo>)=>void, hasNext?: boolean)=>void
-
-    /**
-     * 点击版本发布按钮
-     * 执行回调会打一个新版本号,注意当服务器保存成功时再调用
-     */
-    onPublish?: (id?: string, version?: string, remarks?: string, save?: Function)=>void
-
-    /**
-     * 当上线被点击后,上线浮层弹出时候的回调
-     * 此时可以通讯服务器,获取所有已发布的版本信息,作为传参执行回调函数,这样版本信息选择里变有值了
-     */
-    onOnlineModalShow?: (callback: (lists: Array<FitGaea.OnlineVersion>)=>void)=>void
-
-    /**
-     * 当确认上线按钮被点击
-     */
-    onOnlineClick?: (key: string|number)=>void
-
-    /**
-     * 资源 tab 获取内容时的回调
-     */
-    getSourceFileList?: (folderId: string, callback: (lists: Array<FitGaea.SourceFile>)=>void)=>void
-
-    /**
-     * 资源 tab 新增一个文件/文件夹
-     */
-    addSourceFile?: (folderId?: string, fileInfo?: FitGaea.SourceFile, addSuccess?: ()=>void)=>void
-
-    /**
      * is for react-native?
      */
     isReactNative?: boolean

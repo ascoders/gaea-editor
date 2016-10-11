@@ -64,7 +64,7 @@ export default class Header extends React.Component <typings.PropsDefine, typing
         }
         // 获取增量编辑信息
         const componentsInfo = this.props.viewport.getIncrementComponentsInfo()
-        this.props.application.event.emit(this.props.application.event.onSave, LZString.compressToBase64(JSON.stringify(componentsInfo)))
+        this.props.application.event.emit(this.props.application.event.onSave, componentsInfo)
         return false
     }
 
