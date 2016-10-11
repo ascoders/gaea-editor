@@ -16,6 +16,7 @@ export default class EditHelper extends React.Component<typings.PropsDefine, typ
     componentDidMount(): void;
     componentWillUpdate(nextProps: typings.PropsDefine, nextState: typings.StateDefine): void;
     componentWillUnmount(): void;
+    setLayoutActive(): void;
     setDraggingClass(): void;
     setSelectStyle(nextState: typings.StateDefine): void;
     handleMouseOver(event: MouseEvent): void;

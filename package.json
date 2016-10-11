@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "盖亚",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -26,7 +26,7 @@
     "nt-web-tooltip": "^1.0.5",
     "mobx": "^2.4.3",
     "lodash": "^4.15.0",
-    "gaea-preview": "^0.0.11",
+    "gaea-preview": "^0.0.12",
     "nt-web-button": "^1.0.5",
     "sortablejs": "git://github.com/RubaXa/Sortable.git#dev",
     "nt-web-tabs": "^1.0.5",

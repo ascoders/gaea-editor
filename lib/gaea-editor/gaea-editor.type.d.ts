@@ -8,13 +8,6 @@ export interface PropsDefine extends TransparentlyPropsPropsDefine {
     defaultValue?: string;
     onSave?: (info?: string) => void;
     isHideCustomComponents?: boolean;
-    versionInit?: (saveVersion?: (versions?: Array<FitGaea.SaveInfo>) => void, hasNext?: boolean) => void;
-    onLoadMoreVersionClick?: (saveVersion?: (versions?: Array<FitGaea.SaveInfo>) => void, hasNext?: boolean) => void;
-    onPublish?: (id?: string, version?: string, remarks?: string, save?: Function) => void;
-    onOnlineModalShow?: (callback: (lists: Array<FitGaea.OnlineVersion>) => void) => void;
-    onOnlineClick?: (key: string | number) => void;
-    getSourceFileList?: (folderId: string, callback: (lists: Array<FitGaea.SourceFile>) => void) => void;
-    addSourceFile?: (folderId?: string, fileInfo?: FitGaea.SourceFile, addSuccess?: () => void) => void;
     isReactNative?: boolean;
 }
 export declare class PropsGaea {
