@@ -185,7 +185,7 @@ export default class Header extends React.Component <typings.PropsDefine, typing
                                    min="10"
                                    max="100"
                                    step="1"
-                                   value={this.props.application.viewportWidth}
+                                   value={this.props.application.viewportWidth.toString()}
                                    className="slider"
                                    type="range"/>
                         </div>
