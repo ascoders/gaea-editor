@@ -3,10 +3,9 @@ import * as typings from './gaea-editor.type';
 export default class GaeaEditor extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine;
     state: typings.StateDefine;
-    private applicationStore;
+    private application;
     private viewport;
     private setting;
-    private handleOnSaveBind;
     componentWillMount(): void;
     componentWillUnmount(): void;
     componentWillReceiveProps(nextProps: typings.PropsDefine): void;
@@ -15,5 +14,9 @@ export default class GaeaEditor extends React.Component<typings.PropsDefine, typ
     addListener(): void;
     removeListener(): void;
     handleOnSave(context: any, componentsInfo: string): void;
+    handleOnGetPublishList(context: any, page: number): void;
+    handleOnPublish(context: any, versionInfo: FitGaea.GetPublishListResult): void;
+    handleOnPreviewVersion(context: any, version: string): void;
+    handleOnSwitchVersion(context: any, version: string): void;
     render(): JSX.Element;
 }

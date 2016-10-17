@@ -72,8 +72,8 @@ export default class Viewport {
     };
     undo(): void;
     redo(): void;
-    canUndo: boolean;
-    canRedo: boolean;
+    readonly canUndo: boolean;
+    readonly canRedo: boolean;
     dragTargetMapUniqueKey: string;
     dragTargetIndex: number;
     setDragTarget(mapUniqueKey: string, index: number): void;
@@ -93,4 +93,7 @@ export default class Viewport {
     hideLeftBar(): void;
     showEditorPanelShadow: boolean;
     setShowEditorPanelShadow(show: boolean): void;
+    showSettingShadow: boolean;
+    setShowSettingShadow(show: boolean): void;
+    deleteComponentByMapUniqueKeyWithHistory(mapUniqueKey: string): void;
 }

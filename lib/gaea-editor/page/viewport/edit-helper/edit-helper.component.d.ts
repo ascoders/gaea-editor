@@ -10,7 +10,6 @@ export default class EditHelper extends React.Component<typings.PropsDefine, typ
     private selfInstance;
     private selfDomInstance;
     private sortable;
-    private isMovingComponent;
     componentWillReact(): void;
     componentWillMount(): void;
     componentDidMount(): void;

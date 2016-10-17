@@ -10,6 +10,7 @@ export default class Header extends React.Component<typings.PropsDefine, typings
     handlePreview(): void;
     undo(): boolean;
     redo(): boolean;
+    del(): void;
     copy(): boolean;
     paste(): boolean;
     handleChangeViewportWidth(width: number): void;

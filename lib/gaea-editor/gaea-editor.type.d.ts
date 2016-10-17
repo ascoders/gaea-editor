@@ -6,30 +6,33 @@ export interface PropsDefine extends TransparentlyPropsPropsDefine {
     customComponents?: Array<React.ComponentClass<FitGaea.ComponentProps>>;
     baseComponents?: Array<React.ComponentClass<FitGaea.ComponentProps>>;
     defaultValue?: string;
-    onSave?: (info?: string) => void;
+    defaultSetting?: string;
+    onSave?: (info?: string, setting?: string) => void;
     isHideCustomComponents?: boolean;
     isReactNative?: boolean;
+    currentVersion?: string;
+    onGetPublishList?: (page?: number, callback?: (result: Array<FitGaea.GetPublishListResult>) => void) => void;
+    onPreviewVersion?: (version?: string, callback?: (content: string) => void) => void;
+    onSwitchVersion?: (version?: string, callback?: (content: string) => void) => void;
+    onPublish?: (version?: FitGaea.GetPublishListResult, callback?: () => void) => void;
 }
-export declare class PropsGaea {
-    gaeaName: string;
-    gaeaIcon: string;
-    gaeaUniqueKey: string;
-}
-export declare class Props extends PropsGaea implements PropsDefine {
+export declare class Props implements PropsDefine {
     title: string;
     version: string;
     customComponents: React.ComponentClass<FitGaea.ComponentProps>[];
     isHideCustomComponents: boolean;
     height: number;
     onSave: () => void;
-    versionInit: (saveVersion: Function) => void;
-    onOnlineModalShow: (callback: any) => void;
-    onOnlineClick: (key: string | number) => void;
-    onLoadMoreVersionClick: () => void;
-    onPublish: () => void;
     isReactNative: boolean;
+    onGetPublishList: () => void;
+    onSwitchVersion: () => void;
+    onPreviewVersion: () => void;
+    onPublish: () => void;
 }
 export interface StateDefine {
+    currentVersion?: string;
+    value?: string;
 }
 export declare class State implements StateDefine {
+    currentVersion: string;
 }

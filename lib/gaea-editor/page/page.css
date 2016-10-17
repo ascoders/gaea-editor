@@ -27,7 +27,9 @@
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; }
+
+.nt-editor-gaea-editor-gaea_editor-page .transparent-image {
   background-image: url("../images/transparent.png"); }
 
 .nt-editor-gaea-editor-gaea_editor-page .preview-container {

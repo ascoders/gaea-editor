@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Event from './event';
+import { PropsDefine as GaeaPropsDefine } from '../gaea-editor.type';
 export default class Application {
     event: Event;
     headerHeight: number;
@@ -7,35 +8,29 @@ export default class Application {
     sidebarWidth: number;
     sidebarAddonWidth: number;
     footerHeight: number;
-    viewportWidth: number;
     isSidebarMoving: boolean;
     isPreview: boolean;
     comboComponents: Array<FitGaea.ComboComponentInfo>;
+    currentVersionPage: number;
+    versionList: Array<FitGaea.GetPublishListResult>;
+    currentVersion: string;
     baseComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>;
     customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>;
     isHideCustomComponents: boolean;
     title: string;
-    defaultValue: {
-        [mapUniqueKey: string]: FitGaea.ViewportComponentInfo;
-    };
     height: number;
     isReactNative: boolean;
-    setInitPropsToApplication(props: {
-        title: string;
-        baseComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>;
-        customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>;
-        isHideCustomComponents: boolean;
-        height: number;
-        defaultValue: string;
-        isReactNative: boolean;
-    }): void;
+    setInitPropsToApplication(props: GaeaPropsDefine): void;
     setCustomComponents(customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>): void;
     addComboComponent(comboComponent: FitGaea.ComboComponentInfo): void;
     getComponentByUniqueKey(uniqueKey: string): React.ComponentClass<FitGaea.ComponentProps>;
-    setViewportWidth(width: number): void;
     setSidebarWidth(value: number): void;
     setSidebarMoving(isMoving: boolean): void;
     setPreview(isPreview: boolean): void;
+    setCurrentVersionPage(page: number): void;
+    addVersions(versions: Array<FitGaea.GetPublishListResult>): void;
+    setCurrentVersion(version: string): void;
+    publishToVersionList(versionInfo: FitGaea.GetPublishListResult): void;
     cleanComponent(componentInfo: FitGaea.ViewportComponentInfo): any;
     expendComponent(componentInfo: FitGaea.ViewportComponentInfo): FitGaea.ViewportComponentInfo;
 }
