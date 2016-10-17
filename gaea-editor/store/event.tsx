@@ -26,7 +26,32 @@ export default class EventSystem extends Event {
     onSave = 'onSave'
 
     /**
+     * 触发了获取版本信息
+     */
+    onGetPublishList = 'onGetPublishList'
+
+    /**
+     * 预览了某个版本
+     */
+    onPreviewVersion = 'onPreviewVersion'
+
+    /**
+     * 触发了切换版本
+     */
+    onSwitchVersion = 'onSwitchVersion'
+
+    /**
+     * 触发了发布版本
+     */
+    onPublish = 'onPublish'
+
+    /**
      * 编辑区域遮罩层关闭了
      */
     editorPanelShadowClose = 'editorPanelShadowClose'
+
+    /**
+     * 设置区域遮罩层关闭了
+     */
+    settingShadowClose = 'settingShadowClose'
 }

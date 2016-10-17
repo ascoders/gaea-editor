@@ -1,20 +1,18 @@
 import * as React from 'react'
 import * as typings from './header.type'
 import {observer, inject} from 'mobx-react'
-import * as LZString from 'lz-string'
 
 import {autoBindMethod} from '../../../../../common/auto-bind/index'
 import notice from '../../../../../web-common/message/index'
 import Setting from './setting/setting.component'
-import Online from './online/online.component'
+import Publish from './publish/publish.component'
 
 import * as keymaster from 'keymaster'
 import * as classNames from 'classnames'
 
 import './header.scss'
 
-@inject('application', 'viewport')
-@observer
+@inject('application', 'viewport', 'setting') @observer
 export default class Header extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -35,6 +33,8 @@ export default class Header extends React.Component <typings.PropsDefine, typing
 
         keymaster('ctrl+v', this.paste)
         keymaster('command+v', this.paste)
+
+        keymaster('delete', this.del)
     }
 
     componentWillUnmount() {
@@ -53,6 +53,8 @@ export default class Header extends React.Component <typings.PropsDefine, typing
 
         keymaster.unbind('ctrl+v')
         keymaster.unbind('command+v')
+
+        keymaster.unbind('delete')
     }
 
     /**
@@ -109,6 +111,16 @@ export default class Header extends React.Component <typings.PropsDefine, typing
     }
 
     /**
+     * 删除
+     */
+    @autoBindMethod del() {
+        if (this.props.viewport.hoveringComponentMapUniqueKey === null) {
+            return
+        }
+        this.props.viewport.deleteComponentByMapUniqueKeyWithHistory(this.props.viewport.hoveringComponentMapUniqueKey)
+    }
+
+    /**
      * 复制
      */
     @autoBindMethod copy() {
@@ -136,11 +148,11 @@ export default class Header extends React.Component <typings.PropsDefine, typing
      * 修改视图大小
      */
     @autoBindMethod handleChangeViewportWidth(width: number) {
-        this.props.application.setViewportWidth(width)
+        this.props.setting.setViewportWidth(width)
     }
 
     @autoBindMethod handleChangeViewportWidthByRange(event: any) {
-        this.props.application.setViewportWidth(Number(event.target.value))
+        this.props.setting.setViewportWidth(Number(event.target.value))
     }
 
     render() {
@@ -156,12 +168,12 @@ export default class Header extends React.Component <typings.PropsDefine, typing
 
         const mobileClasses = classNames({
             'menu-item': true,
-            'viewport-size-active': this.props.application.viewportWidth === 40
+            'viewport-size-active': this.props.setting.data.viewportWidth === 40
         })
 
         const desktopClasses = classNames({
             'menu-item': true,
-            'viewport-size-active': this.props.application.viewportWidth === 100
+            'viewport-size-active': this.props.setting.data.viewportWidth === 100
         })
 
         return (
@@ -185,7 +197,7 @@ export default class Header extends React.Component <typings.PropsDefine, typing
                                    min="10"
                                    max="100"
                                    step="1"
-                                   value={this.props.application.viewportWidth.toString()}
+                                   value={this.props.setting.data.viewportWidth.toString()}
                                    className="slider"
                                    type="range"/>
                         </div>
@@ -200,10 +212,9 @@ export default class Header extends React.Component <typings.PropsDefine, typing
                     <div className="menu-item"
                          onClick={this.handleSave}>保存
                     </div>
+                    <Publish/>
                 </div>
             </div>
         )
     }
 }
-
-// <Online key="online"/>

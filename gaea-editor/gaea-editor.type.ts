@@ -30,11 +30,16 @@ export interface PropsDefine extends TransparentlyPropsPropsDefine {
     defaultValue?: string
 
     /**
+     * 默认配置信息
+     */
+    defaultSetting?: string
+
+    /**
      * 点击保存后会返回页面结构树信息
      * info.saveToVersion() 被执行后,本地会在顶部新增一个版本信息
      * 同时要后端把 info.pageInfo 和当前时间戳 存储起来,下次刷新时候获取,并且塞入到 versionInit 可以显示版本快照信息
      */
-    onSave?: (info?: string) => void
+    onSave?: (info?: string, setting?: string) => void
 
     /**
      * 工具栏:是否只显示定制组件
@@ -45,15 +50,34 @@ export interface PropsDefine extends TransparentlyPropsPropsDefine {
      * is for react-native?
      */
     isReactNative?: boolean
+
+    /**
+     * 当前版本号
+     */
+    currentVersion?: string
+
+    /**
+     * 获取发布列表
+     */
+    onGetPublishList?: (page?: number, callback?: (result: Array<FitGaea.GetPublishListResult>)=>void)=>void
+
+    /**
+     * 预览版本内容(内容是根版本走的，但配置一个编辑器只有一份)
+     */
+    onPreviewVersion?: (version?: string, callback?: (content: string)=>void)=>void
+
+    /**
+     * 切换版本号
+     */
+    onSwitchVersion?: (version?: string, callback?: (content: string)=>void)=>void
+
+    /**
+     * 发布
+     */
+    onPublish?: (version?: FitGaea.GetPublishListResult, callback?: ()=>void)=>void
 }
 
-export class PropsGaea {
-    gaeaName = '盖亚'
-    gaeaIcon = 'square-o'
-    gaeaUniqueKey = 'nt-editor-gaea'
-}
-
-export class Props extends PropsGaea implements PropsDefine {
+export class Props implements PropsDefine {
     title = 'GaeaEditor'
     version = '0.0.0'
     customComponents = [] as Array<React.ComponentClass<FitGaea.ComponentProps>>
@@ -61,36 +85,26 @@ export class Props extends PropsGaea implements PropsDefine {
     height = 450
     onSave = ()=> {
     }
-    versionInit = (saveVersion: Function)=> {
-        saveVersion([] as any, false)
+    isReactNative = false
+    onGetPublishList = ()=> {
     }
-    onOnlineModalShow = (callback: any)=> {
-        callback([] as any)
+    onSwitchVersion = ()=> {
     }
-    onOnlineClick = (key: string|number)=> {
-
-    }
-    onLoadMoreVersionClick = ()=> {
+    onPreviewVersion = ()=> {
     }
     onPublish = ()=> {
     }
-    getSourceFileList = (folderId: string, callback: (lists: Array<FitGaea.SourceFile>)=>void)=> {
-        // get fileList by folderId
-        const fileList: Array<FitGaea.SourceFile> = [] as any
-        // run callback
-        callback(fileList)
-    }
-    addSourceFile = (folderId?: string, fileInfo?: FitGaea.SourceFile, addSuccess?: ()=>void)=> {
-        addSuccess()
-    }
-    isReactNative = false
 }
 
 export interface StateDefine {
+    // 当前 version
+    currentVersion?: string
 
+    // 当前值
+    value?: string
 }
 
 export class State implements StateDefine {
-
+    currentVersion = ''
 }
                 

@@ -2,12 +2,13 @@
  * 整体应用的信息,一个 app 通用的配置信息
  */
 
-import {observable, action} from 'mobx'
+import {observable, action, transaction} from 'mobx'
 import * as React from 'react'
 import * as _ from 'lodash'
 import deepDiff from '../utils/deep-diff'
 import Event from './event'
 import * as LZString from 'lz-string'
+import {PropsDefine as GaeaPropsDefine} from '../gaea-editor.type'
 
 export default class Application {
     public event = new Event()
@@ -38,11 +39,6 @@ export default class Application {
     @observable footerHeight = 25
 
     /**
-     * 编辑区域宽度百分比 1~100
-     */
-    @observable viewportWidth = 100
-
-    /**
      * 是否正在移动侧边栏
      */
     @observable isSidebarMoving = false
@@ -56,6 +52,21 @@ export default class Application {
      * 组合组件
      */
     @observable comboComponents: Array<FitGaea.ComboComponentInfo> = []
+
+    /**
+     * 当前版本列表页数
+     */
+    currentVersionPage = 0
+
+    /**
+     * 当前版本列表数组
+     */
+    @observable versionList: Array<FitGaea.GetPublishListResult> = []
+
+    /**
+     * 当前版本号
+     */
+    @observable currentVersion: string
 
     /**
      * 基础组件
@@ -78,13 +89,6 @@ export default class Application {
     title = ''
 
     /**
-     * 页面显示 json
-     */
-    defaultValue: {
-        [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
-    }
-
-    /**
      * 页面高度
      */
     height: number
@@ -94,26 +98,14 @@ export default class Application {
      */
     isReactNative: boolean
 
-    @action('初始化配置') setInitPropsToApplication(props: {
-        title: string,
-        baseComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>,
-        customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>,
-        isHideCustomComponents: boolean,
-        height: number,
-        defaultValue: string,
-        isReactNative: boolean
-    }) {
+    @action('初始化配置') setInitPropsToApplication(props: GaeaPropsDefine) {
         this.title = props.title
         this.baseComponents = props.baseComponents
         this.setCustomComponents(props.customComponents)
         this.isHideCustomComponents = props.isHideCustomComponents
-        if (props.defaultValue) {
-            this.defaultValue = JSON.parse(LZString.decompressFromBase64(props.defaultValue)) as {
-                [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
-            }
-        }
         this.height = props.height
         this.isReactNative = props.isReactNative
+        this.currentVersion = props.currentVersion
     }
 
     @action('设置定制组件') setCustomComponents(customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>) {
@@ -148,10 +140,6 @@ export default class Application {
         return null
     }
 
-    @action('设置视图区域宽度') setViewportWidth(width: number) {
-        this.viewportWidth = width
-    }
-
     @action('设置侧边栏宽度') setSidebarWidth(value: number) {
         if (value < 180) {
             value = 180
@@ -168,6 +156,26 @@ export default class Application {
 
     @action('修改预览状态') setPreview(isPreview: boolean) {
         this.isPreview = isPreview
+    }
+
+    @action('设置当前版本列表业务') setCurrentVersionPage(page: number) {
+        this.currentVersionPage = page
+    }
+
+    @action('添加版本') addVersions(versions: Array<FitGaea.GetPublishListResult>) {
+        transaction(()=> {
+            versions && versions.forEach(version=> {
+                this.versionList.push(version)
+            })
+        })
+    }
+
+    @action('设置当前最新版本号') setCurrentVersion(version: string) {
+        this.currentVersion = version
+    }
+
+    @action('增加刚刚发布的版本到版本列表中') publishToVersionList(versionInfo: FitGaea.GetPublishListResult) {
+        this.versionList.unshift(versionInfo)
     }
 
     /************************************************************

@@ -4,11 +4,12 @@ import {observer, inject} from 'mobx-react'
 
 import Modal from '../../../../../../web-common/modal/index'
 import Switch from '../../../../../../web-common/switch/index'
+import Color from './utils/color/color.component'
 import {autoBindMethod} from '../../../../../../common/auto-bind/index'
 
 import './setting.scss'
 
-@inject('setting') @observer
+@inject('setting', 'application', 'viewport') @observer
 export default class Setting extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -39,6 +40,19 @@ export default class Setting extends React.Component <typings.PropsDefine, typin
         this.props.setting.setShowLayout(checked)
     }
 
+    @autoBindMethod handleBackgroundColorChange(color: any) {
+        this.props.setting.setBackgroundColor(`rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`, color.rgb.a)
+    }
+
+    @autoBindMethod handleBackgroundColorChangeComplete(color: any) {
+
+    }
+
+    @autoBindMethod handleClickShadow() {
+        this.props.application.event.emit(this.props.application.event.settingShadowClose)
+        this.props.viewport.setShowSettingShadow(false)
+    }
+
     render() {
         return (
             <div className="menu-item"
@@ -49,12 +63,15 @@ export default class Setting extends React.Component <typings.PropsDefine, typin
                            show={this.state.show}
                            onOk={this.handleOk.bind(this)}
                            onCancel={this.handleCancel.bind(this)}>
+                        {this.props.viewport.showSettingShadow &&<div className="close-modal"
+                                                                      onClick={this.handleClickShadow}/>}
+
                         <div className="title">设置</div>
 
                         <div className="left-right">
                             <div className="left">点击移除时会弹出确认框</div>
                             <div className="right">
-                                <Switch checked={this.props.setting.confirmWhenRemoveComponent}
+                                <Switch checked={this.props.setting.data.confirmWhenRemoveComponent}
                                         onChange={this.setConfirmWhenRemoveComponent}/>
                             </div>
                         </div>
@@ -62,8 +79,20 @@ export default class Setting extends React.Component <typings.PropsDefine, typin
                         <div className="left-right">
                             <div className="left">拖动时显示所有布局元素</div>
                             <div className="right">
-                                <Switch checked={this.props.setting.showLayout}
+                                <Switch checked={this.props.setting.data.showLayout}
                                         onChange={this.setShowLayout}/>
+                            </div>
+                        </div>
+
+                        <div className="left-right">
+                            <div className="left">画布背景颜色</div>
+                            <div className="right">
+                                <Color color={this.props.setting.data.backgroundColor}
+                                       absoluteStyle={{left:-200,zIndex:1070}}
+                                       viewport={this.props.viewport}
+                                       application={this.props.application}
+                                       onChange={this.handleBackgroundColorChange}
+                                       onChangeComplete={this.handleBackgroundColorChangeComplete}/>
                             </div>
                         </div>
 

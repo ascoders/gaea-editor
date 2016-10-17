@@ -5,7 +5,7 @@ import {observer, inject} from 'mobx-react'
 import {Tabs, TabPanel} from '../../../../../../web-common/tabs/index'
 
 import Components from './components/components.component'
-import History from './history/history.component'
+import Version from './version/version.component'
 import Source from './source/source.component'
 
 import './tools.scss'
@@ -25,10 +25,10 @@ export default class Tools extends React.Component <typings.PropsDefine, typings
                           className="tab-panel">
                     <Components/>
                 </TabPanel>
-                <TabPanel tab="历史"
-                          activeKey="history"
+                <TabPanel tab="版本"
+                          activeKey="version"
                           className="tab-panel">
-                    <History/>
+                    <Version/>
                 </TabPanel>
                 <TabPanel tab="资源"
                           activeKey="resource"

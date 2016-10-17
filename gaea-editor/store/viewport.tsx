@@ -1046,6 +1046,60 @@ export default class Viewport {
             this.application.event.emit(this.application.event.editorPanelShadowClose)
         }
     }
+
+    // 是否显示设置区域的遮罩层
+    @observable showSettingShadow = false
+
+    /**
+     * 设置是否显示设置区域遮罩层
+     */
+    setShowSettingShadow(show: boolean) {
+        this.showSettingShadow = show
+        // 发送一个遮罩层关闭的事件
+        if (!show) {
+            this.application.event.emit(this.application.event.settingShadowClose)
+        }
+    }
+
+    /**
+     * 根据 mapUniqueKey 删除组件，并记录历史
+     */
+    deleteComponentByMapUniqueKeyWithHistory(mapUniqueKey: string) {
+        // 找到父级 mapUniqueKey, 记录历史操作使用
+        const parentMapUniqueKey = this.components.get(mapUniqueKey).parentMapUniqueKey
+
+        // 最外层不能被删
+        if (parentMapUniqueKey === null) {
+            return
+        }
+
+        // 存储组件信息
+        const componentInfo = JSON.parse(JSON.stringify(this.components.get(mapUniqueKey)))
+
+        // 找到是父级的第几个
+        const index = this.components.get(parentMapUniqueKey).layoutChilds.findIndex(item=>item === mapUniqueKey)
+
+        // 取消编辑状态
+        this.cancelEditComponent()
+
+        // 删除
+        const deleteChildsComponents = this.deleteComponent(mapUniqueKey)
+
+        this.saveOperate({
+            type: 'remove',
+            mapUniqueKey: mapUniqueKey,
+            remove: {
+                mapUniqueKey: mapUniqueKey,
+                parentMapUniqueKey,
+                // 删除的位置
+                index,
+                // 组件信息
+                componentInfo: componentInfo,
+                // 子元素列表 （包括非直接子集）
+                childs: deleteChildsComponents
+            }
+        })
+    }
 }
 
 

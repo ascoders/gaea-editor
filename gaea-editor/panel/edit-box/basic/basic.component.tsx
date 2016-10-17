@@ -9,7 +9,7 @@ import {Button, ButtonGroup} from '../../../../../../web-common/button/index'
 import {Checkbox} from '../../../../../../web-common/checkbox/index'
 import Input from '../../../../../../web-common/input/index'
 
-import RemoveButton from './remote-button/remote-button.component'
+import RemoveButton from './remove-button/remove-button.component'
 import SetGroupButton from './set-group-button/set-group-button.component'
 
 import TextEditor from './edit-components/text/text.component'
@@ -194,6 +194,7 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
                     </div>
                     <Input className="title-name"
                            label=""
+                           normal={true}
                            key={this.props.viewport.currentEditComponentMapUniqueKey}
                            onChange={this.handleChangeName}
                            rightRender={this.titleInputRightRender}

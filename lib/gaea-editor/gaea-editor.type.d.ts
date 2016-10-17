@@ -27,8 +27,6 @@ export declare class Props extends PropsGaea implements PropsDefine {
     onOnlineClick: (key: string | number) => void;
     onLoadMoreVersionClick: () => void;
     onPublish: () => void;
-    getSourceFileList: (folderId: string, callback: (lists: FitGaea.SourceFile[]) => void) => void;
-    addSourceFile: (folderId?: string, fileInfo?: FitGaea.SourceFile, addSuccess?: () => void) => void;
     isReactNative: boolean;
 }
 export interface StateDefine {

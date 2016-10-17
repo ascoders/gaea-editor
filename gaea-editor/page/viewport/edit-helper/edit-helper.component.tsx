@@ -51,9 +51,6 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     // sortable 对象, 只有布局组件才有
     private sortable: any
 
-    // 是否正在移动组件
-    private isMovingComponent = false
-
     componentWillReact() {
         this.setLayoutActive()
     }
@@ -237,7 +234,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
      */
     setLayoutActive() {
         if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey === null) {
-            if (this.props.viewport.isMovingComponent || this.props.viewport.showLayoutBorder) {
+            if (this.props.viewport.showLayoutBorder) {
                 if (!hasClass(this.selfDomInstance, 'gaea-layout-active')) {
                     this.selfDomInstance.className += ' gaea-layout-active'
                 }
@@ -331,7 +328,6 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         // 如果是最外层布局元素, 绑定上 isMovingComponent
         if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey === null) {
             // TODO: 强绑 mobx
-            this.isMovingComponent = this.props.viewport.isMovingComponent
             const showLayoutBorder = this.props.viewport.showLayoutBorder
         }
 
