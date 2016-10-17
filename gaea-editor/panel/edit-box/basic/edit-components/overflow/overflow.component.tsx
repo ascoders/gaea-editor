@@ -192,6 +192,7 @@ export default class EditComponentOverflow extends React.Component <typings.Prop
                     <div>Overflow</div>
                 }
 
+                {!this.props.application.isReactNative &&
                 <div className="overflow-expend-button-container">
                     {canExpand &&
                     <Button onClick={this.handleExpand.bind(this)}><i className="fa fa-expand"/></Button>
@@ -201,6 +202,7 @@ export default class EditComponentOverflow extends React.Component <typings.Prop
                     <Button onClick={this.handleCompress.bind(this)}><i className="fa fa-compress"/></Button>
                     }
                 </div>
+                }
 
                 <div className="operate-container">
                     {this.state.expand ? this.renderOverflowExpand() : this.renderOverflow()}

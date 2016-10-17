@@ -175,7 +175,10 @@ export default class Application {
     }
 
     @action('增加刚刚发布的版本到版本列表中') publishToVersionList(versionInfo: FitGaea.GetPublishListResult) {
-        this.versionList.unshift(versionInfo)
+        // 如果还没有获取过版本信息，不需要添加，添加再获取最新的内容就重复了
+        if (this.versionList.length > 0) {
+            this.versionList.unshift(versionInfo)
+        }
     }
 
     /************************************************************
