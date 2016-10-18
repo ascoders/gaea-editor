@@ -1033,34 +1033,6 @@ export default class Viewport {
         this.isShowLeftBar = false
     }
 
-    // 是否显示编辑区域的遮罩层
-    @observable showEditorPanelShadow = false
-
-    /**
-     * 设置是否显示编辑区域遮罩层
-     */
-    setShowEditorPanelShadow(show: boolean) {
-        this.showEditorPanelShadow = show
-        // 发送一个遮罩层关闭的事件
-        if (!show) {
-            this.application.event.emit(this.application.event.editorPanelShadowClose)
-        }
-    }
-
-    // 是否显示设置区域的遮罩层
-    @observable showSettingShadow = false
-
-    /**
-     * 设置是否显示设置区域遮罩层
-     */
-    setShowSettingShadow(show: boolean) {
-        this.showSettingShadow = show
-        // 发送一个遮罩层关闭的事件
-        if (!show) {
-            this.application.event.emit(this.application.event.settingShadowClose)
-        }
-    }
-
     /**
      * 根据 mapUniqueKey 删除组件，并记录历史
      */

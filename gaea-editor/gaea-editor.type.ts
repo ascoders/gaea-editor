@@ -75,6 +75,11 @@ export interface PropsDefine extends TransparentlyPropsPropsDefine {
      * 发布
      */
     onPublish?: (version?: FitGaea.GetPublishListResult, callback?: ()=>void)=>void
+
+    /**
+     * 是否是浏览模式
+     */
+    explore?: boolean
 }
 
 export class Props implements PropsDefine {
@@ -94,6 +99,7 @@ export class Props implements PropsDefine {
     }
     onPublish = ()=> {
     }
+    explore = false
 }
 
 export interface StateDefine {

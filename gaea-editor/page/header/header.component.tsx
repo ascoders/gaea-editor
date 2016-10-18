@@ -25,8 +25,10 @@ export default class Header extends React.Component <typings.PropsDefine, typing
         keymaster('ctrl+shift+z', this.redo)
         keymaster('command+shift+z', this.redo)
 
-        keymaster('ctrl+s', this.handleSave)
-        keymaster('command+s', this.handleSave)
+        if (!this.props.application.explore) {
+            keymaster('ctrl+s', this.handleSave)
+            keymaster('command+s', this.handleSave)
+        }
 
         keymaster('ctrl+c', this.copy)
         keymaster('command+c', this.copy)
@@ -45,8 +47,10 @@ export default class Header extends React.Component <typings.PropsDefine, typing
         keymaster.unbind('ctrl+shift+z')
         keymaster.unbind('command+shift+z')
 
-        keymaster.unbind('ctrl+s')
-        keymaster.unbind('command+s')
+        if (!this.props.application.explore) {
+            keymaster.unbind('ctrl+s')
+            keymaster.unbind('command+s')
+        }
 
         keymaster.unbind('ctrl+c')
         keymaster.unbind('command+c')
@@ -209,10 +213,14 @@ export default class Header extends React.Component <typings.PropsDefine, typing
                          onClick={this.redo}><i className="fa fa-rotate-right"/></div>
                     <div className="menu-item"
                          onClick={this.handlePreview}>{this.props.application.isPreview ? '取消' : '预览'}</div>
+                    {!this.props.application.explore &&
                     <div className="menu-item"
                          onClick={this.handleSave}>保存
                     </div>
+                    }
+                    {!this.props.application.explore &&
                     <Publish/>
+                    }
                 </div>
             </div>
         )

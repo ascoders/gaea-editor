@@ -44,14 +44,4 @@ export default class EventSystem extends Event {
      * 触发了发布版本
      */
     onPublish = 'onPublish'
-
-    /**
-     * 编辑区域遮罩层关闭了
-     */
-    editorPanelShadowClose = 'editorPanelShadowClose'
-
-    /**
-     * 设置区域遮罩层关闭了
-     */
-    settingShadowClose = 'settingShadowClose'
 }

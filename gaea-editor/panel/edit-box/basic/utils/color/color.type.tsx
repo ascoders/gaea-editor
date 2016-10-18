@@ -21,12 +21,9 @@ export class Props implements PropsDefine {
 }
 
 export interface StateDefine {
-    /**
-     * 是否显示颜色编辑器
-     */
-    displayColorPicker?: boolean
+
 }
 
 export class State implements StateDefine {
-    displayColorPicker = false
+
 }

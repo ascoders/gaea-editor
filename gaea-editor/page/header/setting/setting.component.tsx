@@ -48,11 +48,6 @@ export default class Setting extends React.Component <typings.PropsDefine, typin
 
     }
 
-    @autoBindMethod handleClickShadow() {
-        this.props.application.event.emit(this.props.application.event.settingShadowClose)
-        this.props.viewport.setShowSettingShadow(false)
-    }
-
     render() {
         return (
             <div className="menu-item"
@@ -63,8 +58,6 @@ export default class Setting extends React.Component <typings.PropsDefine, typin
                            show={this.state.show}
                            onOk={this.handleOk.bind(this)}
                            onCancel={this.handleCancel.bind(this)}>
-                        {this.props.viewport.showSettingShadow &&<div className="close-modal"
-                                                                      onClick={this.handleClickShadow}/>}
 
                         <div className="title">设置</div>
 

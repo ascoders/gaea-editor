@@ -4,6 +4,7 @@ import {observer, inject} from 'mobx-react'
 
 import {ChromePicker} from 'react-color'
 import {autoBindMethod} from '../../../../../../../../common/auto-bind/index'
+import Tooltip from '../../../../../../../../web-common/tooltip/index'
 
 import './color.scss'
 
@@ -11,36 +12,6 @@ import './color.scss'
 export default class Color extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
-
-    componentWillMount() {
-        this.props.application.event.on(this.props.application.event.editorPanelShadowClose, this.handleEditorPanelShadowClose)
-    }
-
-    componentWillUnmount() {
-        this.props.application.event.off(this.props.application.event.editorPanelShadowClose, this.handleEditorPanelShadowClose)
-    }
-
-    /**
-     * 遮罩层被关闭
-     */
-    @autoBindMethod handleEditorPanelShadowClose() {
-        this.handleClose()
-    }
-
-    handleColorPickerClick() {
-        this.setState({
-            displayColorPicker: true
-        }, ()=> {
-            // 显示编辑区域遮罩层
-            this.props.viewport.setShowEditorPanelShadow(true)
-        })
-    }
-
-    handleClose() {
-        this.setState({
-            displayColorPicker: false
-        })
-    }
 
     handleColorChange(color: any) {
         this.props.onChange(color)
@@ -50,24 +21,27 @@ export default class Color extends React.Component <typings.PropsDefine, typings
         this.props.onChangeComplete(color)
     }
 
+    @autoBindMethod titleRender() {
+        return (
+            <ChromePicker label="hex"
+                          onChange={this.handleColorChange.bind(this)}
+                          onChangeComplete={this.handleColorChangeComplete.bind(this)}
+                          color={this.props.color}/>
+        )
+    }
+
     render() {
         return (
             <div className="_namespace">
-                <div className="color-picker-label-container"
-                     onClick={ this.handleColorPickerClick.bind(this) }>
-                    <div className="color-picker-label"
-                         style={{backgroundColor:this.props.color}}/>
-                </div>
-                { this.state.displayColorPicker &&
-                <div className="picker-container"
-                     style={this.props.absoluteStyle}>
-                    <ChromePicker label="hex"
-                                  onChange={this.handleColorChange.bind(this)}
-                                  onChangeComplete={this.handleColorChangeComplete.bind(this)}
-                                  color={this.props.color}/>
-                </div>
-                }
-
+                <Tooltip type="click"
+                         showShadow={true}
+                         titleRender={this.titleRender}
+                         simple={true}>
+                    <div className="color-picker-label-container">
+                        <div className="color-picker-label"
+                             style={{backgroundColor:this.props.color}}/>
+                    </div>
+                </Tooltip>
             </div>
         )
     }

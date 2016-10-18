@@ -22,13 +22,3 @@
         width: 0;
     }
 }
-
-.close-modal {
-    position: absolute;
-    left: -9999px;
-    top: -9999px;
-    width: 99999px;
-    height: 99999px;
-    z-index: 1060;
-    background-color: rgba(0, 0, 0, .2);
-}

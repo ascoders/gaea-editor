@@ -98,6 +98,11 @@ export default class Application {
      */
     isReactNative: boolean
 
+    /**
+     * 是否是浏览模式,不能保存
+     */
+    explore: boolean
+
     @action('初始化配置') setInitPropsToApplication(props: GaeaPropsDefine) {
         this.title = props.title
         this.baseComponents = props.baseComponents
@@ -106,6 +111,7 @@ export default class Application {
         this.height = props.height
         this.isReactNative = props.isReactNative
         this.currentVersion = props.currentVersion
+        this.explore = props.explore
     }
 
     @action('设置定制组件') setCustomComponents(customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>) {
