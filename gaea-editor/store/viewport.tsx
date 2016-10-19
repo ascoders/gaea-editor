@@ -2,7 +2,7 @@
  * 编辑可视区域
  */
 
-import {observable, computed, map, transaction, ObservableMap, extendObservable} from 'mobx'
+import {observable, computed, map, transaction, ObservableMap, extendObservable, action} from 'mobx'
 import * as _ from 'lodash'
 import Application from './application'
 import * as LZString from 'lz-string'
@@ -670,14 +670,9 @@ export default class Viewport {
     @observable nowOperateIndex = -1
 
     /**
-     * 保存操作记录 需要保存的时机:
-     * 新增元素 ok
-     * 移动元素 ok
-     * 交换元素 ok
-     * 删除元素 ok
-     * 修改元素 ok
+     * 保存操作记录
      */
-    saveOperate(diff: FitGaea.Diff) {
+    @action('保存历史记录') saveOperate(diff: FitGaea.Diff) {
         // 如果后面还有操作, 直接清空
         this.operates.splice(this.nowOperateIndex + 1)
 

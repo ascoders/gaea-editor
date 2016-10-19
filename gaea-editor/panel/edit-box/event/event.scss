@@ -1,0 +1,29 @@
+& {
+    padding: 10px;
+}
+
+.event-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.event-item-container {
+    display: flex;
+}
+
+.event-label {
+    display: flex;
+    flex-grow: 1;
+    width: 0;
+}
+
+.event-effect {
+    display: flex;
+    flex-grow: 2;
+    width: 0;
+    margin-left: 10px;
+}
+
+.new-event-button {
+    margin-top: 20px;
+}

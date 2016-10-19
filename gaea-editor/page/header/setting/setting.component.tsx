@@ -55,11 +55,10 @@ export default class Setting extends React.Component <typings.PropsDefine, typin
                 设置
                 <div className="_namespace">
                     <Modal className="_namespace"
+                           title="设置"
                            show={this.state.show}
                            onOk={this.handleOk.bind(this)}
                            onCancel={this.handleCancel.bind(this)}>
-
-                        <div className="title">设置</div>
 
                         <div className="left-right">
                             <div className="left">点击移除时会弹出确认框</div>

@@ -6,6 +6,7 @@ import {autoBindMethod} from '../../../../../common/auto-bind/index'
 import notice from '../../../../../web-common/message/index'
 import Setting from './setting/setting.component'
 import Publish from './publish/publish.component'
+import Helper from './helper/helper.component'
 
 import * as keymaster from 'keymaster'
 import * as classNames from 'classnames'
@@ -19,46 +20,36 @@ export default class Header extends React.Component <typings.PropsDefine, typing
 
     componentWillMount() {
         // 添加快捷键
-        keymaster('ctrl+z', this.undo)
-        keymaster('command+z', this.undo)
+        keymaster('ctrl+z, command+z', this.undo)
 
-        keymaster('ctrl+shift+z', this.redo)
-        keymaster('command+shift+z', this.redo)
+        keymaster('ctrl+shift+z, command+shift+z', this.redo)
 
         if (!this.props.application.explore) {
-            keymaster('ctrl+s', this.handleSave)
-            keymaster('command+s', this.handleSave)
+            keymaster('ctrl+s, command+s', this.handleSave)
         }
 
-        keymaster('ctrl+c', this.copy)
-        keymaster('command+c', this.copy)
+        keymaster('command+c, ctrl+c', this.copy)
 
-        keymaster('ctrl+v', this.paste)
-        keymaster('command+v', this.paste)
+        keymaster('command+v, ctrl+v', this.paste)
 
-        keymaster('delete', this.del)
+        keymaster('delete, backspace', this.del)
     }
 
     componentWillUnmount() {
         // 移除快捷键
-        keymaster.unbind('ctrl+z')
-        keymaster.unbind('command+z')
+        keymaster.unbind('ctrl+z, command+z')
 
-        keymaster.unbind('ctrl+shift+z')
-        keymaster.unbind('command+shift+z')
+        keymaster.unbind('ctrl+shift+z, command+shift+z')
 
         if (!this.props.application.explore) {
-            keymaster.unbind('ctrl+s')
-            keymaster.unbind('command+s')
+            keymaster.unbind('ctrl+s, command+s')
         }
 
-        keymaster.unbind('ctrl+c')
-        keymaster.unbind('command+c')
+        keymaster.unbind('command+c, ctrl+c')
 
-        keymaster.unbind('ctrl+v')
-        keymaster.unbind('command+v')
+        keymaster.unbind('command+v, ctrl+v')
 
-        keymaster.unbind('delete')
+        keymaster.unbind('delete, backspace')
     }
 
     /**
@@ -186,6 +177,7 @@ export default class Header extends React.Component <typings.PropsDefine, typing
                 <div className="left">
                     <div className="brand menu-item">{this.props.application.title}</div>
                     <Setting/>
+                    <Helper/>
                 </div>
 
                 <div className="right">

@@ -220,6 +220,7 @@ export default class Application {
         }
 
         delete planComponentInfo.props.gaeaEdit
+        delete planComponentInfo.props.gaeaEvent
         delete planComponentInfo.props.gaeaIcon
 
         return JSON.parse(JSON.stringify(planComponentInfo))

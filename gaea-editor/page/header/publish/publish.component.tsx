@@ -17,7 +17,7 @@ export default class Publish extends React.Component <typings.PropsDefine, typin
         this.initVersion()
     }
 
-    componentWillReceiveProps() {
+    componentWillReact() {
         this.initVersion()
     }
 
@@ -90,13 +90,13 @@ export default class Publish extends React.Component <typings.PropsDefine, typin
             value: nextPatch,
             options: [{
                 key: nextPatch,
-                value: nextPatch
+                value: nextPatch + ' 补丁'
             }, {
                 key: nextMinor,
-                value: nextMinor
+                value: nextMinor + ' 小版本更新'
             }, {
                 key: nextMajor,
-                value: nextMajor
+                value: nextMajor + ' 全新版本'
             }]
         }
 
