@@ -7,6 +7,9 @@ export interface PropsDefine {
 export declare class Props implements PropsDefine {
 }
 export interface StateDefine {
+    isExpend?: boolean;
+    editType?: string;
 }
 export declare class State implements StateDefine {
+    editType: string;
 }
