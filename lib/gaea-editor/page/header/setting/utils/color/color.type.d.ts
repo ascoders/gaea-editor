@@ -14,8 +14,6 @@ export declare class Props implements PropsDefine {
     onChangeComplete: () => void;
 }
 export interface StateDefine {
-    displayColorPicker?: boolean;
 }
 export declare class State implements StateDefine {
-    displayColorPicker: boolean;
 }

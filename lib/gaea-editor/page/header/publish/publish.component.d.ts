@@ -5,7 +5,7 @@ export default class Publish extends React.Component<typings.PropsDefine, typing
     static defaultProps: typings.PropsDefine;
     state: typings.StateDefine;
     componentWillMount(): void;
-    componentWillReceiveProps(): void;
+    componentWillReact(): void;
     initVersion(): void;
     getNextVersion(): {
         nextPatch: string;

@@ -11,6 +11,5 @@ export default class Setting extends React.Component<typings.PropsDefine, typing
     setShowLayout(checked: boolean): void;
     handleBackgroundColorChange(color: any): void;
     handleBackgroundColorChangeComplete(color: any): void;
-    handleClickShadow(): void;
     render(): JSX.Element;
 }

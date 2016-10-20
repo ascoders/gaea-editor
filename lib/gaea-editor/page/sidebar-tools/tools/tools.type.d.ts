@@ -1,4 +1,6 @@
+import Application from '../../../store/application';
 export interface PropsDefine {
+    application?: Application;
 }
 export declare class Props implements PropsDefine {
 }

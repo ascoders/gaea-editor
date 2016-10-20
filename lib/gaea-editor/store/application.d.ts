@@ -20,6 +20,7 @@ export default class Application {
     title: string;
     height: number;
     isReactNative: boolean;
+    explore: boolean;
     setInitPropsToApplication(props: GaeaPropsDefine): void;
     setCustomComponents(customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>>): void;
     addComboComponent(comboComponent: FitGaea.ComboComponentInfo): void;

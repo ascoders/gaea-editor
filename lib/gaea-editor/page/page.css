@@ -70,8 +70,7 @@
     display: -ms-flexbox;
     display: flex;
     position: relative;
-    margin: 0 auto;
-    height: 100%; }
+    margin: 0 auto; }
 
 .nt-editor-gaea-editor-gaea_editor-page .left-bar, .nt-editor-gaea-editor-gaea_editor-page .right-bar {
   display: -webkit-box;

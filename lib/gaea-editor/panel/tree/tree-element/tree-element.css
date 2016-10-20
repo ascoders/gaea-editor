@@ -28,3 +28,7 @@
 .nt-editor-gaea-editor-gaea_editor-panel-tree-tree_element .text {
   color: #666;
   font-size: 12px; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-tree-tree_element .event-container {
+  margin-left: 5px;
+  color: #0388a7; }

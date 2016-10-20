@@ -15,6 +15,7 @@ export interface PropsDefine extends TransparentlyPropsPropsDefine {
     onPreviewVersion?: (version?: string, callback?: (content: string) => void) => void;
     onSwitchVersion?: (version?: string, callback?: (content: string) => void) => void;
     onPublish?: (version?: FitGaea.GetPublishListResult, callback?: () => void) => void;
+    explore?: boolean;
 }
 export declare class Props implements PropsDefine {
     title: string;
@@ -28,6 +29,7 @@ export declare class Props implements PropsDefine {
     onSwitchVersion: () => void;
     onPreviewVersion: () => void;
     onPublish: () => void;
+    explore: boolean;
 }
 export interface StateDefine {
     currentVersion?: string;

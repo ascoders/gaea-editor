@@ -91,9 +91,10 @@ export default class Viewport {
     leftBarType: string;
     showLeftBar(leftBarType: string): void;
     hideLeftBar(): void;
-    showEditorPanelShadow: boolean;
-    setShowEditorPanelShadow(show: boolean): void;
-    showSettingShadow: boolean;
-    setShowSettingShadow(show: boolean): void;
     deleteComponentByMapUniqueKeyWithHistory(mapUniqueKey: string): void;
+    addEvent(mapUniqueKey: string): void;
+    removeEvent(mapUniqueKey: string, index: number): void;
+    updateEventTriggerCondition(mapUniqueKey: string, dataIndex: number, typeIndex: string): void;
+    updateEventAction(mapUniqueKey: string, dataIndex: number, eventIndex: string): void;
+    updateEventData(mapUniqueKey: string, field: string, value: any): void;
 }

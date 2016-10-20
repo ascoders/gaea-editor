@@ -8,6 +8,4 @@ export default class EventSystem extends Event {
     onPreviewVersion: string;
     onSwitchVersion: string;
     onPublish: string;
-    editorPanelShadowClose: string;
-    settingShadowClose: string;
 }
