@@ -45,12 +45,21 @@ export default class TreeElement extends React.Component <typings.PropsDefine, t
      * 渲染 treeNode 的 title
      */
     @autoBindMethod treeNameRender() {
+        // 如果有事件，显示出标识
+        let eventTag: React.ReactElement<any>
+        if (this.componentInfo.props.gaeaEventData.length > 0) {
+            eventTag = (
+                <i className="event-container fa fa-bolt"/>
+            )
+        }
+
         // 如果 uniqueKey 中有 gaea, 说明是内置组件, 用背景加深方式展现
         if (this.componentInfo.props.gaeaUniqueKey.indexOf('gaea') > -1) {
             return (
                 <div className="flex">
                     <i className={`fa fa-${this.componentInfo.props.gaeaIcon} icons gaea`}/>
                     <span className="text">{this.componentInfo.props.gaeaName}</span>
+                    {eventTag}
                 </div>
             )
         } else {
@@ -58,6 +67,7 @@ export default class TreeElement extends React.Component <typings.PropsDefine, t
                 <div className="flex">
                     <i className={`fa fa-${this.componentInfo.props.gaeaIcon} icons`}/>
                     <span className="text">{this.componentInfo.props.gaeaName}</span>
+                    {eventTag}
                 </div>
             )
         }

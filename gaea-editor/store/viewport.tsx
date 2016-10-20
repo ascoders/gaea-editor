@@ -40,9 +40,14 @@ export default class Viewport {
     }
 
     /**
-     * 添加一个新实例元素, 不要用 componentsSet
+     * 添加一个新实例元素收敛入口
      */
     setComponents(mapUniqueKey: string, componentInfo: FitGaea.ViewportComponentInfo) {
+        // 如果有 gaeaEvent，则创建 .data 属性
+        if (!componentInfo.props.gaeaEventData) {
+            componentInfo.props.gaeaEventData = observable([])
+        }
+
         this.components.set(mapUniqueKey, componentInfo)
     }
 
@@ -71,9 +76,14 @@ export default class Viewport {
             }
         })
 
+        // 保存事件设置
+        const event = JSON.parse(JSON.stringify(component.props.gaeaEvent))
+
         // 开始重置
         transaction(()=> {
             component.props = extendObservable({}, _.cloneDeep(ComponentClass.defaultProps))
+            // 还原事件，因为重置基础设置，不重置其它属性
+            component.props.gaeaEvent = extendObservable({}, event)
         })
     }
 
@@ -440,7 +450,7 @@ export default class Viewport {
     }
 
     /**
-     * 开始准备记录历史
+     * 开始准备记录历史，如果更新 props 的话
      */
     prepareWriteHistory() {
         let componentInfo = this.components.get(this.currentEditComponentMapUniqueKey)
@@ -1066,6 +1076,126 @@ export default class Viewport {
                 childs: deleteChildsComponents
             }
         })
+    }
+
+    /**********************
+     * 事件系列
+     **********************/
+
+    /**
+     * 新增一个事件
+     */
+    addEvent(mapUniqueKey: string) {
+        const componentInfo = this.components.get(mapUniqueKey)
+
+        // 如果没有事件设定，显然不会添加事件
+        if (!componentInfo.props.gaeaEvent) {
+            return
+        }
+
+        const eventData: FitGaea.EventData = {
+            type: 'init',
+            event: 'none',
+            typeIndex: -1,
+            eventIndex: -1
+        }
+
+        // data 虽然开始定义没有，但在页面新建实例会自动创建，否则就无法绑定。所以此处肯定存在 data
+        componentInfo.props.gaeaEventData.push(eventData)
+    }
+
+    /**
+     * 删除一个事件
+     */
+    removeEvent(mapUniqueKey: string, index: number) {
+        const componentInfo = this.components.get(mapUniqueKey)
+
+        componentInfo.props.gaeaEventData.splice(index, 1)
+    }
+
+    /**
+     * 更新事件触发条件
+     */
+    updateEventTriggerCondition(mapUniqueKey: string, dataIndex: number, typeIndex: string) {
+        const componentInfo = this.components.get(mapUniqueKey)
+
+        if (isNaN(Number(typeIndex))) {
+            transaction(()=> {
+                _.set(componentInfo.props, `gaeaEventData.${dataIndex}.type`, typeIndex)
+                _.set(componentInfo.props, `gaeaEventData.${dataIndex}.typeIndex`, -1)
+            })
+
+            switch (typeIndex) {
+                case 'listen':
+                    componentInfo.props.gaeaEventData[dataIndex].typeData = observable({
+                        listen: ''
+                    })
+                    break
+            }
+            return
+        }
+
+        const eventType = componentInfo.props.gaeaEvent.types[Number(typeIndex)]
+
+        transaction(()=> {
+            _.set(componentInfo.props, `gaeaEventData.${dataIndex}.type`, eventType.type)
+            _.set(componentInfo.props, `gaeaEventData.${dataIndex}.typeIndex`, Number(typeIndex))
+        })
+    }
+
+    /**
+     * 更新事件触发动作
+     */
+    updateEventAction(mapUniqueKey: string, dataIndex: number, eventIndex: string) {
+        const componentInfo = this.components.get(mapUniqueKey)
+
+        if (isNaN(Number(eventIndex))) {
+            transaction(()=> {
+                _.set(componentInfo.props, `gaeaEventData.${dataIndex}.event`, eventIndex)
+                _.set(componentInfo.props, `gaeaEventData.${dataIndex}.eventIndex`, -1)
+            })
+
+            switch (eventIndex) {
+                case 'emit':
+                    componentInfo.props.gaeaEventData[dataIndex].eventData = observable({
+                        emit: ''
+                    })
+                    break
+            }
+            return
+        }
+
+        const eventAction = componentInfo.props.gaeaEvent.events[Number(eventIndex)]
+        transaction(()=> {
+            _.set(componentInfo.props, `gaeaEventData.${dataIndex}.event`, eventAction.event)
+            _.set(componentInfo.props, `gaeaEventData.${dataIndex}.eventIndex`, Number(eventIndex))
+        })
+
+        // 初始化 gaeaEvent.data
+        switch (eventAction.event) {
+            case 'jumpUrl':
+                componentInfo.props.gaeaEventData[dataIndex].eventData = observable({
+                    url: ''
+                })
+                break
+            case 'call':
+                let fields: {
+                    [key: string]: any
+                } = {}
+                eventAction.call.param && eventAction.call.param.forEach(param=> {
+                    fields[param.field] = null as any
+                })
+                componentInfo.props.gaeaEventData[dataIndex].eventData = observable(fields)
+                break
+        }
+    }
+
+    /**
+     * 更新事件数据
+     */
+    updateEventData(mapUniqueKey: string, field: string, value: any) {
+        const componentInfo = this.components.get(mapUniqueKey)
+        _.set(componentInfo.props, field, value)
     }
 }
 

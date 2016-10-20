@@ -220,8 +220,13 @@ export default class Application {
         }
 
         delete planComponentInfo.props.gaeaEdit
-        delete planComponentInfo.props.gaeaEvent
         delete planComponentInfo.props.gaeaIcon
+
+        if (planComponentInfo.props.gaeaEvent){
+            // 要留下事件数据活口
+            delete planComponentInfo.props.gaeaEvent.events
+            delete planComponentInfo.props.gaeaEvent.types
+        }
 
         return JSON.parse(JSON.stringify(planComponentInfo))
     }
