@@ -16,14 +16,15 @@ export default class Call extends React.Component <typings.PropsDefine, typings.
 
     handleChange(value: string) {
         this.props.viewport.prepareWriteHistory()
-        this.props.viewport.updateEventData(this.props.viewport.currentEditComponentMapUniqueKey, `gaeaEventData.${this.props.index}.eventData.url`, value)
+        const eventData = this.props.isWeb ? 'gaeaEventData' : 'gaeaNativeEventData'
+        this.props.viewport.updateEventData(this.props.viewport.currentEditComponentMapUniqueKey, `${eventData}.${this.props.index}.eventData.url`, value)
         this.props.viewport.writeHistory()
     }
 
     render() {
         this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
 
-        const customData = this.componentInfo.props.gaeaEventData[this.props.index].eventData as FitGaea.EventActionCall
+        const customData = this.props.isWeb ? this.componentInfo.props.gaeaEventData[this.props.index].eventData as FitGaea.EventActionCall : this.componentInfo.props.gaeaNativeEventData[this.props.index].eventData as FitGaea.EventActionCall
 
         return (
             <div></div>

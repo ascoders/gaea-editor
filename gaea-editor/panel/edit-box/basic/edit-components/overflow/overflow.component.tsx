@@ -46,18 +46,28 @@ export default class EditComponentOverflow extends React.Component <typings.Prop
     isStatu(statu: string) {
         const style = this.componentInfo.props.style
 
-        if ((style.overflow === null || style.overflow === 'auto') && (style.overflowX === null || style.overflowX === 'auto') && (style.overflowY === null || style.overflowY === 'auto')) {
+        if (!this.props.application.isReactNative) {
+            if ((style.overflow === null || style.overflow === 'auto') && (style.overflowX === null || style.overflowX === 'auto') && (style.overflowY === null || style.overflowY === 'auto')) {
+                return statu === 'auto'
+            }
+
+            return (style.overflow === statu && style.overflowX === null && style.overflowY === null) || style.overflow === null && style.overflowX === statu && style.overflowY === statu
+        }
+
+        if (style.overflow === null || style.overflow === 'auto') {
             return statu === 'auto'
         }
 
-        return (style.overflow === statu && style.overflowX === null && style.overflowY === null) || style.overflow === null && style.overflowX === statu && style.overflowY === statu
+        return style.overflow === statu
     }
 
     handleUpdateCompressValue(field: string, value: FitGaea.ComponentPropsOptionValue) {
         this.props.viewport.prepareWriteHistory()
         this.props.viewport.updateComponentValueWithNoHistory(field, value)
-        this.props.viewport.updateComponentValueWithNoHistory('style.overflowX', null)
-        this.props.viewport.updateComponentValueWithNoHistory('style.overflowY', null)
+        if (!this.props.application.isReactNative) {
+            this.props.viewport.updateComponentValueWithNoHistory('style.overflowX', null)
+            this.props.viewport.updateComponentValueWithNoHistory('style.overflowY', null)
+        }
         this.props.viewport.writeHistory()
     }
 

@@ -348,6 +348,8 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
             this.selfInstance = ref
         }
 
+        componentProps.gaeaPreview = false
+
         return React.createElement(this.SelfComponent, componentProps, childs)
     }
 }

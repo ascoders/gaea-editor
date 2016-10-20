@@ -19,6 +19,7 @@
 
 .event-editor-container {
     display: flex;
+    flex-direction: column;
 }
 
 .event-label {
@@ -34,8 +35,16 @@
     margin-left: 10px;
 }
 
+.bottom-operate-container {
+    display: flex;
+    justify-content: space-between;
+}
+
 .new-event-button {
 
+}
+
+.expend-button-container {
 }
 
 .close-container {
@@ -48,4 +57,8 @@
     &:hover {
         color: #333;
     }
+}
+
+.text-child {
+    padding: 0 10px !important;
 }

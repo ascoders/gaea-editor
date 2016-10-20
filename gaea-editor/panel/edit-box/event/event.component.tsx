@@ -1,9 +1,11 @@
 import * as React from 'react'
 import * as typings from './event.type'
+import * as _ from 'lodash'
 import {observer, inject} from 'mobx-react'
 
-import {Button} from '../../../../../../web-common/button/index'
+import {Button, ButtonGroup} from '../../../../../../web-common/button/index'
 import {Select} from '../../../../../../web-common/select/index'
+import {Tooltip} from '../../../../../../web-common/tooltip/index'
 
 import JumpUrlEvent from './event-components/jump-url/jump-url.component'
 import CallEvent from './event-components/call/call.component'
@@ -21,15 +23,24 @@ export default class EditBoxEvent extends React.Component <typings.PropsDefine, 
     // 当前编辑的组件
     private componentInfo: FitGaea.ViewportComponentInfo
 
+    componentWillMount() {
+        this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
+        if (JSON.stringify(this.componentInfo.props.gaeaEventData) !== JSON.stringify(this.componentInfo.props.gaeaNativeEventData)) {
+            this.setState({
+                isExpend: true
+            })
+        }
+    }
+
     handleAddEvent() {
         this.props.viewport.prepareWriteHistory()
-        this.props.viewport.addEvent(this.props.viewport.currentEditComponentMapUniqueKey)
+        this.props.viewport.addEvent(this.props.viewport.currentEditComponentMapUniqueKey, this.state.editType === 'web')
         this.props.viewport.writeHistory()
     }
 
     handleRemoveEvent(index: number) {
         this.props.viewport.prepareWriteHistory()
-        this.props.viewport.removeEvent(this.props.viewport.currentEditComponentMapUniqueKey, index)
+        this.props.viewport.removeEvent(this.props.viewport.currentEditComponentMapUniqueKey, index, this.state.editType === 'web')
         this.props.viewport.writeHistory()
     }
 
@@ -38,7 +49,7 @@ export default class EditBoxEvent extends React.Component <typings.PropsDefine, 
      */
     handleChangeEventTriggerCondition(dataIndex: number, typeIndex: string) {
         this.props.viewport.prepareWriteHistory()
-        this.props.viewport.updateEventTriggerCondition(this.props.viewport.currentEditComponentMapUniqueKey, dataIndex, typeIndex)
+        this.props.viewport.updateEventTriggerCondition(this.props.viewport.currentEditComponentMapUniqueKey, dataIndex, typeIndex, this.state.editType === 'web')
         this.props.viewport.writeHistory()
     }
 
@@ -47,17 +58,63 @@ export default class EditBoxEvent extends React.Component <typings.PropsDefine, 
      */
     handleChangeEventAction(dataIndex: number, eventIndex: string) {
         this.props.viewport.prepareWriteHistory()
-        this.props.viewport.updateEventAction(this.props.viewport.currentEditComponentMapUniqueKey, dataIndex, eventIndex)
+        this.props.viewport.updateEventAction(this.props.viewport.currentEditComponentMapUniqueKey, dataIndex, eventIndex, this.state.editType === 'web')
         this.props.viewport.writeHistory()
     }
 
-    render() {
-        this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
+    handleExpand() {
+        this.setState({
+            isExpend: true
+        })
+        // 同时复制一份配置给 native
+        this.props.viewport.prepareWriteHistory()
+        this.props.viewport.copyEventToNative(this.props.viewport.currentEditComponentMapUniqueKey)
+        this.props.viewport.writeHistory()
+    }
 
-        if (!this.componentInfo.props.gaeaEvent) {
-            return null
+    handleCompress() {
+        this.setState({
+            isExpend: false,
+            editType: 'web'
+        })
+        // 删除 native 的事件配置
+        this.props.viewport.prepareWriteHistory()
+        this.props.viewport.removeNativeEvent(this.props.viewport.currentEditComponentMapUniqueKey)
+        this.props.viewport.writeHistory()
+    }
+
+    changeEditType(type: string) {
+        this.setState({
+            editType: type
+        })
+    }
+
+    /**
+     * 判断是否能展开
+     */
+    canExpend() {
+        if (!this.state.isExpend) {
+            return true
+        } else {
+            return false
         }
+    }
 
+    /**
+     * 判断是否能收起
+     */
+    canCompress() {
+        if (this.state.isExpend) {
+            return JSON.stringify(this.componentInfo.props.gaeaEventData) === JSON.stringify(this.componentInfo.props.gaeaNativeEventData)
+        } else {
+            return false
+        }
+    }
+
+    /**
+     * 生成事件配置结构
+     */
+    renderEventEditor(eventData: Array<FitGaea.EventData>) {
         const typeOptions = this.componentInfo.props.gaeaEvent.types.map((type, index)=> {
             return {
                 key: index.toString(),
@@ -92,13 +149,13 @@ export default class EditBoxEvent extends React.Component <typings.PropsDefine, 
             value: '无'
         })
 
-        // 循环出事件列表
-        const Events = this.componentInfo.props.gaeaEventData.map((data, index)=> {
+        return eventData.map((data, index)=> {
             let TypeEditor: React.ReactElement<any>
             switch (data.type) {
                 case 'listen':
                     TypeEditor = (
-                        <EventType index={index}/>
+                        <EventType index={index}
+                                   isWeb={this.state.editType==='web'}/>
                     )
                     break
             }
@@ -107,17 +164,20 @@ export default class EditBoxEvent extends React.Component <typings.PropsDefine, 
             switch (data.event) {
                 case 'jumpUrl':
                     ActionEditor = (
-                        <JumpUrlEvent index={index}/>
+                        <JumpUrlEvent index={index}
+                                      isWeb={this.state.editType==='web'}/>
                     )
                     break
                 case 'call':
                     ActionEditor = (
-                        <CallEvent index={index}/>
+                        <CallEvent index={index}
+                                   isWeb={this.state.editType==='web'}/>
                     )
                     break
                 case 'emit':
                     ActionEditor = (
-                        <EventEvent index={index}/>
+                        <EventEvent index={index}
+                                    isWeb={this.state.editType==='web'}/>
                     )
                     break
             }
@@ -151,17 +211,60 @@ export default class EditBoxEvent extends React.Component <typings.PropsDefine, 
                 </div>
             )
         })
+    }
+
+    render() {
+        this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
+
+        if (!this.componentInfo.props.gaeaEvent) {
+            return null
+        }
+
+        const Events = this.state.editType === 'web' ? this.renderEventEditor(this.componentInfo.props.gaeaEventData) : this.renderEventEditor(this.componentInfo.props.gaeaNativeEventData)
+
+        const notEmpty = this.state.editType === 'web' ? this.componentInfo.props.gaeaEventData.length > 0 : this.componentInfo.props.gaeaNativeEventData.length > 0
 
         return (
             <div className="_namespace">
-                {this.componentInfo.props.gaeaEventData.length > 0 &&
+                {notEmpty &&
                 <div className="event-container">
                     {Events}
                 </div>
                 }
 
-                <Button className="new-event-button"
-                        onClick={this.handleAddEvent.bind(this)}>新建事件</Button>
+                <div className="bottom-operate-container">
+                    <Button className="new-event-button"
+                            onClick={this.handleAddEvent.bind(this)}>新建事件</Button>
+
+                    {this.props.application.isReactNative &&
+                    <div className="expend-button-container">
+                        {this.canExpend() &&
+                        <Tooltip title="分别配置 web 与 native 的事件">
+                            <Button onClick={this.handleExpand.bind(this)}><i className="fa fa-expand"/></Button>
+                        </Tooltip>
+                        }
+
+                        {this.state.isExpend &&
+                        <ButtonGroup>
+                            {this.canCompress() &&
+                            <Tooltip title="统一编辑事件">
+                                <Button onClick={this.handleCompress.bind(this)}><i className="fa fa-compress"/></Button>
+                            </Tooltip>
+                            }
+                            <Tooltip title="只在web生效的事件">
+                                <Button active={this.state.editType==='web'}
+                                        onClick={this.changeEditType.bind(this, 'web')}>web</Button>
+                            </Tooltip>
+                            <Tooltip title="只在native生效的事件">
+                                <Button active={this.state.editType==='native'}
+                                        onClick={this.changeEditType.bind(this, 'native')}>native</Button>
+                            </Tooltip>
+                        </ButtonGroup>
+                        }
+
+                    </div>
+                    }
+                </div>
             </div>
         )
     }

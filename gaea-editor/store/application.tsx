@@ -221,11 +221,14 @@ export default class Application {
 
         delete planComponentInfo.props.gaeaEdit
         delete planComponentInfo.props.gaeaIcon
+        delete planComponentInfo.props.gaeaEvent
 
-        if (planComponentInfo.props.gaeaEvent){
-            // 要留下事件数据活口
-            delete planComponentInfo.props.gaeaEvent.events
-            delete planComponentInfo.props.gaeaEvent.types
+        if (planComponentInfo.props.gaeaEventData.length === 0) {
+            delete planComponentInfo.props.gaeaEventData
+        }
+
+        if (planComponentInfo.props.gaeaNativeEventData.length === 0) {
+            delete planComponentInfo.props.gaeaNativeEventData
         }
 
         return JSON.parse(JSON.stringify(planComponentInfo))

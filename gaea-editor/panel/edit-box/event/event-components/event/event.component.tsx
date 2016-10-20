@@ -16,14 +16,15 @@ export default class Event extends React.Component <typings.PropsDefine, typings
 
     handleChange(value: string) {
         this.props.viewport.prepareWriteHistory()
-        this.props.viewport.updateEventData(this.props.viewport.currentEditComponentMapUniqueKey, `gaeaEventData.${this.props.index}.eventData.emit`, value)
+        const eventData = this.props.isWeb ? 'gaeaEventData' : 'gaeaNativeEventData'
+        this.props.viewport.updateEventData(this.props.viewport.currentEditComponentMapUniqueKey, `${eventData}.${this.props.index}.eventData.emit`, value)
         this.props.viewport.writeHistory()
     }
 
     render() {
         this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
 
-        const customData = this.componentInfo.props.gaeaEventData[this.props.index].eventData as FitGaea.EventActionEvent
+        const customData = this.props.isWeb ? this.componentInfo.props.gaeaEventData[this.props.index].eventData as FitGaea.EventActionEvent : this.componentInfo.props.gaeaNativeEventData[this.props.index].eventData as FitGaea.EventActionEvent
 
         return (
             <AutoComplete value={customData.emit||''}

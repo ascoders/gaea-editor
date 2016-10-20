@@ -15,6 +15,7 @@ export default class EditComponentSwitch extends React.Component <typings.PropsD
 
     render() {
         this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
+
         const switchOpts = {
             disabled: !this.props.editOption.editable,
             checked: Boolean(this.props.viewport.getPropsByFieldWithEditor(this.componentInfo.props, this.props.editOption)),

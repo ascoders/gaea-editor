@@ -8,6 +8,11 @@ export interface PropsDefine {
      * 第几个事件
      */
     index?: number
+
+    /**
+     * 是否是 web
+     */
+    isWeb?: boolean
 }
 
 export class Props implements PropsDefine {
