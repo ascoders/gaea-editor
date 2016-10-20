@@ -1,0 +1,10 @@
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-background .row-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-background .icon-content {
+  margin-right: 5px; }

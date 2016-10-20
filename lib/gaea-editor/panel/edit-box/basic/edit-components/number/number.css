@@ -1,0 +1,11 @@
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-number {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-number .range {
+  width: 70px; }

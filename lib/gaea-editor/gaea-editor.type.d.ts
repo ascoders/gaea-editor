@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TransparentlyPropsPropsDefine } from '../../../common/transparently-props/index';
+import { TransparentlyPropsPropsDefine } from  'nt-transparently-props';
 export interface PropsDefine extends TransparentlyPropsPropsDefine {
     title?: string;
     height?: number;
