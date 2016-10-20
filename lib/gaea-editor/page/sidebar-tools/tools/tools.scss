@@ -1,0 +1,11 @@
+& {
+    height: 0;
+    flex-grow: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+// reset tabs
+.content-container {
+    overflow-y: auto;
+}

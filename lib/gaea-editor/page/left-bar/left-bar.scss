@@ -1,0 +1,16 @@
+& {
+    display: flex;
+    height: 100%;
+    flex-grow: 1;
+    border-right: 1px solid #eee;
+    &.extend-container {
+        transform: translate3d(-202px, 0, 0);
+        transition: all .2s;
+        z-index: 10;
+        background-color: white;
+        &.show {
+            margin-right: 0;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+}

@@ -1,0 +1,38 @@
+& {
+    &.selected {
+        outline: 2px solid #CCC;
+        z-index: 9;
+    }
+    &.gaea-layout-active {
+        .gaea-layout {
+            position: relative;
+            min-width: 40px !important;
+            min-height: 30px !important;
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border: 2px dotted #ddd;
+                z-index: 1;
+                pointer-events: none;
+            }
+        }
+    }
+    &.gaea-selected {
+        position: relative;
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid rgba(28, 154, 160, 0.5);
+            z-index: 1;
+            pointer-events: none;
+        }
+    }
+}
