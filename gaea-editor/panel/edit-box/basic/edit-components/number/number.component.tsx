@@ -32,12 +32,12 @@ export default class EditComponentNumber extends React.Component <typings.PropsD
         let outputValue = parseFloat(value)
 
         // 如果有输入输出转换，进行变换
-        if (this.props.editOption.number.inputRange && this.props.editOption.number.outputRange) {
+        if (this.props.editOption.number && this.props.editOption.number.inputRange && this.props.editOption.number.outputRange) {
             outputValue = parseInputToOutRange(outputValue, this.props.editOption.number.inputRange, this.props.editOption.number.outputRange)
         }
 
         // 如果有后缀，加上后缀
-        if (unit !== '') {
+        if (unit) {
             this.props.viewport.updateComponentOptionsValue(this.props.editOption, outputValue.toString() + unit)
         } else {
             this.props.viewport.updateComponentOptionsValue(this.props.editOption, outputValue)
@@ -52,12 +52,13 @@ export default class EditComponentNumber extends React.Component <typings.PropsD
         this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
 
         let inputValue = this.props.viewport.getPropsByFieldWithEditor(this.componentInfo.props, this.props.editOption)
+
         // 如果不为空，进行输入转换
-        if (inputValue !== '') {
+        if (inputValue !== '' && this.props.editOption.number && this.props.editOption.number.outputRange) {
             inputValue = parseInputToOutRange(parseFloat(inputValue), this.props.editOption.number.outputRange, this.props.editOption.number.inputRange).toString()
         }
 
-        const disabled = !this.props.editOption.editable
+        const disabled = this.props.editOption.editable === false
 
         const textOpts = {
             label: '',
@@ -71,7 +72,8 @@ export default class EditComponentNumber extends React.Component <typings.PropsD
             }
         }
 
-        if (this.props.editOption.number.slider) {
+        console.log('inputValue',inputValue)
+        if (this.props.editOption.number && this.props.editOption.number.slider) {
             return (
                 <div className="_namespace">
                     <input className="range"

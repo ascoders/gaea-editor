@@ -76,13 +76,13 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         this.setLayoutActive()
 
         // 如果自己是布局元素, 给子元素绑定 sortable
-        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout') {
+        if (this.componentInfo.props.canDragIn) {
             // 添加可排序拖拽
             this.sortable = Sortable.create(this.selfDomInstance, {
                 animation: 150,
                 // 放在一个组里,可以跨组拖拽
                 group: {
-                    name: 'gaea-layout',
+                    name: 'gaea-can-drag-in',
                     pull: true,
                     put: true
                 },
@@ -219,7 +219,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
 
     componentWillUnmount() {
         // 如果是布局组件, 就销毁 sortable
-        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout') {
+        if (this.componentInfo.props.canDragIn) {
             // TODO 这里会报错
             // this.sortable.destory()
         }
@@ -233,7 +233,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
      * 给最外层加上 class 让子元素是否显示边框
      */
     setLayoutActive() {
-        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey === null) {
+        if (this.componentInfo.props.canDragIn && this.componentInfo.parentMapUniqueKey === null) {
             if (this.props.viewport.showLayoutBorder) {
                 if (!hasClass(this.selfDomInstance, 'gaea-layout-active')) {
                     this.selfDomInstance.className += ' gaea-layout-active'
@@ -248,7 +248,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
      * 根据元素容器大小, 设置拖拽时的 class
      */
     @autoBindMethod setDraggingClass() {
-        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey !== null) {
+        if (this.componentInfo.props.canDragIn && this.componentInfo.parentMapUniqueKey !== null) {
             if (!hasClass(this.selfDomInstance, 'gaea-layout')) {
                 this.selfDomInstance.className += ' gaea-layout'
             }
@@ -326,13 +326,13 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         let childs: Array<React.ReactElement<any>> = null
 
         // 如果是最外层布局元素, 绑定上 isMovingComponent
-        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey === null) {
+        if (this.componentInfo.props.canDragIn && this.componentInfo.parentMapUniqueKey === null) {
             // TODO: 强绑 mobx
             const showLayoutBorder = this.props.viewport.showLayoutBorder
         }
 
         // 布局元素可以有子元素
-        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.layoutChilds) {
+        if (this.componentInfo.props.canDragIn && this.componentInfo.layoutChilds) {
             childs = this.componentInfo.layoutChilds.map(layoutChildUniqueMapKey=> {
                 return (
                     <EditHelper.ObserveEditHelper key={layoutChildUniqueMapKey}

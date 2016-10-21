@@ -43,7 +43,7 @@ export default class Components extends React.Component <typings.PropsDefine, ty
             animation: 150,
             // 放在一个组里,可以跨组拖拽
             group: {
-                name: 'gaea-layout',
+                name: 'gaea-can-drag-in',
                 pull: 'clone',
                 put: false
             },

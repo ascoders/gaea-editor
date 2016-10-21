@@ -180,7 +180,7 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
 
         // 成组按钮,有 childs 的 layout 元素且非根节点才有
         let GroupButton: React.ReactElement<any> = null
-        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.parentMapUniqueKey !== null) {
+        if (this.componentInfo.props.canDragIn && this.componentInfo.parentMapUniqueKey !== null) {
             GroupButton = (
                 <SetGroupButton/>
             )

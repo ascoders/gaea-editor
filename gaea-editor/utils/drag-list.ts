@@ -11,7 +11,7 @@ export default class DragList {
             animation: 150,
             // 放在一个组里,可以跨组拖拽
             group: {
-                name: 'gaea-layout',
+                name: 'gaea-can-drag-in',
                 pull: 'clone',
                 put: false
             },

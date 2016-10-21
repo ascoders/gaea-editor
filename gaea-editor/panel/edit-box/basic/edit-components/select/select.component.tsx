@@ -16,7 +16,7 @@ export default class EditComponentSelect extends React.Component <typings.PropsD
         this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
         const selectorOpts = {
             label: '',
-            disabled: !this.props.editOption.editable,
+            disabled: this.props.editOption.editable === false,
             defaultValue: this.props.viewport.getPropsByFieldWithEditor(this.componentInfo.props, this.props.editOption) as string,
             options: this.props.editOption.selector,
             onChange: (value: string)=> {

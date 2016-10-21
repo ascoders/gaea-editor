@@ -147,8 +147,7 @@ export default class TreeElement extends React.Component <typings.PropsDefine, t
         // 子元素
         let childs: Array<React.ReactElement<any>> = null
 
-        // gaea-layout 可以有子元素
-        if (this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' && this.componentInfo.layoutChilds) {
+        if (this.componentInfo.props.canDragIn && this.componentInfo.layoutChilds) {
             childs = this.componentInfo.layoutChilds.map(layoutChildUniqueMapKey=> {
                 return (
                     <TreeElement.ObserveTreeElement key={layoutChildUniqueMapKey}
@@ -172,7 +171,7 @@ export default class TreeElement extends React.Component <typings.PropsDefine, t
                 'selected': this.state.selected
             }),
             // 父级是布局组件才有
-            onMouseLeave: this.componentInfo.props.gaeaUniqueKey === 'gaea-layout' ? this.handleMouseLeave : null,
+            onMouseLeave: this.componentInfo.props.canDragIn ? this.handleMouseLeave : null,
             // 主动绑定用到的数据
             name: this.componentInfo.props.name,
             icon: this.componentInfo.props.icon

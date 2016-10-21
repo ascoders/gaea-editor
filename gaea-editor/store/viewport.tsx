@@ -595,7 +595,7 @@ export default class Viewport {
             parentMapUniqueKey: parentMapUniqueKey
         }
 
-        if (uniqueId === 'gaea-layout') {
+        if (ComponentClass.defaultProps.canDragIn) {
             // 如果是个布局元素, 将其 layoutChilds 设置为数组
             component.layoutChilds = []
         }
@@ -633,11 +633,10 @@ export default class Viewport {
                 parentMapUniqueKey: expendComponentInfo.parentMapUniqueKey
             }
 
-            if (expendComponentInfo.props.gaeaUniqueKey === 'gaea-layout') {
+            if (expendComponentInfo.props.canDragIn) {
                 // 如果是个布局元素, 将其 layoutChilds 设置为数组
                 component.layoutChilds = expendComponentInfo.layoutChilds || []
             }
-
             this.setComponents(childMapUniqueKey, component)
         })
 
@@ -649,7 +648,7 @@ export default class Viewport {
             parentMapUniqueKey: expendRootComponentInfo.parentMapUniqueKey
         }
 
-        if (expendRootComponentInfo.props.gaeaUniqueKey === 'gaea-layout') {
+        if (expendRootComponentInfo.props.canDragIn) {
             // 如果是个布局元素, 将其 layoutChilds 设置为数组
             rootComponent.layoutChilds = expendRootComponentInfo.layoutChilds || []
         }
@@ -707,7 +706,7 @@ export default class Viewport {
 
         // 删除子元素
         const component = this.components.get(mapUniqueKey)
-        if (component.props.gaeaUniqueKey === 'gaea-layout') {
+        if (component.props.canDragIn) {
             JSON.parse(JSON.stringify(component.layoutChilds)).forEach((componentMapUniqueKey: string)=> {
                 // 记录这个组件的信息
                 deleteChildComponents[componentMapUniqueKey] = JSON.parse(JSON.stringify(this.components.get(componentMapUniqueKey)))
@@ -883,11 +882,10 @@ export default class Viewport {
         // [oldMapUniqueKey => newMapUniqueKey]
         const uniqueKeyMap = new Map()
         uniqueKeyMap.set(originComponent.mapUniqueKey, this.createUniqueId())
-        if (originComponent.componentInfo.props.gaeaUniqueKey === 'gaea-layout') {
-            Object.keys(originComponent.childs).forEach(childMapUniqueKey=> {
-                uniqueKeyMap.set(childMapUniqueKey, this.createUniqueId())
-            })
-        }
+
+        originComponent.childs && Object.keys(originComponent.childs).forEach(childMapUniqueKey=> {
+            uniqueKeyMap.set(childMapUniqueKey, this.createUniqueId())
+        })
 
         // 更新 childs 的 mapUniqueKey
         let childs: {
@@ -939,7 +937,7 @@ export default class Viewport {
         const parentComponent = this.components.get(parentMapUniqueKey)
 
         // 必须是布局组件
-        if (parentComponent.props.gaeaUniqueKey !== 'gaea-layout') {
+        if (!parentComponent.props.canDragIn) {
             return false
         }
 
@@ -981,7 +979,7 @@ export default class Viewport {
         const mapChilds = (component: FitGaea.ViewportComponentInfo, childs: {
             [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
         })=> {
-            if (component.props.gaeaUniqueKey === 'gaea-layout' && component.layoutChilds) {
+            if (component.props.canDragIn && component.layoutChilds) {
                 JSON.parse(JSON.stringify(component.layoutChilds)).forEach((componentMapUniqueKey: string)=> {
                     const childInfo = this.components.get(componentMapUniqueKey)
                     childs[componentMapUniqueKey] = JSON.parse(JSON.stringify(childInfo))
