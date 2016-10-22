@@ -72,7 +72,6 @@ export default class EditComponentNumber extends React.Component <typings.PropsD
             }
         }
 
-        console.log('inputValue',inputValue)
         if (this.props.editOption.number && this.props.editOption.number.slider) {
             return (
                 <div className="_namespace">

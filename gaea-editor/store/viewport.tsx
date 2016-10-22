@@ -525,7 +525,9 @@ export default class Viewport {
      * 根据字符串或者数组，设置对象的值
      */
     setPropsByField(props: FitGaea.ComponentProps, field: string, value: FitGaea.ComponentPropsOptionValue) {
+        console.log(field, value)
         _.set(props, field, value)
+        console.log(_.get(props, field))
     }
 
     /**
