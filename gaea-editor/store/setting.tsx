@@ -25,6 +25,11 @@ export class SettingStore {
      * 编辑区域宽度百分比 1~100
      */
     @observable viewportWidth = 100
+
+    /**
+     * 网页适配 pc 还是 mobile
+     */
+    fitInWeb = 'mobile'
 }
 
 export default class Setting {
@@ -59,5 +64,9 @@ export default class Setting {
 
     @action('设置视图区域宽度') setViewportWidth(width: number) {
         this.data.viewportWidth = width
+    }
+
+    @action('修改网页适配') changeFitInWeb(type: string) {
+        this.data.fitInWeb = type
     }
 }

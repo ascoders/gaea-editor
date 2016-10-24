@@ -4,6 +4,7 @@ import {observer, inject} from 'mobx-react'
 
 import Modal from '../../../../../../web-common/modal/index'
 import Switch from '../../../../../../web-common/switch/index'
+import {Radio, RadioGroup} from '../../../../../../web-common/radio/index'
 import Color from './utils/color/color.component'
 import {autoBindMethod} from '../../../../../../common/auto-bind/index'
 
@@ -48,6 +49,10 @@ export default class Setting extends React.Component <typings.PropsDefine, typin
 
     }
 
+    @autoBindMethod handleChangeFitInWeb(type: string) {
+        this.props.setting.changeFitInWeb(type)
+    }
+
     render() {
         return (
             <div className="menu-item"
@@ -59,6 +64,17 @@ export default class Setting extends React.Component <typings.PropsDefine, typin
                            show={this.state.show}
                            onOk={this.handleOk.bind(this)}
                            onCancel={this.handleCancel.bind(this)}>
+
+                        <div className="left-right">
+                            <div className="left">网页展示适配</div>
+                            <div className="right">
+                                <RadioGroup value={this.props.setting.data.fitInWeb}
+                                            onChange={this.handleChangeFitInWeb}>
+                                    <Radio value="mobile">移动端</Radio>
+                                    <Radio value="pc">电脑端</Radio>
+                                </RadioGroup>
+                            </div>
+                        </div>
 
                         <div className="left-right">
                             <div className="left">点击移除时会弹出确认框</div>

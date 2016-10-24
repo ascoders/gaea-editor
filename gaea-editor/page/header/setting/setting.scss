@@ -12,13 +12,13 @@
     .left {
         display: flex;
         justify-content: flex-start;
-        flex-grow: 3;
+        flex-grow: 5;
         width: 0;
     }
     .right {
         display: flex;
         justify-content: flex-end;
-        flex-grow: 1;
+        flex-grow: 2;
         width: 0;
     }
 }
