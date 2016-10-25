@@ -7,6 +7,7 @@ import notice from '../../../../../web-common/message/index'
 import Setting from './setting/setting.component'
 import Publish from './publish/publish.component'
 import Helper from './helper/helper.component'
+import Size from './size/size.component'
 
 import * as keymaster from 'keymaster'
 import * as classNames from 'classnames'
@@ -113,6 +114,7 @@ export default class Header extends React.Component <typings.PropsDefine, typing
             return
         }
         this.props.viewport.deleteComponentByMapUniqueKeyWithHistory(this.props.viewport.hoveringComponentMapUniqueKey)
+        this.props.viewport.setHoveringComponentMapUniqueKey(null)
     }
 
     /**
@@ -139,17 +141,6 @@ export default class Header extends React.Component <typings.PropsDefine, typing
         return false
     }
 
-    /**
-     * 修改视图大小
-     */
-    @autoBindMethod handleChangeViewportWidth(width: number) {
-        this.props.setting.setViewportWidth(width)
-    }
-
-    @autoBindMethod handleChangeViewportWidthByRange(event: any) {
-        this.props.setting.setViewportWidth(Number(event.target.value))
-    }
-
     render() {
         const undoClasses = classNames({
             'menu-item': true,
@@ -159,16 +150,6 @@ export default class Header extends React.Component <typings.PropsDefine, typing
         const redoClasses = classNames({
             'menu-item': true,
             'operate-disable': !this.props.viewport.canRedo
-        })
-
-        const mobileClasses = classNames({
-            'menu-item': true,
-            'viewport-size-active': this.props.setting.data.viewportWidth === 40
-        })
-
-        const desktopClasses = classNames({
-            'menu-item': true,
-            'viewport-size-active': this.props.setting.data.viewportWidth === 100
         })
 
         return (
@@ -181,24 +162,7 @@ export default class Header extends React.Component <typings.PropsDefine, typing
                 </div>
 
                 <div className="right">
-                    <div className="size-group">
-                        <div className={mobileClasses}
-                             onClick={this.handleChangeViewportWidth.bind(this,40)}><i className="fa fa-mobile"/></div>
-                        <div className={desktopClasses}
-                             onClick={this.handleChangeViewportWidth.bind(this,100)}><i className="fa fa-desktop"/>
-                        </div>
-
-                        <div className="slider-container">
-                            <input onChange={this.handleChangeViewportWidthByRange}
-                                   min="10"
-                                   max="100"
-                                   step="1"
-                                   value={this.props.setting.data.viewportWidth.toString()}
-                                   className="slider"
-                                   type="range"/>
-                        </div>
-                    </div>
-
+                    <Size/>
                     <div className={undoClasses}
                          onClick={this.undo}><i className="fa fa-undo"/></div>
                     <div className={redoClasses}

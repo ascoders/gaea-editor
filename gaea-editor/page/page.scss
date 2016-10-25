@@ -50,10 +50,11 @@
 .viewport-main-content-outer {
     display: flex;
     flex-grow: 1;
+    align-items: center;
+    justify-content: center;
     .viewport-main-content {
         display: flex;
         position: relative;
-        margin: 0 auto;
     }
 }
 

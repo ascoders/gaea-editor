@@ -6,6 +6,7 @@ import * as classNames from 'classnames'
 
 import {TreeNode} from '../../../../../../web-common/tree/index'
 import {autoBindMethod} from '../../../../../../common/auto-bind/index'
+import * as Sortable from 'sortablejs'
 
 import './tree-element.scss'
 
@@ -21,9 +22,12 @@ export default class TreeElement extends React.Component <typings.PropsDefine, t
     private componentInfo: FitGaea.ViewportComponentInfo
 
     // 元素对象
-    private childInstance: React.ReactInstance
+    private selfInstance: React.ReactInstance
     // 元素dom对象
-    private childDomInstance: Element
+    private selfDomInstance: Element
+
+    // sortable 对象, 只有布局组件才有
+    private sortable: any
 
     componentWillMount() {
         // 从 store 找到自己信息
@@ -31,14 +35,153 @@ export default class TreeElement extends React.Component <typings.PropsDefine, t
     }
 
     componentDidMount() {
-        this.childDomInstance = ReactDOM.findDOMNode(this.childInstance)
+        this.selfDomInstance = ReactDOM.findDOMNode(this.selfInstance)
+
+        // 如果自己是布局元素, 给子元素绑定 sortable
+        if (this.componentInfo.props.canDragIn) {
+            // 真实的装 children 的元素
+            const dragChildrenInstance = this.selfDomInstance.querySelector('.children')
+
+            // 添加可排序拖拽
+            this.sortable = Sortable.create(dragChildrenInstance, {
+                animation: 150,
+                // 放在一个组里,可以跨组拖拽
+                group: {
+                    name: 'gaea-can-drag-in-tree',
+                    pull: true,
+                    put: true
+                },
+                onStart: (event: any) => {
+                    this.props.viewport.startDragging(this.componentInfo.layoutChilds[event.oldIndex as number], '', false, dragChildrenInstance, event.oldIndex as number)
+                },
+                onEnd: (event: any) => {
+                    this.props.viewport.endDragging()
+
+                    // 在 viewport 中元素拖拽完毕后, 为了防止 outer-move-box 在原来位置留下残影, 先隐藏掉
+                    this.props.viewport.setLeaveHover()
+                    this.props.viewport.setTreeLeaveHover()
+                },
+                onAdd: (event: any)=> {
+                    // 增加一个元素
+                    const {mapUniqueKey, component} = this.props.viewport.addComponent(this.props.mapUniqueKey, event.newIndex as number)
+
+                    // 取消 srotable 对 dom 的修改
+                    // 删掉 dom 元素, 让 react 去生成 dom
+                    if (this.props.viewport.currentMovingComponent.isNew) {
+                        // 是新拖进来的, 不用管, 因为工具栏会把它收回去
+                        // 为什么不删掉? 因为这个元素不论是不是 clone, 都被移过来了, 不还回去 react 在更新 dom 时会无法找到
+                        // 记录新增历史
+                        if (this.props.viewport.currentMovingComponent.uniqueKey === 'combo') {
+                            // 新增组合
+                            this.props.viewport.saveOperate({
+                                type: 'addCombo',
+                                mapUniqueKey,
+                                addCombo: {
+                                    parentMapUniqueKey: this.props.mapUniqueKey,
+                                    index: event.newIndex as number,
+                                    componentInfo: component
+                                }
+                            })
+                        } else if (this.props.viewport.currentMovingComponent.uniqueKey === 'source') {
+                            // 新增自由模板
+                            this.props.viewport.saveOperate({
+                                type: 'addSource',
+                                mapUniqueKey,
+                                addSource: {
+                                    parentMapUniqueKey: this.props.mapUniqueKey,
+                                    index: event.newIndex as number,
+                                    componentInfo: component
+                                }
+                            })
+                        } else {
+                            // 新增普通组件
+                            this.props.viewport.saveOperate({
+                                type: 'add',
+                                mapUniqueKey,
+                                add: {
+                                    uniqueId: this.props.viewport.currentMovingComponent.uniqueKey,
+                                    parentMapUniqueKey: this.props.mapUniqueKey,
+                                    index: event.newIndex as number
+                                }
+                            })
+                        }
+
+                    } else {
+                        // 如果是从某个元素移过来的（新增的,而不是同一个父级改变排序）
+                        // 把这个元素还给之前拖拽的父级
+                        if (this.props.viewport.dragStartParentElement.childNodes.length === 0) {
+                            // 之前只有一个元素
+                            this.props.viewport.dragStartParentElement.appendChild(event.item)
+                        } else if (this.props.viewport.dragStartParentElement.childNodes.length === this.props.viewport.dragStartIndex) {
+                            // 是上一次位置是最后一个, 而且父元素有多个元素
+                            this.props.viewport.dragStartParentElement.appendChild(event.item)
+                        } else {
+                            // 不是最后一个, 而且有多个元素
+                            // 插入到它下一个元素的前一个
+                            this.props.viewport.dragStartParentElement.insertBefore(event.item, this.props.viewport.dragStartParentElement.childNodes[this.props.viewport.dragStartIndex])
+                        }
+
+                        // 设置新增时拖拽源信息
+                        this.props.viewport.setDragTarget(this.props.mapUniqueKey, event.newIndex as number)
+                    }
+                },
+                onUpdate: (event: any)=> {
+                    // 同一个父级下子元素交换父级
+                    // 取消 srotable 对 dom 的修改, 让元素回到最初的位置即可复原
+                    const oldIndex = event.oldIndex as number
+                    const newIndex = event.newIndex as number
+
+                    if (this.props.viewport.dragStartParentElement.childNodes.length === oldIndex + 1) {
+                        // 是从最后一个元素开始拖拽的
+                        this.props.viewport.dragStartParentElement.appendChild(event.item)
+                    } else {
+                        if (newIndex > oldIndex) {
+                            // 如果移到了后面
+                            this.props.viewport.dragStartParentElement.insertBefore(event.item, this.props.viewport.dragStartParentElement.childNodes[oldIndex])
+                        } else {
+                            // 如果移到了前面
+                            this.props.viewport.dragStartParentElement.insertBefore(event.item, this.props.viewport.dragStartParentElement.childNodes[oldIndex + 1])
+                        }
+                    }
+                    this.props.viewport.sortComponents(this.props.mapUniqueKey, event.oldIndex as number, event.newIndex as number)
+
+                    this.props.viewport.saveOperate({
+                        type: 'exchange',
+                        mapUniqueKey: this.props.mapUniqueKey,
+                        exchange: {
+                            oldIndex,
+                            newIndex
+                        }
+                    })
+                },
+                onRemove: (event: any)=> {
+                    // 减少了一个子元素
+                    this.componentInfo.layoutChilds.splice(event.oldIndex as number, 1)
+
+                    // 新增历史纪录
+                    this.props.viewport.saveOperate({
+                        type: 'move',
+                        // 新增元素父级 key
+                        mapUniqueKey: this.props.mapUniqueKey,
+                        move: {
+                            targetParentMapUniqueKey: this.props.viewport.dragTargetMapUniqueKey,
+                            targetIndex: this.props.viewport.dragTargetIndex,
+                            sourceParentMapUniqueKey: this.props.mapUniqueKey,
+                            sourceIndex: event.oldIndex as number
+                        }
+                    })
+
+                    this.props.viewport.setDragTarget(null, -1)
+                }
+            })
+        }
     }
 
     /**
      * 返回当前 dom 对象
      */
     public getDomInstance() {
-        return this.childDomInstance
+        return this.selfDomInstance
     }
 
     /**
@@ -101,7 +244,7 @@ export default class TreeElement extends React.Component <typings.PropsDefine, t
      * 让树视图高亮框移动到自己身上
      */
     @autoBindMethod outerMoveBoxToSelf() {
-        this.props.viewport.setHoverTreeComponent(this.childDomInstance)
+        this.props.viewport.setHoverTreeComponent(this.selfDomInstance)
     }
 
     /**
@@ -164,7 +307,7 @@ export default class TreeElement extends React.Component <typings.PropsDefine, t
             onMouseOver: this.handleMouseOver,
             onClick: this.handleClick,
             ref: (ref: React.ReactInstance)=> {
-                this.childInstance = ref
+                this.selfInstance = ref
             },
             className: classNames({
                 '_namespace': true,

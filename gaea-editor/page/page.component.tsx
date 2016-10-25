@@ -123,6 +123,16 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
             'transparent-image': this.props.setting.data.backgroundColor === 'transparent'
         })
 
+        let viewportMainContentStyle: React.CSSProperties = {}
+        if (this.props.setting.data.fitInWeb === 'pc') {
+            viewportMainContentStyle.width = '100%'
+            viewportMainContentStyle.height = '100%'
+        }
+        if (this.props.setting.data.fitInWeb === 'mobile') {
+            viewportMainContentStyle.width = this.props.setting.data.viewportWidth
+            viewportMainContentStyle.height = this.props.setting.data.viewportHeight
+        }
+
         return (
             <div className="_namespace"
                  style={{height:this.props.application.height}}>
@@ -151,7 +161,7 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
 
                             <div className="viewport-main-content-outer">
                                 <div className="viewport-main-content"
-                                     style={{width: `${this.props.setting.data.viewportWidth}%`}}>
+                                     style={viewportMainContentStyle}>
                                     <Viewport/>
                                     <OuterMoveBox/>
 

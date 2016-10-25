@@ -22,14 +22,19 @@ export class SettingStore {
     @observable backgroundColor: string = 'transparent'
 
     /**
-     * 编辑区域宽度百分比 1~100
+     * 编辑区域宽度
      */
     @observable viewportWidth = 100
 
     /**
+     * 编辑区域高度
+     */
+    @observable viewportHeight = 100
+
+    /**
      * 网页适配 pc 还是 mobile
      */
-    fitInWeb = 'mobile'
+    @observable fitInWeb = 'mobile'
 }
 
 export default class Setting {
@@ -62,8 +67,9 @@ export default class Setting {
         }
     }
 
-    @action('设置视图区域宽度') setViewportWidth(width: number) {
+    @action('设置视图区域宽度') setViewportSize(width: number, height: number) {
         this.data.viewportWidth = width
+        this.data.viewportHeight = height
     }
 
     @action('修改网页适配') changeFitInWeb(type: string) {
