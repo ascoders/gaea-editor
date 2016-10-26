@@ -18,6 +18,7 @@ export default class Viewport {
     isMovingComponent: boolean;
     startDragging(childMapUniqueKey: string, uniqueKey: string, isNew: boolean, dragStartParentElement?: Element, dragStartIndex?: number, source?: string): void;
     endDragging(): void;
+    setIsMovingComponent(isMoving: boolean): void;
     showLayoutBorder: boolean;
     setShowLayoutBorder(isShow: boolean): void;
     currentMovingComponent: FitGaea.MovingComponent;
@@ -45,8 +46,8 @@ export default class Viewport {
     findComponentPathFromRoot(mapUniqueKey: string): string[];
     updateComponentOptionsValue(editOptions: FitGaea.ComponentPropsGaeaEdit, value: FitGaea.ComponentPropsOptionValue): void;
     updateComponentValue(field: string, value: FitGaea.ComponentPropsOptionValue): void;
-    prepareWriteHistory(): void;
-    writeHistory(): void;
+    prepareWriteHistory(mapUniqueKey?: string): void;
+    writeHistory(mapUniqueKey?: string): void;
     updateComponentValueWithNoHistory(field: string, value: FitGaea.ComponentPropsOptionValue): void;
     oldProps: FitGaea.ComponentProps;
     updateComponentOptionsValueByOptions(mapUniqueKey: string, editOptions: FitGaea.ComponentPropsGaeaEdit, value: FitGaea.ComponentPropsOptionValue): void;
@@ -100,4 +101,5 @@ export default class Viewport {
     getEventListName: () => string[];
     copyEventToNative(mapUniqueKey: string): void;
     removeNativeEvent(mapUniqueKey: string): void;
+    updateAbsoluteXY(mapUniqueKey: string, x: number, y: number): void;
 }

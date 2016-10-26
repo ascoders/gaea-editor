@@ -10,11 +10,15 @@ export default class EditHelper extends React.Component<typings.PropsDefine, typ
     private selfInstance;
     private selfDomInstance;
     private sortable;
+    private startDrag;
+    private lastClientX;
+    private lastClientY;
     componentWillReact(): void;
     componentWillMount(): void;
     componentDidMount(): void;
     componentWillUpdate(nextProps: typings.PropsDefine, nextState: typings.StateDefine): void;
     componentWillUnmount(): void;
+    setDragableClassIfNeed(): void;
     setLayoutActive(): void;
     setDraggingClass(): void;
     setSelectStyle(nextState: typings.StateDefine): void;
@@ -22,5 +26,8 @@ export default class EditHelper extends React.Component<typings.PropsDefine, typ
     outerMoveBoxToSelf(): void;
     setSelect(selected: boolean): void;
     handleClick(event: MouseEvent): void;
+    handleMouseDown(event: MouseEvent): void;
+    handleMouseMove(event: MouseEvent): void;
+    handleMouseUp(event: MouseEvent): void;
     render(): React.ReactElement<any>;
 }

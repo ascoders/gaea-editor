@@ -13,7 +13,5 @@ export default class Header extends React.Component<typings.PropsDefine, typings
     del(): void;
     copy(): boolean;
     paste(): boolean;
-    handleChangeViewportWidth(width: number): void;
-    handleChangeViewportWidthByRange(event: any): void;
     render(): JSX.Element;
 }

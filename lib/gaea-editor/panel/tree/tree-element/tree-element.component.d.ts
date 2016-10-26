@@ -6,8 +6,9 @@ export default class TreeElement extends React.Component<typings.PropsDefine, ty
     state: typings.StateDefine;
     static ObserveTreeElement: typeof TreeElement;
     private componentInfo;
-    private childInstance;
-    private childDomInstance;
+    private selfInstance;
+    private selfDomInstance;
+    private sortable;
     componentWillMount(): void;
     componentDidMount(): void;
     getDomInstance(): Element;

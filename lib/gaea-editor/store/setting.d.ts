@@ -3,6 +3,8 @@ export declare class SettingStore {
     showLayout: boolean;
     backgroundColor: string;
     viewportWidth: number;
+    viewportHeight: number;
+    fitInWeb: string;
 }
 export default class Setting {
     data: SettingStore;
@@ -11,5 +13,6 @@ export default class Setting {
     setShowLayout(isShow: boolean): void;
     setConfirmWhenRemoveComponent(isConfirm: boolean): void;
     setBackgroundColor(color: string, opacity: number): void;
-    setViewportWidth(width: number): void;
+    setViewportSize(width: number, height: number): void;
+    changeFitInWeb(type: string): void;
 }
