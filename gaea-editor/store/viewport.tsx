@@ -189,6 +189,10 @@ export default class Viewport {
         this.isMovingComponent = false
     }
 
+    @action('设置是否在拖拽中') setIsMovingComponent(isMoving: boolean) {
+        this.isMovingComponent = isMoving
+    }
+
     /**
      * 是否显示布局元素轮廓
      */
@@ -455,8 +459,8 @@ export default class Viewport {
     /**
      * 开始准备记录历史，如果更新 props 的话
      */
-    prepareWriteHistory() {
-        let componentInfo = this.components.get(this.currentEditComponentMapUniqueKey)
+    prepareWriteHistory(mapUniqueKey?: string) {
+        let componentInfo = this.components.get(mapUniqueKey || this.currentEditComponentMapUniqueKey)
         // 存储旧的值
         this.oldProps = JSON.parse(JSON.stringify(componentInfo.props))
     }
@@ -464,14 +468,14 @@ export default class Viewport {
     /**
      * 记录一下历史
      */
-    writeHistory() {
-        let componentInfo = this.components.get(this.currentEditComponentMapUniqueKey)
+    writeHistory(mapUniqueKey?: string) {
+        let componentInfo = this.components.get(mapUniqueKey || this.currentEditComponentMapUniqueKey)
         const newValue = JSON.parse(JSON.stringify(componentInfo.props))
 
         // 保存操作
         this.saveOperate({
             type: 'update',
-            mapUniqueKey: this.currentEditComponentMapUniqueKey,
+            mapUniqueKey: mapUniqueKey || this.currentEditComponentMapUniqueKey,
             update: {
                 oldValue: this.oldProps,
                 newValue
@@ -1236,6 +1240,25 @@ export default class Viewport {
     removeNativeEvent(mapUniqueKey: string) {
         const componentInfo = this.components.get(mapUniqueKey)
         componentInfo.props.gaeaNativeEventData = observable([])
+    }
+
+    /**
+     * 修改某个 absolute 元素的 x y 属性
+     */
+    updateAbsoluteXY(mapUniqueKey: string, x: number, y: number) {
+        const componentInfo = this.components.get(mapUniqueKey)
+
+        if (componentInfo.props.style.left !== null) {
+            componentInfo.props.style.left += x
+        } else {
+            componentInfo.props.style.right += x
+        }
+
+        if (componentInfo.props.style.top !== null) {
+            componentInfo.props.style.top += y
+        } else {
+            componentInfo.props.style.bottom += y
+        }
     }
 }
 

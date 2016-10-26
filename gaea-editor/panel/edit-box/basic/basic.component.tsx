@@ -6,7 +6,6 @@ import * as classNames from 'classnames'
 
 import {autoBindMethod} from '../../../../../../common/auto-bind/index'
 import {Button, ButtonGroup} from '../../../../../../web-common/button/index'
-import {Checkbox} from '../../../../../../web-common/checkbox/index'
 import Input from '../../../../../../web-common/input/index'
 
 import RemoveButton from './remove-button/remove-button.component'
@@ -25,6 +24,7 @@ import BackgroundEditor from './edit-components/background/background.component'
 import FontEditor from './edit-components/font/font.component'
 import BorderEditor from './edit-components/border/border.component'
 import InstanceEditor from './edit-components/instance/instance.component'
+import PositionEditor from './edit-components/position/position.component'
 
 import './basic.scss'
 
@@ -151,6 +151,11 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
                     case 'instance':
                         EditElement = (
                             <InstanceEditor editOption={editOption}/>
+                        )
+                        break
+                    case 'position':
+                        EditElement = (
+                            <PositionEditor editOption={editOption}/>
                         )
                         break
                 }

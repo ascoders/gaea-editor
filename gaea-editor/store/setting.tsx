@@ -34,7 +34,7 @@ export class SettingStore {
     /**
      * 网页适配 pc 还是 mobile
      */
-    @observable fitInWeb = 'mobile'
+    @observable fitInWeb = 'pc'
 }
 
 export default class Setting {

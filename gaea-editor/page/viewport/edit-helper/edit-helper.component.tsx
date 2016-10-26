@@ -51,6 +51,13 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     // sortable 对象, 只有布局组件才有
     private sortable: any
 
+    // 是否开始拖
+    private startDrag = false
+
+    // 上一次拖动的 clientX clientY
+    private lastClientX = null as number
+    private lastClientY = null as number
+
     componentWillReact() {
         this.setLayoutActive()
     }
@@ -69,11 +76,16 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         this.selfDomInstance.addEventListener('mouseover', this.handleMouseOver)
         this.selfDomInstance.addEventListener('click', this.handleClick)
 
+        // this.selfDomInstance.addEventListener('mousedown', this.handleMouseDown)
+        // this.selfDomInstance.addEventListener('mousemove', this.handleMouseMove)
+        // this.selfDomInstance.addEventListener('mouseup', this.handleMouseUp)
+
         // 增加统一 class
         this.selfDomInstance.className += ' _namespace'
 
         this.setDraggingClass()
         this.setLayoutActive()
+        this.setDragableClassIfNeed()
 
         // 如果自己是布局元素, 给子元素绑定 sortable
         if (this.componentInfo.props.canDragIn) {
@@ -86,6 +98,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
                     pull: true,
                     put: true
                 },
+                draggable: '.gaea-draggable',
                 onStart: (event: any) => {
                     this.props.viewport.startDragging(this.componentInfo.layoutChilds[event.oldIndex as number], '', false, this.selfDomInstance, event.oldIndex as number)
                 },
@@ -215,6 +228,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         .StateDefine) {
         this.setDraggingClass()
         this.setSelectStyle(nextState)
+        this.setDragableClassIfNeed()
     }
 
     componentWillUnmount() {
@@ -227,6 +241,18 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         // 移除事件绑定
         this.selfDomInstance.removeEventListener('mouseover', this.handleMouseOver)
         this.selfDomInstance.removeEventListener('click', this.handleClick)
+    }
+
+    /**
+     * 如果是 absolute 布局，加上 absolute class
+     */
+    setDragableClassIfNeed() {
+        // 给绝对定位元素增加 absolute class，避免 sortable 响应
+        if (this.componentInfo.props.style.position !== 'absolute' && !hasClass(this.selfDomInstance, 'gaea-draggable')) {
+            this.selfDomInstance.className += ' gaea-draggable'
+        } else if (this.componentInfo.props.style.position === 'absolute' && hasClass(this.selfDomInstance, 'gaea-draggable')) {
+            removeClass(this.selfDomInstance, 'gaea-draggable')
+        }
     }
 
     /**
@@ -319,6 +345,56 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
             mapUniqueKey: this.props.mapUniqueKey,
             selected: true
         } as FitGaea.ComponentSelectStatusEvent)
+    }
+
+    /**
+     * :TODO 绝对定位移动
+     */
+    @autoBindMethod handleMouseDown(event: MouseEvent) {
+        event.preventDefault()
+
+        if (this.componentInfo.props.style.position === 'gaea-draggable') {
+            return
+        }
+
+        this.startDrag = true
+        this.props.viewport.setIsMovingComponent(true)
+        this.props.viewport.prepareWriteHistory(this.props.mapUniqueKey)
+    }
+
+    @autoBindMethod handleMouseMove(event: MouseEvent) {
+        event.preventDefault()
+
+        if (this.componentInfo.props.style.position === 'gaea-draggable') {
+            return
+        }
+
+        if (!this.startDrag) {
+            return
+        }
+
+        // 拖动的元素一定是 absolute 的，直接修改位置
+        const diffX = this.lastClientX === null ? 0 : event.clientX - this.lastClientX
+        const diffY = this.lastClientY === null ? 0 : event.clientY - this.lastClientY
+
+        this.lastClientX = event.clientX
+        this.lastClientY = event.clientY
+
+        this.props.viewport.updateAbsoluteXY(this.props.mapUniqueKey, diffX, diffY)
+        this.props.viewport.setIsMovingComponent(false)
+    }
+
+    @autoBindMethod handleMouseUp(event: MouseEvent) {
+        event.preventDefault()
+
+        if (this.componentInfo.props.style.position === 'gaea-draggable') {
+            return
+        }
+
+        this.startDrag = false
+        this.lastClientX = null as number
+        this.lastClientY= null as number
+        this.props.viewport.writeHistory(this.props.mapUniqueKey)
     }
 
     render() {
