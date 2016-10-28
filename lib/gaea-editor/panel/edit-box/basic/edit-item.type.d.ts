@@ -9,6 +9,8 @@ export interface PropsDefine {
 export declare class Props implements PropsDefine {
 }
 export interface StateDefine {
+    inVariable?: boolean;
 }
 export declare class State implements StateDefine {
+    inVariable: boolean;
 }

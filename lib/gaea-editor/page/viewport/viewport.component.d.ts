@@ -5,7 +5,6 @@ import EditHelper from './edit-helper/edit-helper.component';
 export default class Viewport extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine;
     state: typings.StateDefine;
-    private handleAnyDomChange;
     componentDidMount(): void;
     componentWillUnmount(): void;
     addListener(): void;
@@ -14,6 +13,7 @@ export default class Viewport extends React.Component<typings.PropsDefine, typin
     handleViewportOrTreeRootComponentMouseLeave(): void;
     handleChangeComponentSelectStatus(listnerContext: any, opts: FitGaea.ComponentSelectStatusEvent): void;
     getRootRef(ref: React.ReactInstance): void;
+    handleAnyDomChange(): void;
     handleMouseLeave(event: React.MouseEvent): void;
     render(): JSX.Element;
 }

@@ -96,10 +96,7 @@
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
-    width: 0;
+    padding-right: 5px;
     font-size: 12px;
     color: #666;
     font-weight: bold; }
@@ -110,6 +107,31 @@
         -ms-flex-positive: 3;
             flex-grow: 3;
     width: 0; }
+  .nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic .edit-line-container .edit-line-variable-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding-right: 5px; }
+    .nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic .edit-line-container .edit-line-variable-container .edit-line-enable-variable {
+      width: 26px;
+      height: 23px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      margin: 1px;
+      border: 1px solid #eee;
+      cursor: pointer;
+      border-radius: 3px; }
+      .nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic .edit-line-container .edit-line-variable-container .edit-line-enable-variable.active {
+        background: whitesmoke; }
+      .nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic .edit-line-container .edit-line-variable-container .edit-line-enable-variable:hover {
+        background: whitesmoke; }
 
 .nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic .lib-pc-input-src-input {
   margin-top: 10px !important; }

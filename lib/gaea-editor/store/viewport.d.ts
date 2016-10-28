@@ -102,4 +102,6 @@ export default class Viewport {
     copyEventToNative(mapUniqueKey: string): void;
     removeNativeEvent(mapUniqueKey: string): void;
     updateAbsoluteXY(mapUniqueKey: string, x: number, y: number): void;
+    addVariable(mapUniqueKey: string, variableInfo: FitGaea.VariableData): void;
+    removeVariable(mapUniqueKey: string, field: string): void;
 }

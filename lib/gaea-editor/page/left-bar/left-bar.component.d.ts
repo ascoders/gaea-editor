@@ -4,7 +4,5 @@ import './left-bar.scss';
 export default class SidebarAddon extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine;
     state: typings.StateDefine;
-    toggleShowLayoutBorder(): void;
-    toggleShowTemplate(): void;
     render(): JSX.Element;
 }

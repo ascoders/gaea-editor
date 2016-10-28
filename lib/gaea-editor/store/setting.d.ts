@@ -5,6 +5,7 @@ export declare class SettingStore {
     viewportWidth: number;
     viewportHeight: number;
     fitInWeb: string;
+    globalParams: Array<FitGaea.GlobalParam>;
 }
 export default class Setting {
     data: SettingStore;
@@ -15,4 +16,6 @@ export default class Setting {
     setBackgroundColor(color: string, opacity: number): void;
     setViewportSize(width: number, height: number): void;
     changeFitInWeb(type: string): void;
+    addGlobalParam(globalParam: FitGaea.GlobalParam): void;
+    removeGlobalParam(index: number): void;
 }

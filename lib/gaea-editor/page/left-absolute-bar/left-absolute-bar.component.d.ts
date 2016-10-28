@@ -5,6 +5,6 @@ export default class LeftAbsoluteBar extends React.Component<typings.PropsDefine
     static defaultProps: typings.PropsDefine;
     state: typings.StateDefine;
     toggleShowLayoutBorder(): void;
-    toggleShowTemplate(): void;
+    toggleShowTemplate(leftBarName: string): void;
     render(): JSX.Element;
 }
