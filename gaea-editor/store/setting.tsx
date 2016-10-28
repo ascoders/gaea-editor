@@ -35,6 +35,11 @@ export class SettingStore {
      * 网页适配 pc 还是 mobile
      */
     @observable fitInWeb = 'pc'
+
+    /**
+     * 用户自己配置的全局变量
+     */
+    @observable globalParams: Array<FitGaea.GlobalParam> = []
 }
 
 export default class Setting {
@@ -74,5 +79,13 @@ export default class Setting {
 
     @action('修改网页适配') changeFitInWeb(type: string) {
         this.data.fitInWeb = type
+    }
+
+    @action('增加全局变量配置') addGlobalParam(globalParam: FitGaea.GlobalParam) {
+        this.data.globalParams.push(globalParam)
+    }
+
+    @action('删除全局变量配置') removeGlobalParam(index: number) {
+        this.data.globalParams.splice(index, 1)
     }
 }

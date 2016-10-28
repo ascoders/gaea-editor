@@ -231,6 +231,10 @@ export default class Application {
             delete planComponentInfo.props.gaeaNativeEventData
         }
 
+        if (planComponentInfo.props.gaeaVariables.length === 0) {
+            delete planComponentInfo.props.gaeaVariables
+        }
+
         return JSON.parse(JSON.stringify(planComponentInfo))
     }
 

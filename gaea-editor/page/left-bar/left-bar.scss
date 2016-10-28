@@ -3,6 +3,7 @@
     height: 100%;
     flex-grow: 1;
     border-right: 1px solid #eee;
+    z-index: 1;
     &.extend-container {
         transform: translate3d(-202px, 0, 0);
         transition: all .2s;

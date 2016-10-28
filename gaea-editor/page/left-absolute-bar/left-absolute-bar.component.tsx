@@ -16,9 +16,9 @@ export default class LeftAbsoluteBar extends React.Component <typings.PropsDefin
         this.props.viewport.setShowLayoutBorder(!this.props.viewport.showLayoutBorder)
     }
 
-    toggleShowTemplate() {
+    toggleShowTemplate(leftBarName: string) {
         if (!this.props.viewport.isShowLeftBar) {
-            this.props.viewport.showLeftBar('template')
+            this.props.viewport.showLeftBar(leftBarName)
         } else {
             this.props.viewport.hideLeftBar()
         }
@@ -41,8 +41,16 @@ export default class LeftAbsoluteBar extends React.Component <typings.PropsDefin
                     <Tooltip position="right"
                              title="模板列表">
                         <div className={templateClasses}
-                             onClick={this.toggleShowTemplate.bind(this)}>
+                             onClick={this.toggleShowTemplate.bind(this, 'template')}>
                             <i className="fa fa-list-alt"/>
+                        </div>
+                    </Tooltip>
+
+                    <Tooltip position="right"
+                             title="全局传参变量">
+                        <div className={templateClasses}
+                             onClick={this.toggleShowTemplate.bind(this, 'globalParam')}>
+                            <i className="fa fa-globe"/>
                         </div>
                     </Tooltip>
                 </div>

@@ -4,6 +4,7 @@ import {observer, inject} from 'mobx-react'
 import * as classNames from 'classnames'
 
 import Template from './template/template.component'
+import GlobalParam from './global-param/global-param.component'
 
 import './left-bar.scss'
 
@@ -11,18 +12,6 @@ import './left-bar.scss'
 export default class SidebarAddon extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
-
-    toggleShowLayoutBorder() {
-        this.props.viewport.setShowLayoutBorder(!this.props.viewport.showLayoutBorder)
-    }
-
-    toggleShowTemplate() {
-        if (!this.props.viewport.isShowLeftBar) {
-            this.props.viewport.showLeftBar('template')
-        } else {
-            this.props.viewport.hideLeftBar()
-        }
-    }
 
     render() {
         const extendClasses = classNames({
@@ -35,6 +24,9 @@ export default class SidebarAddon extends React.Component <typings.PropsDefine, 
         switch (this.props.viewport.leftBarType) {
             case 'template':
                 templateChildren = <Template/>
+                break
+            case 'globalParam':
+                templateChildren = <GlobalParam/>
                 break
         }
 

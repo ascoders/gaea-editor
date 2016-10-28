@@ -16,19 +16,14 @@ export default class Viewport extends React.Component <typings.PropsDefine, typi
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
-    private handleAnyDomChange = ()=> {
-        // 当 dom 有任何改变，立刻更新外边框位置
-        this.props.viewport.resetComponentOutline()
-    }
-
     componentDidMount() {
         this.addListener()
 
-        window.addEventListener('resize', this.handleAnyDomChange.bind(this))
+        window.addEventListener('resize', this.handleAnyDomChange)
 
         // Listen to changes on the elements in the page that affect layout
-        const observer = new MutationObserver(this.handleAnyDomChange.bind(this))
-        observer.observe(ReactDOM.findDOMNode(this), {
+        const mObserver = new MutationObserver(this.handleAnyDomChange.bind(this))
+        mObserver.observe(ReactDOM.findDOMNode(this), {
             attributes: true,
             childList: true,
             characterData: true,
@@ -40,6 +35,7 @@ export default class Viewport extends React.Component <typings.PropsDefine, typi
         this.props.application.event.off(this.props.application.event.viewportOrTreeComponentMouseOver, this.handleViewportOrTreeComponentMouseOver)
         this.props.application.event.off(this.props.application.event.viewportOrTreeRootComponentMouseLeave, this.handleViewportOrTreeRootComponentMouseLeave)
         this.props.application.event.off(this.props.application.event.changeComponentSelectStatusEvent, this.handleChangeComponentSelectStatus)
+        window.removeEventListener('resize', this.handleAnyDomChange)
     }
 
     @autoBindMethod addListener() {
@@ -86,6 +82,11 @@ export default class Viewport extends React.Component <typings.PropsDefine, typi
 
     @autoBindMethod getRootRef(ref: React.ReactInstance) {
         this.props.viewport.setViewportDomInstance(ReactDOM.findDOMNode(ref))
+    }
+
+    @autoBindMethod handleAnyDomChange() {
+        // 当 dom 有任何改变，立刻更新外边框位置
+        this.props.viewport.resetComponentOutline()
     }
 
     @autoBindMethod handleMouseLeave(event: React.MouseEvent) {

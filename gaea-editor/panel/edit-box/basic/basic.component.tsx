@@ -1,8 +1,6 @@
 import * as React from 'react'
 import * as typings from './basic.type'
-import {isObservable} from 'mobx'
 import {observer, inject} from 'mobx-react'
-import * as classNames from 'classnames'
 
 import {autoBindMethod} from '../../../../../../common/auto-bind/index'
 import {Button, ButtonGroup} from '../../../../../../web-common/button/index'
@@ -11,20 +9,7 @@ import Input from '../../../../../../web-common/input/index'
 import RemoveButton from './remove-button/remove-button.component'
 import SetGroupButton from './set-group-button/set-group-button.component'
 
-import TextEditor from './edit-components/text/text.component'
-import SelectEditor from './edit-components/select/select.component'
-import SwitchEditor from './edit-components/switch/switch.component'
-import ArrayEditor from './edit-components/array/array.component'
-import MarginPaddingEditor from './edit-components/margin-padding/margin-padding.component'
-import NumberEditor from './edit-components/number/number.component'
-import WidthHeightEditor from './edit-components/width-height/width-height.component'
-import LayoutEditor from './edit-components/layout/layout.component'
-import OverflowEditor from './edit-components/overflow/overflow.component'
-import BackgroundEditor from './edit-components/background/background.component'
-import FontEditor from './edit-components/font/font.component'
-import BorderEditor from './edit-components/border/border.component'
-import InstanceEditor from './edit-components/instance/instance.component'
-import PositionEditor from './edit-components/position/position.component'
+import EditItem from './edit-item.component'
 
 import './basic.scss'
 
@@ -75,103 +60,20 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
         const Editors = this.componentInfo.props.gaeaEdit && this.componentInfo.props.gaeaEdit.map((editOption, index)=> {
                 let key = `${this.props.viewport.currentEditComponentMapUniqueKey}-${editOption.field}-${editOption.editor}`
 
-                let EditElement: React.ReactElement<any> = null
-
                 // 如果是纯字符串，作为标题呈现
                 if (editOption.constructor.name === 'String') {
                     key = `${this.props.viewport.currentEditComponentMapUniqueKey}-${editOption.toString()}`
                     return (
                         <div className="header-title"
-                             style={{marginTop:index===0?0:5}}
-                             key={key}>{editOption.toString()}</div>
+                             key={key}
+                             style={{marginTop:this.props.index===0?0:5}}>{editOption.toString()}</div>
                     )
                 }
 
-                switch (editOption.editor) {
-                    case 'text':
-                        EditElement = (
-                            <TextEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'selector':
-                        EditElement = (
-                            <SelectEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'switch':
-                        EditElement = (
-                            <SwitchEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'array':
-                        EditElement = (
-                            <ArrayEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'marginPadding':
-                        EditElement = (
-                            <MarginPaddingEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'number':
-                        EditElement = (
-                            <NumberEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'widthHeight':
-                        EditElement = (
-                            <WidthHeightEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'layout':
-                        EditElement = (
-                            <LayoutEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'overflow':
-                        EditElement = (
-                            <OverflowEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'background':
-                        EditElement = (
-                            <BackgroundEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'font':
-                        EditElement = (
-                            <FontEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'border':
-                        EditElement = (
-                            <BorderEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'instance':
-                        EditElement = (
-                            <InstanceEditor editOption={editOption}/>
-                        )
-                        break
-                    case 'position':
-                        EditElement = (
-                            <PositionEditor editOption={editOption}/>
-                        )
-                        break
-                }
-
                 return (
-                    <div key={key}
-                         className="edit-line-container">
-                        {editOption.label !== '' &&
-                        <div className="edit-line-label">
-                            {editOption.label}
-                        </div>
-                        }
-                        <div className="edit-line-editor">
-                            {EditElement}
-                        </div>
-                    </div>
+                    <EditItem editOption={editOption}
+                              index={index}
+                              key={key}/>
                 )
             })
 

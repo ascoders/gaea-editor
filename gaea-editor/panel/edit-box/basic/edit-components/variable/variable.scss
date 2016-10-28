@@ -1,0 +1,40 @@
+& {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn.btn-default {
+    height: 26px !important;
+}
+
+.fa-magic {
+    margin-right: 3px;
+}
+
+&.modal {
+    .global-params-item-container {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        &__title {
+
+        }
+        &__right-container {
+            display: flex;
+            flex-grow: 1;
+            width: 0;
+            align-items: center;
+            justify-content: space-between;
+            &__type {
+                font-size: 12px;
+                margin-left: 5px;
+                background-color: whitesmoke;
+                padding: 5px;
+                border-radius: 5px;
+            }
+            &__select-container {
+
+            }
+        }
+    }
+}

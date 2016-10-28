@@ -51,6 +51,16 @@ export default class Viewport {
             componentInfo.props.gaeaNativeEventData = observable([])
         }
 
+        // 创建变量属性
+        if (!componentInfo.props.gaeaVariables) {
+            componentInfo.props.gaeaVariables = observable([])
+        }
+
+        if (componentInfo.parentMapUniqueKey === null) {
+            // 最外层必须相对定位，不能修改
+            componentInfo.props.gaeaEdit = componentInfo.props.gaeaEdit.filter((edit: any)=>edit.editor !== 'position' && edit !== '定位')
+        }
+
         this.components.set(mapUniqueKey, componentInfo)
     }
 
@@ -1258,6 +1268,26 @@ export default class Viewport {
             componentInfo.props.style.top += y
         } else {
             componentInfo.props.style.bottom += y
+        }
+    }
+
+    @action('新增一个变量配置') addVariable(mapUniqueKey: string, variableInfo: FitGaea.VariableData) {
+        const componentInfo = this.components.get(mapUniqueKey)
+
+        // 如果已经设置了这个变量，先删除
+        const existIndex = componentInfo.props.gaeaVariables.findIndex(variable=>variable.field === variableInfo.field)
+        if (existIndex > -1) {
+            componentInfo.props.gaeaVariables.splice(existIndex, 1)
+        }
+
+        componentInfo.props.gaeaVariables.push(variableInfo)
+    }
+
+    @action('删除一个变量配置') removeVariable(mapUniqueKey: string, field: string) {
+        const componentInfo = this.components.get(mapUniqueKey)
+        const existIndex = componentInfo.props.gaeaVariables.findIndex(variable=>variable.field === field)
+        if (existIndex > -1) {
+            componentInfo.props.gaeaVariables.splice(existIndex, 1)
         }
     }
 }

@@ -15,9 +15,12 @@ export class Props implements PropsDefine {
 }
 
 export interface StateDefine {
-
+    /**
+     * 是否在变量模式
+     */
+    inVariable?: boolean
 }
 
 export class State implements StateDefine {
-
+    inVariable = false
 }
