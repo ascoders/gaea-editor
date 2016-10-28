@@ -73,6 +73,8 @@ export default class EditComponentText extends React.Component <typings.PropsDef
                 break
         }
 
+        const isRow = this.componentInfo.props.style.flexDirection === 'row' || this.componentInfo.props.style.flexDirection === 'row-reverse'
+
         // 获取 flex-grow 的输入框格式
         let flexGrowString = ''
         if (this.props.application.isReactNative) {
@@ -81,33 +83,66 @@ export default class EditComponentText extends React.Component <typings.PropsDef
             flexGrowString = this.componentInfo.props.style.flexGrow ? this.componentInfo.props.style.flexGrow.toString() : ''
         }
 
+        const rowStart = !isReverse ? '左' : '右'
+        const columnStart = !isReverse ? '上' : '下'
+        const rowEnd = !isReverse ? '右' : '左'
+        const columnEnd = !isReverse ? '下' : '上'
+        const firstLineDirection = isRow ? '水平' : '竖直'
+        const secondLineDirection = isRow ? '竖直' : '水平'
+
+        const rowFlexStart = `${firstLineDirection}方向靠${isRow ? rowStart : columnStart}`
+        const rowFlexCenter = `${firstLineDirection}方向居中`
+        const rowFlexEnd = `${firstLineDirection}方向靠${isRow ? rowEnd : columnEnd}`
+        const rowFlexSpaceBetween = `${firstLineDirection}方向等间距排列`
+        const rowFlexSpaceAround = `${firstLineDirection}方向等间距排列, 两侧留一半空间`
+
+        const columnFlexStart = `${secondLineDirection}方向靠${isRow ? '上' : '左'}`
+        const columnFlexCenter = `${secondLineDirection}方向居中`
+        const columnFlexEnd = `${secondLineDirection}方向靠${isRow ? '下' : '右'}`
+        const columnFlexStrech = `${secondLineDirection}方向拉伸`
+        const columnFlexBaseline = `${secondLineDirection}方向baseline`
+
         return (
             <div>
                 <div className="layout-top-container"
                      style={{marginTop:5}}>
                     <Tooltip title="Direction:Row">
                         <Button active={this.componentInfo.props.style.flexDirection === 'row' || this.componentInfo.props.style.flexDirection === 'row-reverse'}
-                                onClick={this.handleUpdateValue.bind(this, 'style.flexDirection', 'row')}>R</Button>
+                                onClick={this.handleUpdateValue.bind(this, 'style.flexDirection', 'row')}>
+                            Row
+                        </Button>
                     </Tooltip>
 
                     <ButtonGroup>
-                        <Tooltip title="Justify:Start">
+                        <Tooltip title={rowFlexStart}>
                             <Button active={this.componentInfo.props.style.justifyContent === 'flex-start'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'flex-start')}>S</Button>
+                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'flex-start')}>
+                                <svg className="svg-icon rotate-90">
+                                    <use xlinkHref="#icon-flex-align"/>
+                                </svg>
+                            </Button>
                         </Tooltip>
-                        <Tooltip title="Justify:Center">
+                        <Tooltip title={rowFlexCenter}>
                             <Button active={this.componentInfo.props.style.justifyContent === 'center'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'center')}>C</Button>
+                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'center')}>
+                                <svg className="svg-icon rotate-90">
+                                    <use xlinkHref="#icon-flex-center-vertical"/>
+                                </svg>
+                            </Button>
                         </Tooltip>
-                        <Tooltip title="Justify:End">
+                        <Tooltip title={rowFlexEnd}>
                             <Button active={this.componentInfo.props.style.justifyContent === 'flex-end'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'flex-end')}>E</Button>
+                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'flex-end')}>
+                                <svg className="svg-icon rotate-270">
+                                    <use xlinkHref="#icon-flex-align"/>
+                                </svg>
+                            </Button>
                         </Tooltip>
-                        <Tooltip title="Justify:Between">
+                        <Tooltip title={rowFlexSpaceBetween}>
                             <Button active={this.componentInfo.props.style.justifyContent === 'space-between'}
                                     onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'space-between')}>B</Button>
                         </Tooltip>
-                        <Tooltip title="Justify:Around">
+                        <Tooltip title={rowFlexSpaceAround}>
                             <Button active={this.componentInfo.props.style.justifyContent === 'space-around'}
                                     onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'space-around')}>A</Button>
                         </Tooltip>
@@ -118,27 +153,29 @@ export default class EditComponentText extends React.Component <typings.PropsDef
                      style={{marginTop:5}}>
                     <Tooltip title="Direction:Column">
                         <Button active={this.componentInfo.props.style.flexDirection === 'column' || this.componentInfo.props.style.flexDirection === 'column-reverse'}
-                                onClick={this.handleUpdateValue.bind(this, 'style.flexDirection', 'column')}>C</Button>
+                                onClick={this.handleUpdateValue.bind(this, 'style.flexDirection', 'column')}>
+                            Column
+                        </Button>
                     </Tooltip>
 
                     <ButtonGroup>
-                        <Tooltip title="Align:Start">
+                        <Tooltip title={columnFlexStart}>
                             <Button active={this.componentInfo.props.style.alignItems === 'flex-start'}
                                     onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'flex-start')}>S</Button>
                         </Tooltip>
-                        <Tooltip title="Align:Center">
+                        <Tooltip title={columnFlexCenter}>
                             <Button active={this.componentInfo.props.style.alignItems === 'center'}
                                     onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'center')}>C</Button>
                         </Tooltip>
-                        <Tooltip title="Align:End">
+                        <Tooltip title={columnFlexEnd}>
                             <Button active={this.componentInfo.props.style.alignItems === 'flex-end'}
                                     onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'flex-end')}>E</Button>
                         </Tooltip>
-                        <Tooltip title="Align:Stretch">
+                        <Tooltip title={columnFlexStrech}>
                             <Button active={this.componentInfo.props.style.alignItems === 'stretch'}
                                     onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'stretch')}>B</Button>
                         </Tooltip>
-                        <Tooltip title="Align:Baseline">
+                        <Tooltip title={columnFlexBaseline}>
                             <Button active={this.componentInfo.props.style.alignItems === 'baseline'}
                                     onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'baseline')}>A</Button>
                         </Tooltip>

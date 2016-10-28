@@ -9,6 +9,7 @@ import * as classNames from 'classnames'
 import * as _ from 'lodash'
 import {autoBindMethod} from '../../../../common/auto-bind/index'
 import Preview from '../../../gaea-preview/index'
+import Svg from './svg'
 
 import LeftBar from './left-bar/left-bar.component'
 import SidebarTools from './sidebar-tools/sidebar-tools.component'
@@ -136,6 +137,8 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
         return (
             <div className="_namespace"
                  style={{height:this.props.application.height}}>
+
+                <Svg/>
 
                 <div style={{width:this.props.application.sidebarWidth}}
                      className="sidebar">
