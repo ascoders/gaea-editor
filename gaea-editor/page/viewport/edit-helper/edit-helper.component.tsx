@@ -43,7 +43,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     private componentInfo: FitGaea.ViewportComponentInfo
 
     // 当前元素对象
-    private selfInstance: React.ReactInstance
+    public wrappedInstance: React.ReactInstance
 
     // 当前元素dom对象
     private selfDomInstance: HTMLElement
@@ -71,7 +71,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     }
 
     componentDidMount() {
-        this.selfDomInstance = ReactDOM.findDOMNode(this.selfInstance) as HTMLElement
+        this.selfDomInstance = ReactDOM.findDOMNode(this.wrappedInstance) as HTMLElement
 
         this.selfDomInstance.addEventListener('mouseover', this.handleMouseOver)
         this.selfDomInstance.addEventListener('click', this.handleClick)
@@ -393,7 +393,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
 
         this.startDrag = false
         this.lastClientX = null as number
-        this.lastClientY= null as number
+        this.lastClientY = null as number
         this.props.viewport.writeHistory(this.props.mapUniqueKey)
     }
 
@@ -421,7 +421,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         let componentProps = JSON.parse(JSON.stringify(this.componentInfo.props))
 
         componentProps.ref = (ref: React.ReactInstance)=> {
-            this.selfInstance = ref
+            this.wrappedInstance = ref
         }
 
         componentProps.gaeaPreview = false
