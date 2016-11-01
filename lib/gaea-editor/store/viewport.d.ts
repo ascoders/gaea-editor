@@ -8,6 +8,7 @@ export default class Viewport {
     createRootUniqueId(): string;
     setRootUniqueId(uniqueId: string): void;
     setComponents(mapUniqueKey: string, componentInfo: FitGaea.ViewportComponentInfo): void;
+    completionEditProps(componentProps: FitGaea.ComponentProps): FitGaea.ComponentProps;
     createUniqueId(): string;
     resetComponent(mapUniqueKey: string): void;
     addComponent(parentMapUniqueKey: string, index: number): {
@@ -104,4 +105,14 @@ export default class Viewport {
     updateAbsoluteXY(mapUniqueKey: string, x: number, y: number): void;
     addVariable(mapUniqueKey: string, variableInfo: FitGaea.VariableData): void;
     removeVariable(mapUniqueKey: string, field: string): void;
+    findComponentsByName(name: string): FitGaea.ViewportComponentInfo[];
+    getNamesWithCount(): {
+        name: string;
+        count: number;
+    }[];
+    currentEditPropsIndex?: number;
+    currentEditIsWeb: boolean;
+    currentEditEventIndex: number;
+    temporaryOriginProps?: FitGaea.ComponentProps;
+    setCurrentEditPropsIndex(index: number, eventProps?: FitGaea.ComponentProps, currentEditIsWeb?: boolean, eventIndex?: number): void;
 }

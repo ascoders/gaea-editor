@@ -33,5 +33,7 @@ export default class Application {
     setCurrentVersion(version: string): void;
     publishToVersionList(versionInfo: FitGaea.GetPublishListResult): void;
     cleanComponent(componentInfo: FitGaea.ViewportComponentInfo): any;
+    cleanComponentProps(componentProps: FitGaea.ComponentProps): any;
     expendComponent(componentInfo: FitGaea.ViewportComponentInfo): FitGaea.ViewportComponentInfo;
+    expendComponentProps(componentProps: FitGaea.ComponentProps): FitGaea.ComponentProps;
 }

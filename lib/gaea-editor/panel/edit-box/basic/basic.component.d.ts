@@ -8,5 +8,6 @@ export default class EditBoxBasic extends React.Component<typings.PropsDefine, t
     resetOptions(): void;
     handleChangeName(value: string): void;
     titleInputRightRender(): JSX.Element;
+    handleConfirmEditProps(): void;
     render(): JSX.Element;
 }
