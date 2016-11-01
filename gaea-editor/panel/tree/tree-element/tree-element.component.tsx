@@ -190,7 +190,7 @@ export default class TreeElement extends React.Component <typings.PropsDefine, t
     @autoBindMethod treeNameRender() {
         // 如果有事件，显示出标识
         let eventTag: React.ReactElement<any>
-        if (this.componentInfo.props.gaeaEventData.length > 0) {
+        if (this.componentInfo.props.gaeaEventData.length > 0 || (this.componentInfo.props.gaeaNativeEventData && this.componentInfo.props.gaeaNativeEventData.length)) {
             eventTag = (
                 <i className="event-container fa fa-bolt"/>
             )

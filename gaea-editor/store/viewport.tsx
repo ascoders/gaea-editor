@@ -43,18 +43,7 @@ export default class Viewport {
      * 添加一个新实例元素收敛入口
      */
     setComponents(mapUniqueKey: string, componentInfo: FitGaea.ViewportComponentInfo) {
-        // 如果有 gaeaEvent，则创建 .data 属性
-        if (!componentInfo.props.gaeaEventData) {
-            componentInfo.props.gaeaEventData = observable([])
-        }
-        if (!componentInfo.props.gaeaNativeEventData) {
-            componentInfo.props.gaeaNativeEventData = observable([])
-        }
-
-        // 创建变量属性
-        if (!componentInfo.props.gaeaVariables) {
-            componentInfo.props.gaeaVariables = observable([])
-        }
+        componentInfo.props = this.completionEditProps(componentInfo.props)
 
         if (componentInfo.parentMapUniqueKey === null) {
             // 最外层必须相对定位，不能修改
@@ -62,6 +51,22 @@ export default class Viewport {
         }
 
         this.components.set(mapUniqueKey, componentInfo)
+    }
+
+    /**
+     * 补全编辑状态的配置 会修改原对象
+     */
+    completionEditProps(componentProps: FitGaea.ComponentProps) {
+        if (!componentProps.gaeaEventData) {
+            componentProps.gaeaEventData = observable([])
+        }
+        if (!componentProps.gaeaNativeEventData) {
+            componentProps.gaeaNativeEventData = observable([])
+        }
+        if (!componentProps.gaeaVariables) {
+            componentProps.gaeaVariables = observable([])
+        }
+        return componentProps
     }
 
     /**
@@ -385,8 +390,14 @@ export default class Viewport {
      * 取消编辑当前组件
      */
     cancelEditComponent() {
-        this.currentEditComponentMapUniqueKey = null
         this.hideSidebarAddon()
+        if (this.currentEditPropsIndex !== null && this.currentEditPropsIndex !== undefined) {
+            // 取消 事件-修改编属性
+            this.setCurrentEditPropsIndex(null)
+        }
+
+        // 当前编辑字段清空
+        this.currentEditComponentMapUniqueKey = null
 
         if (this.lastSelectMapUniqueKey !== null) {
             this.application.event.emit(this.application.event.changeComponentSelectStatusEvent, {
@@ -699,6 +710,11 @@ export default class Viewport {
      * 保存操作记录
      */
     @action('保存历史记录') saveOperate(diff: FitGaea.Diff) {
+        // 如果处于编辑状态，不记录历史！
+        if (this.currentEditPropsIndex !== null) {
+            return
+        }
+
         // 如果后面还有操作, 直接清空
         this.operates.splice(this.nowOperateIndex + 1)
 
@@ -1103,11 +1119,6 @@ export default class Viewport {
     addEvent(mapUniqueKey: string, isWeb: boolean) {
         const componentInfo = this.components.get(mapUniqueKey)
 
-        // 如果没有事件设定，显然不会添加事件
-        if (!componentInfo.props.gaeaEvent) {
-            return
-        }
-
         const eventData: FitGaea.EventData = {
             type: 'init',
             event: 'none',
@@ -1289,6 +1300,90 @@ export default class Viewport {
         if (existIndex > -1) {
             componentInfo.props.gaeaVariables.splice(existIndex, 1)
         }
+    }
+
+    /**
+     * 通过 name 查询组件
+     */
+    findComponentsByName(name: string) {
+        const components: Array<FitGaea.ViewportComponentInfo> = []
+        this.components.forEach(component=> {
+            if (component.props.gaeaName === name) {
+                components.push(component)
+            }
+        })
+        return components
+    }
+
+    /**
+     * 查询当前页面所有组件名，以及数量
+     */
+    getNamesWithCount() {
+        const nameMap = new Map<string,number>()
+        this.components.forEach(component=> {
+            if (nameMap.has(component.props.gaeaName)) {
+                nameMap.set(component.props.gaeaName, nameMap.get(component.props.gaeaName) + 1)
+            } else {
+                nameMap.set(component.props.gaeaName, 1)
+            }
+        })
+
+        const nameArray: Array<{
+            name: string
+            count: number
+        }> = []
+        nameMap.forEach((count, name)=> {
+            nameArray.push({count, name})
+        })
+        return nameArray
+    }
+
+    /**
+     * 编辑状态下，当前是否正在修改属性
+     */
+    @observable currentEditPropsIndex?: number = null as number
+
+    /**
+     * 编辑状态下，属于是否属于 web 事件
+     */
+    currentEditIsWeb = false
+    currentEditEventIndex = 0
+
+    temporaryOriginProps?: FitGaea.ComponentProps = null
+
+    setCurrentEditPropsIndex(index: number, eventProps?: FitGaea.ComponentProps, currentEditIsWeb?: boolean, eventIndex?: number) {
+        const componentInfo = this.components.get(this.currentEditComponentMapUniqueKey)
+
+        // 要给组件赋的值
+        let componentProps: FitGaea.ComponentProps = null
+
+        if (index !== null) {
+            this.currentEditIsWeb = currentEditIsWeb
+            this.currentEditEventIndex = eventIndex
+            // 设置了一个新的关键帧
+            // 临时保存编辑组件的 props
+            if (this.currentEditPropsIndex === null) {
+                // 如果当前编辑 props 索引是空才赋值，为了避免在已点击的情况下，又点击了另一个，覆盖了原来属性
+                this.temporaryOriginProps = this.application.cleanComponentProps(componentInfo.props)
+            }
+            // 将事件 props 赋值上
+            componentProps = this.completionEditProps(extendObservable({}, this.application.expendComponentProps(eventProps)) as FitGaea.ComponentProps)
+        } else {
+            // 取消关键帧
+            // 还原组件的 props
+            componentProps = this.completionEditProps(extendObservable({}, this.application.expendComponentProps(this.temporaryOriginProps)) as FitGaea.ComponentProps)
+            this.temporaryOriginProps = null
+        }
+
+        // 覆盖当前编辑的索引
+        this.currentEditPropsIndex = index
+
+        // 只覆盖非 gaea 开头的属性
+        componentProps && Object.keys(componentProps).forEach(key=> {
+            if (!_.startsWith(key, 'gaea')) {
+                componentInfo.props[key] = componentProps[key]
+            }
+        })
     }
 }
 

@@ -10,6 +10,7 @@ import {Tooltip} from '../../../../../../web-common/tooltip/index'
 import JumpUrlEvent from './event-components/jump-url/jump-url.component'
 import CallEvent from './event-components/call/call.component'
 import EventEvent from './event-components/event/event.component'
+import UpdatePropsEvent from './event-components/update-props/update-props.component'
 
 import EventType from './type-components/event/event.component'
 
@@ -115,12 +116,12 @@ export default class EditBoxEvent extends React.Component <typings.PropsDefine, 
      * 生成事件配置结构
      */
     renderEventEditor(eventData: Array<FitGaea.EventData>) {
-        const typeOptions = this.componentInfo.props.gaeaEvent.types.map((type, index)=> {
+        const typeOptions = (this.componentInfo.props.gaeaEvent && this.componentInfo.props.gaeaEvent.types) ? this.componentInfo.props.gaeaEvent.types.map((type, index)=> {
             return {
                 key: index.toString(),
                 value: type.name
             }
-        })
+        }) : []
 
         typeOptions.unshift({
             key: 'listen',
@@ -132,11 +133,16 @@ export default class EditBoxEvent extends React.Component <typings.PropsDefine, 
             value: '初始化'
         })
 
-        const eventOptions = this.componentInfo.props.gaeaEvent.events.map((event, index)=> {
+        const eventOptions = (this.componentInfo.props.gaeaEvent && this.componentInfo.props.gaeaEvent.events) ? this.componentInfo.props.gaeaEvent.events.map((event, index)=> {
             return {
                 key: index.toString(),
                 value: event.name
             }
+        }) : []
+
+        eventOptions.unshift({
+            key: 'updateProps',
+            value: '修改属性'
         })
 
         eventOptions.unshift({
@@ -180,6 +186,12 @@ export default class EditBoxEvent extends React.Component <typings.PropsDefine, 
                                     isWeb={this.state.editType==='web'}/>
                     )
                     break
+                case 'updateProps':
+                    ActionEditor = (
+                        <UpdatePropsEvent index={index}
+                                          isWeb={this.state.editType==='web'}/>
+                    )
+                    break
             }
 
             return (
@@ -215,10 +227,6 @@ export default class EditBoxEvent extends React.Component <typings.PropsDefine, 
 
     render() {
         this.componentInfo = this.props.viewport.components.get(this.props.viewport.currentEditComponentMapUniqueKey)
-
-        if (!this.componentInfo.props.gaeaEvent) {
-            return null
-        }
 
         const Events = this.state.editType === 'web' ? this.renderEventEditor(this.componentInfo.props.gaeaEventData) : this.renderEventEditor(this.componentInfo.props.gaeaNativeEventData)
 

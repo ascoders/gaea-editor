@@ -49,6 +49,18 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
         )
     }
 
+    /**
+     * 确认使用当前状态作为事件要修改的属性
+     */
+    @autoBindMethod handleConfirmEditProps() {
+        const eventData = this.props.viewport.currentEditIsWeb ? 'gaeaEventData' : 'gaeaNativeEventData'
+        // 把当前值赋值
+        const cleanProps = this.props.application.cleanComponentProps(this.componentInfo.props)
+        this.props.viewport.updateComponentValueWithNoHistory(`${eventData}.${this.props.viewport.currentEditEventIndex}.eventData.props`, cleanProps)
+        // 取消修改属性
+        this.props.viewport.setCurrentEditPropsIndex(null)
+    }
+
     render() {
         if (!this.props.viewport.currentEditComponentMapUniqueKey) {
             return null
@@ -95,6 +107,7 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
 
         return (
             <div className="_namespace">
+                {this.props.viewport.currentEditPropsIndex === null &&
                 <div className="basic-title-container">
                     <div className="component-icon-container">
                         <i className={`fa fa-${this.componentInfo.props.gaeaIcon}`}/>
@@ -107,16 +120,28 @@ export default class EditBoxBasic extends React.Component <typings.PropsDefine, 
                            rightRender={this.titleInputRightRender}
                            value={this.componentInfo.props.gaeaName}/>
                 </div>
+                }
+
+                {this.props.viewport.currentEditPropsIndex !== null &&
+                <div className="basic-title-container">
+                    <Button type="primary"
+                            rounded={true}
+                            onClick={this.handleConfirmEditProps.bind(this)}>确认</Button>
+                </div>
+                }
 
                 <div className="edit-item-container">
                     {Editors}
                 </div>
+
+                {this.props.viewport.currentEditPropsIndex === null &&
                 <div className="bottom-addon">
                     <ButtonGroup>
                         {ResetButton}
                         {GroupButton}
                     </ButtonGroup>
                 </div>
+                }
             </div>
         )
     }

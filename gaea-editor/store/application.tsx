@@ -198,44 +198,62 @@ export default class Application {
         // 转成标准格式
         const planComponentInfo: FitGaea.ViewportComponentInfo = JSON.parse(JSON.stringify(componentInfo))
 
-        // 获取这个组件的 defaultProps
-        const defaultProps = _.cloneDeep(this.getComponentByUniqueKey(planComponentInfo.props.gaeaUniqueKey).defaultProps)
-
-        // 把 defaultProps 中相同的内容从 props 中剥离掉
-        const deepDiffProps = deepDiff(planComponentInfo.props, defaultProps)
-
-        // 一定要留着 gaeaUniqueKey
-        deepDiffProps.gaeaUniqueKey = planComponentInfo.props.gaeaUniqueKey
-
-        planComponentInfo.props = deepDiffProps
-
         // layoutChilds 长度为 0 就干掉
         if (planComponentInfo.layoutChilds && planComponentInfo.layoutChilds.length === 0) {
             delete planComponentInfo.layoutChilds
         }
 
-        // 如果 props 已经被删完了, 直接删掉 props
-        if (!planComponentInfo.props || Object.keys(planComponentInfo.props).length === 0) {
+        planComponentInfo.props = this.cleanComponentProps(planComponentInfo.props)
+
+        if (planComponentInfo.props === null) {
             delete planComponentInfo.props
         }
 
-        delete planComponentInfo.props.gaeaEdit
-        delete planComponentInfo.props.gaeaIcon
-        delete planComponentInfo.props.gaeaEvent
-
-        if (planComponentInfo.props.gaeaEventData.length === 0) {
-            delete planComponentInfo.props.gaeaEventData
-        }
-
-        if (planComponentInfo.props.gaeaNativeEventData.length === 0) {
-            delete planComponentInfo.props.gaeaNativeEventData
-        }
-
-        if (planComponentInfo.props.gaeaVariables.length === 0) {
-            delete planComponentInfo.props.gaeaVariables
-        }
-
         return JSON.parse(JSON.stringify(planComponentInfo))
+    }
+
+    /**
+     * 将 props 中不需要的数据都清除
+     */
+    cleanComponentProps(componentProps: FitGaea.ComponentProps) {
+        // 获取这个组件的 defaultProps
+        const defaultProps = _.cloneDeep(this.getComponentByUniqueKey(componentProps.gaeaUniqueKey).defaultProps)
+        let planComponentProps = JSON.parse(JSON.stringify(componentProps))
+
+        // 把 defaultProps 中相同的内容从 props 中剥离掉
+        const deepDiffProps = deepDiff(planComponentProps, defaultProps)
+
+        // 一定要留着 gaeaUniqueKey
+        deepDiffProps.gaeaUniqueKey = planComponentProps.gaeaUniqueKey
+
+        planComponentProps = deepDiffProps
+
+        delete planComponentProps.gaeaEdit
+        delete planComponentProps.gaeaIcon
+        delete planComponentProps.gaeaEvent
+
+        if (planComponentProps.gaeaEventData.length === 0) {
+            delete planComponentProps.gaeaEventData
+        }
+
+        if (planComponentProps.gaeaNativeEventData.length === 0) {
+            delete planComponentProps.gaeaNativeEventData
+        }
+
+        if (planComponentProps.gaeaVariables.length === 0) {
+            delete planComponentProps.gaeaVariables
+        }
+
+        if (_.isEmpty(planComponentProps.style)) {
+            delete planComponentProps.style
+        }
+
+        // 如果 props 已经被删完了, 直接删掉 props
+        if (!planComponentProps || Object.keys(planComponentProps).length === 0) {
+            return null
+        }
+
+        return planComponentProps
     }
 
     /**
@@ -245,11 +263,23 @@ export default class Application {
         // 转成标准格式
         const planComponentInfo = _.toPlainObject<FitGaea.ViewportComponentInfo>(componentInfo)
 
-        // 获取这个组件的 defaultProps
-        const defaultProps = _.cloneDeep(this.getComponentByUniqueKey(planComponentInfo.props.gaeaUniqueKey).defaultProps)
-
-        planComponentInfo.props = _.merge(defaultProps, planComponentInfo.props)
+        planComponentInfo.props = this.expendComponentProps(planComponentInfo.props)
 
         return planComponentInfo
+    }
+
+    /**
+     * 补全组件 props
+     */
+    expendComponentProps(componentProps: FitGaea.ComponentProps){
+        // 转成标准格式
+        let planComponentProps = _.toPlainObject<FitGaea.ComponentProps>(componentProps)
+
+        // 获取这个组件的 defaultProps
+        const defaultProps = _.cloneDeep(this.getComponentByUniqueKey(planComponentProps.gaeaUniqueKey).defaultProps)
+
+        planComponentProps = _.merge(defaultProps, planComponentProps)
+
+        return planComponentProps
     }
 }

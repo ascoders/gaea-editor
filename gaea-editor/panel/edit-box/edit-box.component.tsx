@@ -40,6 +40,8 @@ export default class EditBox extends React.Component <typings.PropsDefine, typin
             flexGrow: 0
         }
 
+        const basicTabName = this.props.viewport.currentEditPropsIndex === null ? '基础' : '新的属性'
+
         return (
             <div className="_namespace container-box">
                         <span className="handle-drag-close"
@@ -48,7 +50,7 @@ export default class EditBox extends React.Component <typings.PropsDefine, typin
                 <Tabs defaultActiveKey="basic"
                       type="retro"
                       className="edit-box-handle">
-                    <TabPanel tab="基础"
+                    <TabPanel tab={basicTabName}
                               style={itemStyle}
                               activeKey="basic"
                               className="edit-container">
