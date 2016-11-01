@@ -7,7 +7,7 @@ export default class EditHelper extends React.Component<typings.PropsDefine, typ
     static ObserveEditHelper: typeof EditHelper;
     private SelfComponent;
     private componentInfo;
-    private selfInstance;
+    wrappedInstance: React.ReactInstance;
     private selfDomInstance;
     private sortable;
     private startDrag;
