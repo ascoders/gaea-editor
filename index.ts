@@ -1,6 +1,6 @@
 import '../gaea-model/index'
 
-import GaeaEditor from './gaea-editor/gaea-editor.component'
+import GaeaEditor from './gaea-editor-core/gaea-editor.component'
 import {PropsDefine as GaeaEditorPropsDefine} from './gaea-editor/gaea-editor.type'
 
 export {GaeaEditor, GaeaEditorPropsDefine}
