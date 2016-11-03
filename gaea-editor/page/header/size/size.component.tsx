@@ -44,7 +44,7 @@ export default class Size extends React.Component <typings.PropsDefine, typings.
                         })}
                              onClick={this.handleChangeMobileSize.bind(this,640/2,1136/2)}>
                             <i className="fa fa-mobile"/>
-                            <div>Iphone5s</div>
+                            <div>iPhone5s</div>
                         </div>
                         <div className={classNames({
                             'phone':true,
@@ -60,7 +60,7 @@ export default class Size extends React.Component <typings.PropsDefine, typings.
                         })}
                              onClick={this.handleChangeMobileSize.bind(this,750/2,1334/2)}>
                             <i className="fa fa-mobile"/>
-                            <div>Iphone6</div>
+                            <div>iPhone6</div>
                         </div>
                         <div className={classNames({
                             'phone':true,
@@ -68,7 +68,7 @@ export default class Size extends React.Component <typings.PropsDefine, typings.
                         })}
                              onClick={this.handleChangeMobileSize.bind(this,828/2.5,1472/2.5)}>
                             <i className="fa fa-mobile"/>
-                            <div>Iphone7</div>
+                            <div>iPhone7</div>
                         </div>
                     </div>
                 </div>
