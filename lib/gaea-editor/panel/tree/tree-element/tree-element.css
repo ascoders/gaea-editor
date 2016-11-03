@@ -1,0 +1,34 @@
+.nt-editor-gaea-editor-gaea_editor-panel-tree-tree_element.selected {
+  background-color: #e0ecf5; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-tree-tree_element .flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 25px; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-tree-tree_element .icons-container {
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  color: #999; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-tree-tree_element .icons {
+  color: #7266ba;
+  width: 15px;
+  text-align: center;
+  margin-right: 5px; }
+  .nt-editor-gaea-editor-gaea_editor-panel-tree-tree_element .icons.gaea {
+    color: #999; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-tree-tree_element .text {
+  color: #666;
+  font-size: 12px; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-tree-tree_element .event-container {
+  margin-left: 5px;
+  color: #0388a7; }

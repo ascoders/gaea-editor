@@ -1,0 +1,94 @@
+.nt-editor-gaea-editor-gaea_editor-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  overflow: hidden; }
+
+.nt-editor-gaea-editor-gaea_editor-page .sidebar {
+  position: relative;
+  box-shadow: -1px 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
+  z-index: 10;
+  height: 100%;
+  overflow: hidden !important; }
+
+.nt-editor-gaea-editor-gaea_editor-page .section {
+  height: 100%;
+  width: 0;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.nt-editor-gaea-editor-gaea_editor-page .section-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  overflow: hidden; }
+
+.nt-editor-gaea-editor-gaea_editor-page .transparent-image {
+  background-image: url("../images/transparent.png"); }
+
+.nt-editor-gaea-editor-gaea_editor-page .preview-container {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  width: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden; }
+
+.nt-editor-gaea-editor-gaea_editor-page .viewport-main-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  width: 0;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  height: 100%;
+  -webkit-transition: margin .2s;
+  transition: margin .2s; }
+
+.nt-editor-gaea-editor-gaea_editor-page .viewport-main-content-outer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+  .nt-editor-gaea-editor-gaea_editor-page .viewport-main-content-outer .viewport-main-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative; }
+
+.nt-editor-gaea-editor-gaea_editor-page .left-bar, .nt-editor-gaea-editor-gaea_editor-page .right-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 0;
+  background: white;
+  height: 100%;
+  -webkit-transition: all .2s;
+  transition: all .2s; }
+
+.nt-editor-gaea-editor-gaea_editor-page .right-bar {
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  box-shadow: -1px 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05); }

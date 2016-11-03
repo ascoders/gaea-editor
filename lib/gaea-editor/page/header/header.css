@@ -1,0 +1,37 @@
+.nt-editor-gaea-editor-gaea_editor-page-header {
+  background: whitesmoke;
+  border-bottom: 1px solid #ddd;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 10px; }
+  .nt-editor-gaea-editor-gaea_editor-page-header .left, .nt-editor-gaea-editor-gaea_editor-page-header .right {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; }
+  .nt-editor-gaea-editor-gaea_editor-page-header .menu-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 35px;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 0 10px;
+    color: #333;
+    -webkit-transition: color .3s;
+    transition: color .3s; }
+    .nt-editor-gaea-editor-gaea_editor-page-header .menu-item.brand {
+      font-size: 16px;
+      font-weight: bold; }
+    .nt-editor-gaea-editor-gaea_editor-page-header .menu-item:hover {
+      cursor: pointer;
+      color: black; }
+
+.nt-editor-gaea-editor-gaea_editor-page-header .operate-disable {
+  color: #ccc; }
+  .nt-editor-gaea-editor-gaea_editor-page-header .operate-disable:hover {
+    color: #ccc; }

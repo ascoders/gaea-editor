@@ -1,0 +1,64 @@
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout .btn {
+  height: 25px; }
+  .nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout .btn .text-child {
+    padding: 0 10px; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout {
+  padding: 5px;
+  border: 1px solid #eee;
+  border-radius: 5px; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout .layout-top-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout .second-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout .second-container-flex-grow-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
+  width: 0; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout .svg-icon {
+  width: 20px;
+  height: 20px; }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout .rotate-45 {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg); }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout .rotate-90 {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg); }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout .rotate-135 {
+  -webkit-transform: rotate(135deg);
+          transform: rotate(135deg); }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout .rotate-180 {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg); }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout .rotate-270 {
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg); }
+
+.nt-editor-gaea-editor-gaea_editor-panel-edit_box-basic-edit_components-layout .text-child {
+  padding: 0 7px !important; }
