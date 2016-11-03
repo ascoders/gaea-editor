@@ -17,17 +17,39 @@ export default class LeftAbsoluteBar extends React.Component <typings.PropsDefin
     }
 
     toggleShowTemplate(leftBarName: string) {
-        if (!this.props.viewport.isShowLeftBar) {
-            this.props.viewport.showLeftBar(leftBarName)
-        } else {
+        if (this.state.currentName === leftBarName) {
+            // 收起
             this.props.viewport.hideLeftBar()
+            this.setState({
+                currentName: null
+            })
+        } else {
+            if (this.state.currentName === null) {
+                this.props.viewport.showLeftBar(leftBarName)
+            } else {
+                this.props.viewport.hideLeftBar()
+                this.props.viewport.showLeftBar(leftBarName)
+            }
+            this.setState({
+                currentName: leftBarName
+            })
         }
     }
 
     render() {
         const templateClasses = classNames({
             'menu-item': true,
-            'active': this.props.viewport.isShowLeftBar
+            'active': this.state.currentName === 'template'
+        })
+
+        const externalParameterClasses = classNames({
+            'menu-item': true,
+            'active': this.state.currentName === 'externalParameter'
+        })
+
+        const globalVariableClasses = classNames({
+            'menu-item': true,
+            'active': this.state.currentName === 'globalVariable'
         })
 
         const showLayoutClasses = classNames({
@@ -47,9 +69,17 @@ export default class LeftAbsoluteBar extends React.Component <typings.PropsDefin
                     </Tooltip>
 
                     <Tooltip position="right"
-                             title="全局传参变量">
-                        <div className={templateClasses}
-                             onClick={this.toggleShowTemplate.bind(this, 'globalParam')}>
+                             title="外部参数">
+                        <div className={externalParameterClasses}
+                             onClick={this.toggleShowTemplate.bind(this, 'externalParameter')}>
+                            <i className="fa fa-paper-plane-o"/>
+                        </div>
+                    </Tooltip>
+
+                    <Tooltip position="right"
+                             title="全局变量">
+                        <div className={globalVariableClasses}
+                             onClick={this.toggleShowTemplate.bind(this, 'globalVariable')}>
                             <i className="fa fa-globe"/>
                         </div>
                     </Tooltip>

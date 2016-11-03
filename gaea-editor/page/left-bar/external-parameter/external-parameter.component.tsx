@@ -1,5 +1,5 @@
 import * as React from 'react'
-import * as typings from './global-param.type'
+import * as typings from './external-parameter.type'
 import {observer, inject} from 'mobx-react'
 
 import Modal from '../../../../../../web-common/modal/index'
@@ -9,10 +9,10 @@ import Message from '../../../../../../web-common/message/index'
 import {Select, Option} from '../../../../../../web-common/select/index'
 import {autoBindMethod} from '../../../../../../common/auto-bind/index'
 
-import './global-param.scss'
+import './external-parameter.scss'
 
 @inject('setting', 'viewport', 'application') @observer
-export default class GlobalParam extends React.Component <typings.PropsDefine, typings.StateDefine> {
+export default class externalParameter extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
@@ -30,7 +30,7 @@ export default class GlobalParam extends React.Component <typings.PropsDefine, t
         this.setState({
             show: false
         }, ()=> {
-            this.props.setting.addGlobalParam({
+            this.props.setting.addExternalParameter({
                 name: this.state.name,
                 type: this.state.type
             })
@@ -61,11 +61,11 @@ export default class GlobalParam extends React.Component <typings.PropsDefine, t
     }
 
     @autoBindMethod handleDelete(index: number) {
-        this.props.setting.removeGlobalParam(index)
+        this.props.setting.removeExternalParameter(index)
     }
 
     render() {
-        const items = this.props.setting.data.globalParams.map((param, index)=> {
+        const items = this.props.setting.data.externalParameter.map((param, index)=> {
             return (
                 <div className="global-param"
                      key={index}>
@@ -86,10 +86,10 @@ export default class GlobalParam extends React.Component <typings.PropsDefine, t
                 {items}
 
                 <Button className="add-param"
-                        onClick={this.handleShowModal}>新增传参变量名</Button>
+                        onClick={this.handleShowModal}>新增外部参数</Button>
 
                 <Modal className="_namespace"
-                       title="新增传参变量名"
+                       title="新增外部参数"
                        show={this.state.show}
                        onOk={this.handleOk}
                        onCancel={this.handleCancel}>

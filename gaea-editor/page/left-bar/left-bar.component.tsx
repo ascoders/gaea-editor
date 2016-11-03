@@ -4,7 +4,7 @@ import {observer, inject} from 'mobx-react'
 import * as classNames from 'classnames'
 
 import Template from './template/template.component'
-import GlobalParam from './global-param/global-param.component'
+import ExternalParameter from './external-parameter/external-parameter.component'
 
 import './left-bar.scss'
 
@@ -25,8 +25,8 @@ export default class SidebarAddon extends React.Component <typings.PropsDefine, 
             case 'template':
                 templateChildren = <Template/>
                 break
-            case 'globalParam':
-                templateChildren = <GlobalParam/>
+            case 'externalParameter':
+                templateChildren = <ExternalParameter/>
                 break
         }
 

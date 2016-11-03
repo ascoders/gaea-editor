@@ -40,31 +40,31 @@ export default class EditComponentVariable extends React.Component <typings.Prop
         })
     }
 
-    @autoBindMethod handleSelectGlobalParam(globalParam: FitGaea.GlobalParam) {
+    @autoBindMethod handleSelectExternalParameter(externalParameter: FitGaea.ExternalParameter) {
         this.props.viewport.addVariable(this.props.viewport.currentEditComponentMapUniqueKey, {
             field: this.props.editOption.field,
-            variableType: 'globalParam',
-            valueType: globalParam.type,
-            variableField: globalParam.name
+            variableType: 'externalParameter',
+            valueType: externalParameter.type,
+            variableField: externalParameter.name
         })
     }
 
     render() {
         // 全局传参变量
-        const globalParams = this.props.setting.data.globalParams && this.props.setting.data.globalParams.map((globalParam, index)=> {
+        const ExternalParameters = this.props.setting.data.externalParameter && this.props.setting.data.externalParameter.map((externalParameter, index)=> {
                 return (
                     <div key={index}
                          className="global-params-item-container">
                         <div className="global-params-item-container__title">
-                            {globalParam.name}
+                            {externalParameter.name}
                         </div>
                         <div className="global-params-item-container__right-container">
                             <div className="global-params-item-container__right-container__type">
-                                {globalParam.type}
+                                {externalParameter.type}
                             </div>
                             <div className="global-params-item-container__right-container__select-container">
-                                <Button active={this.componentInfo.props.gaeaVariables.findIndex(variable=>variable.variableField===globalParam.name)>-1}
-                                        onClick={this.handleSelectGlobalParam.bind(this, globalParam)}>选择</Button>
+                                <Button active={this.componentInfo.props.gaeaVariables.findIndex(variable=>variable.variableField===externalParameter.name)>-1}
+                                        onClick={this.handleSelectExternalParameter.bind(this, externalParameter)}>选择</Button>
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@ export default class EditComponentVariable extends React.Component <typings.Prop
         if (this.props.variable !== null) {
             let icon = ''
             switch (this.props.variable.variableType) {
-                case 'globalParam':
+                case 'externalParameter':
                     icon = 'fa fa-globe'
                     break
             }
@@ -99,10 +99,10 @@ export default class EditComponentVariable extends React.Component <typings.Prop
                        size="small"
                        onOk={this.handleOk}
                        onCancel={this.handleCancel}>
-                    <Tabs defaultActiveKey="globalParam">
+                    <Tabs defaultActiveKey="externalParameter">
                         <TabPanel tab="全局传参变量"
-                                  activeKey="globalParam">
-                            {globalParams}
+                                  activeKey="externalParameter">
+                            {ExternalParameters}
                         </TabPanel>
                     </Tabs>
                 </Modal>

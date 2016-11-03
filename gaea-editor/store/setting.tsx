@@ -37,9 +37,9 @@ export class SettingStore {
     @observable fitInWeb = 'pc'
 
     /**
-     * 用户自己配置的全局变量
+     * 外部传参
      */
-    @observable globalParams: Array<FitGaea.GlobalParam> = []
+    @observable externalParameter: Array<FitGaea.ExternalParameter> = []
 }
 
 export default class Setting {
@@ -81,11 +81,11 @@ export default class Setting {
         this.data.fitInWeb = type
     }
 
-    @action('增加全局变量配置') addGlobalParam(globalParam: FitGaea.GlobalParam) {
-        this.data.globalParams.push(globalParam)
+    @action('增加外部传参') addExternalParameter(externalParameter: FitGaea.ExternalParameter) {
+        this.data.externalParameter.push(externalParameter)
     }
 
-    @action('删除全局变量配置') removeGlobalParam(index: number) {
-        this.data.globalParams.splice(index, 1)
+    @action('删除外部传参') removeExternalParameter(index: number) {
+        this.data.externalParameter.splice(index, 1)
     }
 }
