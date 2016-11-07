@@ -1,0 +1,10 @@
+&.modal {
+    .row {
+        display: flex;
+    }
+    .col {
+        display: flex;
+        flex-grow: 1;
+        width: 0;
+    }
+}

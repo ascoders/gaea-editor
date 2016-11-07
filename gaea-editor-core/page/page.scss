@@ -1,0 +1,68 @@
+& {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+// 整体左侧容器
+.outer-left-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 0;
+}
+
+// 整体右侧容器
+.outer-right-container {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+    // 上部容器
+    .outer-right__top-container {
+        display: flex;
+        flex-grow: 2;
+        height: 0;
+    }
+
+    // 下部容器
+    .outer-right__bottom-container {
+        display: flex;
+        flex-grow: 3;
+        height: 0;
+    }
+}
+
+// 导航条容器
+.navbar-container {
+
+}
+
+// 导航条下面中间的容器
+.navbar-center-container {
+    display: flex;
+    flex-grow: 1;
+    height: 0;
+
+    // 左部容器
+    .navbar-bottom__left-container {
+        width: 30px;
+    }
+
+    // 右部容器
+    .navbar-bottom__right-container {
+        flex-grow: 1;
+        width: 0;
+
+        // 视图容器
+        .viewport-container {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+// 导航条最下面的容器
+.navbar-center-container {
+    height: 30px;
+}

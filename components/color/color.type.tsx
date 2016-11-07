@@ -1,16 +1,16 @@
 import * as React from 'react'
 
 export interface PropsDefine {
-    /**
-     * 插件列表
-     */
-    plugins?: Array<FitGaea.Plugin>
-
-    [x: string]: any
+    color?: string
+    onChange?: (color?: any)=>void
+    onChangeComplete?: (color?: any)=>void
 }
 
 export class Props implements PropsDefine {
-    plugins = [] as Array<FitGaea.Plugin>
+    onChange = ()=> {
+    }
+    onChangeComplete = ()=> {
+    }
 }
 
 export interface StateDefine {

@@ -1,0 +1,32 @@
+& {
+    display: flex;
+    flex-grow: 1;
+    height: 0;
+}
+
+.left-container {
+    flex-grow: 1;
+    width: 0;
+    border-right: 1px solid #ddd;
+}
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    width: 40px;
+
+    .tab-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        padding: 10px 0;
+        cursor: pointer;
+        &:hover {
+            background-color: whitesmoke;
+        }
+        &.active {
+            background-color: whitesmoke;
+        }
+    }
+}

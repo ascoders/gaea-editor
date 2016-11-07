@@ -1,16 +1,12 @@
 import * as React from 'react'
+import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
 export interface PropsDefine {
-    /**
-     * 插件列表
-     */
-    plugins?: Array<FitGaea.Plugin>
-
-    [x: string]: any
+    viewportAction?: EditorManager.ViewportAction
 }
 
 export class Props implements PropsDefine {
-    plugins = [] as Array<FitGaea.Plugin>
+
 }
 
 export interface StateDefine {
