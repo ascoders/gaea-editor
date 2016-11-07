@@ -18,7 +18,7 @@ export default class Demo extends React.Component <any, any> {
     render() {
         return (
             <div style={{border: '1px solid #eee',height:400}}>
-                <GaeaCore/>
+                <GaeaCore commonComponents={webBaseComponents}/>
             </div>
         )
     }

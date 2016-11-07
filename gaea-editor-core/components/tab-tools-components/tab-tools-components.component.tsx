@@ -45,7 +45,7 @@ export default class TabToolsComponents extends React.Component <typings.PropsDe
                 </div>
                 <div className="right-container">
                     <div className={this.getTabItemClasses('common')}
-                         onClick={this.handleChangeType.bind(this, 'common')}>基础
+                         onClick={this.handleChangeType.bind(this, 'common')}>通用
                     </div>
                     <div className={this.getTabItemClasses('custom')}
                          onClick={this.handleChangeType.bind(this, 'custom')}>定制

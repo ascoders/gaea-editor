@@ -2,7 +2,7 @@
 
 A cross three end online application editor.
 
-# Developer - Create your own plug-in
+# Developer - Create your own plugin
 
 Import `EditorManager` first.
 
@@ -17,7 +17,7 @@ Then create `my-first-plugin.tsx`, and render it in the navigation bar:
 ```typescript
 class MyFirstPlugin extends React.Component <any, any> {
     // Render to the left navbar
-    static position = EditorManager.positions.navbarLeft
+    static position = 'navbarLeft'
     
     render () {
         return (
