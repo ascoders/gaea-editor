@@ -110,9 +110,8 @@ Define attribute `Store` in class, and inject it:
 @EditorManager.observer(['myFirstPluginStore'])
 class MyFirstPlugin extends React.Component <any, any> {
     static position = 'navbarLeft'
-    
     // Can automatically injected into the editor and referenced by lower case first letter.
-    Store = MyFirstPluginStore
+    static Store = MyFirstPluginStore
     
     render () {
         const {myFirstPluginStore} = this.props
@@ -144,9 +143,8 @@ Inject and use it:
 @EditorManager.observer(['myFirstPluginAction', 'myFirstPluginStore'])
 class MyFirstPlugin extends React.Component <any, any> {
     static position = 'navbarLeft'
-    
-    Store = MyFirstPluginStore
-    Action = MyFirstPluginAction
+    static Store = MyFirstPluginStore
+    static Action = MyFirstPluginAction
     
     componentWillMount () {
          const {myFirstPluginAction} = this.props
