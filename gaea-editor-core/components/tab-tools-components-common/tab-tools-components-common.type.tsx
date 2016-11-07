@@ -3,6 +3,7 @@ import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager
 
 export interface PropsDefine {
     viewportAction?: EditorManager.ViewportAction
+    application ?: EditorManager.ApplicationStore
 }
 
 export class Props implements PropsDefine {

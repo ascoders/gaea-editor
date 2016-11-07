@@ -5,6 +5,7 @@
 }
 
 .left-container {
+    display:flex;
     flex-grow: 1;
     width: 0;
     border-right: 1px solid #ddd;

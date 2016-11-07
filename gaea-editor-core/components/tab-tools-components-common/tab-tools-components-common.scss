@@ -1,0 +1,15 @@
+&{
+    display:flex;
+    flex-direction: column;
+    overflow-y:scroll;
+    width:100%;
+}
+
+.component-item{
+    padding: 10px;
+    cursor:move;
+    transition: background-color .3s;
+    &:hover{
+        background-color:whitesmoke;
+    }
+}
