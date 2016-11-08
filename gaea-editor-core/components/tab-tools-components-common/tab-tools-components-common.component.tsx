@@ -1,9 +1,10 @@
 import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import * as typings from './tab-tools-components-common.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import { autoBindMethod } from '../../../../../common/auto-bind/index'
+import {autoBindMethod} from '../../../../../common/auto-bind/index'
 
 import './tab-tools-components-common.scss'
 
@@ -14,14 +15,16 @@ export default class TabToolsComponentsCommon extends React.Component<typings.Pr
 
     static position = 'tabToolsComponentsCommon'
 
-    componentWillMount() {
-
+    componentDidMount() {
+        this.props.viewportAction.registerDraggable(ReactDOM.findDOMNode(this) as HTMLElement)
     }
 
     render() {
         const CommonDraggableItems = this.props.application.editorProps.commonComponents.map((ComponentClass, index) => {
             return (
-                <div key={index} className="component-item">
+                <div key={index}
+                     data-unique-key={ComponentClass.defaultProps.gaeaUniqueKey}
+                     className="component-draggable-item">
                     {ComponentClass.defaultProps.gaeaName}
                 </div>
             )

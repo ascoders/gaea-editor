@@ -2,6 +2,7 @@
     display: flex;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 // 整体左侧容器
@@ -17,6 +18,8 @@
     display: flex;
     flex-direction: column;
     width: 300px;
+    z-index: 2;
+    background-color: white;
 
     // 上部容器
     .outer-right__top-container {
@@ -51,13 +54,53 @@
 
     // 右部容器
     .navbar-bottom__right-container {
+        display: flex;
+        margin-right: -350px;
         flex-grow: 1;
         width: 0;
+        transition: margin-right .15s;
+
+        // 显示右侧容器
+        &.show-editor-container {
+            margin-right: 0;
+        }
 
         // 视图容器
         .viewport-container {
-            width: 100%;
+            display: flex;
+            position: relative;
+            flex-grow: 1;
+            width: 0;
             height: 100%;
+        }
+
+        // 编辑容器
+        .editor-container {
+            position: relative;
+            width: 350px;
+            height: 100%;
+            z-index: 0;
+
+            // 编辑容器关闭按钮
+            .editor-close {
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                top: 0;
+                right: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: all .3s;
+                color: #999;
+                cursor: pointer;
+                z-index: 1;
+
+                &:hover {
+                    color: #333;
+                    transform: scale(1.2);
+                }
+            }
         }
     }
 }

@@ -1,8 +1,8 @@
-import { injectable } from 'inversify'
+import {injectable} from 'inversify'
 import * as React from 'react'
-import { action, extendObservable } from 'mobx'
+import {action, extendObservable} from 'mobx'
 import ApplicationStore from '../stores/application'
-import { lazyInject } from '../utils/kernel'
+import {lazyInject} from '../utils/kernel'
 
 @injectable()
 export default class ApplicationAction {
@@ -20,11 +20,18 @@ export default class ApplicationAction {
         })
     }
 
-    @action('设置视图区块样式') viewportStyleSet(style: React.CSSProperties) {
+    @action('设置视图区块样式') setViewportStyle(style: React.CSSProperties) {
+        console.log(this)
         this.application.viewportStyle = extendObservable(this.application.viewportStyle, style)
     }
 
-    @action('重置视图区块样式') viewportStyleReset() {
+    @action('重置视图区块样式') resetViewportStyle() {
         this.application.viewportStyle = {}
+    }
+
+    @action('根据 gaeaUniqueKey 获取组件类') getComponentClassByGaeaUniqueKey(gaeaUniqueKey: string) {
+        // 从通用、定制组件中查找
+        const allComponents = this.application.editorProps.commonComponents.concat(this.application.editorProps.customComponents)
+        return allComponents.find(component=>component.defaultProps.gaeaUniqueKey === gaeaUniqueKey)
     }
 }

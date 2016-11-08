@@ -5,11 +5,14 @@
     width:100%;
 }
 
-.component-item{
+.component-draggable-item{
     padding: 10px;
     cursor:move;
     transition: background-color .3s;
     &:hover{
         background-color:whitesmoke;
+    }
+    &:not(:first-child){
+        border-top:1px solid #ddd;
     }
 }

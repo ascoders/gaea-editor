@@ -3,7 +3,6 @@ import * as typings from './tab-tools.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
 import {TabPanel, Tabs} from '../../../../../web-common/tabs/index'
 
 import './tab-tools.scss'

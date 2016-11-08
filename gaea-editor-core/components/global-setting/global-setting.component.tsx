@@ -39,7 +39,7 @@ export default class GlobalSetting extends React.Component <typings.PropsDefine,
     }
 
     @autoBindMethod handleBackgroundColorChange(color: any) {
-        this.props.applicationAction.viewportStyleSet({
+        this.props.applicationAction.setViewportStyle({
             backgroundColor: `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`
         })
     }

@@ -4,6 +4,14 @@ import myKernel from './kernel'
 import {Provider} from 'mobx-react'
 import {PropsDefine as EditorPropsDefine} from '../gaea-editor.type'
 
+import PluginGlobalSetting from '../components/global-setting/global-setting.component'
+import PluginTabTools from '../components/tab-tools/tab-tools.component'
+import PluginTabToolsComponents from '../components/tab-tools-components/tab-tools-components.component'
+import PluginTabToolsComponentsCommon from '../components/tab-tools-components-common/tab-tools-components-common.component'
+import PluginViewportGuideline from '../components/viewport-guideline/viewport-guideline.component'
+import PluginEditorTabs from '../components/editor-tabs/editor-tabs.component'
+import PluginEditorTabsAttribute from '../components/editor-tabs-attribute/editor-tabs-attribute.component'
+
 import EventAction from '../actions/event'
 import ApplicationAction from '../actions/application'
 import ViewportAction from '../actions/viewport'
@@ -36,7 +44,15 @@ export default class ProviderContainer extends React.Component<ProviderContainer
         const viewportActionInstance = new ViewportAction()
 
         const eventStoreInstance = new EventStore()
-        const applicationStoreInstance = new ApplicationStore(this.props.gaeaProps)
+        const applicationStoreInstance = new ApplicationStore(this.props.gaeaProps, [
+            PluginGlobalSetting,
+            PluginTabTools,
+            PluginTabToolsComponents,
+            PluginTabToolsComponentsCommon,
+            PluginViewportGuideline,
+            PluginEditorTabs,
+            PluginEditorTabsAttribute
+        ])
         const viewportStoreInstance = new ViewportStore()
 
         myKernel.bind<EventAction>(EventAction).toConstantValue(eventActionInstance)

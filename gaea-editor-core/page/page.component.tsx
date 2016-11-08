@@ -1,18 +1,38 @@
 import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import * as typings from './page.type'
-
 import {observer} from 'mobx-react'
+import * as classNames from 'classnames'
 
 import {autoBindMethod} from '../../../../common/auto-bind/index'
 
+import Viewport from './viewport/viewport.component'
+
 import './page.scss'
 
-@observer(['application', 'applicationAction'])
+@observer(['application', 'applicationAction', 'viewport', 'viewportAction', 'event', 'eventAction'])
 export default class Page extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
+    /**
+     * 关闭编辑框
+     */
+    @autoBindMethod handleCloseEditor() {
+        this.props.viewportAction.setCurrentEditComponentMapUniqueKey(null)
+    }
+
     render() {
+        const navbarBottomRightContainerClasses = classNames({
+            'navbar-bottom__right-container': true,
+            'show-editor-container': this.props.viewport.currentEditComponentMapUniqueKey !== null
+        })
+
+        // .2s 后触发视图区域刷新事件
+        setTimeout(()=> {
+            this.props.eventAction.emit(this.props.event.viewportUpdated)
+        }, 160)
+
         return (
             <div className="_namespace">
                 <div className="outer-left-container">
@@ -24,10 +44,18 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
                         <div className="navbar-bottom__left-container">
 
                         </div>
-                        <div className="navbar-bottom__right-container">
+                        <div className={navbarBottomRightContainerClasses}>
                             <div className="viewport-container"
                                  style={Object.assign({}, this.props.application.viewportStyle)}>
-                                55
+                                <Viewport/>
+                                {this.props.applicationAction.loadingPluginByPosition('viewport')}
+                            </div>
+                            <div className="editor-container">
+                                {this.props.applicationAction.loadingPluginByPosition('editor')}
+                                <div onClick={this.handleCloseEditor}
+                                     className="editor-close">
+                                    <i className="fa fa-close close-button"/>
+                                </div>
                             </div>
                         </div>
                     </div>

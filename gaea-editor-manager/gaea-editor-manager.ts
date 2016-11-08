@@ -20,10 +20,3 @@ export {default as ViewportAction} from '../gaea-editor-core/actions/viewport'
 export {default as ApplicationStore} from '../gaea-editor-core/stores/application'
 export {default as EventStore} from '../gaea-editor-core/stores/event'
 export {default as ViewportStore} from '../gaea-editor-core/stores/viewport'
-
-/**
- * 注册位置
- */
-export const registerPosition = ()=> {
-
-}
