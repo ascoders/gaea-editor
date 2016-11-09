@@ -30,7 +30,7 @@ export default class TabTools extends React.Component <typings.PropsDefine, typi
 
     render() {
         // 没有 hover 元素不显示
-        if (this.props.viewport.currentHoverComponentMapUniqueKey === null) {
+        if (this.props.viewport.currentHoverComponentMapUniqueKey === null || this.props.viewport.currentHoverComponentDom === undefined) {
             return null
         }
 

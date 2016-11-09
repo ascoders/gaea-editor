@@ -77,7 +77,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         this.setDragableClassIfNeed()
 
         // 存储 dom 在全局
-        this.props.viewportAction.addDomInstance(this.props.mapUniqueKey, this.domInstance)
+        this.props.viewportAction.setDomInstance(this.props.mapUniqueKey, this.domInstance)
 
         // 如果自己是布局元素, 给子元素绑定 sortable
         if (this.componentInfo.props.canDragIn) {
@@ -191,6 +191,9 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
                 onRemove: (event: any)=> {
                     // 减少了一个子元素，一定是发生在 viewport 区域元素发生跨父级拖拽时
                     this.props.viewportAction.moveComponent(this.props.mapUniqueKey, this.props.viewport.currentDragComponentInfo.dragStartIndex, this.props.viewport.currentDragComponentInfo.viewportInfo.targetMapUniqueKey, this.props.viewport.currentDragComponentInfo.viewportInfo.targetIndex)
+
+                    // 这时减少的那个子元素 dom 被销毁新建了，重新刷新视图中此 dom
+                    //this.props.viewportAction.setDomInstance(this.props.viewport.currentDragComponentInfo)
 
                     // 触发 move 事件
                     // this.props.viewport.saveOperate({

@@ -1,0 +1,10 @@
+& {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    &.active, &:hover {
+        background-color: whitesmoke;
+    }
+}

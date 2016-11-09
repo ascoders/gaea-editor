@@ -94,7 +94,7 @@ export default class ViewportAction {
         return _.uniqueId('gaea-component-' + new Date().getTime() + '-')
     }
 
-    @action('新增一个视图 dom 实例') addDomInstance(mapUniqueKey: string, dom: HTMLElement) {
+    @action('设置视图 dom 实例') setDomInstance(mapUniqueKey: string, dom: HTMLElement) {
         this.viewport.componentDomInstances.set(mapUniqueKey, dom)
     }
 
@@ -113,6 +113,10 @@ export default class ViewportAction {
     @action('从视图中移动到新父级时，设置拖拽目标（父级）的信息') setDragTargetInfo(mapUniqueKey: string, index: number) {
         this.viewport.currentDragComponentInfo.viewportInfo.targetMapUniqueKey = mapUniqueKey
         this.viewport.currentDragComponentInfo.viewportInfo.targetIndex = index
+    }
+
+    @action('设置布局元素是否高亮') setLayoutComponentActive(active: boolean) {
+        this.viewport.isLayoutComponentActive = active
     }
 
     /**

@@ -48,12 +48,25 @@
     height: 0;
 
     // 左部容器
-    .navbar-bottom__left-container {
+    .navbar-center__left-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         width: 30px;
+
+        // 左部容器上部
+        .navbar-center__left__top-container {
+            width: 100%;
+        }
+
+        // 左部容器下部
+        .navbar-center__left__bottom-container {
+            width: 100%;
+        }
     }
 
     // 右部容器
-    .navbar-bottom__right-container {
+    .navbar-center__right-container {
         display: flex;
         margin-right: -350px;
         flex-grow: 1;
