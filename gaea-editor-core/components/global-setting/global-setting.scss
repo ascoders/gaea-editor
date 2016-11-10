@@ -1,10 +1,14 @@
 &.modal {
     .row {
         display: flex;
+        justify-content: space-between;
     }
-    .col {
+    .col, .col-right {
         display: flex;
         flex-grow: 1;
         width: 0;
+    }
+    .col-right {
+        justify-content: flex-end;
     }
 }

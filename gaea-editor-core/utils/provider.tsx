@@ -12,6 +12,7 @@ import PluginViewportGuideline from '../components/viewport-guideline/viewport-g
 import PluginEditorTabs from '../components/editor-tabs/editor-tabs.component'
 import PluginEditorTabsAttribute from '../components/editor-tabs-attribute/editor-tabs-attribute.component'
 import PluginEditorShowLayoutButton from '../components/show-layout-button/show-layout-button.component'
+import PluginEditorTree from '../components/tree/tree.component'
 
 import EventAction from '../actions/event'
 import ApplicationAction from '../actions/application'
@@ -53,7 +54,8 @@ export default class ProviderContainer extends React.Component<ProviderContainer
             PluginViewportGuideline,
             PluginEditorTabs,
             PluginEditorTabsAttribute,
-            PluginEditorShowLayoutButton
+            PluginEditorShowLayoutButton,
+            PluginEditorTree
         ])
         const viewportStoreInstance = new ViewportStore()
 

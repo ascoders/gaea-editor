@@ -9,21 +9,30 @@ import {autoBindMethod} from '../../../../../common/auto-bind/index'
 
 import EditHelper from './edit-helper/edit-helper.component'
 
+import ViewportAction from '../../actions/viewport'
+import EventAction from '../../actions/event'
+import ApplicationAction from '../../actions/application'
+import {lazyInject} from '../../utils/kernel'
+
 import './viewport.scss'
 
-@observer(['viewportAction', 'viewport', 'eventAction', 'event', 'application', 'applicationAction'])
+@observer(['viewport', 'event', 'application'])
 export default class Viewport extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
+    @lazyInject(ApplicationAction) private applicationAction: ApplicationAction
+    @lazyInject(EventAction) private eventAction: EventAction
+    @lazyInject(ViewportAction) private viewportAction: ViewportAction
+
     componentWillMount() {
         if (this.props.application.editorProps.defaultValue === null) {  // 空白应用
             // 生成根节点唯一 id
-            const rootMapUniqueKey = this.props.viewportAction.createUniqueKey()
-            this.props.viewportAction.setRootMapUniqueKey(rootMapUniqueKey)
+            const rootMapUniqueKey = this.viewportAction.createUniqueKey()
+            this.viewportAction.setRootMapUniqueKey(rootMapUniqueKey)
 
             // 获得根节点类
-            const RootClass = this.props.applicationAction.getComponentClassByGaeaUniqueKey(this.props.application.editorProps.rootLayoutComponentUniqueKey)
+            const RootClass = this.applicationAction.getComponentClassByGaeaUniqueKey(this.props.application.editorProps.rootLayoutComponentUniqueKey)
 
             // 设置根节点属性
             let rootProps = _.cloneDeep(RootClass.defaultProps)
@@ -42,7 +51,7 @@ export default class Viewport extends React.Component <typings.PropsDefine, typi
                 rootProps.style.overflowY = 'auto'
             }
 
-            this.props.viewportAction.setComponent(this.props.viewport.rootMapUniqueKey, {
+            this.viewportAction.setComponent(this.props.viewport.rootMapUniqueKey, {
                 props: rootProps,
                 layoutChilds: [],
                 parentMapUniqueKey: null
@@ -54,16 +63,16 @@ export default class Viewport extends React.Component <typings.PropsDefine, typi
 
             Object.keys(defaultValue).forEach(mapUniqueKey=> {
                 const defaultInfo = defaultValue[mapUniqueKey]
-                const ComponentClass = this.props.applicationAction.getComponentClassByGaeaUniqueKey(defaultInfo.props.gaeaUniqueKey)
+                const ComponentClass = this.applicationAction.getComponentClassByGaeaUniqueKey(defaultInfo.props.gaeaUniqueKey)
 
                 // 如果是根节点, 设置根据点 id
                 if (defaultInfo.parentMapUniqueKey === null) {
-                    this.props.viewportAction.setRootMapUniqueKey(mapUniqueKey)
+                    this.viewportAction.setRootMapUniqueKey(mapUniqueKey)
                 }
 
                 const props = _.merge(_.cloneDeep(ComponentClass.defaultProps), defaultInfo.props || {})
 
-                this.props.viewportAction.setComponent(mapUniqueKey, {
+                this.viewportAction.setComponent(mapUniqueKey, {
                     props: props,
                     layoutChilds: defaultInfo.layoutChilds || [],
                     parentMapUniqueKey: defaultInfo.parentMapUniqueKey
@@ -76,7 +85,7 @@ export default class Viewport extends React.Component <typings.PropsDefine, typi
      * 获取自己的实例
      */
     @autoBindMethod getRootRef(ref: React.ReactInstance) {
-        this.props.viewportAction.setViewportDom(ReactDOM.findDOMNode(ref) as HTMLElement)
+        this.viewportAction.setViewportDom(ReactDOM.findDOMNode(ref) as HTMLElement)
     }
 
     /**
@@ -86,10 +95,10 @@ export default class Viewport extends React.Component <typings.PropsDefine, typi
         event.stopPropagation()
 
         // 触发事件
-        this.props.eventAction.emit(this.props.event.mouseLeaveViewport)
+        this.eventAction.emit(this.props.event.mouseLeaveViewport)
 
         // 设置当前 hover 的元素为 null
-        this.props.viewportAction.setCurrentHoverComponentMapUniqueKey(null)
+        this.viewportAction.setCurrentHoverComponentMapUniqueKey(null)
     }
 
     render() {

@@ -1,8 +1,10 @@
 import * as React from 'react'
-import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
+import * as EditorManager from '../../../../gaea-editor-manager/gaea-editor-manager'
+import TreeStore from '../store'
 
 export interface PropsDefine {
-    application?: EditorManager.ApplicationStore
+    viewport?: EditorManager.ViewportStore
+    treeStore?: TreeStore
 }
 
 export class Props implements PropsDefine {
@@ -10,9 +12,9 @@ export class Props implements PropsDefine {
 }
 
 export interface StateDefine {
-    show?: boolean
+
 }
 
 export class State implements StateDefine {
-    show = false
+
 }

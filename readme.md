@@ -140,15 +140,16 @@ export default class MyFirstPluginAction {
 Inject and use it:
 
 ```typescript
-@EditorManager.observer(['myFirstPluginAction', 'myFirstPluginStore'])
+@EditorManager.observer(['myFirstPluginStore'])
 class MyFirstPlugin extends React.Component <any, any> {
     static position = 'navbarLeft'
     static Store = MyFirstPluginStore
     static Action = MyFirstPluginAction
     
+    @EditorManager.lazyInject(MyFirstPluginAction) private myFirstPluginAction: MyFirstPluginAction
+    
     componentWillMount () {
-         const {myFirstPluginAction} = this.props
-         myFirstPluginAction.setVariable('two')
+         this.myFirstPluginAction.setVariable('two')
     }
     
     render () {

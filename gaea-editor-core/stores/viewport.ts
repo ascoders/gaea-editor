@@ -27,7 +27,7 @@ export default class ViewportStore {
     @observable currentEditComponentMapUniqueKey: string = null
 
     // 当前编辑元素
-    @computed get currentEditComponent() {
+    @computed get currentEditComponentInfo() {
         return this.components.get(this.currentEditComponentMapUniqueKey)
     }
 

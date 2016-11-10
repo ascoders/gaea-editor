@@ -16,7 +16,7 @@ export default class TabToolsComponentsCommon extends React.Component<typings.Pr
     static position = 'tabToolsComponentsCommon'
 
     componentDidMount() {
-        this.props.viewportAction.registerDraggable(ReactDOM.findDOMNode(this) as HTMLElement)
+        this.props.viewportAction.registerOuterDarg(ReactDOM.findDOMNode(this) as HTMLElement)
     }
 
     render() {

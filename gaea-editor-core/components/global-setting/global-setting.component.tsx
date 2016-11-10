@@ -9,12 +9,14 @@ import Color from '../../../components/color/color.component'
 
 import './global-setting.scss'
 
-@EditorManager.observer(['application', 'applicationAction'])
+@EditorManager.observer(['application'])
 export default class GlobalSetting extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'navbarLeft'
+
+    @EditorManager.lazyInject(EditorManager.ApplicationAction) private applicationAction: EditorManager.ApplicationAction
 
     componentWillMount() {
 
@@ -39,15 +41,15 @@ export default class GlobalSetting extends React.Component <typings.PropsDefine,
     }
 
     @autoBindMethod handleBackgroundColorChange(color: any) {
-        this.props.applicationAction.setViewportStyle({
+        this.applicationAction.setViewportStyle({
             backgroundColor: `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`
         })
     }
 
     render() {
         return (
-            <div className="_namespace">
-                <div onClick={this.handleShowModal}>全局设置</div>
+            <div onClick={this.handleShowModal}>
+                全局设置
 
                 <Modal title="全局设置"
                        className="_namespace modal"
@@ -56,7 +58,7 @@ export default class GlobalSetting extends React.Component <typings.PropsDefine,
                        onCancel={this.handleCancel}>
                     <div className="row">
                         <div className="col">画布背景颜色</div>
-                        <div className="col">
+                        <div className="col-right">
                             <Color color={this.props.application.viewportStyle.backgroundColor || 'transparent'}
                                    onChange={this.handleBackgroundColorChange}/>
                         </div>

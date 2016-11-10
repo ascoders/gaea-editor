@@ -15,7 +15,7 @@ export default class ApplicationStore {
     editorProps?: PropsDefine
 
     // 导航栏高度
-    navbarHeight = 40
+    navbarHeight = 41
 
     // 插件列表
     plugins = [] as Array<FitGaea.Plugin>

@@ -21,7 +21,6 @@ export default class ApplicationAction {
     }
 
     @action('设置视图区块样式') setViewportStyle(style: React.CSSProperties) {
-        console.log(this)
         this.application.viewportStyle = extendObservable(this.application.viewportStyle, style)
     }
 

@@ -38,7 +38,35 @@
 
 // 导航条容器
 .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: whitesmoke;
+    border-bottom: 1px solid #ddd;
 
+    // 左侧
+    .navbar-container__left {
+        display: flex;
+    }
+
+    // 右侧
+    .navbar-container__right {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .navbar-container__left, .navbar-container__right {
+        & > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10px;
+            font-weight: bold;
+            cursor: pointer;
+            &:hover {
+                background-color: #eaeaea;
+            }
+        }
+    }
 }
 
 // 导航条下面中间的容器
@@ -85,6 +113,8 @@
             flex-grow: 1;
             width: 0;
             height: 100%;
+            border-right: 1px solid #eee;
+            border-left: 1px solid #eee;
         }
 
         // 编辑容器

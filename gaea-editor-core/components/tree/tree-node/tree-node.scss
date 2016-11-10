@@ -1,0 +1,38 @@
+& {
+    font-size: 12px;
+
+    &.selected {
+        background-color: #e0ecf5;
+    }
+}
+
+.item-container {
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    color: #999;
+    font-size: 14px;
+}
+
+.icons {
+    color: #7266ba;
+    width: 15px;
+    text-align: center;
+    margin-right: 5px;
+    &.gaea {
+        color: #999;
+    }
+}
+
+.event-container {
+    margin-left: 5px;
+    color: #0388a7;
+}

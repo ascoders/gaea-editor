@@ -1,0 +1,48 @@
+.header-container {
+    display: flex;
+    height: 50px;
+    padding: 0 10px;
+
+    .header-container__icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        font-size: 20px;
+    }
+    .header-container__title-container {
+        display: flex;
+        flex-grow: 2;
+        width: 0;
+        align-items: center;
+    }
+    .header-container__operate-container {
+        display: flex;
+        justify-content: flex-end;
+        flex-grow: 1;
+        width: 0;
+        align-items: center;
+    }
+}
+
+// 将 button 间距缩小
+.button-container {
+    .text-child {
+        padding: 0 7px;
+    }
+}
+
+.danger {
+    color: #d22626;
+}
+
+.child-scale {
+    i {
+        transition: transform .3s;
+    }
+    &:hover {
+        i {
+            transform: scale(1.2);
+        }
+    }
+}

@@ -320,16 +320,32 @@ export default class EditComponentBorder extends React.Component <typings.PropsD
                     <div className="left-container">
                         <Button className="border-left"
                                 active={this.componentInfo.props.style.borderLeftWidth!==null}
-                                onClick={this.handleBorderClick.bind(this, 'left')}>x</Button>
+                                onClick={this.handleBorderClick.bind(this, 'left')}>
+                            <svg className="svg-icon rotate-270">
+                                <use xlinkHref="#border"/>
+                            </svg>
+                        </Button>
                         <Button className="border-top"
                                 active={this.componentInfo.props.style.borderTopWidth!==null}
-                                onClick={this.handleBorderClick.bind(this, 'top')}>x</Button>
+                                onClick={this.handleBorderClick.bind(this, 'top')}>
+                            <svg className="svg-icon">
+                                <use xlinkHref="#border"/>
+                            </svg>
+                        </Button>
                         <Button className="border-right"
                                 active={this.componentInfo.props.style.borderRightWidth!==null}
-                                onClick={this.handleBorderClick.bind(this, 'right')}>x</Button>
+                                onClick={this.handleBorderClick.bind(this, 'right')}>
+                            <svg className="svg-icon rotate-90">
+                                <use xlinkHref="#border"/>
+                            </svg>
+                        </Button>
                         <Button className="border-bottom"
                                 active={this.componentInfo.props.style.borderBottomWidth!==null}
-                                onClick={this.handleBorderClick.bind(this, 'bottom')}>x</Button>
+                                onClick={this.handleBorderClick.bind(this, 'bottom')}>
+                            <svg className="svg-icon rotate-180">
+                                <use xlinkHref="#border"/>
+                            </svg>
+                        </Button>
                     </div>
 
                     <div className="right-container">
@@ -343,11 +359,23 @@ export default class EditComponentBorder extends React.Component <typings.PropsD
                                             onClick={this.handleBorderStyleChange.bind(this, 'none')}>x</Button>
                                 }
                                 <Button active={commonBorder.style==='solid'}
-                                        onClick={this.handleBorderStyleChange.bind(this, 'solid')}>—</Button>
+                                        onClick={this.handleBorderStyleChange.bind(this, 'solid')}>
+                                    <svg className="svg-icon rotate-180">
+                                        <use xlinkHref="#solid"/>
+                                    </svg>
+                                </Button>
                                 <Button active={commonBorder.style==='dashed'}
-                                        onClick={this.handleBorderStyleChange.bind(this, 'dashed')}>-</Button>
+                                        onClick={this.handleBorderStyleChange.bind(this, 'dashed')}>
+                                    <svg className="svg-icon rotate-180">
+                                        <use xlinkHref="#dashed"/>
+                                    </svg>
+                                </Button>
                                 <Button active={commonBorder.style==='dotted'}
-                                        onClick={this.handleBorderStyleChange.bind(this, 'dotted')}>-.</Button>
+                                        onClick={this.handleBorderStyleChange.bind(this, 'dotted')}>
+                                    <svg className="svg-icon rotate-180">
+                                        <use xlinkHref="#dotted"/>
+                                    </svg>
+                                </Button>
                             </ButtonGroup>
                         </div>
                         <div className="row">
@@ -371,16 +399,32 @@ export default class EditComponentBorder extends React.Component <typings.PropsD
                         <div className="radius-content">
                             <Button className="radius-left"
                                     active={this.componentInfo.props.style.borderTopLeftRadius!==null}
-                                    onClick={this.handleRadiusClick.bind(this, 'topLeft')}>x</Button>
+                                    onClick={this.handleRadiusClick.bind(this, 'topLeft')}>
+                                <svg className="svg-icon">
+                                    <use xlinkHref="#border-radius"/>
+                                </svg>
+                            </Button>
                             <Button className="radius-top"
                                     active={this.componentInfo.props.style.borderTopRightRadius!==null}
-                                    onClick={this.handleRadiusClick.bind(this, 'topRight')}>x</Button>
+                                    onClick={this.handleRadiusClick.bind(this, 'topRight')}>
+                                <svg className="svg-icon rotate-90">
+                                    <use xlinkHref="#border-radius"/>
+                                </svg>
+                            </Button>
                             <Button className="radius-right"
                                     active={this.componentInfo.props.style.borderBottomRightRadius!==null}
-                                    onClick={this.handleRadiusClick.bind(this, 'bottomRight')}>x</Button>
+                                    onClick={this.handleRadiusClick.bind(this, 'bottomRight')}>
+                                <svg className="svg-icon rotate-180">
+                                    <use xlinkHref="#border-radius"/>
+                                </svg>
+                            </Button>
                             <Button className="radius-bottom"
                                     active={this.componentInfo.props.style.borderBottomLeftRadius!==null}
-                                    onClick={this.handleRadiusClick.bind(this, 'bottomLeft')}>x</Button>
+                                    onClick={this.handleRadiusClick.bind(this, 'bottomLeft')}>
+                                <svg className="svg-icon rotate-270">
+                                    <use xlinkHref="#border-radius"/>
+                                </svg>
+                            </Button>
                         </div>
                     </div>
 

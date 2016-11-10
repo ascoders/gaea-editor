@@ -109,7 +109,9 @@ export default class EditComponentText extends React.Component <typings.PropsDef
                     <Tooltip title="Direction:Row">
                         <Button active={this.componentInfo.props.style.flexDirection === 'row' || this.componentInfo.props.style.flexDirection === 'row-reverse'}
                                 onClick={this.handleUpdateValue.bind(this, 'style.flexDirection', 'row')}>
-                            Row
+                            <svg className="svg-icon rotate-180">
+                                <use xlinkHref="#flex-row"/>
+                            </svg>
                         </Button>
                     </Tooltip>
 
@@ -117,34 +119,42 @@ export default class EditComponentText extends React.Component <typings.PropsDef
                         <Tooltip title={rowFlexStart}>
                             <Button active={this.componentInfo.props.style.justifyContent === 'flex-start'}
                                     onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'flex-start')}>
-                                <svg className="svg-icon rotate-90">
-                                    <use xlinkHref="#icon-flex-align"/>
+                                <svg className="svg-icon rotate-180">
+                                    <use xlinkHref="#flex-direction-end"/>
                                 </svg>
                             </Button>
                         </Tooltip>
                         <Tooltip title={rowFlexCenter}>
                             <Button active={this.componentInfo.props.style.justifyContent === 'center'}
                                     onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'center')}>
-                                <svg className="svg-icon rotate-90">
-                                    <use xlinkHref="#icon-flex-center-vertical"/>
+                                <svg className="svg-icon">
+                                    <use xlinkHref="#flex-direction-center"/>
                                 </svg>
                             </Button>
                         </Tooltip>
                         <Tooltip title={rowFlexEnd}>
                             <Button active={this.componentInfo.props.style.justifyContent === 'flex-end'}
                                     onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'flex-end')}>
-                                <svg className="svg-icon rotate-270">
-                                    <use xlinkHref="#icon-flex-align"/>
+                                <svg className="svg-icon">
+                                    <use xlinkHref="#flex-direction-end"/>
                                 </svg>
                             </Button>
                         </Tooltip>
                         <Tooltip title={rowFlexSpaceBetween}>
                             <Button active={this.componentInfo.props.style.justifyContent === 'space-between'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'space-between')}>B</Button>
+                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'space-between')}>
+                                <svg className="svg-icon">
+                                    <use xlinkHref="#flex-space-between"/>
+                                </svg>
+                            </Button>
                         </Tooltip>
                         <Tooltip title={rowFlexSpaceAround}>
                             <Button active={this.componentInfo.props.style.justifyContent === 'space-around'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'space-around')}>A</Button>
+                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'space-around')}>
+                                <svg className="svg-icon">
+                                    <use xlinkHref="#flex-space-around"/>
+                                </svg>
+                            </Button>
                         </Tooltip>
                     </ButtonGroup>
                 </div>
@@ -154,14 +164,20 @@ export default class EditComponentText extends React.Component <typings.PropsDef
                     <Tooltip title="Direction:Column">
                         <Button active={this.componentInfo.props.style.flexDirection === 'column' || this.componentInfo.props.style.flexDirection === 'column-reverse'}
                                 onClick={this.handleUpdateValue.bind(this, 'style.flexDirection', 'column')}>
-                            Column
+                            <svg className="svg-icon rotate-270">
+                                <use xlinkHref="#flex-row"/>
+                            </svg>
                         </Button>
                     </Tooltip>
 
                     <ButtonGroup>
                         <Tooltip title={columnFlexStart}>
                             <Button active={this.componentInfo.props.style.alignItems === 'flex-start'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'flex-start')}>S</Button>
+                                    onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'flex-start')}>
+                                <svg className="svg-icon">
+                                    <use xlinkHref="#flex-align-start"/>
+                                </svg>
+                            </Button>
                         </Tooltip>
                         <Tooltip title={columnFlexCenter}>
                             <Button active={this.componentInfo.props.style.alignItems === 'center'}
@@ -169,7 +185,11 @@ export default class EditComponentText extends React.Component <typings.PropsDef
                         </Tooltip>
                         <Tooltip title={columnFlexEnd}>
                             <Button active={this.componentInfo.props.style.alignItems === 'flex-end'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'flex-end')}>E</Button>
+                                    onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'flex-end')}>
+                                <svg className="svg-icon rotate-180">
+                                    <use xlinkHref="#flex-align-start"/>
+                                </svg>
+                            </Button>
                         </Tooltip>
                         <Tooltip title={columnFlexStrech}>
                             <Button active={this.componentInfo.props.style.alignItems === 'stretch'}
@@ -177,7 +197,11 @@ export default class EditComponentText extends React.Component <typings.PropsDef
                         </Tooltip>
                         <Tooltip title={columnFlexBaseline}>
                             <Button active={this.componentInfo.props.style.alignItems === 'baseline'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'baseline')}>A</Button>
+                                    onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'baseline')}>
+                                <svg className="svg-icon">
+                                    <use xlinkHref="#flex-baseline"/>
+                                </svg>
+                            </Button>
                         </Tooltip>
                     </ButtonGroup>
                 </div>
@@ -203,21 +227,37 @@ export default class EditComponentText extends React.Component <typings.PropsDef
                 <ButtonGroup>
                     <Tooltip title="Block">
                         <Button active={this.componentInfo.props.style.display === 'block'}
-                                onClick={this.handleUpdateValue.bind(this, 'style.display', 'block')}>1</Button>
+                                onClick={this.handleUpdateValue.bind(this, 'style.display', 'block')}>
+                            <svg className="svg-icon">
+                                <use xlinkHref="#display-block"/>
+                            </svg>
+                        </Button>
                     </Tooltip>
                     <Tooltip title="InlineBlock">
                         <Button active={this.componentInfo.props.style.display === 'inline-block'}
-                                onClick={this.handleUpdateValue.bind(this, 'style.display', 'inline-block')}>2</Button>
+                                onClick={this.handleUpdateValue.bind(this, 'style.display', 'inline-block')}>
+                            <svg className="svg-icon">
+                                <use xlinkHref="#display-inline-block"/>
+                            </svg>
+                        </Button>
                     </Tooltip>
                     <Tooltip title="Inline">
                         <Button active={this.componentInfo.props.style.display === 'inline'}
-                                onClick={this.handleUpdateValue.bind(this, 'style.display', 'inline')}>3</Button>
+                                onClick={this.handleUpdateValue.bind(this, 'style.display', 'inline')}>
+                            <svg className="svg-icon">
+                                <use xlinkHref="#display-inline"/>
+                            </svg>
+                        </Button>
                     </Tooltip>
                 </ButtonGroup>
 
                 <Tooltip title="Flex">
                     <Button active={this.componentInfo.props.style.display === 'flex'}
-                            onClick={this.handleUpdateValue.bind(this, 'style.display', 'flex')}>flex</Button>
+                            onClick={this.handleUpdateValue.bind(this, 'style.display', 'flex')}>
+                        <svg className="svg-icon">
+                            <use xlinkHref="#display-flex"/>
+                        </svg>
+                    </Button>
                 </Tooltip>
 
                 <Tooltip title="None">

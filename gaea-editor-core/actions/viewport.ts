@@ -1,28 +1,38 @@
 import {injectable} from 'inversify'
-import {action, observable, extendObservable} from 'mobx'
+import {action, observable, extendObservable, transaction} from 'mobx'
 import ViewportStore from '../stores/viewport'
 import ApplicationAction from '../actions/application'
+import EventAction from '../actions/event'
+import EventStore from '../stores/event'
 import {lazyInject} from '../utils/kernel'
 import * as Sortable from 'sortablejs'
+import * as _ from 'lodash'
+import {error} from "util";
 
 @injectable()
 export default class ViewportAction {
     @lazyInject(ViewportStore) private viewport: ViewportStore
     @lazyInject(ApplicationAction) private applicationAction: ApplicationAction
+    @lazyInject(EventAction) private eventAction: EventAction
+    @lazyInject(EventStore) private event: EventStore
 
     @action('设置根节点唯一标识') setRootMapUniqueKey(mapUniqueKey: string) {
         this.viewport.rootMapUniqueKey = mapUniqueKey
     }
 
     @action('在视图中设置组件信息') setComponent(mapUniqueKey: string, componentInfo: FitGaea.ViewportComponentInfo) {
-        componentInfo.props = this.completionEditProps(componentInfo.props)
+        let componentInfoClone = _.cloneDeep(componentInfo)
 
-        if (componentInfo.parentMapUniqueKey === null) {
+        componentInfoClone.props = this.completionEditProps(componentInfo.props)
+
+        if (componentInfoClone.parentMapUniqueKey === null) {
             // 最外层必须相对定位，不能修改
-            componentInfo.props.gaeaEdit = componentInfo.props.gaeaEdit.filter((edit: any)=>edit.editor !== 'position' && edit !== '定位')
+            componentInfoClone.props.gaeaEdit = componentInfoClone.props.gaeaEdit.filter((edit: any)=>edit.editor !== 'position' && edit !== '定位')
         }
 
-        this.viewport.components.set(mapUniqueKey, extendObservable({}, componentInfo))
+        componentInfoClone.props = extendObservable({}, componentInfoClone.props)
+
+        this.viewport.components.set(mapUniqueKey, componentInfoClone)
     }
 
     @action('新增全新的组件') addNewComponent(uniqueKey: string, parentMapUniqueKey: string, index: number) {
@@ -71,11 +81,62 @@ export default class ViewportAction {
         sourceComponentInfo.layoutChilds.splice(sourceIndex, 1)
     }
 
+    @action('组件在同父级移动位置') horizontalMoveComponent(parentMapUniqueKey: string, beforeIndex: number, afterIndex: number) {
+        const layoutChilds = this.viewport.components.get(parentMapUniqueKey).layoutChilds
+        if (beforeIndex < afterIndex) {
+            // 从左到右
+            transaction(()=> {
+                for (let index = beforeIndex; index < afterIndex; index++) {
+                    const beforeUniqueKey = layoutChilds[index]
+                    const afterUniqueKey = layoutChilds[index + 1]
+                    layoutChilds[index] = afterUniqueKey
+                    layoutChilds[index + 1] = beforeUniqueKey
+                }
+            })
+        } else {
+            // 从右到左
+            transaction(()=> {
+                for (let index = beforeIndex; index > afterIndex; index--) {
+                    const beforeUniqueKey = layoutChilds[index]
+                    const afterUniqueKey = layoutChilds[index - 1]
+                    layoutChilds[index] = afterUniqueKey
+                    layoutChilds[index - 1] = beforeUniqueKey
+                }
+            })
+        }
+    }
+
     @action('新增模板组件') addComboComponent() {
     }
 
-    @action('移除组件') removeComponent() {
+    @action('移除组件') removeComponent(mapUniqueKey: string) {
+        const removeComponentInfo = this.viewport.components.get(mapUniqueKey)
 
+        // 根节点无法删除
+        if (removeComponentInfo.parentMapUniqueKey === null) {
+            throw '不能删除根节点'
+        }
+
+        transaction(()=> {
+            // 删除这个组件的子组件
+            const childMapUniqueKeys = this.getAllChildsByMapUniqueKey(mapUniqueKey)
+            childMapUniqueKeys.forEach(childMapUniqueKey=> {
+                this.viewport.components.delete(childMapUniqueKey)
+            })
+
+            // 找到被删除组件的父组件
+            const parentComponentInfo = this.viewport.components.get(removeComponentInfo.parentMapUniqueKey)
+            // 从父组件的孩子节点列表中移除
+            parentComponentInfo.layoutChilds = parentComponentInfo.layoutChilds.filter(childMapUniqueKey=>childMapUniqueKey !== mapUniqueKey)
+
+            // 从 store 中删除
+            this.viewport.components.delete(mapUniqueKey)
+
+            // 如果要删除的组件就是正在编辑的组件，退出编辑状态
+            if (mapUniqueKey === this.viewport.currentEditComponentMapUniqueKey) {
+                this.setCurrentEditComponentMapUniqueKey(null)
+            }
+        })
     }
 
     @action('设置视图区域 dom 节点') setViewportDom(dom: HTMLElement) {
@@ -119,28 +180,184 @@ export default class ViewportAction {
         this.viewport.isLayoutComponentActive = active
     }
 
+    @action('修改当前编辑组件的组件属性') updateCurrentEditComponentProps(field: string, value: any) {
+        this.updateComponentProps(this.viewport.currentEditComponentMapUniqueKey, field, value)
+    }
+
+    @action('修改组件属性') updateComponentProps(mapUniqueKey: string, field: string, value: any) {
+        const componentInfo = this.viewport.components.get(mapUniqueKey)
+        _.set(componentInfo.props, field, value)
+    }
+
+    @action('重置属性') resetProps(mapUniqueKey: string) {
+        const componentInfo = this.viewport.components.get(mapUniqueKey)
+        const ComponentClass = this.applicationAction.getComponentClassByGaeaUniqueKey(componentInfo.props.gaeaUniqueKey)
+        componentInfo.props = extendObservable({}, _.cloneDeep(ComponentClass.defaultProps))
+    }
+
     /**
      * 补全编辑状态的配置 会修改原对象
      */
     completionEditProps(componentProps: FitGaea.ComponentProps) {
         if (!componentProps.gaeaEventData) {
-            componentProps.gaeaEventData = observable([])
+            componentProps.gaeaEventData = []
         }
         if (!componentProps.gaeaNativeEventData) {
-            componentProps.gaeaNativeEventData = observable([])
+            componentProps.gaeaNativeEventData = []
         }
         if (!componentProps.gaeaVariables) {
-            componentProps.gaeaVariables = observable([])
+            componentProps.gaeaVariables = []
         }
         return componentProps
     }
 
     /**
-     * 直接子元素可以被拖拽到视图区域
+     * 注册子元素内部拖动
+     * 指的是当前元素与视图元素一一对应，拖拽相当于视图元素的拖拽，可以实现例如 treePlugin
+     */
+    registerInnerDrag(mapUniqueKey: string, dragParentElement: HTMLElement, groupName = 'gaea-can-drag-in', sortableParam: any = {}) {
+        const componentInfo = this.viewport.components.get(mapUniqueKey)
+
+        Sortable.create(dragParentElement, Object.assign({
+            animation: 150,
+            // 放在一个组里,可以跨组拖拽
+            group: {
+                name: groupName,
+                pull: true,
+                put: true
+            },
+            onStart: (event: any) => {
+                this.startDrag({
+                    type: 'viewport',
+                    dragStartParentElement: dragParentElement,
+                    dragStartIndex: event.oldIndex as number,
+                    viewportInfo: {
+                        mapUniqueKey: componentInfo.layoutChilds[event.oldIndex as number]
+                    }
+                })
+            },
+            onEnd: (event: any) => {
+                this.endDrag()
+
+                // 在 viewport 中元素拖拽完毕后, 为了防止 outer-move-box 在原来位置留下残影, 先隐藏掉
+                this.setCurrentHoverComponentMapUniqueKey(null)
+            },
+            onAdd: (event: any)=> {
+                switch (this.viewport.currentDragComponentInfo.type) {
+                    case 'new':
+                        // 是新拖进来的, 不用管, 因为工具栏会把它收回去
+                        // 为什么不删掉? 因为这个元素不论是不是 clone, 都被移过来了, 不还回去 react 在更新 dom 时会无法找到
+                        const newMapUniqueKey = this.addNewComponent(this.viewport.currentDragComponentInfo.newInfo.uniqueKey, mapUniqueKey, event.newIndex as number)
+
+                        // TODO 触发新增事件
+                        // this.props.viewport.saveOperate({
+                        //     type: 'add',
+                        //     mapUniqueKey,
+                        //     add: {
+                        //         uniqueId: this.props.viewport.currentMovingComponent.uniqueKey,
+                        //         parentMapUniqueKey: this.props.mapUniqueKey,
+                        //         index: event.newIndex as number
+                        //     }
+                        // })
+                        break
+
+                    case 'viewport':
+                        // 这里只还原 dom，和记录拖拽源信息，不会修改 components 数据，跨层级移动在 remove 回调中修改
+                        // 是从视图区域另一个元素移过来，而且是新增的,而不是同一个父级改变排序
+                        // 把这个元素还给之前拖拽的父级
+                        if (this.viewport.currentDragComponentInfo.dragStartParentElement.childNodes.length === 0) {
+                            // 之前只有一个元素
+                            this.viewport.currentDragComponentInfo.dragStartParentElement.appendChild(event.item)
+                        } else if (this.viewport.currentDragComponentInfo.dragStartParentElement.childNodes.length === this.viewport.currentDragComponentInfo.dragStartIndex) {
+                            // 是上一次位置是最后一个, 而且父元素有多个元素
+                            this.viewport.currentDragComponentInfo.dragStartParentElement.appendChild(event.item)
+                        } else {
+                            // 不是最后一个, 而且有多个元素
+                            // 插入到它下一个元素的前一个
+                            this.viewport.currentDragComponentInfo.dragStartParentElement.insertBefore(event.item, this.viewport.currentDragComponentInfo.dragStartParentElement.childNodes[this.viewport.currentDragComponentInfo.dragStartIndex])
+                        }
+
+                        // 设置新增时拖拽源信息
+                        this.setDragTargetInfo(mapUniqueKey, event.newIndex as number)
+                        break
+
+                    case 'combo':
+                        // TODO 发布新增组合事件
+                        // this.props.viewport.saveOperate({
+                        //     type: 'addCombo',
+                        //     mapUniqueKey,
+                        //     addCombo: {
+                        //         parentMapUniqueKey: this.props.mapUniqueKey,
+                        //         index: event.newIndex as number,
+                        //         componentInfo: component
+                        //     }
+                        // })
+                        break
+                }
+            },
+            onUpdate: (event: any)=> {
+                // // 同一个父级下子元素交换父级
+                // // 取消 srotable 对 dom 的修改, 让元素回到最初的位置即可复原
+                const oldIndex = event.oldIndex as number
+                const newIndex = event.newIndex as number
+                if (this.viewport.currentDragComponentInfo.dragStartParentElement.childNodes.length === oldIndex + 1) {
+                    // 是从最后一个元素开始拖拽的
+                    this.viewport.currentDragComponentInfo.dragStartParentElement.appendChild(event.item)
+                } else {
+                    if (newIndex > oldIndex) {
+                        // 如果移到了后面
+                        this.viewport.currentDragComponentInfo.dragStartParentElement.insertBefore(event.item, this.viewport.currentDragComponentInfo.dragStartParentElement.childNodes[oldIndex])
+                    } else {
+                        // 如果移到了前面
+                        this.viewport.currentDragComponentInfo.dragStartParentElement.insertBefore(event.item, this.viewport.currentDragComponentInfo.dragStartParentElement.childNodes[oldIndex + 1])
+                    }
+                }
+                this.horizontalMoveComponent(mapUniqueKey, event.oldIndex as number, event.newIndex as number)
+
+                // TODO 保存历史
+                // this.props.viewport.saveOperate({
+                //     type: 'exchange',
+                //     mapUniqueKey: this.props.mapUniqueKey,
+                //     exchange: {
+                //         oldIndex,
+                //         newIndex
+                //     }
+                // })
+            },
+            onRemove: (event: any)=> {
+                // onEnd 在其之后执行，会清除拖拽目标的信息
+                // 减少了一个子元素，一定是发生在 viewport 区域元素发生跨父级拖拽时
+                this.moveComponent(mapUniqueKey, this.viewport.currentDragComponentInfo.dragStartIndex, this.viewport.currentDragComponentInfo.viewportInfo.targetMapUniqueKey, this.viewport.currentDragComponentInfo.viewportInfo.targetIndex)
+
+                // 一个元素被跨父级移动，生命周期执行顺序是： 新位置的 didMount -> 原来位置的 willUnmount -> 执行这个方法
+                // onEnd 是最后执行，所以不用担心拖拽中间数据被清除
+                // 因此在这里修正位置最好
+                // 触发一个事件
+                this.eventAction.emit(`${this.event.viewportDomUpdate}.${this.viewport.currentDragComponentInfo.viewportInfo.mapUniqueKey}`)
+
+                // 触发 move 事件
+                // this.props.viewport.saveOperate({
+                //     type: 'move',
+                //     // 新增元素父级 key
+                //     mapUniqueKey: this.props.mapUniqueKey,
+                //     move: {
+                //         targetParentMapUniqueKey: this.props.viewport.dragTargetMapUniqueKey,
+                //         targetIndex: this.props.viewport.dragTargetIndex,
+                //         sourceParentMapUniqueKey: this.props.mapUniqueKey,
+                //         sourceIndex: event.oldIndex as number
+                //     }
+                // })
+            }
+        }, sortableParam))
+    }
+
+    /**
+     * 子元素外部拖动
+     * 拖动的元素会拷贝一份在视图中，自身不会减少，可以做拖拽菜单
      * 如果子元素有 data-unique-key 属性，则会创建一个新元素
      * 如果子元素有 data-source 属性，则会创建一个组合
      */
-    registerDraggable(dragParentElement: HTMLElement) {
+    registerOuterDarg(dragParentElement: HTMLElement, groupName = 'gaea-can-drag-in') {
         // 上次拖拽的位置
         let lastDragStartIndex = -1
 
@@ -148,7 +365,7 @@ export default class ViewportAction {
             animation: 150,
             // 放在一个组里,可以跨组拖拽
             group: {
-                name: 'gaea-can-drag-in',
+                name: groupName,
                 pull: 'clone',
                 put: false
             },
@@ -186,5 +403,18 @@ export default class ViewportAction {
                 }
             }
         })
+    }
+
+    /**
+     * 获取某个组件全部子元素 mapUniqueKey 数组
+     */
+    getAllChildsByMapUniqueKey(mapUniqueKey: string) {
+        const componentInfo = this.viewport.components.get(mapUniqueKey)
+        let childMapUniqueKeys = componentInfo.layoutChilds || []
+        // 找到其子组件
+        componentInfo.layoutChilds && componentInfo.layoutChilds.forEach(childMapUniqueKey=> {
+            childMapUniqueKeys = childMapUniqueKeys.concat(this.getAllChildsByMapUniqueKey(childMapUniqueKey))
+        })
+        return childMapUniqueKeys
     }
 }

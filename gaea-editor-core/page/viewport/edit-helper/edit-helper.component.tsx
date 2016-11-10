@@ -5,7 +5,10 @@ import {observer, inject} from 'mobx-react'
 
 import {autoBindMethod} from '../../../../../../common/auto-bind/index'
 
-import * as Sortable from 'sortablejs'
+import ApplicationAction from '../../../actions/application'
+import ViewportAction from '../../../actions/viewport'
+import EventAction from '../../../actions/event'
+import {lazyInject} from '../../../utils/kernel'
 
 import './edit-helper.scss'
 
@@ -20,7 +23,7 @@ const removeClass = (obj: HTMLElement, cls: string) => {
     }
 }
 
-@observer(['application', 'viewport', 'event', 'applicationAction', 'viewportAction', 'eventAction'])
+@observer(['application', 'viewport', 'event'])
 export default class EditHelper extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -29,7 +32,11 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     public wrappedInstance: React.ReactInstance
 
     // 绑定注入数据的自身 class, 递归渲染使用
-    static ObserveEditHelper = inject('application', 'viewport', 'event', 'applicationAction', 'viewportAction', 'eventAction')(observer(EditHelper))
+    static ObserveEditHelper = inject('application', 'viewport', 'event')(observer(EditHelper))
+
+    @lazyInject(ApplicationAction) private applicationAction: ApplicationAction
+    @lazyInject(EventAction) private eventAction: EventAction
+    @lazyInject(ViewportAction) private viewportAction: ViewportAction
 
     // 当前组件的 class
     private ComponentClass: React.ComponentClass<FitGaea.ComponentProps>
@@ -39,9 +46,6 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
 
     // 当前组件 dom 对象
     private domInstance: HTMLElement
-
-    // sortable 对象, 只有布局组件才有
-    private sortable: any
 
     // 是否开始拖动
     private startDrag = false
@@ -55,7 +59,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         this.componentInfo = this.props.viewport.components.get(this.props.mapUniqueKey)
 
         // 获取当前要渲染的组件 class
-        this.ComponentClass = this.props.applicationAction.getComponentClassByGaeaUniqueKey(this.componentInfo.props.gaeaUniqueKey)
+        this.ComponentClass = this.applicationAction.getComponentClassByGaeaUniqueKey(this.componentInfo.props.gaeaUniqueKey)
     }
 
     componentDidMount() {
@@ -64,6 +68,8 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         // 绑定监听
         this.domInstance.addEventListener('mouseover', this.handleMouseOver)
         this.domInstance.addEventListener('click', this.handleClick)
+
+        this.eventAction.on(`${this.props.event.viewportDomUpdate}.${this.props.mapUniqueKey}`, this.updateDom)
 
         // this.domInstance.addEventListener('mousedown', this.handleMouseDown)
         // this.domInstance.addEventListener('mousemove', this.handleMouseMove)
@@ -76,140 +82,14 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
 
         this.setDragableClassIfNeed()
 
-        // 存储 dom 在全局
-        this.props.viewportAction.setDomInstance(this.props.mapUniqueKey, this.domInstance)
+        // 更新 dom 信息
+        this.viewportAction.setDomInstance(this.props.mapUniqueKey, this.domInstance)
 
         // 如果自己是布局元素, 给子元素绑定 sortable
         if (this.componentInfo.props.canDragIn) {
             // 添加可排序拖拽
-            this.sortable = Sortable.create(this.domInstance, {
-                animation: 150,
-                // 放在一个组里,可以跨组拖拽
-                group: {
-                    name: 'gaea-can-drag-in',
-                    pull: true,
-                    put: true
-                },
-                draggable: '.gaea-draggable',
-                onStart: (event: any) => {
-                    this.props.viewportAction.startDrag({
-                        type: 'viewport',
-                        dragStartParentElement: this.domInstance,
-                        dragStartIndex: event.oldIndex as number,
-                        viewportInfo: {
-                            mapUniqueKey: this.componentInfo.layoutChilds[event.oldIndex as number]
-                        }
-                    })
-                },
-                onEnd: (event: any) => {
-                    this.props.viewportAction.endDrag()
-
-                    // 在 viewport 中元素拖拽完毕后, 为了防止 outer-move-box 在原来位置留下残影, 先隐藏掉
-                    this.props.viewportAction.setCurrentHoverComponentMapUniqueKey(null)
-                },
-                onAdd: (event: any)=> {
-                    switch (this.props.viewport.currentDragComponentInfo.type) {
-                        case 'new':
-                            // 是新拖进来的, 不用管, 因为工具栏会把它收回去
-                            // 为什么不删掉? 因为这个元素不论是不是 clone, 都被移过来了, 不还回去 react 在更新 dom 时会无法找到
-                            const mapUniqueKey = this.props.viewportAction.addNewComponent(this.props.viewport.currentDragComponentInfo.newInfo.uniqueKey, this.props.mapUniqueKey, event.newIndex as number)
-
-                            // TODO 触发新增事件
-                            // this.props.viewport.saveOperate({
-                            //     type: 'add',
-                            //     mapUniqueKey,
-                            //     add: {
-                            //         uniqueId: this.props.viewport.currentMovingComponent.uniqueKey,
-                            //         parentMapUniqueKey: this.props.mapUniqueKey,
-                            //         index: event.newIndex as number
-                            //     }
-                            // })
-                            break
-
-                        case 'viewport':
-                            // 这里只还原 dom，和记录拖拽源信息，不会修改 components 数据，跨层级移动在 remove 回调中修改
-                            // 是从视图区域另一个元素移过来，而且是新增的,而不是同一个父级改变排序
-                            // 把这个元素还给之前拖拽的父级
-                            if (this.props.viewport.currentDragComponentInfo.dragStartParentElement.childNodes.length === 0) {
-                                // 之前只有一个元素
-                                this.props.viewport.currentDragComponentInfo.dragStartParentElement.appendChild(event.item)
-                            } else if (this.props.viewport.currentDragComponentInfo.dragStartParentElement.childNodes.length === this.props.viewport.currentDragComponentInfo.dragStartIndex) {
-                                // 是上一次位置是最后一个, 而且父元素有多个元素
-                                this.props.viewport.currentDragComponentInfo.dragStartParentElement.appendChild(event.item)
-                            } else {
-                                // 不是最后一个, 而且有多个元素
-                                // 插入到它下一个元素的前一个
-                                this.props.viewport.currentDragComponentInfo.dragStartParentElement.insertBefore(event.item, this.props.viewport.currentDragComponentInfo.dragStartParentElement.childNodes[this.props.viewport.currentDragComponentInfo.dragStartIndex])
-                            }
-
-                            // 设置新增时拖拽源信息
-                            this.props.viewportAction.setDragTargetInfo(this.props.mapUniqueKey, event.newIndex as number)
-                            break
-
-                        case 'combo':
-                            // TODO 发布新增组合事件
-                            // this.props.viewport.saveOperate({
-                            //     type: 'addCombo',
-                            //     mapUniqueKey,
-                            //     addCombo: {
-                            //         parentMapUniqueKey: this.props.mapUniqueKey,
-                            //         index: event.newIndex as number,
-                            //         componentInfo: component
-                            //     }
-                            // })
-                            break
-                    }
-                },
-                onUpdate: (event: any)=> {
-                    // // 同一个父级下子元素交换父级
-                    // // 取消 srotable 对 dom 的修改, 让元素回到最初的位置即可复原
-                    // const oldIndex = event.oldIndex as number
-                    // const newIndex = event.newIndex as number
-                    // if (this.props.viewport.dragStartParentElement.childNodes.length === oldIndex + 1) {
-                    //     // 是从最后一个元素开始拖拽的
-                    //     this.props.viewport.dragStartParentElement.appendChild(event.item)
-                    // } else {
-                    //     if (newIndex > oldIndex) {
-                    //         // 如果移到了后面
-                    //         this.props.viewport.dragStartParentElement.insertBefore(event.item, this.props.viewport.dragStartParentElement.childNodes[oldIndex])
-                    //     } else {
-                    //         // 如果移到了前面
-                    //         this.props.viewport.dragStartParentElement.insertBefore(event.item, this.props.viewport.dragStartParentElement.childNodes[oldIndex + 1])
-                    //     }
-                    // }
-                    // this.props.viewport.sortComponents(this.props.mapUniqueKey, event.oldIndex as number, event.newIndex as number)
-                    //
-                    // this.props.viewport.saveOperate({
-                    //     type: 'exchange',
-                    //     mapUniqueKey: this.props.mapUniqueKey,
-                    //     exchange: {
-                    //         oldIndex,
-                    //         newIndex
-                    //     }
-                    // })
-                },
-                onRemove: (event: any)=> {
-                    // 减少了一个子元素，一定是发生在 viewport 区域元素发生跨父级拖拽时
-                    this.props.viewportAction.moveComponent(this.props.mapUniqueKey, this.props.viewport.currentDragComponentInfo.dragStartIndex, this.props.viewport.currentDragComponentInfo.viewportInfo.targetMapUniqueKey, this.props.viewport.currentDragComponentInfo.viewportInfo.targetIndex)
-
-                    // 这时减少的那个子元素 dom 被销毁新建了，重新刷新视图中此 dom
-                    //this.props.viewportAction.setDomInstance(this.props.viewport.currentDragComponentInfo)
-
-                    // 触发 move 事件
-                    // this.props.viewport.saveOperate({
-                    //     type: 'move',
-                    //     // 新增元素父级 key
-                    //     mapUniqueKey: this.props.mapUniqueKey,
-                    //     move: {
-                    //         targetParentMapUniqueKey: this.props.viewport.dragTargetMapUniqueKey,
-                    //         targetIndex: this.props.viewport.dragTargetIndex,
-                    //         sourceParentMapUniqueKey: this.props.mapUniqueKey,
-                    //         sourceIndex: event.oldIndex as number
-                    //     }
-                    // })
-
-                    // onEnd 在其之后执行，会清除拖拽目标的信息
-                }
+            this.viewportAction.registerInnerDrag(this.props.mapUniqueKey, this.domInstance, 'gaea-can-drag-in', {
+                draggable: '.gaea-draggable'
             })
         }
     }
@@ -225,14 +105,23 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         this.domInstance.removeEventListener('mouseover', this.handleMouseOver)
         this.domInstance.removeEventListener('click', this.handleClick)
 
-        // 在全局移除自身 dom 实例
-        this.props.viewportAction.removeDomInstance(this.props.mapUniqueKey)
+        this.eventAction.on(`${this.props.event.viewportDomUpdate}.${this.props.mapUniqueKey}`, this.updateDom)
+
+        // 在 dom 列表中移除
+        this.viewportAction.removeDomInstance(this.props.mapUniqueKey)
+    }
+
+    /**
+     * 更新此元素的 dom 信息
+     */
+    @autoBindMethod updateDom() {
+        this.viewportAction.setDomInstance(this.props.mapUniqueKey, this.domInstance)
     }
 
     /**
      * 如果是 absolute 布局，加上 absolute class
      */
-    setDragableClassIfNeed() {
+    @autoBindMethod setDragableClassIfNeed() {
         // 给绝对定位元素增加 absolute class，避免 sortable 响应
         if (this.componentInfo.props.style.position !== 'absolute' && !hasClass(this.domInstance, 'gaea-draggable')) {
             this.domInstance.className += ' gaea-draggable'
@@ -259,12 +148,12 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         event.stopPropagation()
 
         // 触发事件
-        this.props.eventAction.emit(this.props.event.mouseHoveringComponent, {
+        this.eventAction.emit(this.props.event.mouseHoveringComponent, {
             mapUniqueKey: this.props.mapUniqueKey,
             type: 'component'
         }as FitGaea.MouseHoverComponentEvent)
 
-        this.props.viewportAction.setCurrentHoverComponentMapUniqueKey(this.props.mapUniqueKey)
+        this.viewportAction.setCurrentHoverComponentMapUniqueKey(this.props.mapUniqueKey)
     }
 
     /**
@@ -279,7 +168,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         event.stopPropagation()
 
         // 将当前组件设置为正在编辑状态
-        this.props.viewportAction.setCurrentEditComponentMapUniqueKey(this.props.mapUniqueKey)
+        this.viewportAction.setCurrentEditComponentMapUniqueKey(this.props.mapUniqueKey)
     }
 
     /**
