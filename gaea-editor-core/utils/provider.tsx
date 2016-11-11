@@ -13,6 +13,10 @@ import PluginEditorTabs from '../components/editor-tabs/editor-tabs.component'
 import PluginEditorTabsAttribute from '../components/editor-tabs-attribute/editor-tabs-attribute.component'
 import PluginEditorShowLayoutButton from '../components/show-layout-button/show-layout-button.component'
 import PluginEditorTree from '../components/tree/tree.component'
+import PluginEditorAttributeText from '../components/editor-attribute-text/editor-attribute-text.component'
+import PluginEditorAttributeNumber from '../components/editor-attribute-number/editor-attribute-number.component'
+import PluginEditorAttributeBackground from '../components/editor-attribute-background/editor-attribute-background.component'
+import PluginEditorAttributeBorder from '../components/editor-attribute-border/editor-attribute-border.component'
 
 import EventAction from '../actions/event'
 import ApplicationAction from '../actions/application'
@@ -55,7 +59,11 @@ export default class ProviderContainer extends React.Component<ProviderContainer
             PluginEditorTabs,
             PluginEditorTabsAttribute,
             PluginEditorShowLayoutButton,
-            PluginEditorTree
+            PluginEditorTree,
+            PluginEditorAttributeText,
+            PluginEditorAttributeNumber,
+            PluginEditorAttributeBackground,
+            PluginEditorAttributeBorder
         ])
         const viewportStoreInstance = new ViewportStore()
 

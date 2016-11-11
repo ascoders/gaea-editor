@@ -1,0 +1,22 @@
+& {
+    display: flex;
+    padding: 10px;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    width: 0;
+}
+
+.range-container {
+    display: flex;
+}

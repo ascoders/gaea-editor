@@ -1,0 +1,17 @@
+& {
+    display: flex;
+    padding: 10px;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    width: 0;
+}

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as typings from './editor-tabs-attribute.type'
+import * as _ from 'lodash'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 import {Input} from '../../../../../web-common/input/index'
@@ -43,6 +44,25 @@ export default class EditorTabsAttribute extends React.Component <typings.PropsD
             return null
         }
 
+        // 编辑组件
+        const EditItems = this.props.viewport.currentEditComponentInfo.props.gaeaEdit && this.props.viewport.currentEditComponentInfo.props.gaeaEdit.map((editInfo, index)=> {
+                // 如果是字符串类型，直接生成标题
+                if (editInfo.constructor.name === 'String') {
+                    return (
+                        <div key={index}
+                             className="title">{editInfo.toString()}</div>
+                    )
+                } else {
+                    return (
+                        <div key={index}>
+                            {this.applicationAction.loadingPluginByPosition(`editorAttribute${_.capitalize(editInfo.editor)}`, {
+                                editInfo
+                            })}
+                        </div>
+                    )
+                }
+            })
+
         return (
             <div className="_namespace">
                 <div className="header-container">
@@ -83,7 +103,7 @@ export default class EditorTabsAttribute extends React.Component <typings.PropsD
                 </div>
 
                 <div className="body-container">
-
+                    {EditItems}
                 </div>
             </div>
         )

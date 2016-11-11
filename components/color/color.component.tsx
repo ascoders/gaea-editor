@@ -35,6 +35,7 @@ export default class Color extends React.Component <typings.PropsDefine, typings
             <div className="_namespace">
                 <Tooltip type="click"
                          showShadow={true}
+                         shadowStyle={{opacity:0}}
                          titleRender={this.titleRender}
                          simple={true}>
                     <div className="color-picker-label-container">

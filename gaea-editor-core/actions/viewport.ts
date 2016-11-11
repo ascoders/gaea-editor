@@ -195,6 +195,11 @@ export default class ViewportAction {
         componentInfo.props = extendObservable({}, _.cloneDeep(ComponentClass.defaultProps))
     }
 
+    @action('修改某个组件的属性') setComponentProps(mapUniqueKey: string, path: string, value: any) {
+        const componentInfo = this.viewport.components.get(mapUniqueKey)
+        _.set(componentInfo.props, path, value)
+    }
+
     /**
      * 补全编辑状态的配置 会修改原对象
      */
@@ -416,5 +421,17 @@ export default class ViewportAction {
             childMapUniqueKeys = childMapUniqueKeys.concat(this.getAllChildsByMapUniqueKey(childMapUniqueKey))
         })
         return childMapUniqueKeys
+    }
+
+    /**
+     * 获取当前编辑组件的属性值
+     */
+    getCurrentEditPropValueByEditInfo(editInfo: FitGaea.ComponentPropsGaeaEdit) {
+        const value = _.get(this.viewport.currentEditComponentInfo.props, editInfo.field)
+
+        if (value === null || value === undefined || value === editInfo.emptyValue) {
+            return ''
+        }
+        return value.toString()
     }
 }

@@ -189,6 +189,10 @@ class MyFirstPlugin extends React.Component <any, any> {
 }
 ```
 
+### Extend Edit Type
+
+You can named `static position='editorAttributeCustomName'` to handle `editor='customName'`.
+
 ### Deploy plugin
 
 Gaia editor included the following plug-ins to ensure that the core function of stability: 
