@@ -1,0 +1,35 @@
+& {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.btn {
+    height: 25px;
+    .text-child {
+        padding: 0 10px;
+    }
+}
+
+.overflow-expend-label-container {
+    display: flex;
+    flex-direction: column;
+    .label-item {
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.operate-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.expand-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}

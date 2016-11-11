@@ -55,7 +55,7 @@ export default class EditorTabsAttribute extends React.Component <typings.PropsD
                 } else {
                     return (
                         <div key={index}>
-                            {this.applicationAction.loadingPluginByPosition(`editorAttribute${_.capitalize(editInfo.editor)}`, {
+                            {this.applicationAction.loadingPluginByPosition(`editorAttribute${_.upperFirst(_.camelCase(editInfo.editor))}`, {
                                 editInfo
                             })}
                         </div>

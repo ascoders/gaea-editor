@@ -17,6 +17,15 @@ import PluginEditorAttributeText from '../components/editor-attribute-text/edito
 import PluginEditorAttributeNumber from '../components/editor-attribute-number/editor-attribute-number.component'
 import PluginEditorAttributeBackground from '../components/editor-attribute-background/editor-attribute-background.component'
 import PluginEditorAttributeBorder from '../components/editor-attribute-border/editor-attribute-border.component'
+import PluginEditorAttributeFont from '../components/editor-attribute-font/editor-attribute-font.component'
+import PluginEditorAttributeInstance from '../components/editor-attribute-instance/editor-attribute-instance.component'
+import PluginEditorAttributeLayout from '../components/editor-attribute-layout/editor-attribute-layout.component'
+import PluginEditorAttributeMarginPadding from '../components/editor-attribute-margin-padding/editor-attribute-margin-padding.component'
+import PluginEditorAttributeOverflow from '../components/editor-attribute-overflow/editor-attribute-overflow.component'
+import PluginEditorAttributePosition from '../components/editor-attribute-position/editor-attribute-position.component'
+import PluginEditorAttributeSelect from '../components/editor-attribute-select/editor-attribute-select.component'
+import PluginEditorAttributeSwitch from '../components/editor-attribute-switch/editor-attribute-switch.component'
+import PluginEditorAttributeWidthHeight from '../components/editor-attribute-width-height/editor-attribute-width-height.component'
 
 import EventAction from '../actions/event'
 import ApplicationAction from '../actions/application'
@@ -63,7 +72,16 @@ export default class ProviderContainer extends React.Component<ProviderContainer
             PluginEditorAttributeText,
             PluginEditorAttributeNumber,
             PluginEditorAttributeBackground,
-            PluginEditorAttributeBorder
+            PluginEditorAttributeBorder,
+            PluginEditorAttributeFont,
+            PluginEditorAttributeInstance,
+            PluginEditorAttributeLayout,
+            PluginEditorAttributeMarginPadding,
+            PluginEditorAttributeOverflow,
+            PluginEditorAttributePosition,
+            PluginEditorAttributeSelect,
+            PluginEditorAttributeSwitch,
+            PluginEditorAttributeWidthHeight
         ])
         const viewportStoreInstance = new ViewportStore()
 

@@ -40,7 +40,7 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
         // .15s 后触发视图区域刷新事件
         setTimeout(()=> {
             this.eventAction.emit(this.props.event.viewportUpdated)
-        }, 160)
+        }, 200)
 
         return (
             <div className="_namespace">
