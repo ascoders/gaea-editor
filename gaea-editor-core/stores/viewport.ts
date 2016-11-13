@@ -39,4 +39,30 @@ export default class ViewportStore {
 
     // 当前拖拽元素信息
     @observable currentDragComponentInfo: FitGaea.CurrentDragComponentInfo = null
+
+    // 当前编辑元素的寻找路径
+    @computed get currentEditComponentPath() {
+        let finderPath: Array<string> = [this.currentEditComponentMapUniqueKey]
+
+        if (this.currentEditComponentMapUniqueKey === null) {
+            return [] as Array<string>
+        }
+
+        let nowComponent = this.components.get(this.currentEditComponentMapUniqueKey)
+
+        // 如果已经是根元素, 直接返回空数组
+        if (nowComponent.parentMapUniqueKey === null) {
+            return [this.rootMapUniqueKey]
+        }
+
+        // 直到父级是根元素为止
+        while (this.components.get(nowComponent.parentMapUniqueKey).parentMapUniqueKey !== null) {
+            finderPath.unshift(nowComponent.parentMapUniqueKey)
+            nowComponent = this.components.get(nowComponent.parentMapUniqueKey)
+        }
+
+        finderPath.unshift(this.rootMapUniqueKey)
+
+        return finderPath
+    }
 }

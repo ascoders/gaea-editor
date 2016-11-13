@@ -149,7 +149,8 @@
 }
 
 // 导航条最下面的容器
-.navbar-center-container {
+.navbar-bottom-container {
+    display: flex;
     height: 30px;
 }
 

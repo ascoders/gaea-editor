@@ -79,7 +79,7 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
                         </div>
                     </div>
                     <div className="navbar-bottom-container">
-
+                        {this.applicationAction.loadingPluginByPosition('navbarBottom')}
                     </div>
                 </div>
                 <div className="outer-right-container">
