@@ -7,14 +7,20 @@ import {TabPanel, Tabs} from '../../../../../web-common/tabs/index'
 
 import './editor-tabs.scss'
 
-@EditorManager.observer(['applicationAction'])
+@EditorManager.observer(['viewport'])
 export default class EditorTabs extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'editor'
 
+    @EditorManager.lazyInject(EditorManager.ApplicationAction) private applicationAction: EditorManager.ApplicationAction
+
     render() {
+        if (this.props.viewport.showEditComponents === false) {
+            return null
+        }
+
         return (
             <Tabs defaultActiveKey="attribute"
                   className="_namespace"
@@ -22,12 +28,12 @@ export default class EditorTabs extends React.Component <typings.PropsDefine, ty
                 <TabPanel tab="属性"
                           activeKey="attribute"
                           className="tab-panel">
-                    {this.props.applicationAction.loadingPluginByPosition('editorAttribute')}
+                    {this.applicationAction.loadingPluginByPosition('editorAttribute')}
                 </TabPanel>
                 <TabPanel tab="事件"
                           activeKey="event"
                           className="tab-panel">
-                    {this.props.applicationAction.loadingPluginByPosition('editorEvent')}
+                    {this.applicationAction.loadingPluginByPosition('editorEvent')}
                 </TabPanel>
             </Tabs>
         )

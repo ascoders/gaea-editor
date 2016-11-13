@@ -147,8 +147,12 @@ export default class ViewportAction {
         this.viewport.currentHoverComponentMapUniqueKey = mapUniqueKey
     }
 
-    @action('设置当前 editing 元素的 mapUniqueKey') setCurrentEditComponentMapUniqueKey(mapUniqueKey: string) {
+    @action('设置当前 edit 元素的 mapUniqueKey') setCurrentEditComponentMapUniqueKey(mapUniqueKey: string) {
         this.viewport.currentEditComponentMapUniqueKey = mapUniqueKey
+
+        setTimeout(()=> {
+            this.viewport.showEditComponents = !!mapUniqueKey
+        }, 150)
     }
 
     @action('生成唯一 key') createUniqueKey() {

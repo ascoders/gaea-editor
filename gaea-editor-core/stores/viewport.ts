@@ -31,6 +31,9 @@ export default class ViewportStore {
         return this.components.get(this.currentEditComponentMapUniqueKey)
     }
 
+    // 是否显示编辑组件
+    @observable showEditComponents = false
+
     // 布局元素是否高亮
     @observable isLayoutComponentActive = false
 

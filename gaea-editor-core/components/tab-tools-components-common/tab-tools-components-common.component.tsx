@@ -8,15 +8,17 @@ import {autoBindMethod} from '../../../../../common/auto-bind/index'
 
 import './tab-tools-components-common.scss'
 
-@EditorManager.observer(['application', 'viewportAction'])
+@EditorManager.observer(['application'])
 export default class TabToolsComponentsCommon extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'tabToolsComponentsCommon'
 
+    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
+
     componentDidMount() {
-        this.props.viewportAction.registerOuterDarg(ReactDOM.findDOMNode(this) as HTMLElement)
+        this.viewportAction.registerOuterDarg(ReactDOM.findDOMNode(this) as HTMLElement)
     }
 
     render() {

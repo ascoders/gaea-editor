@@ -14,7 +14,7 @@ import Guideline from './guideline/guideline.component'
 
 import './tree.scss'
 
-@EditorManager.observer(['viewport', 'viewportAction', 'treeAction'])
+@EditorManager.observer(['viewport'])
 export default class TreePlugin extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -23,12 +23,15 @@ export default class TreePlugin extends React.Component <typings.PropsDefine, ty
     static Action = TreeAction
     static Store = TreeStore
 
+    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
+    @EditorManager.lazyInject(TreeAction) private treeAction: TreeAction
+
     componentDidMount() {
-        this.props.treeAction.setTreeRootDom(ReactDOM.findDOMNode(this.refs['treeContainer']) as HTMLElement)
+        this.treeAction.setTreeRootDom(ReactDOM.findDOMNode(this.refs['treeContainer']) as HTMLElement)
     }
 
     @autoBindMethod handleMouseLeave() {
-        this.props.viewportAction.setCurrentHoverComponentMapUniqueKey(null)
+        this.viewportAction.setCurrentHoverComponentMapUniqueKey(null)
     }
 
     render() {

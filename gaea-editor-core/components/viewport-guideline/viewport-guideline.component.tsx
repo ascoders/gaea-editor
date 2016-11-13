@@ -6,19 +6,22 @@ import {autoBindMethod} from '../../../../../common/auto-bind/index'
 
 import './viewport-guideline.scss'
 
-@EditorManager.observer(['viewport', 'viewportAction', 'event', 'eventAction'])
+@EditorManager.observer(['viewport', 'event'])
 export default class TabTools extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'viewport'
 
+    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
+    @EditorManager.lazyInject(EditorManager.EventAction) private eventAction: EditorManager.EventAction
+
     componentDidMount() {
-        this.props.eventAction.on(this.props.event.viewportUpdated, this.handleViewportUpdated)
+        this.eventAction.on(this.props.event.viewportUpdated, this.handleViewportUpdated)
     }
 
     componentWillUnmount() {
-        this.props.eventAction.off(this.props.event.viewportUpdated, this.handleViewportUpdated)
+        this.eventAction.off(this.props.event.viewportUpdated, this.handleViewportUpdated)
     }
 
     /**

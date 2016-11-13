@@ -3,9 +3,7 @@ import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager
 import TreeAction from './action'
 
 export interface PropsDefine {
-    viewportAction?: EditorManager.ViewportAction
     viewport?: EditorManager.ViewportStore
-    treeAction?: TreeAction
 }
 
 export class Props implements PropsDefine {

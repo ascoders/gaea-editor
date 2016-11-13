@@ -7,15 +7,17 @@ import {autoBindMethod} from '../../../../../common/auto-bind/index'
 
 import './show-layout-button.scss'
 
-@EditorManager.observer(['viewport', 'viewportAction'])
+@EditorManager.observer(['viewport'])
 export default class ShowLayoutButton extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'navbarLeftBottom'
 
+    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
+
     @autoBindMethod handleClick() {
-        this.props.viewportAction.setLayoutComponentActive(!this.props.viewport.isLayoutComponentActive)
+        this.viewportAction.setLayoutComponentActive(!this.props.viewport.isLayoutComponentActive)
     }
 
     render() {
