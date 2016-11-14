@@ -10,9 +10,9 @@ import PluginTabToolsComponents from '../components/tab-tools-components/tab-too
 import PluginTabToolsComponentsCommon from '../components/tab-tools-components-common/tab-tools-components-common.component'
 import PluginTabToolsComponentsCustom from '../components/tab-tools-components-custom/tab-tools-components-custom.component'
 import PluginViewportGuideline from '../components/viewport-guideline/viewport-guideline.component'
+import PluginShowLayoutButton from '../components/show-layout-button/show-layout-button.component'
+import PluginTree from '../components/tree/tree.component'
 import PluginEditorTabs from '../components/editor-tabs/editor-tabs.component'
-import PluginEditorShowLayoutButton from '../components/show-layout-button/show-layout-button.component'
-import PluginEditorTree from '../components/tree/tree.component'
 import PluginEditorTabsAttribute from '../components/editor-tabs-attribute/editor-tabs-attribute.component'
 import PluginEditorAttributeText from '../components/editor-attribute-text/editor-attribute-text.component'
 import PluginEditorAttributeNumber from '../components/editor-attribute-number/editor-attribute-number.component'
@@ -27,11 +27,12 @@ import PluginEditorAttributePosition from '../components/editor-attribute-positi
 import PluginEditorAttributeSelect from '../components/editor-attribute-select/editor-attribute-select.component'
 import PluginEditorAttributeSwitch from '../components/editor-attribute-switch/editor-attribute-switch.component'
 import PluginEditorAttributeWidthHeight from '../components/editor-attribute-width-height/editor-attribute-width-height.component'
-import PluginEditorCrumbs from '../components/editor-crumbs/editor-crumbs.component'
 import PluginEditorPreview from '../components/preview/preview.component'
 import PluginEditorPublish from '../components/publish/publish.component'
 import PluginEditorSave from '../components/save/save.component'
 import PluginEditorTabsEvent from '../components/editor-tabs-event/editor-tabs-event.component'
+import PluginCopyPaste from '../components/copy-paste/copy-paste.component'
+import PluginCrumbs from '../components/crumbs/crumbs.component'
 
 import EventAction from '../actions/event'
 import ApplicationAction from '../actions/application'
@@ -72,10 +73,10 @@ export default class ProviderContainer extends React.Component<ProviderContainer
             PluginTabToolsComponentsCommon,
             PluginTabToolsComponentsCustom,
             PluginViewportGuideline,
+            PluginShowLayoutButton,
+            PluginTree,
             PluginEditorTabs,
             PluginEditorTabsAttribute,
-            PluginEditorShowLayoutButton,
-            PluginEditorTree,
             PluginEditorAttributeText,
             PluginEditorAttributeNumber,
             PluginEditorAttributeBackground,
@@ -89,11 +90,12 @@ export default class ProviderContainer extends React.Component<ProviderContainer
             PluginEditorAttributeSelect,
             PluginEditorAttributeSwitch,
             PluginEditorAttributeWidthHeight,
-            PluginEditorCrumbs,
             PluginEditorPreview,
             PluginEditorSave,
             PluginEditorPublish,
-            PluginEditorTabsEvent
+            PluginEditorTabsEvent,
+            PluginCopyPaste,
+            PluginCrumbs,
         ])
         const viewportStoreInstance = new ViewportStore()
 

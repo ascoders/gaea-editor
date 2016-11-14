@@ -1,13 +1,13 @@
 import * as React from 'react'
-import * as typings from './editor-crumbs.type'
+import * as typings from './crumbs.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 import {autoBindMethod} from '../../../../../common/auto-bind/index'
 
-import './editor-crumbs.scss'
+import './crumbs.scss'
 
 @EditorManager.observer(['viewport'])
-export default class EditorCrumbs extends React.Component <typings.PropsDefine, typings.StateDefine> {
+export default class Crumbs extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 

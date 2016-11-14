@@ -106,7 +106,45 @@ export default class ViewportAction {
         }
     }
 
-    @action('新增模板组件') addComboComponent() {
+    /**
+     * 添加一个复杂组件
+     * 这个方法会在恢复元素时使用, 保证所有 key 都原封不动的恢复
+     * 所以如果是新模版组件，请先调用 createCopyComponentWithNewUniqueKey 生成新的一套 uniqueKey
+     */
+    @action('新增模板组件') addComboComponent(parentMapUniqueKey: string, componentFullInfo: FitGaea.ViewportComponentFullInfo, index: number) {
+        // 先把子元素添加回来
+        Object.keys(componentFullInfo.childs).forEach(childMapUniqueKey=> {
+            const expendComponentInfo = this.applicationAction.expendComponent(JSON.parse(JSON.stringify(componentFullInfo.childs[childMapUniqueKey])))
+
+            let component: FitGaea.ViewportComponentInfo = {
+                props: extendObservable({}, expendComponentInfo.props),
+                parentMapUniqueKey: expendComponentInfo.parentMapUniqueKey
+            }
+
+            if (expendComponentInfo.props.canDragIn) {
+                // 如果是个布局元素, 将其 layoutChilds 设置为数组
+                component.layoutChilds = expendComponentInfo.layoutChilds || []
+            }
+            this.setComponent(childMapUniqueKey, component)
+        })
+
+        // 再把这个组件添加回来
+        const expendRootComponentInfo = this.applicationAction.expendComponent(JSON.parse(JSON.stringify(componentFullInfo.componentInfo)))
+
+        let rootComponent: FitGaea.ViewportComponentInfo = {
+            props: extendObservable({}, expendRootComponentInfo.props),
+            parentMapUniqueKey: expendRootComponentInfo.parentMapUniqueKey
+        }
+
+        if (expendRootComponentInfo.props.canDragIn) {
+            // 如果是个布局元素, 将其 layoutChilds 设置为数组
+            rootComponent.layoutChilds = expendRootComponentInfo.layoutChilds || []
+        }
+
+        this.setComponent(componentFullInfo.mapUniqueKey, rootComponent)
+
+        // 加到父级上
+        this.addToParent(componentFullInfo.mapUniqueKey, parentMapUniqueKey, index)
     }
 
     @action('移除组件') removeComponent(mapUniqueKey: string) {
@@ -211,6 +249,18 @@ export default class ViewportAction {
             this.viewport.currentDragComponentInfo = null
             this.viewport.showEditComponents = false
         })
+    }
+
+    /**
+     * 需要保证这个组件的信息已经是完备的
+     * 1. 存在于 this.components 中
+     * 2. 如果是布局组件, 所有子元素也都存在于 this.components 中
+     */
+    @action('添加一个已存在的 component 到它的父级') addToParent(mapUniqueKey: string, parentMapUniqueKey: string, index: number) {
+        // 修改那个元素的父级
+        this.viewport.components.get(mapUniqueKey).parentMapUniqueKey = parentMapUniqueKey
+        // 在父级中插入子元素
+        this.viewport.components.get(parentMapUniqueKey).layoutChilds.splice(index, 0, mapUniqueKey)
     }
 
     /**
@@ -460,5 +510,85 @@ export default class ViewportAction {
         })
 
         return LZString.compressToBase64(JSON.stringify(cloneComponents))
+    }
+
+    /**
+     * 获取一个已存在组件的完整信息, 返回的是一个新对象, 不用担心引用问题
+     */
+    getComponentFullInfoByMapUniqueKey(mapUniqueKey: string): FitGaea.ViewportComponentFullInfo {
+        const componentInfo = this.viewport.components.get(mapUniqueKey)
+
+        // 子元素信息
+        let childs: {
+            [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
+        } = {}
+
+        const mapChilds = (component: FitGaea.ViewportComponentInfo, childs: {
+            [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
+        })=> {
+            if (component.props.canDragIn && component.layoutChilds) {
+                JSON.parse(JSON.stringify(component.layoutChilds)).forEach((componentMapUniqueKey: string)=> {
+                    const childInfo = this.viewport.components.get(componentMapUniqueKey)
+                    childs[componentMapUniqueKey] = JSON.parse(JSON.stringify(childInfo))
+                    mapChilds(childInfo, childs)
+                })
+            }
+        }
+
+        mapChilds(componentInfo, childs)
+
+        return {
+            mapUniqueKey,
+            componentInfo: JSON.parse(JSON.stringify(componentInfo)),
+            childs: childs
+        }
+    }
+
+    /**
+     * 返回一个新的复制对象, 把所有 mapUniqueKey 都换成新的, 但引用关系保持不变
+     */
+    createCopyComponentWithNewUniqueKey(originComponent: FitGaea.ViewportComponentFullInfo, parentMapUniqueKey: string) {
+        // 保持父子级引用关系不变, 重新生成 mapUniqueKey
+        // [oldMapUniqueKey => newMapUniqueKey]
+        const uniqueKeyMap = new Map()
+        uniqueKeyMap.set(originComponent.mapUniqueKey, this.createUniqueKey())
+
+        originComponent.childs && Object.keys(originComponent.childs).forEach(childMapUniqueKey=> {
+            uniqueKeyMap.set(childMapUniqueKey, this.createUniqueKey())
+        })
+
+        // 更新 childs 的 mapUniqueKey
+        let childs: {
+            [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
+        } = {}
+
+        Object.keys(originComponent.childs).forEach(mapUniqueKey=> {
+            const originChild = originComponent.childs[mapUniqueKey]
+
+            childs[uniqueKeyMap.get(mapUniqueKey)] = {
+                parentMapUniqueKey: uniqueKeyMap.get(originChild.parentMapUniqueKey),
+                props: JSON.parse(JSON.stringify(originChild.props))
+            }
+
+            if (originChild.layoutChilds) {
+                childs[uniqueKeyMap.get(mapUniqueKey)].layoutChilds = originChild.layoutChilds.map(childMapUniqueKey=>uniqueKeyMap.get(childMapUniqueKey))
+            }
+        })
+
+        // 生成新的 copyComponent
+        let newCopyComponent: FitGaea.ViewportComponentFullInfo = {
+            mapUniqueKey: uniqueKeyMap.get(originComponent.mapUniqueKey),
+            componentInfo: {
+                parentMapUniqueKey: parentMapUniqueKey,
+                props: JSON.parse(JSON.stringify(originComponent.componentInfo.props))
+            },
+            childs: childs
+        }
+
+        if (originComponent.componentInfo.layoutChilds) {
+            newCopyComponent.componentInfo.layoutChilds = originComponent.componentInfo.layoutChilds.map(childMapUniqueKey=>uniqueKeyMap.get(childMapUniqueKey))
+        }
+
+        return newCopyComponent
     }
 }
