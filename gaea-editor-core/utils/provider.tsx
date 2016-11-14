@@ -11,9 +11,9 @@ import PluginTabToolsComponentsCommon from '../components/tab-tools-components-c
 import PluginTabToolsComponentsCustom from '../components/tab-tools-components-custom/tab-tools-components-custom.component'
 import PluginViewportGuideline from '../components/viewport-guideline/viewport-guideline.component'
 import PluginEditorTabs from '../components/editor-tabs/editor-tabs.component'
-import PluginEditorTabsAttribute from '../components/editor-tabs-attribute/editor-tabs-attribute.component'
 import PluginEditorShowLayoutButton from '../components/show-layout-button/show-layout-button.component'
 import PluginEditorTree from '../components/tree/tree.component'
+import PluginEditorTabsAttribute from '../components/editor-tabs-attribute/editor-tabs-attribute.component'
 import PluginEditorAttributeText from '../components/editor-attribute-text/editor-attribute-text.component'
 import PluginEditorAttributeNumber from '../components/editor-attribute-number/editor-attribute-number.component'
 import PluginEditorAttributeBackground from '../components/editor-attribute-background/editor-attribute-background.component'
@@ -31,6 +31,7 @@ import PluginEditorCrumbs from '../components/editor-crumbs/editor-crumbs.compon
 import PluginEditorPreview from '../components/preview/preview.component'
 import PluginEditorPublish from '../components/publish/publish.component'
 import PluginEditorSave from '../components/save/save.component'
+import PluginEditorTabsEvent from '../components/editor-tabs-event/editor-tabs-event.component'
 
 import EventAction from '../actions/event'
 import ApplicationAction from '../actions/application'
@@ -91,7 +92,8 @@ export default class ProviderContainer extends React.Component<ProviderContainer
             PluginEditorCrumbs,
             PluginEditorPreview,
             PluginEditorSave,
-            PluginEditorPublish
+            PluginEditorPublish,
+            PluginEditorTabsEvent
         ])
         const viewportStoreInstance = new ViewportStore()
 

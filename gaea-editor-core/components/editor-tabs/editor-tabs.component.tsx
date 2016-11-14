@@ -7,7 +7,7 @@ import {TabPanel, Tabs} from '../../../../../web-common/tabs/index'
 
 import './editor-tabs.scss'
 
-@EditorManager.observer(['viewport'])
+@EditorManager.observer(['viewport', 'eventStore'])
 export default class EditorTabs extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -21,11 +21,13 @@ export default class EditorTabs extends React.Component <typings.PropsDefine, ty
             return null
         }
 
+        const attributeName = this.props.eventStore.currentEditPropsIndex === null ? '属性' : '修改属性'
+
         return (
             <Tabs defaultActiveKey="attribute"
                   className="_namespace"
                   type="retro">
-                <TabPanel tab="属性"
+                <TabPanel tab={attributeName}
                           activeKey="attribute"
                           className="tab-panel">
                     {this.applicationAction.loadingPluginByPosition('editorAttribute')}

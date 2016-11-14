@@ -1,0 +1,64 @@
+& {
+    padding: 10px;
+}
+
+.event-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.event-item-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.event-choose-container {
+    display: flex;
+}
+
+.event-editor-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.event-label {
+    display: flex;
+    flex-grow: 1;
+    width: 0;
+}
+
+.event-effect {
+    display: flex;
+    flex-grow: 1;
+    width: 0;
+    margin-left: 10px;
+}
+
+.bottom-operate-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.new-event-button {
+
+}
+
+.expend-button-container {
+}
+
+.close-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+    width: 20px;
+    color: #999;
+    cursor: pointer;
+    &:hover {
+        color: #333;
+    }
+}
+
+.text-child {
+    padding: 0 10px !important;
+}

@@ -8,9 +8,11 @@ import {Button, ButtonGroup} from '../../../../../web-common/button/index'
 import {Tooltip} from '../../../../../web-common/tooltip/index'
 import {autoBindMethod} from '../../../../../common/auto-bind/index'
 
+import EventAction from '../editor-tabs-event/action'
+
 import './editor-tabs-attribute.scss'
 
-@EditorManager.observer(['viewport'])
+@EditorManager.observer(['viewport', 'eventStore'])
 export default class EditorTabsAttribute extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -19,6 +21,7 @@ export default class EditorTabsAttribute extends React.Component <typings.PropsD
 
     @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
     @EditorManager.lazyInject(EditorManager.ApplicationAction) private applicationAction: EditorManager.ApplicationAction
+    @EditorManager.lazyInject(EventAction) private eventAction: EventAction
 
     @autoBindMethod handleGaeaNameChange(value: string) {
         this.viewportAction.updateCurrentEditComponentProps('gaeaName', value)
@@ -36,6 +39,68 @@ export default class EditorTabsAttribute extends React.Component <typings.PropsD
      */
     @autoBindMethod handleReset() {
         this.viewportAction.resetProps(this.props.viewport.currentEditComponentMapUniqueKey)
+    }
+
+    /**
+     * 修改属性的事件结束了
+     */
+    @autoBindMethod handleConfirmEditPropsEvent() {
+        const eventData = this.props.eventStore.currentEditIsWeb ? 'gaeaEventData' : 'gaeaNativeEventData'
+        // 把当前值赋值
+        const cleanProps = this.applicationAction.cleanComponentProps(this.props.viewport.currentEditComponentInfo.props)
+        this.viewportAction.updateCurrentEditComponentProps(`${eventData}.${this.props.eventStore.currentEditEventIndex}.eventData.props`, cleanProps)
+        // 取消修改属性
+        this.eventAction.setCurrentEditPropsIndex(null)
+    }
+
+    renderHeaderContainer() {
+        return (
+            <div className="header-container">
+                <div className="header-container__icon-container">
+                    <i className={`fa fa-${this.props.viewport.currentEditComponentInfo.props.gaeaIcon}`}/>
+                </div>
+                <div className="header-container__title-container">
+                    <Input normal={true}
+                           label=""
+                           onChange={this.handleGaeaNameChange}
+                           value={this.props.viewport.currentEditComponentInfo.props.gaeaName}/>
+                </div>
+                <div className="header-container__operate-container">
+                    <ButtonGroup>
+                        <Tooltip title="设置为模板">
+                            <Button className="child-scale">
+                                <i className="fa fa-puzzle-piece"/>
+                            </Button>
+                        </Tooltip>
+                        {this.props.viewport.currentEditComponentInfo.parentMapUniqueKey !== null &&
+                        <Tooltip title="重置属性">
+                            <Button className="child-scale"
+                                    onClick={this.handleReset}>
+                                <i className="fa fa-refresh"/>
+                            </Button>
+                        </Tooltip>
+                        }
+                        {this.props.viewport.currentEditComponentInfo.parentMapUniqueKey !== null &&
+                        <Tooltip title="移除此元素">
+                            <Button className="child-scale"
+                                    onClick={this.handleDelete}>
+                                <i className="fa fa-trash danger"/>
+                            </Button>
+                        </Tooltip>
+                        }
+                    </ButtonGroup>
+                </div>
+            </div>
+        )
+    }
+
+    renderUpdateAttributeEvent() {
+        return (
+            <Button type="primary"
+                    style={{margin:10}}
+                    rounded={true}
+                    onClick={this.handleConfirmEditPropsEvent}>确定</Button>
+        )
     }
 
     render() {
@@ -65,42 +130,7 @@ export default class EditorTabsAttribute extends React.Component <typings.PropsD
 
         return (
             <div className="_namespace">
-                <div className="header-container">
-                    <div className="header-container__icon-container">
-                        <i className={`fa fa-${this.props.viewport.currentEditComponentInfo.props.gaeaIcon}`}/>
-                    </div>
-                    <div className="header-container__title-container">
-                        <Input normal={true}
-                               label=""
-                               onChange={this.handleGaeaNameChange}
-                               value={this.props.viewport.currentEditComponentInfo.props.gaeaName}/>
-                    </div>
-                    <div className="header-container__operate-container">
-                        <ButtonGroup>
-                            <Tooltip title="设置为模板">
-                                <Button className="child-scale">
-                                    <i className="fa fa-puzzle-piece"/>
-                                </Button>
-                            </Tooltip>
-                            {this.props.viewport.currentEditComponentInfo.parentMapUniqueKey !== null &&
-                            <Tooltip title="重置属性">
-                                <Button className="child-scale"
-                                        onClick={this.handleReset}>
-                                    <i className="fa fa-refresh"/>
-                                </Button>
-                            </Tooltip>
-                            }
-                            {this.props.viewport.currentEditComponentInfo.parentMapUniqueKey !== null &&
-                            <Tooltip title="移除此元素">
-                                <Button className="child-scale"
-                                        onClick={this.handleDelete}>
-                                    <i className="fa fa-trash danger"/>
-                                </Button>
-                            </Tooltip>
-                            }
-                        </ButtonGroup>
-                    </div>
-                </div>
+                {this.props.eventStore.currentEditPropsIndex === null ? this.renderHeaderContainer() : this.renderUpdateAttributeEvent()}
 
                 <div className="body-container">
                     {EditItems}

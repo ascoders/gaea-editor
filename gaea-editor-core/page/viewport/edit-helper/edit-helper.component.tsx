@@ -123,6 +123,9 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
      */
     @autoBindMethod setDragableClassIfNeed() {
         if (!this.componentInfo.props.style || !this.componentInfo.props.style.position) {
+            if (!hasClass(this.domInstance, 'gaea-draggable')) {
+                this.domInstance.className += ' gaea-draggable'
+            }
             return
         }
 
@@ -241,6 +244,15 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         }
 
         let componentProps = JSON.parse(JSON.stringify(this.componentInfo.props))
+
+        // 移除 gaea 自用的属性
+        delete componentProps.canDragIn
+        delete componentProps.gaeaEdit
+        delete componentProps.gaeaEvent
+        delete componentProps.gaeaEventData
+        delete componentProps.gaeaNativeEventData
+        delete componentProps.gaeaUniqueKey
+        delete componentProps.gaeaVariables
 
         componentProps.ref = (ref: React.ReactInstance)=> {
             this.wrappedInstance = ref
