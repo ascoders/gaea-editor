@@ -122,6 +122,10 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
      * 如果是 absolute 布局，加上 absolute class
      */
     @autoBindMethod setDragableClassIfNeed() {
+        if (!this.componentInfo.props.style || !this.componentInfo.props.style.position) {
+            return
+        }
+
         // 给绝对定位元素增加 absolute class，避免 sortable 响应
         if (this.componentInfo.props.style.position !== 'absolute' && !hasClass(this.domInstance, 'gaea-draggable')) {
             this.domInstance.className += ' gaea-draggable'

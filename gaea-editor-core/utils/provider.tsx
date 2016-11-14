@@ -8,6 +8,7 @@ import PluginGlobalSetting from '../components/global-setting/global-setting.com
 import PluginTabTools from '../components/tab-tools/tab-tools.component'
 import PluginTabToolsComponents from '../components/tab-tools-components/tab-tools-components.component'
 import PluginTabToolsComponentsCommon from '../components/tab-tools-components-common/tab-tools-components-common.component'
+import PluginTabToolsComponentsCustom from '../components/tab-tools-components-custom/tab-tools-components-custom.component'
 import PluginViewportGuideline from '../components/viewport-guideline/viewport-guideline.component'
 import PluginEditorTabs from '../components/editor-tabs/editor-tabs.component'
 import PluginEditorTabsAttribute from '../components/editor-tabs-attribute/editor-tabs-attribute.component'
@@ -68,6 +69,7 @@ export default class ProviderContainer extends React.Component<ProviderContainer
             PluginTabTools,
             PluginTabToolsComponents,
             PluginTabToolsComponentsCommon,
+            PluginTabToolsComponentsCustom,
             PluginViewportGuideline,
             PluginEditorTabs,
             PluginEditorTabsAttribute,

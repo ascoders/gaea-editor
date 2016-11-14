@@ -28,7 +28,7 @@ export default class ApplicationAction {
 
     @action('根据 gaeaUniqueKey 获取组件类') getComponentClassByGaeaUniqueKey(gaeaUniqueKey: string) {
         // 从通用、定制组件中查找
-        const allComponents = this.application.editorProps.commonComponents.concat(this.application.editorProps.customComponents)
+        const allComponents = this.application.editorProps.commonComponents.concat(this.application.customComponents)
         return allComponents.find(component=>component.defaultProps.gaeaUniqueKey === gaeaUniqueKey)
     }
 
@@ -116,7 +116,7 @@ export default class ApplicationAction {
     /**
      * 补全组件 props
      */
-    expendComponentProps(componentProps: FitGaea.ComponentProps){
+    expendComponentProps(componentProps: FitGaea.ComponentProps) {
         // 转成标准格式
         let planComponentProps = _.toPlainObject<FitGaea.ComponentProps>(componentProps)
 

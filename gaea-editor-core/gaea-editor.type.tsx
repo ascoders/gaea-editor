@@ -51,6 +51,13 @@ export interface PropsDefine {
      */
     currentVersion?: string
 
+    /**
+     * 自定义组件的配置文件，当然还是优先使用组件 props 中的配置
+     */
+    customOptions?: {
+        [className: string]: FitGaea.ComponentProps
+    }
+
     [x: string]: any
 }
 
@@ -67,6 +74,7 @@ export class Props implements PropsDefine {
     onPublish = ()=> {
     }
     currentVersion = '0.0.0'
+    customOptions = null as any
 }
 
 export interface StateDefine {
