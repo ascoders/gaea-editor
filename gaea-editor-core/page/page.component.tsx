@@ -7,6 +7,7 @@ import * as classNames from 'classnames'
 import {autoBindMethod} from '../../../../common/auto-bind/index'
 
 import Viewport from './viewport/viewport.component'
+import Preview from '../../../gaea-preview/index'
 
 import ApplicationAction from '../actions/application'
 import EventAction from '../actions/event'
@@ -42,6 +43,11 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
             this.eventAction.emit(this.props.event.viewportUpdated)
         }, 200)
 
+        const viewportToolSwitchContainerClasses = classNames({
+            'viewport-tool-switch-container': true,
+            'preview': this.props.application.inPreview
+        })
+
         return (
             <div className="_namespace">
                 <div className="outer-left-container">
@@ -65,10 +71,19 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
                         </div>
                         <div className={navbarBottomRightContainerClasses}>
                             <div className="viewport-container"
-                                 style={Object.assign({}, this.props.application.viewportStyle)}>
+                                 style={Object.assign({}, this.props.application.viewportStyle, {display:this.props.application.inPreview?'none':null})}>
                                 <Viewport/>
                                 {this.applicationAction.loadingPluginByPosition('viewport')}
                             </div>
+                            {this.props.application.inPreview &&
+                            <div className="preview-container"
+                                 style={Object.assign({}, this.props.application.viewportStyle)}>
+                                <Preview value={this.viewportAction.getIncrementComponentsInfo()}
+                                         baseComponents={this.props.application.editorProps.commonComponents}
+                                         customComponents={this.props.application.editorProps.customComponents}/>
+                                {this.applicationAction.loadingPluginByPosition('preview')}
+                            </div>
+                            }
                             <div className="editor-container">
                                 {this.applicationAction.loadingPluginByPosition('editor')}
                                 <div onClick={this.handleCloseEditor}
@@ -83,11 +98,18 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
                     </div>
                 </div>
                 <div className="outer-right-container">
-                    <div className="outer-right__top-container">
-                        {this.applicationAction.loadingPluginByPosition('mainToolTop')}
-                    </div>
-                    <div className="outer-right__bottom-container">
-                        {this.applicationAction.loadingPluginByPosition('mainToolBottom')}
+                    <div className={viewportToolSwitchContainerClasses}>
+                        <div className="viewport-tool-container">
+                            <div className="outer-right__top-container">
+                                {this.applicationAction.loadingPluginByPosition('mainToolTop')}
+                            </div>
+                            <div className="outer-right__bottom-container">
+                                {this.applicationAction.loadingPluginByPosition('mainToolBottom')}
+                            </div>
+                        </div>
+                        <div className="preview-tool-container">
+                            您处于预览状态
+                        </div>
                     </div>
                 </div>
             </div>

@@ -26,4 +26,7 @@ export default class ApplicationStore {
         background: null,
         backgroundImage: null
     }
+
+    // 是否在预览模式
+    @observable inPreview = false
 }

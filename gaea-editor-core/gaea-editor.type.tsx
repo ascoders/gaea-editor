@@ -36,6 +36,21 @@ export interface PropsDefine {
      */
     isReactNative?: boolean
 
+    /**
+     * 保存的回调
+     */
+    onSave?: (info: string)=>void
+
+    /**
+     * 发布的回调
+     */
+    onPublish?: (version: string)=>void
+
+    /**
+     * 当前版本号
+     */
+    currentVersion?: string
+
     [x: string]: any
 }
 
@@ -47,6 +62,11 @@ export class Props implements PropsDefine {
     defaultValue = null as string
     defaultSetting = null as string
     isReactNative = false
+    onSave = ()=> {
+    }
+    onPublish = ()=> {
+    }
+    currentVersion = '0.0.0'
 }
 
 export interface StateDefine {

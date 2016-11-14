@@ -16,10 +16,37 @@
 // 整体右侧容器
 .outer-right-container {
     display: flex;
-    flex-direction: column;
     width: 300px;
     z-index: 2;
     background-color: white;
+    overflow: hidden;
+
+    // 控制状态切换的容器
+    .viewport-tool-switch-container {
+        display: flex;
+        transition: all .3s;
+        transform: translate3d(0, 0, 0);
+
+        // 预览状态
+        &.preview {
+            transform: translate3d(-300px, 0, 0);
+        }
+
+        // 编辑状态工具容器
+        .viewport-tool-container {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            height: 100%;
+        }
+
+        // 预览状态工具容器
+        .preview-tool-container {
+            display: flex;
+            width: 300px;
+            height: 100%;
+        }
+    }
 
     // 上部容器
     .outer-right__top-container {
@@ -62,6 +89,7 @@
             padding: 0 10px;
             font-weight: bold;
             cursor: pointer;
+            user-select: none;
             &:hover {
                 background-color: #eaeaea;
             }
@@ -106,8 +134,8 @@
             margin-right: 0;
         }
 
-        // 视图容器
-        .viewport-container {
+        // 视图 / 预览容器
+        .viewport-container, .preview-container {
             display: flex;
             position: relative;
             flex-grow: 1;
@@ -119,6 +147,7 @@
 
         // 编辑容器
         .editor-container {
+            background-color: whitesmoke;
             position: relative;
             width: 350px;
             height: 100%;

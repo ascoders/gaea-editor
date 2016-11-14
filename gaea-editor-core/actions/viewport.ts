@@ -7,7 +7,7 @@ import EventStore from '../stores/event'
 import {lazyInject} from '../utils/kernel'
 import * as Sortable from 'sortablejs'
 import * as _ from 'lodash'
-import {error} from "util";
+import * as LZString from 'lz-string'
 
 @injectable()
 export default class ViewportAction {
@@ -202,6 +202,15 @@ export default class ViewportAction {
     @action('修改某个组件的属性') setComponentProps(mapUniqueKey: string, path: string, value: any) {
         const componentInfo = this.viewport.components.get(mapUniqueKey)
         _.set(componentInfo.props, path, value)
+    }
+
+    @action('清空当前状态') clean() {
+        transaction(()=> {
+            this.viewport.currentEditComponentMapUniqueKey = null
+            this.viewport.currentHoverComponentMapUniqueKey = null
+            this.viewport.currentDragComponentInfo = null
+            this.viewport.showEditComponents = false
+        })
     }
 
     /**
@@ -437,5 +446,19 @@ export default class ViewportAction {
             return ''
         }
         return value.toString()
+    }
+
+    /**
+     * 获取增量编辑信息
+     */
+    getIncrementComponentsInfo() {
+        // 获取 components 的 map, 但是要把 options 中除了 value 以外字段都干掉
+        const cloneComponents = JSON.parse(JSON.stringify(this.viewport.components))
+
+        Object.keys(cloneComponents).map(key=> {
+            cloneComponents[key] = this.applicationAction.cleanComponent(cloneComponents[key])
+        })
+
+        return LZString.compressToBase64(JSON.stringify(cloneComponents))
     }
 }

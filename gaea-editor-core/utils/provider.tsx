@@ -27,6 +27,9 @@ import PluginEditorAttributeSelect from '../components/editor-attribute-select/e
 import PluginEditorAttributeSwitch from '../components/editor-attribute-switch/editor-attribute-switch.component'
 import PluginEditorAttributeWidthHeight from '../components/editor-attribute-width-height/editor-attribute-width-height.component'
 import PluginEditorCrumbs from '../components/editor-crumbs/editor-crumbs.component'
+import PluginEditorPreview from '../components/preview/preview.component'
+import PluginEditorPublish from '../components/publish/publish.component'
+import PluginEditorSave from '../components/save/save.component'
 
 import EventAction from '../actions/event'
 import ApplicationAction from '../actions/application'
@@ -83,7 +86,10 @@ export default class ProviderContainer extends React.Component<ProviderContainer
             PluginEditorAttributeSelect,
             PluginEditorAttributeSwitch,
             PluginEditorAttributeWidthHeight,
-            PluginEditorCrumbs
+            PluginEditorCrumbs,
+            PluginEditorPreview,
+            PluginEditorSave,
+            PluginEditorPublish
         ])
         const viewportStoreInstance = new ViewportStore()
 
