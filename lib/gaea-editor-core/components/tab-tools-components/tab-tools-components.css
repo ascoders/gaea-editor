@@ -1,0 +1,45 @@
+.nt-editor-gaea-editor-gaea_editor_core-components-tab_tools_components {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  height: 0; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-tab_tools_components .left-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  width: 0;
+  border-right: 1px solid #ddd; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-tab_tools_components .right-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 40px; }
+  .nt-editor-gaea-editor-gaea_editor_core-components-tab_tools_components .right-container .tab-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 12px;
+    padding: 10px 0;
+    cursor: pointer; }
+    .nt-editor-gaea-editor-gaea_editor_core-components-tab_tools_components .right-container .tab-item:hover {
+      background-color: whitesmoke; }
+    .nt-editor-gaea-editor-gaea_editor_core-components-tab_tools_components .right-container .tab-item.active {
+      background-color: whitesmoke; }

@@ -1,0 +1,98 @@
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border {
+  padding: 10px; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .btn {
+  height: 25px; }
+  .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .btn .text-child {
+    padding: 0 7px; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-container, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+  .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-container .left-container, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-container .right-container, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-container .left-container, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-container .right-container {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 0; }
+  .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-container .left-container, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-container .left-container {
+    -webkit-box-flex: 3;
+        -ms-flex-positive: 3;
+            flex-grow: 3; }
+    .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-container .left-container .radius-content, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-container .left-container .radius-content {
+      position: relative;
+      height: 55px; }
+  .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-container .right-container, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-container .right-container {
+    -webkit-box-flex: 4;
+        -ms-flex-positive: 4;
+            flex-grow: 4;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+    .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-container .right-container .row, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-container .right-container .row {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center; }
+      .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-container .right-container .row:not(:first-child), .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-container .right-container .row:not(:first-child) {
+        margin-top: 5px; }
+      .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-container .right-container .row .icon-title, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-container .right-container .row .icon-title {
+        margin-right: 3px;
+        font-size: 12px; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-container {
+  padding-bottom: 10px; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-container {
+  padding-top: 5px;
+  border-top: 1px solid #eee;
+  padding-bottom: 5px; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-left, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-top, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-right, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-bottom {
+  position: absolute; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-left {
+  left: 0;
+  top: 30px; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-top {
+  left: 30px;
+  top: 0; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-right {
+  left: 60px;
+  top: 30px; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .border-bottom {
+  left: 30px;
+  top: 60px; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-left, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-top, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-right, .nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-bottom {
+  position: absolute; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-left {
+  left: 15px;
+  top: 0;
+  border-top-left-radius: 10px; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-top {
+  left: 45px;
+  top: 0;
+  border-top-right-radius: 10px; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-right {
+  left: 45px;
+  top: 30px;
+  border-bottom-right-radius: 10px; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_attribute_border .radius-bottom {
+  left: 15px;
+  top: 30px;
+  border-bottom-left-radius: 10px; }

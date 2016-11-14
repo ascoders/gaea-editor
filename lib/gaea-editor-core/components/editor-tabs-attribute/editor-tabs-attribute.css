@@ -1,0 +1,65 @@
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_tabs_attribute .header-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50px;
+  padding: 0 10px; }
+  .nt-editor-gaea-editor-gaea_editor_core-components-editor_tabs_attribute .header-container .header-container__icon-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 40px;
+    font-size: 20px; }
+  .nt-editor-gaea-editor-gaea_editor_core-components-editor_tabs_attribute .header-container .header-container__title-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 2;
+        -ms-flex-positive: 2;
+            flex-grow: 2;
+    width: 0;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
+  .nt-editor-gaea-editor-gaea_editor_core-components-editor_tabs_attribute .header-container .header-container__operate-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    width: 0;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_tabs_attribute .button-container .text-child {
+  padding: 0 7px; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_tabs_attribute .danger {
+  color: #d22626; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_tabs_attribute .child-scale i {
+  -webkit-transition: -webkit-transform .3s;
+  transition: -webkit-transform .3s;
+  transition: transform .3s;
+  transition: transform .3s, -webkit-transform .3s; }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_tabs_attribute .child-scale:hover i {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2); }
+
+.nt-editor-gaea-editor-gaea_editor_core-components-editor_tabs_attribute .title {
+  background-color: whitesmoke;
+  padding: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee; }

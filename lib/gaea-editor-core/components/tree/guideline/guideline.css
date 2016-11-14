@@ -1,0 +1,7 @@
+.nt-editor-gaea-editor-gaea_editor_core-components-tree-guideline {
+  position: absolute;
+  border: 2px dotted #ccc;
+  -webkit-transition: all .1s;
+  transition: all .1s;
+  pointer-events: none;
+  z-index: 10; }
