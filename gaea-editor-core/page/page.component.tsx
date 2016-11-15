@@ -35,7 +35,8 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
     render() {
         const navbarBottomRightContainerClasses = classNames({
             'navbar-center__right-container': true,
-            'show-editor-container': this.props.viewport.currentEditComponentMapUniqueKey !== null
+            'show-editor-container': this.props.viewport.currentEditComponentMapUniqueKey !== null,
+            'transparent-background': this.props.application.viewportContainerStyle.backgroundColor === 'transparent'
         })
 
         // .15s 后触发视图区域刷新事件
@@ -69,7 +70,8 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
                                 {this.applicationAction.loadingPluginByPosition('navbarLeftBottom')}
                             </div>
                         </div>
-                        <div className={navbarBottomRightContainerClasses}>
+                        <div className={navbarBottomRightContainerClasses}
+                             style={Object.assign({}, this.props.application.viewportContainerStyle)}>
                             <div className="viewport-container"
                                  style={Object.assign({}, this.props.application.viewportStyle, {display:this.props.application.inPreview?'none':null})}>
                                 <Viewport/>

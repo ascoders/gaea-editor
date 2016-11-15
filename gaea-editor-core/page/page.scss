@@ -82,7 +82,7 @@
     }
 
     .navbar-container__left, .navbar-container__right {
-        & > div {
+        & > div:not(.no-style) {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -129,6 +129,11 @@
         width: 0;
         transition: margin-right .15s;
 
+        // 透明背景色
+        &.transparent-background {
+            background-image: url('../images/transparent.png');
+        }
+
         // 显示右侧容器
         &.show-editor-container {
             margin-right: 0;
@@ -138,11 +143,10 @@
         .viewport-container, .preview-container {
             display: flex;
             position: relative;
-            flex-grow: 1;
             width: 0;
-            height: 100%;
             border-right: 1px solid #eee;
             border-left: 1px solid #eee;
+            margin: 0 auto;
         }
 
         // 编辑容器

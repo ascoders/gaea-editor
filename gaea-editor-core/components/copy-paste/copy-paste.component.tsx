@@ -36,14 +36,14 @@ export default class CopyPaste extends React.Component <typings.PropsDefine, typ
     }
 
     @autoBindMethod copy() {
-        if (this.props.application.inPreview) {
+        if (this.props.application.inPreview || !this.props.viewport.currentHoverComponentMapUniqueKey) {
             return
         }
         this.copyPasteAction.copy(this.props.viewport.currentHoverComponentMapUniqueKey)
     }
 
     @autoBindMethod paste() {
-        if (this.props.application.inPreview) {
+        if (this.props.application.inPreview || !this.props.viewport.currentHoverComponentMapUniqueKey) {
             return
         }
         if (!this.copyPasteAction.paste(this.props.viewport.currentHoverComponentMapUniqueKey)) {

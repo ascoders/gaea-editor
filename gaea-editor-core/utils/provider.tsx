@@ -33,6 +33,8 @@ import PluginEditorSave from '../components/save/save.component'
 import PluginEditorTabsEvent from '../components/editor-tabs-event/editor-tabs-event.component'
 import PluginCopyPaste from '../components/copy-paste/copy-paste.component'
 import PluginCrumbs from '../components/crumbs/crumbs.component'
+import PluginDelete from '../components/delete/delete.component'
+import PluginViewportSize from '../components/viewport-size/viewport-size.component'
 
 import EventAction from '../actions/event'
 import ApplicationAction from '../actions/application'
@@ -90,12 +92,14 @@ export default class ProviderContainer extends React.Component<ProviderContainer
             PluginEditorAttributeSelect,
             PluginEditorAttributeSwitch,
             PluginEditorAttributeWidthHeight,
+            PluginViewportSize,
             PluginEditorPreview,
             PluginEditorSave,
             PluginEditorPublish,
             PluginEditorTabsEvent,
             PluginCopyPaste,
             PluginCrumbs,
+            PluginDelete
         ])
         const viewportStoreInstance = new ViewportStore()
 

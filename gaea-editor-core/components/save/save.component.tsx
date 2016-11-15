@@ -4,6 +4,7 @@ import * as typings from './save.type'
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
 import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import GlobalSettingAction from '../global-setting/action'
 
 import './save.scss'
 
@@ -15,11 +16,12 @@ export default class Save extends React.Component <typings.PropsDefine, typings.
     static position = 'navbarRight'
 
     @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
+    @EditorManager.lazyInject(GlobalSettingAction) private globalSettingAction: GlobalSettingAction
 
     @autoBindMethod handleClick() {
         // 获取增量编辑信息
         const componentsInfo = this.viewportAction.getIncrementComponentsInfo()
-        this.props.application.editorProps.onSave(componentsInfo)
+        this.props.application.editorProps.onSave(componentsInfo, this.globalSettingAction.getZipSettingData())
     }
 
     render() {

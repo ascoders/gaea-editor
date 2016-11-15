@@ -174,6 +174,10 @@ export default class ViewportAction {
             if (mapUniqueKey === this.viewport.currentEditComponentMapUniqueKey) {
                 this.setCurrentEditComponentMapUniqueKey(null)
             }
+            // 如果要删除的组件就是正在 hover 的组件，退出编辑状态
+            if (mapUniqueKey === this.viewport.currentHoverComponentMapUniqueKey) {
+                this.setCurrentHoverComponentMapUniqueKey(null)
+            }
         })
     }
 

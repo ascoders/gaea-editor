@@ -50,7 +50,15 @@ export default class ApplicationStore {
     @observable viewportStyle: React.CSSProperties = {
         backgroundColor: 'white',
         background: null,
-        backgroundImage: null
+        backgroundImage: null,
+        width: null,
+        height: null,
+        flexGrow: 1
+    }
+
+    // 视图区域容器样式
+    @observable viewportContainerStyle: React.CSSProperties = {
+        backgroundColor: 'transparent'
     }
 
     // 是否在预览模式

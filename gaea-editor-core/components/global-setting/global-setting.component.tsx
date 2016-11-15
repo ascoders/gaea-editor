@@ -7,6 +7,9 @@ import {autoBindMethod} from '../../../../../common/auto-bind/index'
 import {Modal} from '../../../../../web-common/modal/index'
 import Color from '../../../components/color/color.component'
 
+import Action from './action'
+import Store from './store'
+
 import './global-setting.scss'
 
 @EditorManager.observer(['application'])
@@ -15,11 +18,14 @@ export default class GlobalSetting extends React.Component <typings.PropsDefine,
     public state: typings.StateDefine = new typings.State()
 
     static position = 'navbarLeft'
+    static Action = Action
+    static Store = Store
 
-    @EditorManager.lazyInject(EditorManager.ApplicationAction) private applicationAction: EditorManager.ApplicationAction
+    @EditorManager.lazyInject(Action) private globalSettingAction: Action
 
     componentWillMount() {
-
+        // 覆盖默认配置
+        this.globalSettingAction.setDefaultSetting(this.props.application.editorProps.defaultSetting)
     }
 
     @autoBindMethod handleShowModal() {
@@ -41,9 +47,7 @@ export default class GlobalSetting extends React.Component <typings.PropsDefine,
     }
 
     @autoBindMethod handleBackgroundColorChange(color: any) {
-        this.applicationAction.setViewportStyle({
-            backgroundColor: `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`
-        })
+        this.globalSettingAction.setBackgroundColor(`rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`, color.rgb.a)
     }
 
     render() {

@@ -11,8 +11,8 @@ export default class Demo extends React.Component <any, any> {
     static title = 'Web 编辑器'
     static description = ``
 
-    handleSave(value: string) {
-        console.log(value)
+    handleSave(value: string, setting: string) {
+        console.log(value, setting)
     }
 
     render() {
@@ -24,8 +24,6 @@ export default class Demo extends React.Component <any, any> {
         )
     }
 }
-
-
 
 
 // 最终

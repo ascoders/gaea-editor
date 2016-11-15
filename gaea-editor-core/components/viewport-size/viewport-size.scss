@@ -54,3 +54,16 @@
         background-color: #efefef;
     }
 }
+
+.menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    &:hover {
+        background-color: #eaeaea;
+    }
+}

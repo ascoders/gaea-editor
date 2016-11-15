@@ -39,7 +39,7 @@ export interface PropsDefine {
     /**
      * 保存的回调
      */
-    onSave?: (info: string)=>void
+    onSave?: (info?: string, setting?: string)=>void
 
     /**
      * 发布的回调

@@ -22,6 +22,10 @@ export default class ApplicationAction {
         this.application.viewportStyle = extendObservable(this.application.viewportStyle, style)
     }
 
+    @action('设置视图区块父级样式') setViewportContainerStyle(style: React.CSSProperties) {
+        this.application.viewportContainerStyle = extendObservable(this.application.viewportContainerStyle, style)
+    }
+
     @action('重置视图区块样式') resetViewportStyle() {
         this.application.viewportStyle = {}
     }
