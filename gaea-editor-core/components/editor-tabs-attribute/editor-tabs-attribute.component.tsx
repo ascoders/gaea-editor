@@ -7,6 +7,7 @@ import {Input} from '../../../../../web-common/input/index'
 import {Button, ButtonGroup} from '../../../../../web-common/button/index'
 import {Tooltip} from '../../../../../web-common/tooltip/index'
 import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import ToTemplate from './to-template/to-template.component'
 
 import EventAction from '../editor-tabs-event/action'
 
@@ -68,9 +69,7 @@ export default class EditorTabsAttribute extends React.Component <typings.PropsD
                 <div className="header-container__operate-container">
                     <ButtonGroup>
                         <Tooltip title="设置为模板">
-                            <Button className="child-scale">
-                                <i className="fa fa-puzzle-piece"/>
-                            </Button>
+                            <ToTemplate/>
                         </Tooltip>
                         {this.props.viewport.currentEditComponentInfo.parentMapUniqueKey !== null &&
                         <Tooltip title="重置属性">

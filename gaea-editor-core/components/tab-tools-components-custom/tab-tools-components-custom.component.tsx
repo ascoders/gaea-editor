@@ -18,7 +18,7 @@ export default class TabToolsComponentsCommon extends React.Component<typings.Pr
     @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
 
     componentDidMount() {
-        this.viewportAction.registerOuterDarg(ReactDOM.findDOMNode(this) as HTMLElement)
+        this.viewportAction.registerOuterDrag(ReactDOM.findDOMNode(this) as HTMLElement)
     }
 
     render() {

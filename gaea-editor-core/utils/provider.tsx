@@ -9,6 +9,7 @@ import PluginTabTools from '../components/tab-tools/tab-tools.component'
 import PluginTabToolsComponents from '../components/tab-tools-components/tab-tools-components.component'
 import PluginTabToolsComponentsCommon from '../components/tab-tools-components-common/tab-tools-components-common.component'
 import PluginTabToolsComponentsCustom from '../components/tab-tools-components-custom/tab-tools-components-custom.component'
+import PluginTabToolsComponentsCombo from '../components/tab-tools-components-combo/tab-tools-components-combo.component'
 import PluginViewportGuideline from '../components/viewport-guideline/viewport-guideline.component'
 import PluginShowLayoutButton from '../components/show-layout-button/show-layout-button.component'
 import PluginTree from '../components/tree/tree.component'
@@ -74,6 +75,7 @@ export default class ProviderContainer extends React.Component<ProviderContainer
             PluginTabToolsComponents,
             PluginTabToolsComponentsCommon,
             PluginTabToolsComponentsCustom,
+            PluginTabToolsComponentsCombo,
             PluginViewportGuideline,
             PluginShowLayoutButton,
             PluginTree,

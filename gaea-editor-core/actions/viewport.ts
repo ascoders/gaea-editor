@@ -147,6 +147,21 @@ export default class ViewportAction {
         this.addToParent(componentFullInfo.mapUniqueKey, parentMapUniqueKey, index)
     }
 
+    @action('新增模板组件，源码是压缩后的') addComboComponentBySource(parentMapUniqueKey: string, componentFullInfoSource: string, index: number) {
+        const componentFullInfo: FitGaea.ViewportComponentFullInfo = JSON.parse(LZString.decompressFromBase64(componentFullInfoSource))
+
+        // 生成新的 uniqueKey，并将最顶层组件与父级 uniqueKey 绑定
+        let componentFullInfoCopy = this.createCopyComponentWithNewUniqueKey(componentFullInfo, parentMapUniqueKey)
+
+        // 由于模板信息是瘦身后的，补全信息
+        componentFullInfoCopy.componentInfo = this.applicationAction.expendComponent(componentFullInfoCopy.componentInfo)
+        Object.keys(componentFullInfoCopy.childs).forEach(childKey=> {
+            componentFullInfoCopy.childs[childKey] = this.applicationAction.expendComponent(componentFullInfoCopy.childs[childKey])
+        })
+
+        this.addComboComponent(parentMapUniqueKey, componentFullInfoCopy, index)
+    }
+
     @action('移除组件') removeComponent(mapUniqueKey: string) {
         const removeComponentInfo = this.viewport.components.get(mapUniqueKey)
 
@@ -354,6 +369,7 @@ export default class ViewportAction {
                         break
 
                     case 'combo':
+                        this.addComboComponentBySource(mapUniqueKey, this.viewport.currentDragComponentInfo.comboInfo.source, event.newIndex as number)
                         // TODO 发布新增组合事件
                         // this.props.viewport.saveOperate({
                         //     type: 'addCombo',
@@ -429,7 +445,7 @@ export default class ViewportAction {
      * 如果子元素有 data-unique-key 属性，则会创建一个新元素
      * 如果子元素有 data-source 属性，则会创建一个组合
      */
-    registerOuterDarg(dragParentElement: HTMLElement, groupName = 'gaea-can-drag-in') {
+    registerOuterDrag(dragParentElement: HTMLElement, groupName = 'gaea-can-drag-in') {
         // 上次拖拽的位置
         let lastDragStartIndex = -1
 
@@ -445,14 +461,26 @@ export default class ViewportAction {
             delay: 0,
             onStart: (event: any) => {
                 lastDragStartIndex = event.oldIndex as number
-                this.startDrag({
-                    type: 'new',
-                    dragStartParentElement: dragParentElement,
-                    dragStartIndex: event.oldIndex as number,
-                    newInfo: {
-                        uniqueKey: event.item.dataset.uniqueKey
-                    }
-                })
+
+                if (event.item.dataset.source) {
+                    this.startDrag({
+                        type: 'combo',
+                        dragStartParentElement: dragParentElement,
+                        dragStartIndex: event.oldIndex as number,
+                        comboInfo: {
+                            source: event.item.dataset.source
+                        }
+                    })
+                } else if (event.item.dataset.uniqueKey) {
+                    this.startDrag({
+                        type: 'new',
+                        dragStartParentElement: dragParentElement,
+                        dragStartIndex: event.oldIndex as number,
+                        newInfo: {
+                            uniqueKey: event.item.dataset.uniqueKey
+                        }
+                    })
+                }
             },
             onEnd: (event: any) => {
                 this.endDrag()
