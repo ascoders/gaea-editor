@@ -1,193 +1,122 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as typings from './page.type'
-import {extendObservable} from 'mobx'
-import {observer, inject} from 'mobx-react'
-import * as LZString from 'lz-string'
-
+import {observer} from 'mobx-react'
 import * as classNames from 'classnames'
-import * as _ from 'lodash'
-import {autoBindMethod} from '../../../../common/auto-bind/index'
-import Preview from '../../../gaea-preview/index'
-import Svg from './svg'
 
-import LeftBar from './left-bar/left-bar.component'
-import SidebarTools from './sidebar-tools/sidebar-tools.component'
-import SidebarToolsPreview from './sidebar-tools-preview/sidebar-tools-preview.component'
-import Footer from './footer/footer.component'
+import {autoBindMethod} from '../../../../common/auto-bind/index'
+
 import Viewport from './viewport/viewport.component'
-import ViewportSidebarResize from './viewport-sidebar-resize/viewport-sidebar-resize.component'
-import HeaderNav from './header/header.component'
-import SidebarAddon from './sidebar-addon/sidebar-addon.component'
-import OuterMoveBox from './outer-move-box/outer-move-box.component'
-import LeftAbsoluteBar from './left-absolute-bar/left-absolute-bar.component'
+import Preview from '../../../gaea-preview/index'
+
+import ApplicationAction from '../actions/application'
+import EventAction from '../actions/event'
+import ViewportAction from '../actions/viewport'
+import {lazyInject} from '../utils/kernel'
+import Svg from './svg'
 
 import './page.scss'
 
-@inject('viewport', 'application', 'setting') @observer
+@observer(['application', 'viewport', 'event'])
 export default class Page extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
-    componentWillMount() {
-        let defaultValue: {
-            [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
-        } = {}
+    @lazyInject(ApplicationAction) private applicationAction: ApplicationAction
+    @lazyInject(EventAction) private eventAction: EventAction
+    @lazyInject(ViewportAction) private viewportAction: ViewportAction
 
-        if (this.props.value) {
-            defaultValue = JSON.parse(LZString.decompressFromBase64(this.props.value)) as {
-                [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
-            }
-        }
-
-        if (_.isEmpty(defaultValue)) {
-            // 如果没有 defaultValue, 生成根节点
-            this.props.viewport.createRootUniqueId()
-            const LayoutClass = this.props.application.getComponentByUniqueKey('gaea-layout')
-            // 布置最外层的画布
-            let layoutProps = extendObservable({}, _.cloneDeep(LayoutClass.defaultProps)) as FitGaea.ComponentProps
-            layoutProps.style.backgroundColor = 'white'
-
-            if (this.props.application.isReactNative) {
-                layoutProps.style.flex = 1
-                layoutProps.style.overflowY = 'auto'
-                layoutProps.style.flexDirection = 'column'
-            } else {
-                layoutProps.style.flexGrow = 1
-                layoutProps.style.flexDirection = 'column'
-                layoutProps.style.display = 'block'
-                layoutProps.style.overflow = null
-                layoutProps.style.overflowX = 'hidden'
-                layoutProps.style.overflowY = 'auto'
-            }
-
-            this.props.viewport.setComponents(this.props.viewport.rootMapUniqueKey, {
-                props: layoutProps,
-                layoutChilds: [],
-                parentMapUniqueKey: null
-            })
-        } else {
-            // 有的话, 直接用 defaultValue
-            Object.keys(defaultValue).forEach(mapUniqueKey=> {
-                const defaultInfo = defaultValue[mapUniqueKey]
-                const ComponentClass = this.props.application.getComponentByUniqueKey(defaultInfo.props.gaeaUniqueKey)
-
-                // 如果是根节点, 设置根据点 id
-                if (defaultInfo.parentMapUniqueKey === null) {
-                    this.props.viewport.setRootUniqueId(mapUniqueKey)
-                }
-
-                const props = _.merge({}, _.cloneDeep(ComponentClass.defaultProps), defaultInfo.props || {})
-
-                this.props.viewport.setComponents(mapUniqueKey, {
-                    props: extendObservable({}, props),
-                    layoutChilds: defaultInfo.layoutChilds || [],
-                    parentMapUniqueKey: defaultInfo.parentMapUniqueKey
-                })
-            })
-        }
-    }
-
-    @autoBindMethod getSectionContainerRef(ref: React.ReactInstance) {
-        this.props.viewport.setSectionContainerDomInstance(ReactDOM.findDOMNode(ref))
+    /**
+     * 关闭编辑框
+     */
+    @autoBindMethod handleCloseEditor() {
+        this.viewportAction.setCurrentEditComponentMapUniqueKey(null)
     }
 
     render() {
-        const sectionClasses = classNames({
-            'section': true,
-            'section-transition': !this.props.application.isSidebarMoving,
-            'preview': this.props.application.isPreview
+        const navbarBottomRightContainerClasses = classNames({
+            'navbar-center__right-container': true,
+            'show-editor-container': this.props.viewport.currentEditComponentMapUniqueKey !== null,
+            'transparent-background': this.props.application.viewportContainerStyle.backgroundColor === 'transparent'
         })
 
-        const viewportMainContainerStyle = {
-            marginLeft: this.props.viewport.leftBarType === '' ? 36 : this.props.application.leftSidebarWidth + 36,
-            marginRight: this.props.viewport.isShowSidebarAddon ? this.props.application.sidebarAddonWidth : 0
-        }
+        // .15s 后触发视图区域刷新事件
+        setTimeout(()=> {
+            this.eventAction.emit(this.props.event.viewportUpdated)
+        }, 200)
 
-        const leftBarStyle = {
-            width: this.props.application.leftSidebarWidth,
-            left: -this.props.application.leftSidebarWidth
-        }
-
-        const rightBarStyle = {
-            width: this.props.application.sidebarAddonWidth - 1,
-            right: -this.props.application.sidebarAddonWidth - 1
-        }
-
-        const sectionContainerStyle = {
-            height: `calc(100% - ${this.props.application.headerHeight + this.props.application.footerHeight}px)`,
-            backgroundColor: this.props.setting.data.backgroundColor
-        }
-
-        const sectionContainerClass = classNames({
-            'section-container': true,
-            'transparent-image': this.props.setting.data.backgroundColor === 'transparent'
+        const viewportToolSwitchContainerClasses = classNames({
+            'viewport-tool-switch-container': true,
+            'preview': this.props.application.inPreview
         })
-
-        let viewportMainContentStyle: React.CSSProperties = {}
-        if (this.props.setting.data.fitInWeb === 'pc') {
-            viewportMainContentStyle.width = '100%'
-            viewportMainContentStyle.height = '100%'
-        }
-        if (this.props.setting.data.fitInWeb === 'mobile') {
-            viewportMainContentStyle.width = this.props.setting.data.viewportWidth
-            viewportMainContentStyle.height = this.props.setting.data.viewportHeight
-        }
 
         return (
-            <div className="_namespace"
-                 style={{height:this.props.application.height}}>
-
+            <div className="_namespace">
                 <Svg/>
 
-                <div style={{width:this.props.application.sidebarWidth}}
-                     className="sidebar">
-                    <SidebarTools />
-                    <SidebarToolsPreview />
-                    <ViewportSidebarResize />
-                </div>
-
-                <div className={sectionClasses}>
-                    <HeaderNav />
-
-                    <div className={sectionContainerClass}
-                         ref={this.getSectionContainerRef}
-                         style={sectionContainerStyle}>
-                        <LeftAbsoluteBar/>
-
-                        <div className="viewport-main-container"
-                             style={viewportMainContainerStyle}>
-                            <div className="left-bar"
-                                 style={leftBarStyle}>
-                                <LeftBar/>
+                <div className="outer-left-container">
+                    <div className="navbar-container"
+                         style={{height:this.props.application.navbarHeight}}>
+                        <div className="navbar-container__left">
+                            {this.applicationAction.loadingPluginByPosition('navbarLeft')}
+                        </div>
+                        <div className="navbar-container__right">
+                            {this.applicationAction.loadingPluginByPosition('navbarRight')}
+                        </div>
+                    </div>
+                    <div className="navbar-center-container">
+                        <div className="navbar-center__left-container">
+                            <div className="navbar-center__left__top-container">
+                                {this.applicationAction.loadingPluginByPosition('navbarLeftTop')}
                             </div>
-
-                            <div className="viewport-main-content-outer">
-                                <div className="viewport-main-content"
-                                     style={viewportMainContentStyle}>
-                                    <Viewport/>
-                                    <OuterMoveBox/>
-
-                                    {this.props.application.isPreview &&
-                                    <div className="preview-container">
-                                        <Preview value={this.props.viewport.getIncrementComponentsInfo()}
-                                                 baseComponents={this.props.application.baseComponents}
-                                                 customComponents={this.props.application.customComponents}/>
-                                    </div>
-                                    }
+                            <div className="navbar-center__left__bottom-container">
+                                {this.applicationAction.loadingPluginByPosition('navbarLeftBottom')}
+                            </div>
+                        </div>
+                        <div className={navbarBottomRightContainerClasses}
+                             style={Object.assign({}, this.props.application.viewportContainerStyle)}>
+                            <div className="viewport-container"
+                                 style={Object.assign({}, this.props.application.viewportStyle, {display:this.props.application.inPreview?'none':null})}>
+                                <Viewport/>
+                                {this.applicationAction.loadingPluginByPosition('viewport')}
+                            </div>
+                            {this.props.application.inPreview &&
+                            <div className="preview-container"
+                                 style={Object.assign({}, this.props.application.viewportStyle)}>
+                                <Preview value={this.viewportAction.getIncrementComponentsInfo()}
+                                         baseComponents={this.props.application.editorProps.commonComponents}
+                                         customComponents={this.props.application.editorProps.customComponents}/>
+                                {this.applicationAction.loadingPluginByPosition('preview')}
+                            </div>
+                            }
+                            <div className="editor-container">
+                                {this.applicationAction.loadingPluginByPosition('editor')}
+                                <div onClick={this.handleCloseEditor}
+                                     className="editor-close">
+                                    <i className="fa fa-close close-button"/>
                                 </div>
-                            </div>
-
-                            <div className="right-bar"
-                                 style={rightBarStyle}>
-                                <SidebarAddon/>
                             </div>
                         </div>
                     </div>
-
-                    <Footer />
+                    <div className="navbar-bottom-container">
+                        {this.applicationAction.loadingPluginByPosition('navbarBottom')}
+                    </div>
                 </div>
-
+                <div className="outer-right-container">
+                    <div className={viewportToolSwitchContainerClasses}>
+                        <div className="viewport-tool-container">
+                            <div className="outer-right__top-container">
+                                {this.applicationAction.loadingPluginByPosition('mainToolTop')}
+                            </div>
+                            <div className="outer-right__bottom-container">
+                                {this.applicationAction.loadingPluginByPosition('mainToolBottom')}
+                            </div>
+                        </div>
+                        <div className="preview-tool-container">
+                            您处于预览状态
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

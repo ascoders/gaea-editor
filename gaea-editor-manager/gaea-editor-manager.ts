@@ -1,6 +1,6 @@
 export {observer, inject} from 'mobx-react'
 export {action, observable, computed, transaction, extendObservable} from 'mobx'
-export {lazyInject} from '../gaea-editor-core/utils/kernel'
+export {lazyInject} from '../gaea-editor/utils/kernel'
 export {injectable} from 'inversify'
 
 /**
@@ -13,20 +13,10 @@ export const positions = {
     mainToolBottom: 'mainToolBottom',
 }
 
-import ApplicationAction from '../gaea-editor-core/actions/application'
-import EventAction from '../gaea-editor-core/actions/event'
-import ViewportAction from '../gaea-editor-core/actions/viewport'
+export {default as ApplicationAction} from '../gaea-editor/actions/application'
+export {default as EventAction} from '../gaea-editor/actions/event'
+export {default as ViewportAction} from '../gaea-editor/actions/viewport'
 
-import ApplicationStore from '../gaea-editor-core/stores/application'
-import EventStore from '../gaea-editor-core/stores/event'
-import ViewportStore from '../gaea-editor-core/stores/viewport'
-
-export {ApplicationAction, ApplicationStore, EventAction, EventStore, ViewportAction, ViewportStore}
-
-// export {default as ApplicationAction} from '../gaea-editor-core/actions/application'
-// export {default as EventAction} from '../gaea-editor-core/actions/event'
-// export {default as ViewportAction} from '../gaea-editor-core/actions/viewport'
-//
-// export {default as ApplicationStore} from '../gaea-editor-core/stores/application'
-// export {default as EventStore} from '../gaea-editor-core/stores/event'
-// export {default as ViewportStore} from '../gaea-editor-core/stores/viewport'
+export {default as ApplicationStore} from '../gaea-editor/stores/application'
+export {default as EventStore} from '../gaea-editor/stores/event'
+export {default as ViewportStore} from '../gaea-editor/stores/viewport'

@@ -1,17 +1,13 @@
 import * as React from 'react'
-import ApplicationStore from '../store/application'
-import ViewportStore from '../store/viewport'
-import SettingStore from '../store/setting'
+
+import Application from '../stores/application'
+import Viewport from '../stores/viewport'
+import Event from '../stores/event'
 
 export interface PropsDefine {
-    viewport?: ViewportStore
-    application?: ApplicationStore
-    setting?: SettingStore
-
-    /**
-     * 页面信息
-     */
-    value?: string
+    application?: Application
+    viewport?: Viewport
+    event?: Event
 }
 
 export class Props implements PropsDefine {

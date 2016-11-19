@@ -1,7 +1,7 @@
 import * as React from 'react'
-import Application from '../../../store/application'
-import Viewport from '../../../store/viewport'
-import Setting from '../../../store/setting'
+import ApplicationStore from '../../../stores/application'
+import ViewportStore from '../../../stores/viewport'
+import EventStore from '../../../stores/event'
 
 export interface PropsDefine {
     /**
@@ -9,9 +9,9 @@ export interface PropsDefine {
      */
     mapUniqueKey ?: string
 
-    application?: Application
-    viewport?: Viewport
-    setting?: Setting
+    application?: ApplicationStore
+    viewport?: ViewportStore
+    event?: EventStore
 }
 
 export class Props implements PropsDefine {
@@ -19,12 +19,9 @@ export class Props implements PropsDefine {
 }
 
 export interface StateDefine {
-    /**
-     * 是否被选中
-     */
-    selected?: boolean
+
 }
 
 export class State implements StateDefine {
-    selected = false
+
 }

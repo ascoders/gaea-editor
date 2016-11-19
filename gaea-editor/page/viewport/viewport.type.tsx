@@ -1,10 +1,12 @@
 import * as React from 'react'
-import Viewport from '../../store/viewport'
-import Application from '../../store/application'
+import EventStore from '../../stores/event'
+import ViewportStore from '../../stores/viewport'
+import ApplicationStore from '../../stores/application'
 
 export interface PropsDefine {
-    viewport?: Viewport
-    application?: Application
+    viewport?: ViewportStore
+    event?: EventStore
+    application?: ApplicationStore
 }
 
 export class Props implements PropsDefine {
