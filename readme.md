@@ -255,13 +255,19 @@ You can also manually add your own plug-ins by the following way, if you want to
 
 ### 3.9.1 Actions
 
-**ApplicationAction** **ViewportAction** **EventAction**
+**`ApplicationAction`** **`ViewportAction`** **`EventAction`**
 
 #### 3.9.1.1 ApplicationAction
 
 | Method        | Params           | Description  |
 | ------------- |:-------------:| -----:|
 | loadingPluginByPosition      | position: string, props: any = {} | load plugins UI who's `static position` equal `position` |
+| setViewportStyle | style: React.CSSProperties | |
+| setViewportContainerStyle | style: React.CSSProperties | |
+| resetViewportStyle | | |
+| getComponentClassByGaeaUniqueKey | gaeaUniqueKey: string | get Class by uniqueKey |
+| setPreview | inPreview: boolean | set preview statu |
+| updatePage | pageValue: string | re render full editor viewport |
 
 
 #### 3.9.1.2 ViewportAction
@@ -270,7 +276,7 @@ You can also manually add your own plug-ins by the following way, if you want to
 
 ### 3.9.2 Stores
 
-**ApplicationStore** **ViewportStore** **EventStore**
+**`ApplicationStore`** **`ViewportStore`** **`EventStore`**
 
 #### 3.9.2.1 ApplicationStore
 
