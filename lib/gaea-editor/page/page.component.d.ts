@@ -4,7 +4,6 @@ import './page.scss';
 export default class Page extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine;
     state: typings.StateDefine;
-    componentWillMount(): void;
-    getSectionContainerRef(ref: React.ReactInstance): void;
+    handleCloseEditor(): void;
     render(): JSX.Element;
 }

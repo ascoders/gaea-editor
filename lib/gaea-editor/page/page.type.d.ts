@@ -1,11 +1,16 @@
-import ApplicationStore from '../store/application';
-import ViewportStore from '../store/viewport';
-import SettingStore from '../store/setting';
+import ApplicationStore from '../stores/application';
+import ViewportStore from '../stores/viewport';
+import EventStore from '../stores/event';
+import ApplicationAction from '../actions/application';
+import EventAction from '../actions/event';
+import ViewportAction from '../actions/viewport';
 export interface PropsDefine {
-    viewport?: ViewportStore;
-    application?: ApplicationStore;
-    setting?: SettingStore;
-    value?: string;
+    ApplicationStore?: ApplicationStore;
+    ViewportStore?: ViewportStore;
+    EventStore?: EventStore;
+    ApplicationAction?: ApplicationAction;
+    ViewportAction?: ViewportAction;
+    EventAction?: EventAction;
 }
 export declare class Props implements PropsDefine {
 }

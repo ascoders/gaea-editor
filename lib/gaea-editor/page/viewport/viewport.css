@@ -2,14 +2,20 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  width: 0;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
   position: relative;
-  overflow-y: auto;
-  overflow-x: hidden; }
+  width: 100%; }
+
+.nt-editor-gaea-editor-gaea_editor-page-viewport.layout-active .gaea-layout {
+  position: relative;
+  min-width: 40px !important;
+  min-height: 30px !important; }
+  .nt-editor-gaea-editor-gaea_editor-page-viewport.layout-active .gaea-layout:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px dotted #ddd;
+    z-index: 1;
+    pointer-events: none; }
