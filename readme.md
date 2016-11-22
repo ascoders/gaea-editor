@@ -1,10 +1,10 @@
-# GaeaEditor
+# 1 GaeaEditor
 
 A cross three end online application editor.
 
-# Usage
+# 2 Usage
 
-# Developer - Create your own plugin
+# 3 Developer - Create your own plugin
 
 Import `EditorManager` first.
 
@@ -12,7 +12,21 @@ Import `EditorManager` first.
 import {EditorManager} from 'gaea-editor'
 ```
 
-### Render to editor
+The following is a complete screenshot, so you understand the principles of plugin work:
+
+`tree.component.tsx`:
+
+![](assets/plugin-component.jpg)
+
+`tree.action.ts`:
+
+![](assets/plugin-action.jpg)
+
+`tree.store.ts`:
+
+![](assets/plugin-store.jpg)
+
+## 3.1 Render to editor
 
 Then create `my-first-plugin.tsx`, and render it in the navigation bar:
 
@@ -33,7 +47,7 @@ class MyFirstPlugin extends React.Component <any, any> {
 <GaeaEditor plugins={[MyFirstPlugin]}/>
 ```
 
-### Inject data stream
+## 3.2 Inject data stream
 
 ```typescript
 @EditorManager.observer(['ApplicationStore'])
@@ -71,7 +85,7 @@ class MyFirstPlugin extends React.Component <any, any> {
 }
 ```
 
-### With type helper
+## 3.3 With type helper
 
 ```typescript
 interface Props {
@@ -85,7 +99,7 @@ class MyFirstPlugin extends React.Component <Props, {}}> {
 }
 ```
 
-### Create plugin store
+## 3.4 Create plugin store
 
 Create `store.ts`:
 
@@ -127,7 +141,7 @@ export default class MyFirstPluginStore {
 }
 ```
 
-### Create plugin action
+## 3.5 Create plugin action
 
 Similar to create store, can inject any store:
 
@@ -162,7 +176,7 @@ class MyFirstPlugin extends React.Component <any, any> {
 }
 ```
 
-### Create Plugin render position
+## 3.6 Create Plugin render position
 
 In addition to rendering in the editor to provide location such as the navigation bar, the plug-in can also set aside their own location for other plug-ins to expand.
 
@@ -189,11 +203,11 @@ class MyFirstPlugin extends React.Component <any, any> {
 }
 ```
 
-### Extend Edit Type
+## 3.7 Extend Edit Type
 
 You can named `static position='editorAttributeCustomName'` to handle `editor='customName'`.
 
-### Deploy plugin
+## 3.8 Deploy plugin
 
 Gaia editor included the following plug-ins to ensure that the core function of stability: 
 
@@ -236,3 +250,30 @@ You can also manually add your own plug-ins by the following way, if you want to
 ```typescript
 <GaeaEditor plugins={[MyFirstPlugin]}/>
 ```
+
+## 3.9 core data stream
+
+### 3.9.1 Actions
+
+**ApplicationAction** **ViewportAction** **EventAction**
+
+#### 3.9.1.1 ApplicationAction
+
+| Method        | Params           | Description  |
+| ------------- |:-------------:| -----:|
+| loadingPluginByPosition      | position: string, props: any = {} | load plugins UI who's `static position` equal `position` |
+
+
+#### 3.9.1.2 ViewportAction
+
+#### 3.9.1.3 EventAction
+
+### 3.9.2 Stores
+
+**ApplicationStore** **ViewportStore** **EventStore**
+
+#### 3.9.2.1 ApplicationStore
+
+#### 3.9.2.2 ViewportStore
+
+#### 3.9.2.3 EventStore
