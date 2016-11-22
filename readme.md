@@ -6,6 +6,37 @@ A cross three end online application editor.
 
 # 2 Usage
 
+## 2.1 Installation
+
+```bash
+npm i gaea-editor --save
+```
+
+## 2.2 Basic Usage
+
+Install the basic components of the author, or write your own basic components.
+
+```bash
+npm i gaea-web-components
+```
+
+```typescript
+import {GaeaEditor} from 'gaea-editor'
+import webBaseComponents from 'gaea-web-components' // or yours
+
+export default class Demo extends React.Component <any, any> {
+    render() {
+        return (
+            <div style={{width:500, height:400}}>
+                <GaeaEditor commonComponents={webBaseComponents}
+                            defaultValue=""
+                            onSave={(saveInfo: string)=>{})}/>
+            </div>
+        )
+    }
+}
+```
+
 # 3 Developer - Create your own plugin
 
 Import `EditorManager` first.
