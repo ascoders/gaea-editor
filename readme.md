@@ -37,6 +37,98 @@ export default class Demo extends React.Component <any, any> {
 }
 ```
 
+## 2.2 Component access platform
+
+Any react component can access.
+
+### 2.2.1 Define editing effect by props
+
+`defaultProps`:
+
+```typescript
+const defaultProps = {
+    gaeaName = 'textName' // Component name for the editor shown
+    gaeaUniqueKey = 'gaea-text' // Any string that does not repeat
+    gaeaEdit = [{
+        field: 'text', // edit props.text
+        label: 'your custom description',
+        editor: 'text' // edit type
+    }]
+}
+```
+
+Or use higher order components:
+
+```typescript
+import {Input} from 'ant-design'
+
+class MyInput extends React.Component <any, any> {
+    defaultProps = defaultProps
+
+    render() {
+        return (
+            <Input value={this.props.value}/>
+        )
+    }
+}
+
+export default class Demo extends React.Component <any, any> {
+    render() {
+        return (
+            <GaeaEditor commonComponents={[MyInput]}/>
+        )
+    }
+}
+```
+
+### 2.2.2 Define editing effect by json
+
+```typescript
+import {Input} from 'ant-design'
+
+const antdOptions = {
+    Input: { // key 'Input' is same with Input's className
+        gaeaName = 'antInput'
+        gaeaUniqueKey = 'ant-input'
+        gaeaEdit = [{
+            field: 'value', 
+            label: 'antd input value',
+            editor: 'text'
+       }]
+    }
+}
+
+export default class Demo extends React.Component <any, any> {
+    render() {
+        return (
+            <GaeaEditor commonComponents={[Text]} customOptions={antdOptions}/>
+        )
+    }
+}
+```
+
+### 2.3 Deploy
+
+```bash
+npm i gaea-preview --save
+```
+
+Remember this function in `GaeaEditor` -- `onSave={(saveInfo: string)=>{})}` ? Just pass `GaeaPreview` this value `saveInfo`:
+
+```typescript
+import GaeaPreview from 'gaea-preview'
+
+export default class Production extends React.Component <any, any> {
+    render() {
+        return (
+            <GaeaPreview commonComponents={[Text]} value={saveInfo}/>
+        )
+    }
+}
+```
+
+The page appears.
+
 # 3 Developer - Create your own plugin
 
 Import `EditorManager` first.
