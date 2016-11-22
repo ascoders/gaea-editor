@@ -17,7 +17,7 @@ export default class Save extends React.Component<typings.PropsDefine, typings.S
     @autoBindMethod handleClick() {
         // 获取增量编辑信息
         const componentsInfo = this.props.ViewportAction.getIncrementComponentsInfo()
-        this.props.application.editorProps.onSave(componentsInfo, this.props.ViewportAction.getZipSettingData())
+        this.props.application.editorProps.onSave(componentsInfo, this.props.GlobalSettingAction.getZipSettingData())
     }
 
     render() {
