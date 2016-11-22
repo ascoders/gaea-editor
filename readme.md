@@ -260,7 +260,7 @@ You can also manually add your own plug-ins by the following way, if you want to
 #### 3.9.1.1 ApplicationAction
 
 | Method        | Params           | Description  |
-| ------------- |:-------------:| -----:|
+| :------------- |:-------------| :-----|
 | loadingPluginByPosition      | position: string, props: any = {} | load plugins UI who's `static position` equal `position` |
 | setViewportStyle | style: React.CSSProperties | |
 | setViewportContainerStyle | style: React.CSSProperties | |
