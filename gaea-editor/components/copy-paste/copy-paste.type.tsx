@@ -1,11 +1,14 @@
 import * as React from 'react'
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 import Store from './store'
+import Action from './action'
 
 export interface PropsDefine {
-    application?: EditorManager.ApplicationStore
-    viewport?: EditorManager.ViewportStore
-    copyPasteStore?: Store
+    ApplicationStore?: EditorManager.ApplicationStore
+    ViewportStore?: EditorManager.ViewportStore
+    CopyPasteStore?: Store
+    ViewportAction?: EditorManager.ViewportAction
+    CopyPasteAction?: Action
 }
 
 export class Props implements PropsDefine {

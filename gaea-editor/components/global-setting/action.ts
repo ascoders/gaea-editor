@@ -1,18 +1,19 @@
 import {
-    injectable,
     action,
-    lazyInject,
     extendObservable,
-    ApplicationAction
+    observable,
+    ApplicationAction,
+    inject
 } from '../../../gaea-editor-manager/gaea-editor-manager'
 import * as LZString from 'lz-string'
 
 import GlobalSettingStore from './store'
 
-@injectable()
 export default class GlobalSettingAction {
-    @lazyInject(GlobalSettingStore) private globalSetting: GlobalSettingStore
-    @lazyInject(ApplicationAction) private applicationAction: ApplicationAction
+    @inject('GlobalSettingStore') private globalSetting: GlobalSettingStore
+    @inject('ApplicationAction') private applicationAction: ApplicationAction
+
+    @observable observableClass = true
 
     @action('获取压缩的配置信息') getZipSettingData() {
         return LZString.compressToBase64(JSON.stringify(this.globalSetting))

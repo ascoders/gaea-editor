@@ -11,7 +11,7 @@ import {autoBindMethod} from '../../../../../common/auto-bind/index'
 
 import './tab-tools-components.scss'
 
-@EditorManager.observer(['tabToolsComponentsStore'])
+@EditorManager.observer(['TabToolsComponentsStore', 'ApplicationAction', 'TabToolsComponentsAction'])
 export default class TabToolsComponents extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -20,9 +20,6 @@ export default class TabToolsComponents extends React.Component <typings.PropsDe
     static Action = Action
     static Store = Store
 
-    @EditorManager.lazyInject(EditorManager.ApplicationAction) private applicationAction: EditorManager.ApplicationAction
-    @EditorManager.lazyInject(Action) private tabToolsComponentsAction: Action
-
     componentWillMount() {
 
     }
@@ -30,21 +27,21 @@ export default class TabToolsComponents extends React.Component <typings.PropsDe
     getTabItemClasses(activeName: string) {
         return classNames({
             'tab-item': true,
-            'active': this.props.tabToolsComponentsStore.activeType === activeName
+            'active': this.props.TabToolsComponentsStore.activeType === activeName
         })
     }
 
     @autoBindMethod handleChangeType(type: string) {
-        this.tabToolsComponentsAction.setActiveTab(type)
+        this.props.TabToolsComponentsAction.setActiveTab(type)
     }
 
     render() {
         return (
             <div className="_namespace">
                 <div className="left-container">
-                    {this.props.tabToolsComponentsStore.activeType === 'common' && this.applicationAction.loadingPluginByPosition('tabToolsComponentsCommon')}
-                    {this.props.tabToolsComponentsStore.activeType === 'custom' && this.applicationAction.loadingPluginByPosition('tabToolsComponentsCustom')}
-                    {this.props.tabToolsComponentsStore.activeType === 'combo' && this.applicationAction.loadingPluginByPosition('tabToolsComponentsCombo')}
+                    {this.props.TabToolsComponentsStore.activeType === 'common' && this.props.ApplicationAction.loadingPluginByPosition('tabToolsComponentsCommon')}
+                    {this.props.TabToolsComponentsStore.activeType === 'custom' && this.props.ApplicationAction.loadingPluginByPosition('tabToolsComponentsCustom')}
+                    {this.props.TabToolsComponentsStore.activeType === 'combo' && this.props.ApplicationAction.loadingPluginByPosition('tabToolsComponentsCombo')}
                 </div>
                 <div className="right-container">
                     <div className={this.getTabItemClasses('common')}

@@ -2,43 +2,41 @@ import * as React from 'react'
 import * as typings from './crumbs.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './crumbs.scss'
 
-@EditorManager.observer(['viewport'])
-export default class Crumbs extends React.Component <typings.PropsDefine, typings.StateDefine> {
+@EditorManager.observer(['ViewportStore', 'ViewportAction'])
+export default class Crumbs extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'navbarBottom'
 
-    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
-
     @autoBindMethod handleClick(mapUniqueKey: string) {
-        this.viewportAction.setCurrentEditComponentMapUniqueKey(mapUniqueKey)
+        this.props.ViewportAction.setCurrentEditComponentMapUniqueKey(mapUniqueKey)
     }
 
     @autoBindMethod handleHover(mapUniqueKey: string) {
-        this.viewportAction.setCurrentHoverComponentMapUniqueKey(mapUniqueKey)
+        this.props.ViewportAction.setCurrentHoverComponentMapUniqueKey(mapUniqueKey)
     }
 
     @autoBindMethod handleMouseLeave() {
-        this.viewportAction.setCurrentHoverComponentMapUniqueKey(null)
+        this.props.ViewportAction.setCurrentHoverComponentMapUniqueKey(null)
     }
 
     render() {
         let childs: Array<React.ReactElement<any>>
 
-        if (this.props.viewport.currentEditComponentMapUniqueKey) {
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey) {
             // 递归寻找这个组件父元素
-            childs = this.props.viewport.currentEditComponentPath.map((mapUniqueKey, index)=> {
-                const componentInfo = this.props.viewport.components.get(mapUniqueKey)
+            childs = this.props.ViewportStore.currentEditComponentPath.map((mapUniqueKey, index) => {
+                const componentInfo = this.props.ViewportStore.components.get(mapUniqueKey)
                 return (
                     <div onClick={this.handleClick.bind(this, mapUniqueKey)}
-                         onMouseOver={this.handleHover.bind(this, mapUniqueKey)}
-                         className="footer-item"
-                         key={index}>
+                        onMouseOver={this.handleHover.bind(this, mapUniqueKey)}
+                        className="footer-item"
+                        key={index}>
                         {componentInfo.props.gaeaName}
 
                         <div className="right-icon-container">
@@ -52,7 +50,7 @@ export default class Crumbs extends React.Component <typings.PropsDefine, typing
         return (
             <div className="_namespace">
                 <div className="auto-width-container"
-                     onMouseLeave={this.handleMouseLeave}>
+                    onMouseLeave={this.handleMouseLeave}>
                     {childs}
                 </div>
             </div>

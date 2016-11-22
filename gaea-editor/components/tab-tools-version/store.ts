@@ -1,6 +1,5 @@
-import {injectable, observable} from '../../../gaea-editor-manager/gaea-editor-manager'
+import { observable } from '../../../gaea-editor-manager/gaea-editor-manager'
 
-@injectable()
 export default class TabToolsVersionStore {
     /**
      * 当前版本列表页数

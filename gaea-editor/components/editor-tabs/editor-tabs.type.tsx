@@ -3,8 +3,9 @@ import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager
 import EventStore from '../editor-tabs-event/store'
 
 export interface PropsDefine {
-    viewport?: EditorManager.ViewportStore
-    eventStore?: EventStore
+    ViewportStore?: EditorManager.ViewportStore
+    EventStore?: EventStore
+    ApplicationAction?: EditorManager.ApplicationAction
 }
 
 export class Props implements PropsDefine {

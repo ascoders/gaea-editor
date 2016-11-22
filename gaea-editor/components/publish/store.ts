@@ -1,9 +1,8 @@
-import {injectable, observable, lazyInject, ApplicationStore} from '../../../gaea-editor-manager/gaea-editor-manager'
+import { observable, inject, ApplicationStore } from '../../../gaea-editor-manager/gaea-editor-manager'
 
-@injectable()
 export default class PublishStore {
-    @lazyInject(ApplicationStore) private application: ApplicationStore
+    @inject('ApplicationStore') private application: ApplicationStore
 
     // 当前版本号
-    @observable currentVersion = this.application.editorProps.currentVersion
+    @observable currentVersion = this.application.editorProps && this.application.editorProps.currentVersion
 }

@@ -1,11 +1,12 @@
-import {injectable, action, lazyInject} from '../../../gaea-editor-manager/gaea-editor-manager'
+import { action, inject, observable } from '../../../gaea-editor-manager/gaea-editor-manager'
 import * as LZString from 'lz-string'
 
 import TabToolsComponentsComboStore from './store'
 
-@injectable()
 export default class TabToolsComponentsComboAction {
-    @lazyInject(TabToolsComponentsComboStore) private tabToolsComponentsCombo: TabToolsComponentsComboStore
+    @inject('TabToolsComponentsComboStore') private tabToolsComponentsCombo: TabToolsComponentsComboStore
+
+    @observable observeClass = true
 
     @action('添加一个模板') addCombo(name: string, info: FitGaea.ViewportComponentFullInfo) {
         this.tabToolsComponentsCombo.comboList.push({

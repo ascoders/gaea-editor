@@ -1,6 +1,5 @@
-import {injectable, observable, lazyInject, ApplicationStore} from '../../../gaea-editor-manager/gaea-editor-manager'
+import { observable, lazyInject, ApplicationStore } from '../../../gaea-editor-manager/gaea-editor-manager'
 
-@injectable()
 export default class GlobalSettingStore {
     /**
      * 点击编辑框移除按钮时, 是否二次确认

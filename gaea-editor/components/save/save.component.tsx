@@ -3,25 +3,21 @@ import * as typings from './save.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
-import GlobalSettingAction from '../global-setting/action'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './save.scss'
 
-@EditorManager.observer(['application'])
-export default class Save extends React.Component <typings.PropsDefine, typings.StateDefine> {
+@EditorManager.observer(['ApplicationStore', 'ViewportAction', 'GlobalSettingAction'])
+export default class Save extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'navbarRight'
 
-    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
-    @EditorManager.lazyInject(GlobalSettingAction) private globalSettingAction: GlobalSettingAction
-
     @autoBindMethod handleClick() {
         // 获取增量编辑信息
-        const componentsInfo = this.viewportAction.getIncrementComponentsInfo()
-        this.props.application.editorProps.onSave(componentsInfo, this.globalSettingAction.getZipSettingData())
+        const componentsInfo = this.props.ViewportAction.getIncrementComponentsInfo()
+        this.props.application.editorProps.onSave(componentsInfo, this.props.ViewportAction.getZipSettingData())
     }
 
     render() {

@@ -12,7 +12,7 @@ import {autoBindMethod} from '../../../../../common/auto-bind/index'
 
 import './tab-tools-components-combo.scss'
 
-@EditorManager.observer(['application', 'tabToolsComponentsComboStore'])
+@EditorManager.observer(['ApplicationStore', 'TabToolsComponentsComboStore', 'ViewportAction'])
 export default class TabToolsComponentsCombo extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -21,14 +21,12 @@ export default class TabToolsComponentsCombo extends React.Component<typings.Pro
     static Action = Action
     static Store = Store
 
-    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
-
     componentDidMount() {
-        this.viewportAction.registerOuterDrag(ReactDOM.findDOMNode(this) as HTMLElement)
+        this.props.ViewportAction.registerOuterDrag(ReactDOM.findDOMNode(this) as HTMLElement)
     }
 
     render() {
-        const CommonDraggableItems = this.props.tabToolsComponentsComboStore.comboList.map((combo, index) => {
+        const CommonDraggableItems = this.props.TabToolsComponentsComboStore.comboList.map((combo, index) => {
             return (
                 <div key={index}
                      data-source={combo.source}

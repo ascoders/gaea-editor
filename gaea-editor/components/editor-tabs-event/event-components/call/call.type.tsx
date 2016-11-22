@@ -1,8 +1,10 @@
 import * as React from 'react'
 import * as EditorManager from '../../../../../gaea-editor-manager/gaea-editor-manager'
+import Action from '../../action'
 
 export interface PropsDefine {
-    viewport?: EditorManager.ViewportStore
+    ViewportStore?: EditorManager.ViewportStore
+    EditorEventAction?: Action
 
     /**
      * 第几个事件

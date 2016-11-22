@@ -1,10 +1,11 @@
-import {injectable, action, lazyInject} from '../../../gaea-editor-manager/gaea-editor-manager'
+import { action, inject, observable } from '../../../gaea-editor-manager/gaea-editor-manager'
 
 import TreeStore from './store'
 
-@injectable()
 export default class TreeAction {
-    @lazyInject(TreeStore) private tree: TreeStore
+    @inject('TreeStore') private tree: TreeStore
+
+    @observable observeClass = true
 
     @action('设置树根节点') setTreeRootDom(dom: HTMLElement) {
         this.tree.treeRootDom = dom

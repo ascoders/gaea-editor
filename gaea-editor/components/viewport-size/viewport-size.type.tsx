@@ -1,10 +1,13 @@
 import * as React from 'react'
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
+import GlobalSettingAction from '../global-setting/action'
 import GlobalSettingStore from '../global-setting/store'
 
 export interface PropsDefine {
-    application?: EditorManager.ApplicationStore
-    globalSettingStore?: GlobalSettingStore
+    ApplicationStore?: EditorManager.ApplicationStore
+    GlobalSettingStore?: GlobalSettingStore
+    GlobalSettingAction?: GlobalSettingAction
+    ViewportAction?: EditorManager.ViewportAction
 }
 
 export class Props implements PropsDefine {

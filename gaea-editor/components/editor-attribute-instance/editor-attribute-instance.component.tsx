@@ -7,28 +7,25 @@ import {autoBindMethod} from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-instance.scss'
 
-@EditorManager.observer(['viewport'])
+@EditorManager.observer(['ViewportStore','ViewportAction','ApplicationAction'])
 export default class EditorAttributeInstance extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'editorAttributeInstance'
 
-    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
-    @EditorManager.lazyInject(EditorManager.ApplicationAction) private applicationAction: EditorManager.ApplicationAction
-
     // 当前编辑组件的 class
     private ComponentClass: React.ComponentClass<FitGaea.ComponentProps>
 
     componentWillMount() {
         // 获取当前要渲染的组件 class
-        this.ComponentClass = this.applicationAction.getComponentClassByGaeaUniqueKey(this.props.viewport.currentEditComponentInfo.props.gaeaUniqueKey)
+        this.ComponentClass = this.props.ApplicationAction.getComponentClassByGaeaUniqueKey(this.props.ViewportStore.currentEditComponentInfo.props.gaeaUniqueKey)
     }
 
     handleApplyProps(props: any) {
         //this.props.viewport.prepareWriteHistory()
         Object.keys(props).forEach(key=> {
-            this.viewportAction.updateCurrentEditComponentProps(key, props[key])
+            this.props.ViewportAction.updateCurrentEditComponentProps(key, props[key])
         })
         //this.props.viewport.writeHistory()
     }

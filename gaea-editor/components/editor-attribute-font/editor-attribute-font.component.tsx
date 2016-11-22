@@ -2,12 +2,12 @@ import * as React from 'react'
 import * as typings from './editor-attribute-font.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import {Select} from '../../../../../web-common/select/index'
-import {Tooltip} from '../../../../../web-common/tooltip/index'
-import {ButtonGroup, Button} from '../../../../../web-common/button/index'
-import {Number} from '../../../../../web-common/number/index'
+import { Select } from '../../../../../web-common/select/index'
+import { Tooltip } from '../../../../../web-common/tooltip/index'
+import { ButtonGroup, Button } from '../../../../../web-common/button/index'
+import { Number } from '../../../../../web-common/number/index'
 import Color from '../../../components/color/color.component'
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-font.scss'
 
@@ -40,52 +40,50 @@ const fontWeightOpts = [{
     value: '900 - Black'
 }]
 
-@EditorManager.observer(['viewport', 'application'])
-export default class EditorAttributeFont extends React.Component <typings.PropsDefine, typings.StateDefine> {
+@EditorManager.observer(['ViewportStore', 'ApplicationStore', 'ViewportAction'])
+export default class EditorAttributeFont extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'editorAttributeFont'
 
-    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
-
     private colorChangeStatus = 'finish'
 
     handleChangeFontWeight(value: string) {
-        this.viewportAction.updateCurrentEditComponentProps('style.fontWeight', value)
+        this.props.ViewportAction.updateCurrentEditComponentProps('style.fontWeight', value)
     }
 
     handleChangeFontSize(value: string) {
         if (value === '') {
-            this.viewportAction.updateCurrentEditComponentProps('style.fontSize', null)
+            this.props.ViewportAction.updateCurrentEditComponentProps('style.fontSize', null)
         } else {
-            this.viewportAction.updateCurrentEditComponentProps('style.fontSize', parseInt(value))
+            this.props.ViewportAction.updateCurrentEditComponentProps('style.fontSize', parseInt(value))
         }
     }
 
     handleChangeLineHeight(value: string) {
         if (value === '') {
-            this.viewportAction.updateCurrentEditComponentProps('style.lineHeight', null)
+            this.props.ViewportAction.updateCurrentEditComponentProps('style.lineHeight', null)
         } else {
-            this.viewportAction.updateCurrentEditComponentProps('style.lineHeight', parseInt(value))
+            this.props.ViewportAction.updateCurrentEditComponentProps('style.lineHeight', parseInt(value))
         }
     }
 
     handleChange(field: string, value: string) {
-        this.viewportAction.updateCurrentEditComponentProps(field, value)
+        this.props.ViewportAction.updateCurrentEditComponentProps(field, value)
     }
 
     handleColorChange(color: any) {
         if (this.colorChangeStatus === 'finish') {
             this.colorChangeStatus = 'start'
-            //this.props.viewport.prepareWriteHistory()
+            //this.props.ViewportStore.prepareWriteHistory()
         }
-        this.viewportAction.updateCurrentEditComponentProps('style.color', `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`)
+        this.props.ViewportAction.updateCurrentEditComponentProps('style.color', `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`)
     }
 
     handleColorChangeComplete(color: any) {
         this.colorChangeStatus = 'finish'
-        //this.props.viewport.writeHistory()
+        //this.props.ViewportStore.writeHistory()
     }
 
     /**
@@ -94,29 +92,29 @@ export default class EditorAttributeFont extends React.Component <typings.PropsD
     handleChangeWrap(type: number) {
         switch (type) {
             case 1:
-                //this.props.viewport.prepareWriteHistory()
-                this.viewportAction.updateCurrentEditComponentProps('style.whiteSpace', null)
-                this.viewportAction.updateCurrentEditComponentProps('style.wordBreak', 'normal')
-                //this.props.viewport.writeHistory()
+                //this.props.ViewportStore.prepareWriteHistory()
+                this.props.ViewportAction.updateCurrentEditComponentProps('style.whiteSpace', null)
+                this.props.ViewportAction.updateCurrentEditComponentProps('style.wordBreak', 'normal')
+                //this.props.ViewportStore.writeHistory()
                 break
             case 2:
-                //this.props.viewport.prepareWriteHistory()
-                this.viewportAction.updateCurrentEditComponentProps('style.whiteSpace', 'nowrap')
-                this.viewportAction.updateCurrentEditComponentProps('style.wordBreak', 'normal')
-                //this.props.viewport.writeHistory()
+                //this.props.ViewportStore.prepareWriteHistory()
+                this.props.ViewportAction.updateCurrentEditComponentProps('style.whiteSpace', 'nowrap')
+                this.props.ViewportAction.updateCurrentEditComponentProps('style.wordBreak', 'normal')
+                //this.props.ViewportStore.writeHistory()
                 break
             case 3:
-                //this.props.viewport.prepareWriteHistory()
-                this.viewportAction.updateCurrentEditComponentProps('style.whiteSpace', null)
-                this.viewportAction.updateCurrentEditComponentProps('style.wordBreak', 'break-all')
-                //this.props.viewport.writeHistory()
+                //this.props.ViewportStore.prepareWriteHistory()
+                this.props.ViewportAction.updateCurrentEditComponentProps('style.whiteSpace', null)
+                this.props.ViewportAction.updateCurrentEditComponentProps('style.wordBreak', 'break-all')
+                //this.props.ViewportStore.writeHistory()
                 break
         }
     }
 
     render() {
         const fontWeight = {
-            defaultValue: this.props.viewport.currentEditComponentInfo.props.style.fontWeight ? this.props.viewport.currentEditComponentInfo.props.style.fontWeight.toString() : '400',
+            defaultValue: this.props.ViewportStore.currentEditComponentInfo.props.style.fontWeight ? this.props.ViewportStore.currentEditComponentInfo.props.style.fontWeight.toString() : '400',
             options: fontWeightOpts
         }
 
@@ -126,18 +124,18 @@ export default class EditorAttributeFont extends React.Component <typings.PropsD
                     <div className="left-container">
                         <div className="icon-container">FW</div>
                         <Select label="" {...fontWeight}
-                                onChange={this.handleChangeFontWeight.bind(this)}/>
+                            onChange={this.handleChangeFontWeight.bind(this)} />
                     </div>
                     <div className="right-container">
                         <div className="icon-container">QX</div>
                         <ButtonGroup>
                             <Tooltip title="普通">
-                                <Button active={this.props.viewport.currentEditComponentInfo.props.style.fontStyle === 'normal'}
-                                        onClick={this.handleChange.bind(this, 'style.fontStyle', 'normal')}>1</Button>
+                                <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.fontStyle === 'normal'}
+                                    onClick={this.handleChange.bind(this, 'style.fontStyle', 'normal')}>1</Button>
                             </Tooltip>
                             <Tooltip title="倾斜">
-                                <Button active={this.props.viewport.currentEditComponentInfo.props.style.fontStyle === 'italic'}
-                                        onClick={this.handleChange.bind(this, 'style.fontStyle', 'italic')}>2</Button>
+                                <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.fontStyle === 'italic'}
+                                    onClick={this.handleChange.bind(this, 'style.fontStyle', 'italic')}>2</Button>
                             </Tooltip>
                         </ButtonGroup>
                     </div>
@@ -147,15 +145,15 @@ export default class EditorAttributeFont extends React.Component <typings.PropsD
                     <div className="left-container">
                         <div className="icon-container">Color</div>
                         <Color onChange={this.handleColorChange.bind(this)}
-                               onChangeComplete={this.handleColorChangeComplete.bind(this)}
-                               color={this.props.viewport.currentEditComponentInfo.props.style.color || 'rgba(1,1,1,1)'}/>
+                            onChangeComplete={this.handleColorChangeComplete.bind(this)}
+                            color={this.props.ViewportStore.currentEditComponentInfo.props.style.color || 'rgba(1,1,1,1)'} />
                     </div>
                     <div className="right-container-2">
                         <div className="icon-container">Size</div>
                         <Number label=""
-                                placeholder="Null"
-                                value={this.props.viewport.currentEditComponentInfo.props.style.fontSize ? this.props.viewport.currentEditComponentInfo.props.style.fontSize.toString() : ''}
-                                onChange={this.handleChangeFontSize.bind(this)}/>
+                            placeholder="Null"
+                            value={this.props.ViewportStore.currentEditComponentInfo.props.style.fontSize ? this.props.ViewportStore.currentEditComponentInfo.props.style.fontSize.toString() : ''}
+                            onChange={this.handleChangeFontSize.bind(this)} />
                     </div>
                 </div>
 
@@ -163,9 +161,9 @@ export default class EditorAttributeFont extends React.Component <typings.PropsD
                     <div className="left-container">
                         <div className="icon-container">行高</div>
                         <Number label=""
-                                placeholder="Null"
-                                value={this.props.viewport.currentEditComponentInfo.props.style.lineHeight ? this.props.viewport.currentEditComponentInfo.props.style.lineHeight.toString() : ''}
-                                onChange={this.handleChangeLineHeight.bind(this)}/>
+                            placeholder="Null"
+                            value={this.props.ViewportStore.currentEditComponentInfo.props.style.lineHeight ? this.props.ViewportStore.currentEditComponentInfo.props.style.lineHeight.toString() : ''}
+                            onChange={this.handleChangeLineHeight.bind(this)} />
                     </div>
                 </div>
 
@@ -174,20 +172,20 @@ export default class EditorAttributeFont extends React.Component <typings.PropsD
                         <div className="icon-container">对齐</div>
                         <ButtonGroup>
                             <Tooltip title="左对齐">
-                                <Button active={this.props.viewport.currentEditComponentInfo.props.style.textAlign === 'left'}
-                                        onClick={this.handleChange.bind(this, 'style.textAlign', 'left')}>1</Button>
+                                <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textAlign === 'left'}
+                                    onClick={this.handleChange.bind(this, 'style.textAlign', 'left')}>1</Button>
                             </Tooltip>
                             <Tooltip title="居中">
-                                <Button active={this.props.viewport.currentEditComponentInfo.props.style.textAlign === 'center'}
-                                        onClick={this.handleChange.bind(this, 'style.textAlign', 'center')}>2</Button>
+                                <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textAlign === 'center'}
+                                    onClick={this.handleChange.bind(this, 'style.textAlign', 'center')}>2</Button>
                             </Tooltip>
                             <Tooltip title="右对齐">
-                                <Button active={this.props.viewport.currentEditComponentInfo.props.style.textAlign === 'right'}
-                                        onClick={this.handleChange.bind(this, 'style.textAlign', 'right')}>3</Button>
+                                <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textAlign === 'right'}
+                                    onClick={this.handleChange.bind(this, 'style.textAlign', 'right')}>3</Button>
                             </Tooltip>
                             <Tooltip title="左右对齐">
-                                <Button active={this.props.viewport.currentEditComponentInfo.props.style.textAlign === 'justify'}
-                                        onClick={this.handleChange.bind(this, 'style.textAlign', 'justify')}>4</Button>
+                                <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textAlign === 'justify'}
+                                    onClick={this.handleChange.bind(this, 'style.textAlign', 'justify')}>4</Button>
                             </Tooltip>
                         </ButtonGroup>
                     </div>
@@ -196,71 +194,71 @@ export default class EditorAttributeFont extends React.Component <typings.PropsD
                 <div className="row-container">
                     <div className="left-container">
                         <div className="icon-container">划线</div>
-                        {this.props.application.editorProps.isReactNative ?
+                        {this.props.ApplicationStore.editorProps.isReactNative ?
                             <ButtonGroup>
                                 <Tooltip title="无">
-                                    <Button active={this.props.viewport.currentEditComponentInfo.props.style.textDecorationLine === 'none'}
-                                            onClick={this.handleChange.bind(this, 'style.textDecorationLine', 'none')}>1</Button>
+                                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textDecorationLine === 'none'}
+                                        onClick={this.handleChange.bind(this, 'style.textDecorationLine', 'none')}>1</Button>
                                 </Tooltip>
                                 <Tooltip title="下划线">
-                                    <Button active={this.props.viewport.currentEditComponentInfo.props.style.textDecorationLine === 'underline'}
-                                            onClick={this.handleChange.bind(this, 'style.textDecorationLine', 'underline')}>2</Button>
+                                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textDecorationLine === 'underline'}
+                                        onClick={this.handleChange.bind(this, 'style.textDecorationLine', 'underline')}>2</Button>
                                 </Tooltip>
                                 <Tooltip title="中划线">
-                                    <Button active={this.props.viewport.currentEditComponentInfo.props.style.textDecorationLine === 'line-through'}
-                                            onClick={this.handleChange.bind(this, 'style.textDecorationLine', 'line-through')}>4</Button>
+                                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textDecorationLine === 'line-through'}
+                                        onClick={this.handleChange.bind(this, 'style.textDecorationLine', 'line-through')}>4</Button>
                                 </Tooltip>
                                 <Tooltip title="中下划线">
-                                    <Button active={this.props.viewport.currentEditComponentInfo.props.style.textDecorationLine === 'underline line-through'}
-                                            onClick={this.handleChange.bind(this, 'style.textDecorationLine', 'underline line-through')}>5</Button>
+                                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textDecorationLine === 'underline line-through'}
+                                        onClick={this.handleChange.bind(this, 'style.textDecorationLine', 'underline line-through')}>5</Button>
                                 </Tooltip>
-                            </ButtonGroup>:
+                            </ButtonGroup> :
                             <ButtonGroup>
                                 <Tooltip title="无">
-                                    <Button active={this.props.viewport.currentEditComponentInfo.props.style.textDecoration === 'none'}
-                                            onClick={this.handleChange.bind(this, 'style.textDecoration', 'none')}>1</Button>
+                                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textDecoration === 'none'}
+                                        onClick={this.handleChange.bind(this, 'style.textDecoration', 'none')}>1</Button>
                                 </Tooltip>
                                 <Tooltip title="下划线">
-                                    <Button active={this.props.viewport.currentEditComponentInfo.props.style.textDecoration === 'underline'}
-                                            onClick={this.handleChange.bind(this, 'style.textDecoration', 'underline')}>2</Button>
+                                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textDecoration === 'underline'}
+                                        onClick={this.handleChange.bind(this, 'style.textDecoration', 'underline')}>2</Button>
                                 </Tooltip>
                                 <Tooltip title="上划线">
-                                    <Button active={this.props.viewport.currentEditComponentInfo.props.style.textDecoration === 'overline'}
-                                            onClick={this.handleChange.bind(this, 'style.textDecoration', 'overline')}>3</Button>
+                                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textDecoration === 'overline'}
+                                        onClick={this.handleChange.bind(this, 'style.textDecoration', 'overline')}>3</Button>
                                 </Tooltip>
                                 <Tooltip title="中划线">
-                                    <Button active={this.props.viewport.currentEditComponentInfo.props.style.textDecoration === 'line-through'}
-                                            onClick={this.handleChange.bind(this, 'style.textDecoration', 'line-through')}>4</Button>
+                                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textDecoration === 'line-through'}
+                                        onClick={this.handleChange.bind(this, 'style.textDecoration', 'line-through')}>4</Button>
                                 </Tooltip>
                                 <Tooltip title="中下划线">
-                                    <Button active={this.props.viewport.currentEditComponentInfo.props.style.textDecoration === 'underline line-through'}
-                                            onClick={this.handleChange.bind(this, 'style.textDecoration', 'underline line-through')}>5</Button>
+                                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.textDecoration === 'underline line-through'}
+                                        onClick={this.handleChange.bind(this, 'style.textDecoration', 'underline line-through')}>5</Button>
                                 </Tooltip>
                             </ButtonGroup>
                         }
                     </div>
                 </div>
 
-                {!this.props.application.editorProps.isReactNative &&
-                <div className="row-container">
-                    <div className="left-container">
-                        <div className="icon-container">换行</div>
-                        <ButtonGroup>
-                            <Tooltip title="自动">
-                                <Button active={this.props.viewport.currentEditComponentInfo.props.style.wordBreak === 'normal' && this.props.viewport.currentEditComponentInfo.props.style.whiteSpace === null}
+                {!this.props.ApplicationStore.editorProps.isReactNative &&
+                    <div className="row-container">
+                        <div className="left-container">
+                            <div className="icon-container">换行</div>
+                            <ButtonGroup>
+                                <Tooltip title="自动">
+                                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.wordBreak === 'normal' && this.props.ViewportStore.currentEditComponentInfo.props.style.whiteSpace === null}
                                         onClick={this.handleChangeWrap.bind(this, 1)}>1</Button>
-                            </Tooltip>
-                            <Tooltip title="不换行">
-                                <Button active={this.props.viewport.currentEditComponentInfo.props.style.whiteSpace === 'nowrap'}
+                                </Tooltip>
+                                <Tooltip title="不换行">
+                                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.whiteSpace === 'nowrap'}
                                         onClick={this.handleChangeWrap.bind(this, 2)}>2</Button>
-                            </Tooltip>
-                            <Tooltip title="强制换行">
-                                <Button active={this.props.viewport.currentEditComponentInfo.props.style.wordBreak === 'break-all'}
+                                </Tooltip>
+                                <Tooltip title="强制换行">
+                                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.wordBreak === 'break-all'}
                                         onClick={this.handleChangeWrap.bind(this, 3)}>3</Button>
-                            </Tooltip>
-                        </ButtonGroup>
+                                </Tooltip>
+                            </ButtonGroup>
+                        </div>
                     </div>
-                </div>
                 }
             </div>
         )

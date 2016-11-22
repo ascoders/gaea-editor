@@ -1,5 +1,4 @@
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
 import * as typings from './page.type'
 import {observer} from 'mobx-react'
 import * as classNames from 'classnames'
@@ -9,45 +8,37 @@ import {autoBindMethod} from '../../../../common/auto-bind/index'
 import Viewport from './viewport/viewport.component'
 import Preview from '../../../gaea-preview/index'
 
-import ApplicationAction from '../actions/application'
-import EventAction from '../actions/event'
-import ViewportAction from '../actions/viewport'
-import {lazyInject} from '../utils/kernel'
 import Svg from './svg'
 
 import './page.scss'
 
-@observer(['application', 'viewport', 'event'])
+@observer(['ApplicationStore', 'ViewportStore', 'EventStore', 'ApplicationAction', 'EventAction', 'ViewportAction'])
 export default class Page extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
-
-    @lazyInject(ApplicationAction) private applicationAction: ApplicationAction
-    @lazyInject(EventAction) private eventAction: EventAction
-    @lazyInject(ViewportAction) private viewportAction: ViewportAction
 
     /**
      * 关闭编辑框
      */
     @autoBindMethod handleCloseEditor() {
-        this.viewportAction.setCurrentEditComponentMapUniqueKey(null)
+        this.props.ViewportAction.setCurrentEditComponentMapUniqueKey(null)
     }
 
     render() {
         const navbarBottomRightContainerClasses = classNames({
             'navbar-center__right-container': true,
-            'show-editor-container': this.props.viewport.currentEditComponentMapUniqueKey !== null,
-            'transparent-background': this.props.application.viewportContainerStyle.backgroundColor === 'transparent'
+            'show-editor-container': this.props.ViewportStore.currentEditComponentMapUniqueKey !== null,
+            'transparent-background': this.props.ApplicationStore.viewportContainerStyle.backgroundColor === 'transparent'
         })
 
         // .15s 后触发视图区域刷新事件
         setTimeout(()=> {
-            this.eventAction.emit(this.props.event.viewportUpdated)
+            this.props.EventAction.emit(this.props.EventStore.viewportUpdated)
         }, 200)
 
         const viewportToolSwitchContainerClasses = classNames({
             'viewport-tool-switch-container': true,
-            'preview': this.props.application.inPreview
+            'preview': this.props.ApplicationStore.inPreview
         })
 
         return (
@@ -56,41 +47,41 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
 
                 <div className="outer-left-container">
                     <div className="navbar-container"
-                         style={{height:this.props.application.navbarHeight}}>
+                         style={{height:this.props.ApplicationStore.navbarHeight}}>
                         <div className="navbar-container__left">
-                            {this.applicationAction.loadingPluginByPosition('navbarLeft')}
+                            {this.props.ApplicationAction.loadingPluginByPosition('navbarLeft')}
                         </div>
                         <div className="navbar-container__right">
-                            {this.applicationAction.loadingPluginByPosition('navbarRight')}
+                            {this.props.ApplicationAction.loadingPluginByPosition('navbarRight')}
                         </div>
                     </div>
                     <div className="navbar-center-container">
                         <div className="navbar-center__left-container">
                             <div className="navbar-center__left__top-container">
-                                {this.applicationAction.loadingPluginByPosition('navbarLeftTop')}
+                                {this.props.ApplicationAction.loadingPluginByPosition('navbarLeftTop')}
                             </div>
                             <div className="navbar-center__left__bottom-container">
-                                {this.applicationAction.loadingPluginByPosition('navbarLeftBottom')}
+                                {this.props.ApplicationAction.loadingPluginByPosition('navbarLeftBottom')}
                             </div>
                         </div>
                         <div className={navbarBottomRightContainerClasses}
-                             style={Object.assign({}, this.props.application.viewportContainerStyle)}>
+                             style={Object.assign({}, this.props.ApplicationStore.viewportContainerStyle)}>
                             <div className="viewport-container"
-                                 style={Object.assign({}, this.props.application.viewportStyle, {display:this.props.application.inPreview?'none':null})}>
+                                 style={Object.assign({}, this.props.ApplicationStore.viewportStyle, {display:this.props.ApplicationStore.inPreview?'none':null})}>
                                 <Viewport/>
-                                {this.applicationAction.loadingPluginByPosition('viewport')}
+                                {this.props.ApplicationAction.loadingPluginByPosition('viewport')}
                             </div>
-                            {this.props.application.inPreview &&
+                            {this.props.ApplicationStore.inPreview &&
                             <div className="preview-container"
-                                 style={Object.assign({}, this.props.application.viewportStyle)}>
-                                <Preview value={this.viewportAction.getIncrementComponentsInfo()}
-                                         baseComponents={this.props.application.editorProps.commonComponents}
-                                         customComponents={this.props.application.editorProps.customComponents}/>
-                                {this.applicationAction.loadingPluginByPosition('preview')}
+                                 style={Object.assign({}, this.props.ApplicationStore.viewportStyle)}>
+                                <Preview value={this.props.ViewportAction.getIncrementComponentsInfo()}
+                                         baseComponents={this.props.ApplicationStore.editorProps.commonComponents}
+                                         customComponents={this.props.ApplicationStore.editorProps.customComponents}/>
+                                {this.props.ApplicationAction.loadingPluginByPosition('preview')}
                             </div>
                             }
                             <div className="editor-container">
-                                {this.applicationAction.loadingPluginByPosition('editor')}
+                                {this.props.ApplicationAction.loadingPluginByPosition('editor')}
                                 <div onClick={this.handleCloseEditor}
                                      className="editor-close">
                                     <i className="fa fa-close close-button"/>
@@ -99,17 +90,17 @@ export default class Page extends React.Component <typings.PropsDefine, typings.
                         </div>
                     </div>
                     <div className="navbar-bottom-container">
-                        {this.applicationAction.loadingPluginByPosition('navbarBottom')}
+                        {this.props.ApplicationAction.loadingPluginByPosition('navbarBottom')}
                     </div>
                 </div>
                 <div className="outer-right-container">
                     <div className={viewportToolSwitchContainerClasses}>
                         <div className="viewport-tool-container">
                             <div className="outer-right__top-container">
-                                {this.applicationAction.loadingPluginByPosition('mainToolTop')}
+                                {this.props.ApplicationAction.loadingPluginByPosition('mainToolTop')}
                             </div>
                             <div className="outer-right__bottom-container">
-                                {this.applicationAction.loadingPluginByPosition('mainToolBottom')}
+                                {this.props.ApplicationAction.loadingPluginByPosition('mainToolBottom')}
                             </div>
                         </div>
                         <div className="preview-tool-container">

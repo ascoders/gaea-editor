@@ -1,7 +1,6 @@
-import {injectable, observable} from '../../../gaea-editor-manager/gaea-editor-manager'
+import { observable } from '../../../gaea-editor-manager/gaea-editor-manager'
 
-@injectable()
-export default class EventStore {
+export default class EditorEventStore {
     /**
      * 当前修改是第几个
      */

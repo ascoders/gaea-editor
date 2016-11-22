@@ -8,18 +8,16 @@ import {autoBindMethod} from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-overflow.scss'
 
-@EditorManager.observer(['viewport', 'application'])
+@EditorManager.observer(['ViewportStore', 'ApplicationStore','ViewportAction'])
 export default class EditorAttributeOverflow extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'editorAttributeOverflow'
 
-    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
-
     // 判断 overflowX 和 overflowY 是否相同
     isOverflowXYEqual() {
-        return this.props.viewport.currentEditComponentInfo.props.style.overflowX === this.props.viewport.currentEditComponentInfo.props.style.overflowY || (this.props.viewport.currentEditComponentInfo.props.style.overflowX === null || this.props.viewport.currentEditComponentInfo.props.style.overflowX === 'auto') && (this.props.viewport.currentEditComponentInfo.props.style.overflowY === null || this.props.viewport.currentEditComponentInfo.props.style.overflowY === 'auto')
+        return this.props.ViewportStore.currentEditComponentInfo.props.style.overflowX === this.props.ViewportStore.currentEditComponentInfo.props.style.overflowY || (this.props.ViewportStore.currentEditComponentInfo.props.style.overflowX === null || this.props.ViewportStore.currentEditComponentInfo.props.style.overflowX === 'auto') && (this.props.ViewportStore.currentEditComponentInfo.props.style.overflowY === null || this.props.ViewportStore.currentEditComponentInfo.props.style.overflowY === 'auto')
     }
 
     init(props: typings.PropsDefine) {
@@ -36,9 +34,9 @@ export default class EditorAttributeOverflow extends React.Component <typings.Pr
 
     // 判断是否是一种状态
     isStatu(statu: string) {
-        const style = this.props.viewport.currentEditComponentInfo.props.style
+        const style = this.props.ViewportStore.currentEditComponentInfo.props.style
 
-        if (!this.props.application.editorProps.isReactNative) {
+        if (!this.props.ApplicationStore.editorProps.isReactNative) {
             if ((style.overflow === null || style.overflow === 'auto') && (style.overflowX === null || style.overflowX === 'auto') && (style.overflowY === null || style.overflowY === 'auto')) {
                 return statu === 'auto'
             }
@@ -54,20 +52,20 @@ export default class EditorAttributeOverflow extends React.Component <typings.Pr
     }
 
     handleUpdateCompressValue(field: string, value: FitGaea.ComponentPropsOptionValue) {
-        //this.props.viewport.prepareWriteHistory()
-        this.viewportAction.updateCurrentEditComponentProps(field, value)
-        if (!this.props.application.editorProps.isReactNative) {
-            this.viewportAction.updateCurrentEditComponentProps('style.overflowX', null)
-            this.viewportAction.updateCurrentEditComponentProps('style.overflowY', null)
+        //this.props.ViewportStore.prepareWriteHistory()
+        this.props.ViewportAction.updateCurrentEditComponentProps(field, value)
+        if (!this.props.ApplicationStore.editorProps.isReactNative) {
+            this.props.ViewportAction.updateCurrentEditComponentProps('style.overflowX', null)
+            this.props.ViewportAction.updateCurrentEditComponentProps('style.overflowY', null)
         }
-        //this.props.viewport.writeHistory()
+        //this.props.ViewportStore.writeHistory()
     }
 
     handleUpdateExpandValue(field: string, value: FitGaea.ComponentPropsOptionValue) {
-        //this.props.viewport.prepareWriteHistory()
-        this.viewportAction.updateCurrentEditComponentProps(field, value)
-        this.viewportAction.updateCurrentEditComponentProps('style.overflow', null)
-        //this.props.viewport.writeHistory()
+        //this.props.ViewportStore.prepareWriteHistory()
+        this.props.ViewportAction.updateCurrentEditComponentProps(field, value)
+        this.props.ViewportAction.updateCurrentEditComponentProps('style.overflow', null)
+        //this.props.ViewportStore.writeHistory()
     }
 
     handleExpand() {
@@ -95,7 +93,7 @@ export default class EditorAttributeOverflow extends React.Component <typings.Pr
                             onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'visible')}>2</Button>
                 </Tooltip>
 
-                {!this.props.application.editorProps.isReactNative &&
+                {!this.props.ApplicationStore.editorProps.isReactNative &&
                 <Tooltip title="Scroll">
                     <Button active={this.isStatu('scroll')}
                             onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'scroll')}>3</Button>
@@ -111,7 +109,7 @@ export default class EditorAttributeOverflow extends React.Component <typings.Pr
     }
 
     isExpandStatu(field: string, statu: string) {
-        const style = this.props.viewport.currentEditComponentInfo.props.style
+        const style = this.props.ViewportStore.currentEditComponentInfo.props.style
 
         // 如果值是 null，但 overflow 是对应的值，也没问题
         if (style[field] === null && style['overflow'] === statu) {
@@ -140,7 +138,7 @@ export default class EditorAttributeOverflow extends React.Component <typings.Pr
                                 onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'visible')}>2</Button>
                     </Tooltip>
 
-                    {!this.props.application.editorProps.isReactNative &&
+                    {!this.props.ApplicationStore.editorProps.isReactNative &&
                     <Tooltip title="Scroll">
                         <Button active={this.isExpandStatu('overflowX', 'scroll')}
                                 onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'scroll')}>3</Button>
@@ -164,7 +162,7 @@ export default class EditorAttributeOverflow extends React.Component <typings.Pr
                                 onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'visible')}>2</Button>
                     </Tooltip>
 
-                    {!this.props.application.editorProps.isReactNative &&
+                    {!this.props.ApplicationStore.editorProps.isReactNative &&
                     <Tooltip title="Scroll">
                         <Button active={this.isExpandStatu('overflowY', 'scroll')}
                                 onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'scroll')}>3</Button>
@@ -194,7 +192,7 @@ export default class EditorAttributeOverflow extends React.Component <typings.Pr
                     <div>Overflow</div>
                 }
 
-                {!this.props.application.editorProps.isReactNative &&
+                {!this.props.ApplicationStore.editorProps.isReactNative &&
                 <div className="overflow-expend-button-container">
                     {canExpand &&
                     <Button onClick={this.handleExpand.bind(this)}><i className="fa fa-expand"/></Button>

@@ -1,3 +1,5 @@
+import {observable} from 'mobx'
+
 export declare type EventType = number|string
 
 /**
@@ -9,9 +11,11 @@ export interface Event {
 }
 
 
-export default class EventSystem {
+export default class EventAction {
     // 所有事件
     private events: Map<EventType, Array<Event>> = new Map()
+
+    @observable observableClass = true
 
     /**
      * 订阅事件

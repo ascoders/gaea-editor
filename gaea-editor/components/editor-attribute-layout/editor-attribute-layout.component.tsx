@@ -2,29 +2,27 @@ import * as React from 'react'
 import * as typings from './editor-attribute-layout.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import {Button, ButtonGroup} from '../../../../../web-common/button/index'
-import {Tooltip} from '../../../../../web-common/tooltip/index'
-import {Checkbox} from '../../../../../web-common/checkbox/index'
-import {Number} from '../../../../../web-common/number/index'
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import { Button, ButtonGroup } from '../../../../../web-common/button/index'
+import { Tooltip } from '../../../../../web-common/tooltip/index'
+import { Checkbox } from '../../../../../web-common/checkbox/index'
+import { Number } from '../../../../../web-common/number/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-layout.scss'
 
-@EditorManager.observer(['viewport', 'application'])
-export default class EditorAttributeLayout extends React.Component <typings.PropsDefine, typings.StateDefine> {
+@EditorManager.observer(['ViewportStore', 'ApplicationStore', 'ViewportAction'])
+export default class EditorAttributeLayout extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'editorAttributeLayout'
 
-    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
-
     handleUpdateValue(field: string, value: FitGaea.ComponentPropsOptionValue) {
-        this.viewportAction.updateCurrentEditComponentProps(field, value)
+        this.props.ViewportAction.updateCurrentEditComponentProps(field, value)
     }
 
     handleChangeReverse(checked: boolean) {
-        switch (this.props.viewport.currentEditComponentInfo.props.style.flexDirection) {
+        switch (this.props.ViewportStore.currentEditComponentInfo.props.style.flexDirection) {
             case 'row':
                 this.handleUpdateValue('style.flexDirection', 'row-reverse')
                 break
@@ -42,7 +40,7 @@ export default class EditorAttributeLayout extends React.Component <typings.Prop
 
     handleFlexGrowChange(value: string) {
         const intValue = value === '' ? null : parseInt(value)
-        if (this.props.application.editorProps.isReactNative) {
+        if (this.props.ApplicationStore.editorProps.isReactNative) {
             this.handleUpdateValue('style.flex', intValue)
         } else {
             this.handleUpdateValue('style.flexGrow', intValue)
@@ -55,7 +53,7 @@ export default class EditorAttributeLayout extends React.Component <typings.Prop
     renderFlex() {
         // 判断是否逆序
         let isReverse = false
-        switch (this.props.viewport.currentEditComponentInfo.props.style.flexDirection) {
+        switch (this.props.ViewportStore.currentEditComponentInfo.props.style.flexDirection) {
             case 'row':
                 isReverse = false
                 break
@@ -70,14 +68,14 @@ export default class EditorAttributeLayout extends React.Component <typings.Prop
                 break
         }
 
-        const isRow = this.props.viewport.currentEditComponentInfo.props.style.flexDirection === 'row' || this.props.viewport.currentEditComponentInfo.props.style.flexDirection === 'row-reverse'
+        const isRow = this.props.ViewportStore.currentEditComponentInfo.props.style.flexDirection === 'row' || this.props.ViewportStore.currentEditComponentInfo.props.style.flexDirection === 'row-reverse'
 
         // 获取 flex-grow 的输入框格式
         let flexGrowString = ''
-        if (this.props.application.editorProps.isReactNative) {
-            flexGrowString = this.props.viewport.currentEditComponentInfo.props.style.flex ? this.props.viewport.currentEditComponentInfo.props.style.flex.toString() : ''
+        if (this.props.ApplicationStore.editorProps.isReactNative) {
+            flexGrowString = this.props.ViewportStore.currentEditComponentInfo.props.style.flex ? this.props.ViewportStore.currentEditComponentInfo.props.style.flex.toString() : ''
         } else {
-            flexGrowString = this.props.viewport.currentEditComponentInfo.props.style.flexGrow ? this.props.viewport.currentEditComponentInfo.props.style.flexGrow.toString() : ''
+            flexGrowString = this.props.ViewportStore.currentEditComponentInfo.props.style.flexGrow ? this.props.ViewportStore.currentEditComponentInfo.props.style.flexGrow.toString() : ''
         }
 
         const rowStart = !isReverse ? '左' : '右'
@@ -102,54 +100,54 @@ export default class EditorAttributeLayout extends React.Component <typings.Prop
         return (
             <div>
                 <div className="layout-top-container"
-                     style={{marginTop:5}}>
+                    style={{ marginTop: 5 }}>
                     <Tooltip title="Direction:Row">
-                        <Button active={this.props.viewport.currentEditComponentInfo.props.style.flexDirection === 'row' || this.props.viewport.currentEditComponentInfo.props.style.flexDirection === 'row-reverse'}
-                                onClick={this.handleUpdateValue.bind(this, 'style.flexDirection', 'row')}>
+                        <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.flexDirection === 'row' || this.props.ViewportStore.currentEditComponentInfo.props.style.flexDirection === 'row-reverse'}
+                            onClick={this.handleUpdateValue.bind(this, 'style.flexDirection', 'row')}>
                             <svg className="svg-icon rotate-180">
-                                <use xlinkHref="#flex-row"/>
+                                <use xlinkHref="#flex-row" />
                             </svg>
                         </Button>
                     </Tooltip>
 
                     <ButtonGroup>
                         <Tooltip title={rowFlexStart}>
-                            <Button active={this.props.viewport.currentEditComponentInfo.props.style.justifyContent === 'flex-start'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'flex-start')}>
+                            <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.justifyContent === 'flex-start'}
+                                onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'flex-start')}>
                                 <svg className="svg-icon rotate-180">
-                                    <use xlinkHref="#flex-direction-end"/>
+                                    <use xlinkHref="#flex-direction-end" />
                                 </svg>
                             </Button>
                         </Tooltip>
                         <Tooltip title={rowFlexCenter}>
-                            <Button active={this.props.viewport.currentEditComponentInfo.props.style.justifyContent === 'center'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'center')}>
+                            <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.justifyContent === 'center'}
+                                onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'center')}>
                                 <svg className="svg-icon">
-                                    <use xlinkHref="#flex-direction-center"/>
+                                    <use xlinkHref="#flex-direction-center" />
                                 </svg>
                             </Button>
                         </Tooltip>
                         <Tooltip title={rowFlexEnd}>
-                            <Button active={this.props.viewport.currentEditComponentInfo.props.style.justifyContent === 'flex-end'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'flex-end')}>
+                            <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.justifyContent === 'flex-end'}
+                                onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'flex-end')}>
                                 <svg className="svg-icon">
-                                    <use xlinkHref="#flex-direction-end"/>
+                                    <use xlinkHref="#flex-direction-end" />
                                 </svg>
                             </Button>
                         </Tooltip>
                         <Tooltip title={rowFlexSpaceBetween}>
-                            <Button active={this.props.viewport.currentEditComponentInfo.props.style.justifyContent === 'space-between'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'space-between')}>
+                            <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.justifyContent === 'space-between'}
+                                onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'space-between')}>
                                 <svg className="svg-icon">
-                                    <use xlinkHref="#flex-space-between"/>
+                                    <use xlinkHref="#flex-space-between" />
                                 </svg>
                             </Button>
                         </Tooltip>
                         <Tooltip title={rowFlexSpaceAround}>
-                            <Button active={this.props.viewport.currentEditComponentInfo.props.style.justifyContent === 'space-around'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'space-around')}>
+                            <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.justifyContent === 'space-around'}
+                                onClick={this.handleUpdateValue.bind(this, 'style.justifyContent', 'space-around')}>
                                 <svg className="svg-icon">
-                                    <use xlinkHref="#flex-space-around"/>
+                                    <use xlinkHref="#flex-space-around" />
                                 </svg>
                             </Button>
                         </Tooltip>
@@ -157,46 +155,46 @@ export default class EditorAttributeLayout extends React.Component <typings.Prop
                 </div>
 
                 <div className="layout-top-container"
-                     style={{marginTop:5}}>
+                    style={{ marginTop: 5 }}>
                     <Tooltip title="Direction:Column">
-                        <Button active={this.props.viewport.currentEditComponentInfo.props.style.flexDirection === 'column' || this.props.viewport.currentEditComponentInfo.props.style.flexDirection === 'column-reverse'}
-                                onClick={this.handleUpdateValue.bind(this, 'style.flexDirection', 'column')}>
+                        <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.flexDirection === 'column' || this.props.ViewportStore.currentEditComponentInfo.props.style.flexDirection === 'column-reverse'}
+                            onClick={this.handleUpdateValue.bind(this, 'style.flexDirection', 'column')}>
                             <svg className="svg-icon rotate-270">
-                                <use xlinkHref="#flex-row"/>
+                                <use xlinkHref="#flex-row" />
                             </svg>
                         </Button>
                     </Tooltip>
 
                     <ButtonGroup>
                         <Tooltip title={columnFlexStart}>
-                            <Button active={this.props.viewport.currentEditComponentInfo.props.style.alignItems === 'flex-start'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'flex-start')}>
+                            <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.alignItems === 'flex-start'}
+                                onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'flex-start')}>
                                 <svg className="svg-icon">
-                                    <use xlinkHref="#flex-align-start"/>
+                                    <use xlinkHref="#flex-align-start" />
                                 </svg>
                             </Button>
                         </Tooltip>
                         <Tooltip title={columnFlexCenter}>
-                            <Button active={this.props.viewport.currentEditComponentInfo.props.style.alignItems === 'center'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'center')}>C</Button>
+                            <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.alignItems === 'center'}
+                                onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'center')}>C</Button>
                         </Tooltip>
                         <Tooltip title={columnFlexEnd}>
-                            <Button active={this.props.viewport.currentEditComponentInfo.props.style.alignItems === 'flex-end'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'flex-end')}>
+                            <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.alignItems === 'flex-end'}
+                                onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'flex-end')}>
                                 <svg className="svg-icon rotate-180">
-                                    <use xlinkHref="#flex-align-start"/>
+                                    <use xlinkHref="#flex-align-start" />
                                 </svg>
                             </Button>
                         </Tooltip>
                         <Tooltip title={columnFlexStrech}>
-                            <Button active={this.props.viewport.currentEditComponentInfo.props.style.alignItems === 'stretch'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'stretch')}>B</Button>
+                            <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.alignItems === 'stretch'}
+                                onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'stretch')}>B</Button>
                         </Tooltip>
                         <Tooltip title={columnFlexBaseline}>
-                            <Button active={this.props.viewport.currentEditComponentInfo.props.style.alignItems === 'baseline'}
-                                    onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'baseline')}>
+                            <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.alignItems === 'baseline'}
+                                onClick={this.handleUpdateValue.bind(this, 'style.alignItems', 'baseline')}>
                                 <svg className="svg-icon">
-                                    <use xlinkHref="#flex-baseline"/>
+                                    <use xlinkHref="#flex-baseline" />
                                 </svg>
                             </Button>
                         </Tooltip>
@@ -205,13 +203,13 @@ export default class EditorAttributeLayout extends React.Component <typings.Prop
 
                 <div className="second-container">
                     <Checkbox checked={isReverse}
-                              onChange={this.handleChangeReverse.bind(this)}
-                              style={{marginTop:5,flexGrow:1,width:0}}>逆序</Checkbox>
+                        onChange={this.handleChangeReverse.bind(this)}
+                        style={{ marginTop: 5, flexGrow: 1, width: 0 }}>逆序</Checkbox>
                     <div className="second-container-flex-grow-container">
                         <span>Grow</span>
                         <Number label=""
-                                onChange={this.handleFlexGrowChange.bind(this)}
-                                value={flexGrowString}/>
+                            onChange={this.handleFlexGrowChange.bind(this)}
+                            value={flexGrowString} />
                     </div>
                 </div>
             </div>
@@ -223,44 +221,44 @@ export default class EditorAttributeLayout extends React.Component <typings.Prop
             <div className="layout-top-container">
                 <ButtonGroup>
                     <Tooltip title="Block">
-                        <Button active={this.props.viewport.currentEditComponentInfo.props.style.display === 'block'}
-                                onClick={this.handleUpdateValue.bind(this, 'style.display', 'block')}>
+                        <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.display === 'block'}
+                            onClick={this.handleUpdateValue.bind(this, 'style.display', 'block')}>
                             <svg className="svg-icon">
-                                <use xlinkHref="#display-block"/>
+                                <use xlinkHref="#display-block" />
                             </svg>
                         </Button>
                     </Tooltip>
                     <Tooltip title="InlineBlock">
-                        <Button active={this.props.viewport.currentEditComponentInfo.props.style.display === 'inline-block'}
-                                onClick={this.handleUpdateValue.bind(this, 'style.display', 'inline-block')}>
+                        <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.display === 'inline-block'}
+                            onClick={this.handleUpdateValue.bind(this, 'style.display', 'inline-block')}>
                             <svg className="svg-icon">
-                                <use xlinkHref="#display-inline-block"/>
+                                <use xlinkHref="#display-inline-block" />
                             </svg>
                         </Button>
                     </Tooltip>
                     <Tooltip title="Inline">
-                        <Button active={this.props.viewport.currentEditComponentInfo.props.style.display === 'inline'}
-                                onClick={this.handleUpdateValue.bind(this, 'style.display', 'inline')}>
+                        <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.display === 'inline'}
+                            onClick={this.handleUpdateValue.bind(this, 'style.display', 'inline')}>
                             <svg className="svg-icon">
-                                <use xlinkHref="#display-inline"/>
+                                <use xlinkHref="#display-inline" />
                             </svg>
                         </Button>
                     </Tooltip>
                 </ButtonGroup>
 
                 <Tooltip title="Flex">
-                    <Button active={this.props.viewport.currentEditComponentInfo.props.style.display === 'flex'}
-                            onClick={this.handleUpdateValue.bind(this, 'style.display', 'flex')}>
+                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.display === 'flex'}
+                        onClick={this.handleUpdateValue.bind(this, 'style.display', 'flex')}>
                         <svg className="svg-icon">
-                            <use xlinkHref="#display-flex"/>
+                            <use xlinkHref="#display-flex" />
                         </svg>
                     </Button>
                 </Tooltip>
 
                 <Tooltip title="None">
-                    <Button active={this.props.viewport.currentEditComponentInfo.props.style.display === 'none'}
-                            onClick={this.handleUpdateValue.bind(this, 'style.display', 'none')}>
-                        <i className="fa fa-eye-slash"/>
+                    <Button active={this.props.ViewportStore.currentEditComponentInfo.props.style.display === 'none'}
+                        onClick={this.handleUpdateValue.bind(this, 'style.display', 'none')}>
+                        <i className="fa fa-eye-slash" />
                     </Button>
                 </Tooltip>
             </div>
@@ -270,9 +268,9 @@ export default class EditorAttributeLayout extends React.Component <typings.Prop
     render() {
         return (
             <div className="_namespace">
-                {!this.props.application.editorProps.isReactNative && this.renderDisplay()}
+                {!this.props.ApplicationStore.editorProps.isReactNative && this.renderDisplay()}
 
-                {(this.props.viewport.currentEditComponentInfo.props.style.display === 'flex' || this.props.application.editorProps.isReactNative) && this.renderFlex()}
+                {(this.props.ViewportStore.currentEditComponentInfo.props.style.display === 'flex' || this.props.ApplicationStore.editorProps.isReactNative) && this.renderFlex()}
             </div>
         )
     }

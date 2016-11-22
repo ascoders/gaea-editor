@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as _ from 'lodash'
-import myKernel, {lazyInject} from './kernel'
-import {Provider} from 'mobx-react'
-import {PropsDefine as EditorPropsDefine} from '../gaea-editor.type'
+import { Provider } from 'mobx-react'
+import { PropsDefine as EditorPropsDefine } from '../gaea-editor.type'
+import injectInstance from '../../../../common/inject-instance/index'
 
 import PluginGlobalSetting from '../components/global-setting/global-setting.component'
 import PluginTabTools from '../components/tab-tools/tab-tools.component'
@@ -46,6 +46,42 @@ import EventStore from '../stores/event'
 import ApplicationStore from '../stores/application'
 import ViewportStore from '../stores/viewport'
 
+const pluginList: Array<FitGaea.Plugin> = [
+    PluginGlobalSetting,
+    PluginTabTools,
+    PluginTabToolsComponents,
+    PluginTabToolsComponentsCommon,
+    PluginTabToolsComponentsCustom,
+    PluginTabToolsComponentsCombo,
+    PluginTabToolsVersion,
+    PluginViewportGuideline,
+    PluginShowLayoutButton,
+    PluginTree,
+    PluginEditorTabs,
+    PluginEditorTabsAttribute,
+    PluginEditorAttributeText,
+    PluginEditorAttributeNumber,
+    PluginEditorAttributeBackground,
+    PluginEditorAttributeBorder,
+    PluginEditorAttributeFont,
+    PluginEditorAttributeInstance,
+    PluginEditorAttributeLayout,
+    PluginEditorAttributeMarginPadding,
+    PluginEditorAttributeOverflow,
+    PluginEditorAttributePosition,
+    PluginEditorAttributeSelect,
+    PluginEditorAttributeSwitch,
+    PluginEditorAttributeWidthHeight,
+     PluginViewportSize,
+    PluginEditorPreview,
+    PluginEditorSave,
+    PluginEditorPublish,
+    PluginEditorTabsEvent,
+    PluginCopyPaste,
+    PluginCrumbs,
+    PluginDelete
+]
+
 export interface ProviderContainerProps {
     /**
      * 编辑器外部传参
@@ -59,90 +95,31 @@ export interface ProviderContainerProps {
 export default class ProviderContainer extends React.Component<ProviderContainerProps, any> {
     private providerActionAndStores: {
         [injectName: string]: any
-    }
+    } = {}
 
     componentWillMount() {
+        const pluginActionStores: Array<any> = []
+        const pluginActions = pluginList.forEach(plugin => {
+            if (plugin.Action) {
+                pluginActionStores.push(plugin.Action)
+            }
+            if (plugin.Store) {
+                pluginActionStores.push(plugin.Store)
+            }
+        })
+
         /**
          * 注入核心框架的数据流
          */
-        const eventActionInstance = new EventAction()
-        const applicationActionInstance = new ApplicationAction()
-        const viewportActionInstance = new ViewportAction()
+        const instances = injectInstance(EventAction, ApplicationAction, ViewportAction, EventStore, ApplicationStore, ViewportStore, ...pluginActionStores)
 
-        const eventStoreInstance = new EventStore()
-        const applicationStoreInstance = new ApplicationStore(this.props.gaeaProps, [
-            PluginGlobalSetting,
-            PluginTabTools,
-            PluginTabToolsComponents,
-            PluginTabToolsComponentsCommon,
-            PluginTabToolsComponentsCustom,
-            PluginTabToolsComponentsCombo,
-            PluginTabToolsVersion,
-            PluginViewportGuideline,
-            PluginShowLayoutButton,
-            PluginTree,
-            PluginEditorTabs,
-            PluginEditorTabsAttribute,
-            PluginEditorAttributeText,
-            PluginEditorAttributeNumber,
-            PluginEditorAttributeBackground,
-            PluginEditorAttributeBorder,
-            PluginEditorAttributeFont,
-            PluginEditorAttributeInstance,
-            PluginEditorAttributeLayout,
-            PluginEditorAttributeMarginPadding,
-            PluginEditorAttributeOverflow,
-            PluginEditorAttributePosition,
-            PluginEditorAttributeSelect,
-            PluginEditorAttributeSwitch,
-            PluginEditorAttributeWidthHeight,
-            PluginViewportSize,
-            PluginEditorPreview,
-            PluginEditorSave,
-            PluginEditorPublish,
-            PluginEditorTabsEvent,
-            PluginCopyPaste,
-            PluginCrumbs,
-            PluginDelete
-        ])
-        const viewportStoreInstance = new ViewportStore()
-
-        myKernel.bind<EventAction>(EventAction).toConstantValue(eventActionInstance)
-        myKernel.bind<ApplicationAction>(ApplicationAction).toConstantValue(applicationActionInstance)
-        myKernel.bind<ViewportAction>(ViewportAction).toConstantValue(viewportActionInstance)
-
-        myKernel.bind<EventStore>(EventStore).toConstantValue(eventStoreInstance)
-        myKernel.bind<ApplicationStore>(ApplicationStore).toConstantValue(applicationStoreInstance)
-        myKernel.bind<ViewportStore>(ViewportStore).toConstantValue(viewportStoreInstance)
+        instances.get('ApplicationStore').init(this.props.gaeaProps, pluginList)
 
         /**
          * mobx 注入核心框架的数据流
          */
-        this.providerActionAndStores = {
-            applicationAction: applicationActionInstance,
-            application: applicationStoreInstance,
-            viewportAction: viewportActionInstance,
-            viewport: viewportStoreInstance,
-            eventAction: eventActionInstance,
-            event: eventStoreInstance
-        }
-
-        /**
-         * 注入插件数据流
-         */
-        applicationStoreInstance.plugins.forEach(plugin => {
-            // action 依赖注入
-            if (plugin.Action) {
-                const pluginActionInstance = new plugin.Action()
-                myKernel.bind<any>(plugin.Action).toConstantValue(pluginActionInstance)
-                this.providerActionAndStores[_.lowerFirst(pluginActionInstance.constructor.name)] = pluginActionInstance
-            }
-            // store 依赖注入
-            if (plugin.Store) {
-                const pluginStoreInstance = new plugin.Store()
-                myKernel.bind<any>(plugin.Store).toConstantValue(pluginStoreInstance)
-                this.providerActionAndStores[_.lowerFirst(pluginStoreInstance.constructor.name)] = pluginStoreInstance
-            }
+        instances.forEach((value, key) => {
+            this.providerActionAndStores[key] = value
         })
     }
 

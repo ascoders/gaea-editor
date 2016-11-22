@@ -21,14 +21,12 @@ const parseInputToOutRange = (value: number, inputRange: Array<number>, outputRa
     return value
 }
 
-@EditorManager.observer(['viewport'])
+@EditorManager.observer(['ViewportStore', 'ViewportAction'])
 export default class EditorAttributeNumber extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'editorAttributeNumber'
-
-    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
 
     @autoBindMethod handleChangeValue(value: string, unit: string) {
         let outputValue = parseFloat(value)
@@ -40,9 +38,9 @@ export default class EditorAttributeNumber extends React.Component <typings.Prop
 
         // 如果有后缀，加上后缀
         if (unit) {
-            this.viewportAction.updateCurrentEditComponentProps(this.props.editInfo.field, outputValue.toString() + unit)
+            this.props.ViewportAction.updateCurrentEditComponentProps(this.props.editInfo.field, outputValue.toString() + unit)
         } else {
-            this.viewportAction.updateCurrentEditComponentProps(this.props.editInfo.field, outputValue)
+            this.props.ViewportAction.updateCurrentEditComponentProps(this.props.editInfo.field, outputValue)
         }
     }
 
@@ -51,7 +49,7 @@ export default class EditorAttributeNumber extends React.Component <typings.Prop
     }
 
     render() {
-        let inputValue = this.viewportAction.getCurrentEditPropValueByEditInfo(this.props.editInfo)
+        let inputValue = this.props.ViewportAction.getCurrentEditPropValueByEditInfo(this.props.editInfo)
 
         // 如果不为空，进行输入转换
         if (inputValue !== '' && this.props.editInfo.number && this.props.editInfo.number.outputRange) {

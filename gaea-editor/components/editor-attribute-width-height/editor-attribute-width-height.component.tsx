@@ -2,15 +2,15 @@ import * as React from 'react'
 import * as typings from './editor-attribute-width-height.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import {Number} from '../../../../../web-common/number/index'
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import { Number } from '../../../../../web-common/number/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-width-height.scss'
 
 /**
  * 处理一下输入框结果
  */
-const parseInputValue = (value: string, unit: string): number | string=> {
+const parseInputValue = (value: string, unit: string): number | string => {
     if (value === '') {
         return null
     } else if (unit === '') {
@@ -20,34 +20,32 @@ const parseInputValue = (value: string, unit: string): number | string=> {
     }
 }
 
-@EditorManager.observer(['viewport', 'application'])
-export default class EditorAttributeWidthHeight extends React.Component <typings.PropsDefine, typings.StateDefine> {
+@EditorManager.observer(['ViewportStore', 'ApplicationStore', 'ViewportAction'])
+export default class EditorAttributeWidthHeight extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'editorAttributeWidthHeight'
 
-    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
-
     renderInput(label: string, field: string) {
-        const units = this.props.application.editorProps.isReactNative ? null : [{
+        const units = this.props.ApplicationStore.editorProps.isReactNative ? null : [{
             key: '',
             value: 'px'
         }, {
             key: '%',
             value: '%'
         }]
-        const currentUnit = this.props.application.editorProps.isReactNative ? null : _.endsWith(this.props.viewport.currentEditComponentInfo.props.style[field], '%') ? '%' : ''
-        
+        const currentUnit = this.props.ApplicationStore.editorProps.isReactNative ? null : _.endsWith(this.props.ViewportStore.currentEditComponentInfo.props.style[field], '%') ? '%' : ''
+
         return (
             <div className="input-container">
                 <span className="input-container-label">{label}</span>
                 <Number label=""
-                        value={this.props.viewport.currentEditComponentInfo.props.style[field] || ''}
-                        placeholder="Null"
-                        units={units}
-                        currentUnit={currentUnit}
-                        onChange={this.handleChangeValue.bind(this,field)}/>
+                    value={this.props.ViewportStore.currentEditComponentInfo.props.style[field] || ''}
+                    placeholder="Null"
+                    units={units}
+                    currentUnit={currentUnit}
+                    onChange={this.handleChangeValue.bind(this, field)} />
             </div>
         )
     }
@@ -59,10 +57,10 @@ export default class EditorAttributeWidthHeight extends React.Component <typings
         this.setState({
             [field]: value
         })
-        if (this.props.application.editorProps.isReactNative) {
-            this.viewportAction.updateCurrentEditComponentProps(`style.${field}`, parseInt(value))
+        if (this.props.ApplicationStore.editorProps.isReactNative) {
+            this.props.ViewportAction.updateCurrentEditComponentProps(`style.${field}`, parseInt(value))
         } else {
-            this.viewportAction.updateCurrentEditComponentProps(`style.${field}`, parseInputValue(value, unit))
+            this.props.ViewportAction.updateCurrentEditComponentProps(`style.${field}`, parseInputValue(value, unit))
         }
     }
 

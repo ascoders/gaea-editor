@@ -2,8 +2,10 @@ import * as React from 'react'
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
 export interface PropsDefine {
-    viewport?: EditorManager.ViewportStore
-    event?: EditorManager.EventStore
+    ViewportStore?: EditorManager.ViewportStore
+    EventStore?: EditorManager.EventStore
+    ViewportAction?: EditorManager.ViewportAction
+    EventAction?: EditorManager.EventAction
 }
 
 export class Props implements PropsDefine {

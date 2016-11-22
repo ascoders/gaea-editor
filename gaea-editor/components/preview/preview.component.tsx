@@ -3,32 +3,29 @@ import * as typings from './preview.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './preview.scss'
 
-@EditorManager.observer(['application'])
-export default class Preview extends React.Component <typings.PropsDefine, typings.StateDefine> {
+@EditorManager.observer(['ApplicationStore', 'ApplicationAction', 'ViewportAction'])
+export default class Preview extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'navbarRight'
 
-    @EditorManager.lazyInject(EditorManager.ApplicationAction) private applicationAction: EditorManager.ApplicationAction
-    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
-
     @autoBindMethod handlePreview() {
-        if (!this.props.application.inPreview) {
+        if (!this.props.ApplicationStore.inPreview) {
             // 设置为预览状态，清空当前状态
-            this.viewportAction.clean()
+            this.props.ViewportAction.clean()
         }
-        this.applicationAction.setPreview(!this.props.application.inPreview)
+        this.props.ApplicationAction.setPreview(!this.props.ApplicationStore.inPreview)
     }
 
     render() {
         return (
             <div onClick={this.handlePreview}>
-                {this.props.application.inPreview ? '取消预览' : '预览'}
+                {this.props.ApplicationStore.inPreview ? '取消预览' : '预览'}
             </div>
         )
     }

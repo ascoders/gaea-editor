@@ -1,8 +1,12 @@
 import * as React from 'react'
 import TabToolsComponentsStore from './store'
+import TabToolsComponentsAction from './action'
+import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
 export interface PropsDefine {
-    tabToolsComponentsStore?: TabToolsComponentsStore
+    TabToolsComponentsStore?: TabToolsComponentsStore
+    TabToolsComponentsAction?: TabToolsComponentsAction
+    ApplicationAction?: EditorManager.ApplicationAction
 }
 
 export class Props implements PropsDefine {

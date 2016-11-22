@@ -1,18 +1,19 @@
 import {
-    injectable,
     action,
-    lazyInject,
+    inject,
     ViewportAction,
-    ViewportStore
+    ViewportStore,
+    observable
 } from '../../../gaea-editor-manager/gaea-editor-manager'
 
 import CopyPasteStore from './store'
 
-@injectable()
 export default class CopyPasteAction {
-    @lazyInject(CopyPasteStore) private copyPaste: CopyPasteStore
-    @lazyInject(ViewportAction) private viewportAction: ViewportAction
-    @lazyInject(ViewportStore) private viewport: ViewportStore
+    @inject('CopyPasteStore') private copyPaste: CopyPasteStore
+    @inject('ViewportAction') private viewportAction: ViewportAction
+    @inject('ViewportStore') private viewport: ViewportStore
+
+    @observable observeClass = true
 
     @action('复制') copy(mapUniqueKey: string) {
         if (!mapUniqueKey) {

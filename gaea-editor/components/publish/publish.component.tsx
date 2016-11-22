@@ -4,15 +4,15 @@ import * as typings from './publish.type'
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 import Modal from '../../../../../web-common/modal/index'
 import Select from '../../../../../web-common/select/index'
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import Action from './action'
 import Store from './store'
 
 import './publish.scss'
 
-@EditorManager.observer(['application', 'publishStore'])
-export default class Publish extends React.Component <typings.PropsDefine, typings.StateDefine> {
+@EditorManager.observer(['ApplicationStore', 'PublishStore', 'PublishAction'])
+export default class Publish extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
@@ -20,8 +20,6 @@ export default class Publish extends React.Component <typings.PropsDefine, typin
 
     static Action = Action
     static Store = Store
-
-    @EditorManager.lazyInject(Action) private publishAction: Action
 
     componentWillMount() {
         this.initVersion()
@@ -46,12 +44,12 @@ export default class Publish extends React.Component <typings.PropsDefine, typin
         let nextPatch = ''
         let nextMinor = ''
         let nextMajor = ''
-        if (!this.props.publishStore.currentVersion) {
+        if (!this.props.PublishStore.currentVersion) {
             nextPatch = '0.0.1'
             nextMinor = '0.1.0'
             nextMajor = '1.0.0'
         } else {
-            const versionSplit = this.props.publishStore.currentVersion.split('.')
+            const versionSplit = this.props.PublishStore.currentVersion.split('.')
             if (versionSplit.length !== 3) {
                 return null
             }
@@ -59,7 +57,7 @@ export default class Publish extends React.Component <typings.PropsDefine, typin
             nextMinor = `${versionSplit[0]}.${parseInt(versionSplit[1]) + 1}.0`
             nextMajor = `${parseInt(versionSplit[0]) + 1}.0.0`
         }
-        return {nextPatch, nextMinor, nextMajor}
+        return { nextPatch, nextMinor, nextMajor }
     }
 
     @autoBindMethod handleShowModal() {
@@ -71,9 +69,9 @@ export default class Publish extends React.Component <typings.PropsDefine, typin
     @autoBindMethod handleOk() {
         this.setState({
             show: false
-        }, ()=> {
-            this.props.application.editorProps.onPublish(this.state.selectedVersion)
-            this.publishAction.updateVersion(this.state.selectedVersion)
+        }, () => {
+            this.props.ApplicationStore.editorProps.onPublish(this.state.selectedVersion)
+            this.props.PublishAction.updateVersion(this.state.selectedVersion)
         })
     }
 
@@ -111,16 +109,16 @@ export default class Publish extends React.Component <typings.PropsDefine, typin
 
         return (
             <div className="_namespace"
-                 onClick={this.handleShowModal}>
+                onClick={this.handleShowModal}>
                 发布
                 <div className="_namespace">
                     <Modal className="_namespace"
-                           show={this.state.show}
-                           onOk={this.handleOk.bind(this)}
-                           title="发布新版本"
-                           onCancel={this.handleCancel.bind(this)}>
+                        show={this.state.show}
+                        onOk={this.handleOk.bind(this)}
+                        title="发布新版本"
+                        onCancel={this.handleCancel.bind(this)}>
                         <Select label="版本号" {...selectOption}
-                                onChange={this.handleSelectChange}/>
+                            onChange={this.handleSelectChange} />
                     </Modal>
                 </div>
             </div>

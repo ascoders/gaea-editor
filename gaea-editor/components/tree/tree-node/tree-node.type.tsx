@@ -1,9 +1,14 @@
 import * as React from 'react'
 import * as EditorManager from '../../../../gaea-editor-manager/gaea-editor-manager'
+import TreeAction from '../action'
+import TreeStore from '../store'
 
 export interface PropsDefine {
-    viewport?: EditorManager.ViewportStore
-    event?: EditorManager.EventStore
+    ViewportStore?: EditorManager.ViewportStore
+    EventStore?: EditorManager.EventStore
+    TreeAction?: TreeAction
+    ViewportAction?: EditorManager.ViewportAction
+    EventAction?: EditorManager.EventAction
 
     /**
      * 对应的组件信息 key

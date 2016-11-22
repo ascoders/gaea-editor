@@ -1,10 +1,10 @@
-import {injectable, action, lazyInject} from '../../../gaea-editor-manager/gaea-editor-manager'
-
+import { action, inject, observable } from '../../../gaea-editor-manager/gaea-editor-manager'
 import TabToolsComponentsStore from './store'
 
-@injectable()
 export default class TabToolsComponentsAction {
-    @lazyInject(TabToolsComponentsStore) private tabToolsComponents: TabToolsComponentsStore
+    @inject('TabToolsComponentsStore') private tabToolsComponents: TabToolsComponentsStore
+
+    @observable observeClass = true
 
     @action('设置激活 Tab') setActiveTab(type: string) {
         this.tabToolsComponents.activeType = type

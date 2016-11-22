@@ -3,8 +3,8 @@ import * as EditorManager from '../../../../gaea-editor-manager/gaea-editor-mana
 import TreeStore from '../store'
 
 export interface PropsDefine {
-    viewport?: EditorManager.ViewportStore
-    treeStore?: TreeStore
+    ViewportStore?: EditorManager.ViewportStore
+    TreeStore?: TreeStore
 }
 
 export class Props implements PropsDefine {

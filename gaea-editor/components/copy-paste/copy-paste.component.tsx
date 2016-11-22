@@ -4,7 +4,7 @@ import * as keymaster from 'keymaster'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 import notice from '../../../../../web-common/message/index'
 
 import Action from './action'
@@ -12,8 +12,8 @@ import Store from './store'
 
 import './copy-paste.scss'
 
-@EditorManager.observer(['application', 'viewport', 'copyPasteStore'])
-export default class CopyPaste extends React.Component <typings.PropsDefine, typings.StateDefine> {
+@EditorManager.observer(['ApplicationStore', 'ViewportStore', 'CopyPasteStore', 'ViewportAction', 'CopyPasteAction'])
+export default class CopyPaste extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
@@ -21,9 +21,6 @@ export default class CopyPaste extends React.Component <typings.PropsDefine, typ
 
     static Action = Action
     static Store = Store
-
-    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
-    @EditorManager.lazyInject(Action) private copyPasteAction: Action
 
     componentWillMount() {
         keymaster('command+c, ctrl+c', this.copy)
@@ -36,17 +33,17 @@ export default class CopyPaste extends React.Component <typings.PropsDefine, typ
     }
 
     @autoBindMethod copy() {
-        if (this.props.application.inPreview || !this.props.viewport.currentHoverComponentMapUniqueKey) {
+        if (this.props.ApplicationStore.inPreview || !this.props.ViewportStore.currentHoverComponentMapUniqueKey) {
             return
         }
-        this.copyPasteAction.copy(this.props.viewport.currentHoverComponentMapUniqueKey)
+        this.props.CopyPasteAction.copy(this.props.ViewportStore.currentHoverComponentMapUniqueKey)
     }
 
     @autoBindMethod paste() {
-        if (this.props.application.inPreview || !this.props.viewport.currentHoverComponentMapUniqueKey) {
+        if (this.props.ApplicationStore.inPreview || !this.props.ViewportStore.currentHoverComponentMapUniqueKey) {
             return
         }
-        if (!this.copyPasteAction.paste(this.props.viewport.currentHoverComponentMapUniqueKey)) {
+        if (!this.props.CopyPasteAction.paste(this.props.ViewportStore.currentHoverComponentMapUniqueKey)) {
             notice.warning('此处无法粘贴')
         }
     }

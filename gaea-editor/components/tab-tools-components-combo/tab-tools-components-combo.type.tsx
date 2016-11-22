@@ -3,8 +3,9 @@ import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager
 import TabToolsComponentsComboStore from './store'
 
 export interface PropsDefine {
-    application ?: EditorManager.ApplicationStore
-    tabToolsComponentsComboStore?: TabToolsComponentsComboStore
+    ApplicationStore?: EditorManager.ApplicationStore
+    TabToolsComponentsComboStore?: TabToolsComponentsComboStore
+    ViewportAction?: EditorManager.ViewportAction
 }
 
 export class Props implements PropsDefine {

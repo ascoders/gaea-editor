@@ -1,20 +1,20 @@
-import {injectable} from 'inversify'
+import {inject} from '../../../../common/inject-instance/index'
 import {action, observable, extendObservable, transaction} from 'mobx'
 import ViewportStore from '../stores/viewport'
 import ApplicationAction from '../actions/application'
 import EventAction from '../actions/event'
 import EventStore from '../stores/event'
-import {lazyInject} from '../utils/kernel'
 import * as Sortable from 'sortablejs'
 import * as _ from 'lodash'
 import * as LZString from 'lz-string'
 
-@injectable()
 export default class ViewportAction {
-    @lazyInject(ViewportStore) private viewport: ViewportStore
-    @lazyInject(ApplicationAction) private applicationAction: ApplicationAction
-    @lazyInject(EventAction) private eventAction: EventAction
-    @lazyInject(EventStore) private event: EventStore
+    @inject('ViewportStore')  private viewport: ViewportStore
+    @inject('ApplicationAction') private applicationAction: ApplicationAction
+    @inject('EventAction') private eventAction: EventAction
+    @inject('EventStore') private event: EventStore
+
+    @observable observableClass = true
 
     @action('设置根节点唯一标识') setRootMapUniqueKey(mapUniqueKey: string) {
         this.viewport.rootMapUniqueKey = mapUniqueKey

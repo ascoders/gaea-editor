@@ -1,11 +1,13 @@
-import {injectable} from 'inversify'
+import {inject} from '../../../../common/inject-instance/index'
 import {observable} from 'mobx'
 import {PropsDefine} from '../gaea-editor.type'
 import * as _ from 'lodash'
 
-@injectable()
 export default class ApplicationStore {
-    constructor(props: PropsDefine, plugins: Array<FitGaea.Plugin>) {
+    /**
+     * 初始化数据
+     */
+    init(props: PropsDefine, plugins: Array<FitGaea.Plugin>) {
         this.editorProps = props
 
         // 如果有自定义插件配置，就将配置聚合在插件上

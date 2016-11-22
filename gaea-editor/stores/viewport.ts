@@ -1,7 +1,6 @@
-import {injectable} from 'inversify'
+import {inject} from '../../../../common/inject-instance/index'
 import {observable, computed, map, transaction, ObservableMap, extendObservable, action} from 'mobx'
 
-@injectable()
 export default class ViewportStore {
     // 视图区域所有组件集合
     @observable components = map<FitGaea.ViewportComponentInfo>()

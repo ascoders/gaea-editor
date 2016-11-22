@@ -1,8 +1,7 @@
 import {
-    injectable,
     action,
     transaction,
-    lazyInject,
+    inject,
     ViewportStore,
     ApplicationAction,
     ViewportAction,
@@ -12,12 +11,13 @@ import {
 
 import EventStore from './store'
 
-@injectable()
-export default class EventAction {
-    @lazyInject(EventStore) private eventStore: EventStore
-    @lazyInject(ViewportStore) private viewport: ViewportStore
-    @lazyInject(ApplicationAction) private applicationAction: ApplicationAction
-    @lazyInject(ViewportAction) private viewportAction: ViewportAction
+export default class EditorEventAction {
+    @inject('EditorEventStore') private eventStore: EventStore
+    @inject('ViewportStore') private viewport: ViewportStore
+    @inject('ApplicationAction') private applicationAction: ApplicationAction
+    @inject('ViewportAction') private viewportAction: ViewportAction
+
+    @observable observeClass = true
 
     @action('新增一个事件') addEvent(mapUniqueKey: string, isWeb: boolean) {
         const componentInfo = this.viewport.components.get(mapUniqueKey)
@@ -52,7 +52,7 @@ export default class EventAction {
         const eventDataName = isWeb ? 'gaeaEventData' : 'gaeaNativeEventData'
 
         if (isNaN(Number(typeIndex))) {
-            transaction(()=> {
+            transaction(() => {
                 _.set(componentInfo.props, `${eventDataName}.${dataIndex}.type`, typeIndex)
                 _.set(componentInfo.props, `${eventDataName}.${dataIndex}.typeIndex`, -1)
             })
@@ -69,7 +69,7 @@ export default class EventAction {
 
         const eventType = componentInfo.props.gaeaEvent.types[Number(typeIndex)]
 
-        transaction(()=> {
+        transaction(() => {
             _.set(componentInfo.props, `${eventDataName}.${dataIndex}.type`, eventType.type)
             _.set(componentInfo.props, `${eventDataName}.${dataIndex}.typeIndex`, Number(typeIndex))
         })
@@ -80,7 +80,7 @@ export default class EventAction {
         const eventDataName = isWeb ? 'gaeaEventData' : 'gaeaNativeEventData'
 
         if (isNaN(Number(eventIndex))) {
-            transaction(()=> {
+            transaction(() => {
                 _.set(componentInfo.props, `${eventDataName}.${dataIndex}.event`, eventIndex)
                 _.set(componentInfo.props, `${eventDataName}.${dataIndex}.eventIndex`, -1)
             })
@@ -96,7 +96,7 @@ export default class EventAction {
         }
 
         const eventAction = componentInfo.props.gaeaEvent.events[Number(eventIndex)]
-        transaction(()=> {
+        transaction(() => {
             _.set(componentInfo.props, `${eventDataName}.${dataIndex}.event`, eventAction.event)
             _.set(componentInfo.props, `${eventDataName}.${dataIndex}.eventIndex`, Number(eventIndex))
         })
@@ -112,7 +112,7 @@ export default class EventAction {
                 let fields: {
                     [key: string]: any
                 } = {}
-                eventAction.call.param && eventAction.call.param.forEach(param=> {
+                eventAction.call.param && eventAction.call.param.forEach(param => {
                     fields[param.field] = null as any
                 })
                 _.set(componentInfo.props, `${eventDataName}.${dataIndex}.eventData`, observable(fields))
@@ -127,8 +127,8 @@ export default class EventAction {
 
     @action('获取所有 event 事件名列表') getEventListName() {
         const eventList: Array<string> = []
-        this.viewport.components.forEach(component=> {
-            component.props.gaeaEventData.forEach(eventData=> {
+        this.viewport.components.forEach(component => {
+            component.props.gaeaEventData.forEach(eventData => {
                 if (eventData.event === 'emit') {
                     eventList.push((eventData.eventData as FitGaea.EventActionEvent).emit)
                 }
@@ -175,7 +175,7 @@ export default class EventAction {
         this.eventStore.currentEditPropsIndex = index
 
         // 只覆盖非 gaea 开头的属性
-        componentProps && Object.keys(componentProps).forEach(key=> {
+        componentProps && Object.keys(componentProps).forEach(key => {
             if (!_.startsWith(key, 'gaea')) {
                 componentInfo.props[key] = componentProps[key]
             }

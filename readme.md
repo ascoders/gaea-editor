@@ -2,6 +2,8 @@
 
 A cross three end online application editor.
 
+# Usage
+
 # Developer - Create your own plugin
 
 Import `EditorManager` first.
@@ -31,20 +33,17 @@ class MyFirstPlugin extends React.Component <any, any> {
 <GaeaEditor plugins={[MyFirstPlugin]}/>
 ```
 
-[image]
-
 ### Inject data stream
 
 ```typescript
-@EditorManager.observer(['application', 'applicationAction'])
+@EditorManager.observer(['ApplicationStore'])
 class MyFirstPlugin extends React.Component <any, any> {
     // Render to the left navbar
     static position = 'navbarLeft'
     
     render () {
-        const {application} = this.props
         return (
-            <div>viewport backgroundColor : {application.viewportStyle.backgroundColor}</div>
+            <div>viewport backgroundColor : {this.props.ApplicationStore.viewportStyle.backgroundColor}</div>
         )
     }
 }
@@ -53,39 +52,35 @@ class MyFirstPlugin extends React.Component <any, any> {
 Now change the background color:
 
 ```typescript
-@EditorManager.observer(['application', 'applicationAction'])
+@EditorManager.observer(['ApplicationStore', 'ApplicationAction'])
 class MyFirstPlugin extends React.Component <any, any> {
     // Render to the left navbar
     static position = 'navbarLeft'
     
     handleClick () {
-        const {applicationAction} = this.props
-        applicationAction.viewportStyleSet({
+        this.props.ApplicationAction.viewportStyleSet({
             backgroundColor: '#f5f5f5'
         })
     }
     
     render () {
-        const {application} = this.props
         return (
-            <div onClick={this.handleClick.bind(this)}>viewport backgroundColor : {application.viewportStyle.backgroundColor}</div>
+            <div onClick={this.handleClick.bind(this)}>viewport backgroundColor : {this.props.ApplicationStore.viewportStyle.backgroundColor}</div>
         )
     }
 }
 ```
 
-[image]
-
 ### With type helper
 
 ```typescript
 interface Props {
-    application: EditorManager.ApplicationStore
-    applicationAction: EditorManager.ApplicationAction
+    ApplicationStore: EditorManager.ApplicationStore
+    ApplicationAction: EditorManager.ApplicationAction
 }
 
-@EditorManager.observer(['application', 'applicationAction'])
-class MyFirstPlugin extends React.Component <any, any> {
+@EditorManager.observer(['ApplicationStore', 'ApplicationAction'])
+class MyFirstPlugin extends React.Component <Props, {}}> {
     // ...
 }
 ```
@@ -95,8 +90,6 @@ class MyFirstPlugin extends React.Component <any, any> {
 Create `store.ts`:
 
 ```typescript
-// can inject into action
-@EditorManager.injectable()
 export default class MyFirstPluginStore {
     // will auto render component when updated
     @EditorManager.observable variable = 'apple'
@@ -107,17 +100,29 @@ Define attribute `Store` in class, and inject it:
 
 ```typescript
 // inject MyFirstPluginStore
-@EditorManager.observer(['myFirstPluginStore'])
+@EditorManager.observer(['MyFirstPluginStore'])
 class MyFirstPlugin extends React.Component <any, any> {
     static position = 'navbarLeft'
     // Can automatically injected into the editor and referenced by lower case first letter.
     static Store = MyFirstPluginStore
     
     render () {
-        const {myFirstPluginStore} = this.props
         return (
-            <div>{myFirstPluginStore.variable}</div>
+            <div>{this.props.MyFirstPluginStore.variable}</div>
         )
+    }
+}
+```
+
+Or inject core store to your store:
+
+```typescript
+export default class MyFirstPluginStore {
+    @EditorManager.inject('ViewportStore') private viewport: ViewportStore
+
+    // log current hover mapUniquekey
+    @EditorManager.computed get currentHoverTreeDom() {
+        return 'current hover mapUniqueKey: ' + this.viewport.currentHoverComponentMapUniqueKey
     }
 }
 ```
@@ -127,9 +132,8 @@ class MyFirstPlugin extends React.Component <any, any> {
 Similar to create store, can inject any store:
 
 ```typescript
-@EditorManager.injectable()
 export default class MyFirstPluginAction {
-    @EditorManager.lazyInject(myFirstPluginStore) private myFirstPluginStore: myFirstPluginStore
+    @EditorManager.inject('MyFirstPluginStore') private myFirstPluginStore: myFirstPluginStore
 
     @EditorManager.action('set variable') setVariable(variable: string) {
         this.myFirstPluginStore.variable = variable
@@ -140,22 +144,19 @@ export default class MyFirstPluginAction {
 Inject and use it:
 
 ```typescript
-@EditorManager.observer(['myFirstPluginStore'])
+@EditorManager.observer(['MyFirstPluginStore', 'MyFirstPluginAction'])
 class MyFirstPlugin extends React.Component <any, any> {
     static position = 'navbarLeft'
     static Store = MyFirstPluginStore
     static Action = MyFirstPluginAction
     
-    @EditorManager.lazyInject(MyFirstPluginAction) private myFirstPluginAction: MyFirstPluginAction
-    
     componentWillMount () {
-         this.myFirstPluginAction.setVariable('two')
+         this.props.MyFirstPluginAction.setVariable('two')
     }
     
     render () {
-        const {myFirstPluginStore} = this.props
         return (
-            <div>{myFirstPluginStore.variable}</div>
+            <div>{this.props.MyFirstPluginStore.variable}</div>
         )
     }
 }
@@ -166,22 +167,21 @@ class MyFirstPlugin extends React.Component <any, any> {
 In addition to rendering in the editor to provide location such as the navigation bar, the plug-in can also set aside their own location for other plug-ins to expand.
 
 ```typescript
-@EditorManager.observer(['applicationAction'])
+@EditorManager.observer(['ApplicationAction'])
 class MyFirstPlugin extends React.Component <any, any> {
     // Render to the left navbar
     static position = 'navbarLeft'
     
     render () {
-        const {applicationAction} = this.props
         return (
             <div>
                 <div className="left-hook">
                     // other plugin can set to this position:
                     // static position = 'myPluginLeftHook'
-                    applicationAction.loadingPluginByPosition('myPluginLeftHook')
+                    this.props.ApplicationAction.loadingPluginByPosition('myPluginLeftHook')
                 </div>
                 <div className="right-hook">
-                    applicationAction.loadingPluginByPosition('myPluginRightHook')
+                    this.props.ApplicationAction.loadingPluginByPosition('myPluginRightHook')
                 </div>
             </div>
         )
@@ -197,10 +197,39 @@ You can named `static position='editorAttributeCustomName'` to handle `editor='c
 
 Gaia editor included the following plug-ins to ensure that the core function of stability: 
 
-- gaea-plugin-global-setting
-- gaea-plugin-tab-tools
-- gaea-plugin-tab-tools-components
-- gaea-plugin-tab-tools-components-common
+- tab-tools
+- tab-tools-components
+- tab-tools-components-common
+- tab-tools-components-custom
+- tab-tools-components-combo
+- tab-tools-version
+- editor-tabs
+- editor-tabs-attribute
+- editor-tabs-attribute-text
+- editor-tabs-attribute-number
+- editor-tabs-attribute-background
+- editor-tabs-attribute-border
+- editor-tabs-attribute-font
+- editor-tabs-attribute-instance
+- editor-tabs-attribute-layout
+- editor-tabs-attribute-margin-padding
+- editor-tabs-attribute-overflow
+- editor-tabs-attribute-position
+- editor-tabs-attribute-select
+- editor-tabs-attribute-switch
+- editor-tabs-attribute-width-height
+- editor-tabs-event
+- preview
+- publish
+- save
+- copy-paste
+- crumbs
+- delete
+- viewport-size
+- viewport-guideline
+- show-layout-button
+- tree
+- global-setting
 
 You can also manually add your own plug-ins by the following way, if you want to be built in the project, you can send me an e-mail.
 

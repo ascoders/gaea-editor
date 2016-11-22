@@ -8,20 +8,14 @@ import {Modal} from '../../../../../../web-common/modal/index'
 import {Button} from '../../../../../../web-common/button/index'
 import {Input} from '../../../../../../web-common/input/index'
 
-import TabToolsComponentsComboAction from '../../tab-tools-components-combo/action'
-
 import './to-template.scss'
 
-@EditorManager.observer(['application', 'viewport'])
+@EditorManager.observer(['ApplicationStore', 'ViewportStore','ViewportAction','ApplicationAction','TabToolsComponentsComboAction'])
 export default class ToTemplate extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     static position = 'navbarRight'
-
-    @EditorManager.lazyInject(EditorManager.ViewportAction) private viewportAction: EditorManager.ViewportAction
-    @EditorManager.lazyInject(EditorManager.ApplicationAction) private applicationAction: EditorManager.ApplicationAction
-    @EditorManager.lazyInject(TabToolsComponentsComboAction) private tabToolsComponentsComboAction: TabToolsComponentsComboAction
 
     @autoBindMethod handleShowModal() {
         this.setState({
@@ -35,15 +29,15 @@ export default class ToTemplate extends React.Component <typings.PropsDefine, ty
         })
 
         // 设置为模板
-        let componentFullInfo = this.viewportAction.getComponentFullInfoByMapUniqueKey(this.props.viewport.currentEditComponentMapUniqueKey)
+        let componentFullInfo = this.props.ViewportAction.getComponentFullInfoByMapUniqueKey(this.props.ViewportStore.currentEditComponentMapUniqueKey)
 
         // 瘦身
-        componentFullInfo.componentInfo = this.applicationAction.cleanComponent(componentFullInfo.componentInfo)
+        componentFullInfo.componentInfo = this.props.ApplicationAction.cleanComponent(componentFullInfo.componentInfo)
         Object.keys(componentFullInfo.childs).forEach(childKey=> {
-            componentFullInfo.childs[childKey] = this.applicationAction.cleanComponent(componentFullInfo.childs[childKey])
+            componentFullInfo.childs[childKey] = this.props.ApplicationAction.cleanComponent(componentFullInfo.childs[childKey])
         })
 
-        this.tabToolsComponentsComboAction.addCombo(this.state.templateName, componentFullInfo)
+        this.props.TabToolsComponentsComboAction.addCombo(this.state.templateName, componentFullInfo)
     }
 
     @autoBindMethod handleCancel() {

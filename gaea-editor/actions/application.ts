@@ -1,13 +1,12 @@
-import {injectable} from 'inversify'
 import * as React from 'react'
-import {action, extendObservable} from 'mobx'
+import {inject} from '../../../../common/inject-instance/index'
+import {action, extendObservable, observable} from 'mobx'
 import ApplicationStore from '../stores/application'
-import {lazyInject} from '../utils/kernel'
 import deepDiff from '../utils/deep-diff'
 
-@injectable()
 export default class ApplicationAction {
-    @lazyInject(ApplicationStore) private application: ApplicationStore
+    @inject('ApplicationStore') private application: ApplicationStore
+    @observable observableClass = true
 
     @action('根据位置加载插件') loadingPluginByPosition(position: string, props: any = {}): Array<React.ReactElement<any>> {
         return this.application.plugins.map((plugin, index) => {

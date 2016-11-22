@@ -1,10 +1,11 @@
-import {injectable, action, lazyInject, transaction} from '../../../gaea-editor-manager/gaea-editor-manager'
+import { action, inject, transaction, observable } from '../../../gaea-editor-manager/gaea-editor-manager'
 
 import TabToolsVersionStore from './store'
 
-@injectable()
 export default class TabToolsVersionAction {
-    @lazyInject(TabToolsVersionStore) private tabToolsVersion: TabToolsVersionStore
+    @inject('TabToolsVersionStore') private tabToolsVersion: TabToolsVersionStore
+
+    @observable observeClass = true
 
     @action('设置当前版本列表业务') setCurrentVersionPage(page: number) {
         this.tabToolsVersion.currentVersionPage = page

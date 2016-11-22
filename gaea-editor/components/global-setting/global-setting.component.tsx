@@ -12,7 +12,7 @@ import Store from './store'
 
 import './global-setting.scss'
 
-@EditorManager.observer(['application'])
+@EditorManager.observer(['ApplicationStore', 'GlobalSettingAction'])
 export default class GlobalSetting extends React.Component <typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -21,11 +21,9 @@ export default class GlobalSetting extends React.Component <typings.PropsDefine,
     static Action = Action
     static Store = Store
 
-    @EditorManager.lazyInject(Action) private globalSettingAction: Action
-
     componentWillMount() {
         // 覆盖默认配置
-        this.globalSettingAction.setDefaultSetting(this.props.application.editorProps.defaultSetting)
+        this.props.GlobalSettingAction.setDefaultSetting(this.props.ApplicationStore.editorProps.defaultSetting)
     }
 
     @autoBindMethod handleShowModal() {
@@ -47,7 +45,7 @@ export default class GlobalSetting extends React.Component <typings.PropsDefine,
     }
 
     @autoBindMethod handleBackgroundColorChange(color: any) {
-        this.globalSettingAction.setBackgroundColor(`rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`, color.rgb.a)
+        this.props.GlobalSettingAction.setBackgroundColor(`rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`, color.rgb.a)
     }
 
     render() {
@@ -63,7 +61,7 @@ export default class GlobalSetting extends React.Component <typings.PropsDefine,
                     <div className="row">
                         <div className="col">画布背景颜色</div>
                         <div className="col-right">
-                            <Color color={this.props.application.viewportStyle.backgroundColor || 'transparent'}
+                            <Color color={this.props.ApplicationStore.viewportStyle.backgroundColor || 'transparent'}
                                    onChange={this.handleBackgroundColorChange}/>
                         </div>
                     </div>
