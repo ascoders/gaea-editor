@@ -2,6 +2,8 @@
 
 A cross three end online application editor.
 
+![](assets/screenshot.jpg)
+
 # 2 Usage
 
 # 3 Developer - Create your own plugin
