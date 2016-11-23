@@ -256,11 +256,6 @@ export default class ViewportAction {
         componentInfo.props = extendObservable({}, _.cloneDeep(ComponentClass.defaultProps))
     }
 
-    @action('修改某个组件的属性') setComponentProps(mapUniqueKey: string, path: string, value: any) {
-        const componentInfo = this.viewport.components.get(mapUniqueKey)
-        _.set(componentInfo.props, path, value)
-    }
-
     @action('清空当前状态') clean() {
         transaction(() => {
             this.viewport.currentEditComponentMapUniqueKey = null

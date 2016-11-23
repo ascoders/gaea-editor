@@ -417,7 +417,14 @@ You can also manually add your own plug-ins by the following way, if you want to
 | endDrag | | Rarely used |
 | setDragTargetInfo | mapUniqueKey: string, index: number | Rarely used |
 | setLayoutComponentActive | active: boolean | |
-
+| updateCurrentEditComponentProps | field: string, value: any | is used very often |
+| updateComponentProps | mapUniqueKey: string, field: string, value: any | change any component's props |
+| resetProps | mapUniqueKey: string | |
+| clean | | For example, to close the edit state, the equivalent of the user did not do any operations |
+| addToParent | mapUniqueKey: string, parentMapUniqueKey: string, index: number | |
+| registerInnerDrag | mapUniqueKey: string, dragParentElement: HTMLElement, groupName = 'gaea-can-drag-in', sortableParam: any = {} | set viewport draggable |
+| registerOuterDrag | dragParentElement: HTMLElement, groupName = 'gaea-can-drag-in' | set menu draggable |
+| getComponentFullInfoByMapUniqueKey | mapUniqueKey: string | |
 
 #### 3.9.1.3 EventAction
 
