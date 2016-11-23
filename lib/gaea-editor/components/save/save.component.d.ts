@@ -5,6 +5,8 @@ export default class Save extends React.Component<typings.PropsDefine, typings.S
     static defaultProps: typings.PropsDefine;
     state: typings.StateDefine;
     static position: string;
-    handleClick(): void;
+    componentWillMount(): void;
+    componentWillUnmount(): void;
+    handleClick(): boolean;
     render(): JSX.Element;
 }

@@ -8,8 +8,8 @@ export default class ViewportStore {
     readonly currentHoverComponentDom: HTMLElement;
     currentEditComponentMapUniqueKey: string;
     readonly currentEditComponentInfo: FitGaea.ViewportComponentInfo;
+    currentDragComponentInfo: FitGaea.CurrentDragComponentInfo;
     showEditComponents: boolean;
     isLayoutComponentActive: boolean;
-    currentDragComponentInfo: FitGaea.CurrentDragComponentInfo;
     readonly currentEditComponentPath: string[];
 }

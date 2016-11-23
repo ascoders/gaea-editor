@@ -5,6 +5,7 @@ export default class ViewportAction {
     private event;
     observableClass: boolean;
     setRootMapUniqueKey(mapUniqueKey: string): void;
+    setViewportDom(dom: HTMLElement): void;
     setComponent(mapUniqueKey: string, componentInfo: FitGaea.ViewportComponentInfo): void;
     addNewComponent(uniqueKey: string, parentMapUniqueKey: string, index: number): string;
     moveComponent(sourceMapUniqueKey: string, sourceIndex: number, targetMapUniqueKey: string, targetIndex: number): void;
@@ -12,7 +13,6 @@ export default class ViewportAction {
     addComboComponent(parentMapUniqueKey: string, componentFullInfo: FitGaea.ViewportComponentFullInfo, index: number): void;
     addComboComponentBySource(parentMapUniqueKey: string, componentFullInfoSource: string, index: number): void;
     removeComponent(mapUniqueKey: string): void;
-    setViewportDom(dom: HTMLElement): void;
     setCurrentHoverComponentMapUniqueKey(mapUniqueKey: string): void;
     setCurrentEditComponentMapUniqueKey(mapUniqueKey: string): void;
     createUniqueKey(): string;
@@ -25,7 +25,6 @@ export default class ViewportAction {
     updateCurrentEditComponentProps(field: string, value: any): void;
     updateComponentProps(mapUniqueKey: string, field: string, value: any): void;
     resetProps(mapUniqueKey: string): void;
-    setComponentProps(mapUniqueKey: string, path: string, value: any): void;
     clean(): void;
     addToParent(mapUniqueKey: string, parentMapUniqueKey: string, index: number): void;
     completionEditProps(componentProps: FitGaea.ComponentProps): FitGaea.ComponentProps;
