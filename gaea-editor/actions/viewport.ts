@@ -9,7 +9,7 @@ import * as _ from 'lodash'
 import * as LZString from 'lz-string'
 
 export default class ViewportAction {
-    @inject('ViewportStore')  private viewport: ViewportStore
+    @inject('ViewportStore') private viewport: ViewportStore
     @inject('ApplicationAction') private applicationAction: ApplicationAction
     @inject('EventAction') private eventAction: EventAction
     @inject('EventStore') private event: EventStore
@@ -18,6 +18,10 @@ export default class ViewportAction {
 
     @action('设置根节点唯一标识') setRootMapUniqueKey(mapUniqueKey: string) {
         this.viewport.rootMapUniqueKey = mapUniqueKey
+    }
+
+    @action('设置视图区域 dom 节点') setViewportDom(dom: HTMLElement) {
+        this.viewport.viewportDom = dom
     }
 
     @action('在视图中设置组件信息') setComponent(mapUniqueKey: string, componentInfo: FitGaea.ViewportComponentInfo) {
@@ -194,10 +198,6 @@ export default class ViewportAction {
                 this.setCurrentHoverComponentMapUniqueKey(null)
             }
         })
-    }
-
-    @action('设置视图区域 dom 节点') setViewportDom(dom: HTMLElement) {
-        this.viewport.viewportDom = dom
     }
 
     @action('设置当前 hover 元素的 mapUniqueKey') setCurrentHoverComponentMapUniqueKey(mapUniqueKey: string) {

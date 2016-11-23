@@ -1,5 +1,4 @@
 import * as React from 'react'
-import * as _ from 'lodash'
 import { Provider } from 'mobx-react'
 import { PropsDefine as EditorPropsDefine } from '../gaea-editor.type'
 import injectInstance from '../../../../common/inject-instance/index'
@@ -72,7 +71,7 @@ const pluginList: Array<FitGaea.Plugin> = [
     PluginEditorAttributeSelect,
     PluginEditorAttributeSwitch,
     PluginEditorAttributeWidthHeight,
-     PluginViewportSize,
+    PluginViewportSize,
     PluginEditorPreview,
     PluginEditorSave,
     PluginEditorPublish,

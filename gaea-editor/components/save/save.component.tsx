@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as typings from './save.type'
+import * as keymaster from 'keymaster'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
@@ -14,10 +15,19 @@ export default class Save extends React.Component<typings.PropsDefine, typings.S
 
     static position = 'navbarRight'
 
+    componentWillMount() {
+        keymaster('command+s, ctrl+s', this.handleClick)
+    }
+
+    componentWillUnmount() {
+        keymaster.unbind('command+s, ctrl+s')
+    }
+
     @autoBindMethod handleClick() {
         // 获取增量编辑信息
         const componentsInfo = this.props.ViewportAction.getIncrementComponentsInfo()
-        this.props.application.editorProps.onSave(componentsInfo, this.props.GlobalSettingAction.getZipSettingData())
+        this.props.ApplicationStore.editorProps.onSave(componentsInfo, this.props.GlobalSettingAction.getZipSettingData())
+        return false
     }
 
     render() {

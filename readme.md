@@ -397,7 +397,35 @@ You can also manually add your own plug-ins by the following way, if you want to
 
 #### 3.9.1.2 ViewportAction
 
+| Method        | Params           | Description  |
+| :------------- |:-------------| :-----|
+| setRootMapUniqueKey      | string | Initialization of the automatic implementation, it is best not to manually modify |
+| setViewportDom | dom: HTMLElement | Initialization of the automatic implementation, it is best not to manually modify |
+| setComponent | mapUniqueKey: string, componentInfo: FitGaea.ViewportComponentInfo | set viewport component info |
+| addNewComponent | uniqueKey: string, parentMapUniqueKey: string, index: number | |
+| moveComponent | sourceMapUniqueKey: string, sourceIndex: number, targetMapUniqueKey: string, targetIndex: number | Cross parent drag |
+| horizontalMoveComponent | parentMapUniqueKey: string, beforeIndex: number, afterIndex: number | Rank with the parent |
+| addComboComponent | parentMapUniqueKey: string, componentFullInfo: FitGaea.ViewportComponentFullInfo, index: number | Add an element with an existing attribute |
+| addComboComponentBySource | parentMapUniqueKey: string, componentFullInfoSource: string, index: number | combo component with compressed source |
+| removeComponent | mapUniqueKey: string | If the current component has child elements, it will all be removed |
+| setCurrentHoverComponentMapUniqueKey | mapUniqueKey: string | |
+| setCurrentEditComponentMapUniqueKey | mapUniqueKey: string | |
+| createUniqueKey | | Basic method |
+| setDomInstance | mapUniqueKey: string, dom: HTMLElement | |
+| removeDomInstance | mapUniqueKey: string | |
+| startDrag | dragInfo: FitGaea.CurrentDragComponentInfo | Rarely used |
+| endDrag | | Rarely used |
+| setDragTargetInfo | mapUniqueKey: string, index: number | Rarely used |
+| setLayoutComponentActive | active: boolean | |
+
+
 #### 3.9.1.3 EventAction
+
+| Method        | Params           | Description  |
+| :------------- |:-------------| :-----|
+| emit      | eventType: EventType, context?: any | dispatch event |
+| on | eventType: EventType, callback: Function, context?: any | listener event |
+| off | eventType: EventType, callback: Function | Cancel listener event |
 
 ### 3.9.2 Stores
 
@@ -405,6 +433,39 @@ You can also manually add your own plug-ins by the following way, if you want to
 
 #### 3.9.2.1 ApplicationStore
 
+| Data        | Type           | Description  |
+| :------------- |:-------------| :-----|
+| editorProps | FitGaea.PropsDefine | GaeaEditor's props |
+| customComponents      | Array<React.ComponentClass<FitGaea.ComponentProps>> | custom Component Class |
+| navbarHeight | number | |
+| plugins | Array<FitGaea.Plugin> | core and custom plugins |
+| pageValue | string | editor viewport full value |
+| viewportStyle | React.CSSProperties | |
+| viewportContainerStyle | React.CSSProperties | |
+| inPreview | boolean | |
+
 #### 3.9.2.2 ViewportStore
 
+| Data        | Type           | Description  |
+| :------------- |:-------------| :-----|
+| components | map<FitGaea.ViewportComponentInfo> | viewport's all component instance's mapped value |
+| componentDomInstances | Map<string,HTMLElement> | viewport's all component instance's dom |
+| rootMapUniqueKey | string | root component's mapUniqueKey |
+| viewportDom | HTMLElement | viewport container's dom |
+| currentHoverComponentMapUniqueKey | string | |
+| currentHoverComponentDom | HTMLElement | |
+| currentEditComponentMapUniqueKey | string | |
+| currentEditComponentInfo | FitGaea.ViewportComponentInfo | |
+| currentDragComponentInfo | FitGaea.ViewportComponentInfo | |
+| showEditComponents | boolean | show edit box? |
+| isLayoutComponentActive | boolean | show empty layout component? |
+| currentEditComponentPath | Array<string> | `eg:['self-key', 'parent1-key', 'parent2-key', 'root-key']` |
+
 #### 3.9.2.3 EventStore
+
+| Data        | Type           | Description  |
+| :------------- |:-------------| :-----|
+| mouseLeaveViewport | string | |
+| mouseHoveringComponent | string | |
+| viewportUpdated | string | |
+| viewportDomUpdate | string | |

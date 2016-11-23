@@ -30,14 +30,14 @@ export default class ViewportStore {
         return this.components.get(this.currentEditComponentMapUniqueKey)
     }
 
+    // 当前拖拽元素信息
+    @observable currentDragComponentInfo: FitGaea.CurrentDragComponentInfo = null
+
     // 是否显示编辑组件
     @observable showEditComponents = false
 
     // 布局元素是否高亮
     @observable isLayoutComponentActive = false
-
-    // 当前拖拽元素信息
-    @observable currentDragComponentInfo: FitGaea.CurrentDragComponentInfo = null
 
     // 当前编辑元素的寻找路径
     @computed get currentEditComponentPath() {

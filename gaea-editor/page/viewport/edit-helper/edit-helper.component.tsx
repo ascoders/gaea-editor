@@ -96,7 +96,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         this.domInstance.removeEventListener('mouseover', this.handleMouseOver)
         this.domInstance.removeEventListener('click', this.handleClick)
 
-        this.props.EventAction.on(`${this.props.EventStore.viewportDomUpdate}.${this.props.mapUniqueKey}`, this.updateDom)
+        this.props.EventAction.off(`${this.props.EventStore.viewportDomUpdate}.${this.props.mapUniqueKey}`, this.updateDom)
 
         // 在 dom 列表中移除
         this.props.ViewportAction.removeDomInstance(this.props.mapUniqueKey)

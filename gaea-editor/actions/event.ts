@@ -43,7 +43,7 @@ export default class EventAction {
             return false
         }
 
-        const events = this.events.get(eventType).filter(event=> {
+        const events = this.events.get(eventType).filter(event => {
             return event.callback !== callback
         })
 
@@ -60,7 +60,7 @@ export default class EventAction {
             return false
         }
 
-        this.events.get(eventType).forEach(event=> {
+        this.events.get(eventType).forEach(event => {
             event.callback(event.context, context)
         })
     }
