@@ -16,7 +16,7 @@ export default class EditorAttributeSelect extends React.Component<typings.Props
 
     @autoBindMethod handleChange(checked: boolean) {
         console.log(checked)
-        this.props.ViewportAction.setComponentProps(this.props.ViewportStore.currentEditComponentMapUniqueKey, this.props.editInfo.field, checked)
+        this.props.ViewportAction.updateComponentProps(this.props.ViewportStore.currentEditComponentMapUniqueKey, this.props.editInfo.field, checked)
     }
 
     render() {

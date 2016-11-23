@@ -15,7 +15,7 @@ export default class EditorAttributeText extends React.Component<typings.PropsDe
     static position = 'editorAttributeText'
 
     @autoBindMethod handleChange(value: string) {
-        this.props.ViewportAction.setComponentProps(this.props.ViewportStore.currentEditComponentMapUniqueKey, this.props.editInfo.field, value)
+        this.props.ViewportAction.updateComponentProps(this.props.ViewportStore.currentEditComponentMapUniqueKey, this.props.editInfo.field, value)
     }
 
     render() {
