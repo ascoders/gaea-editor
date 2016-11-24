@@ -1,0 +1,38 @@
+export default class ViewportAction {
+    private viewport;
+    private applicationAction;
+    private eventAction;
+    private event;
+    observableClass: boolean;
+    setRootMapUniqueKey(mapUniqueKey: string): void;
+    setViewportDom(dom: HTMLElement): void;
+    setComponent(mapUniqueKey: string, componentInfo: FitGaea.ViewportComponentInfo): void;
+    addNewComponent(uniqueKey: string, parentMapUniqueKey: string, index: number): string;
+    moveComponent(sourceMapUniqueKey: string, sourceIndex: number, targetMapUniqueKey: string, targetIndex: number): void;
+    horizontalMoveComponent(parentMapUniqueKey: string, beforeIndex: number, afterIndex: number): void;
+    addComboComponent(parentMapUniqueKey: string, componentFullInfo: FitGaea.ViewportComponentFullInfo, index: number): void;
+    addComboComponentBySource(parentMapUniqueKey: string, componentFullInfoSource: string, index: number): void;
+    removeComponent(mapUniqueKey: string): void;
+    setCurrentHoverComponentMapUniqueKey(mapUniqueKey: string): void;
+    setCurrentEditComponentMapUniqueKey(mapUniqueKey: string): void;
+    createUniqueKey(): string;
+    setDomInstance(mapUniqueKey: string, dom: HTMLElement): void;
+    removeDomInstance(mapUniqueKey: string): void;
+    startDrag(dragInfo: FitGaea.CurrentDragComponentInfo): void;
+    endDrag(): void;
+    setDragTargetInfo(mapUniqueKey: string, index: number): void;
+    setLayoutComponentActive(active: boolean): void;
+    updateCurrentEditComponentProps(field: string, value: any): void;
+    updateComponentProps(mapUniqueKey: string, field: string, value: any): void;
+    resetProps(mapUniqueKey: string): void;
+    clean(): void;
+    addToParent(mapUniqueKey: string, parentMapUniqueKey: string, index: number): void;
+    completionEditProps(componentProps: FitGaea.ComponentProps): FitGaea.ComponentProps;
+    registerInnerDrag(mapUniqueKey: string, dragParentElement: HTMLElement, groupName?: string, sortableParam?: any): void;
+    registerOuterDrag(dragParentElement: HTMLElement, groupName?: string): void;
+    getAllChildsByMapUniqueKey(mapUniqueKey: string): string[];
+    getCurrentEditPropValueByEditInfo(editInfo: FitGaea.ComponentPropsGaeaEdit): string;
+    getIncrementComponentsInfo(): any;
+    getComponentFullInfoByMapUniqueKey(mapUniqueKey: string): FitGaea.ViewportComponentFullInfo;
+    createCopyComponentWithNewUniqueKey(originComponent: FitGaea.ViewportComponentFullInfo, parentMapUniqueKey: string): FitGaea.ViewportComponentFullInfo;
+}
