@@ -16,10 +16,12 @@ export default class ExternalVariableEditorAction {
     @observable observableClass = true
 
     @action('设置当前编辑组件某个字段使用的变量') setCurrentEditComponentVariableByField(field: string, variable: FitGaea.VariableData) {
-        this.ViewportStore.currentEditComponentInfo.props.gaeaVariables.set(field, variable)
+        this.ViewportStore.currentEditComponentInfo.props.gaeaVariables = extendObservable({}, {
+            field: variable
+        })
     }
 
     @action('移除当前编辑组件某个字段使用的变量') removeCurrentEditComponentVariableByField(field: string) {
-        delete this.ViewportStore.currentEditComponentInfo.props.gaeaVariables.delete[field]
+        delete this.ViewportStore.currentEditComponentInfo.props.gaeaVariables[field]
     }
 }

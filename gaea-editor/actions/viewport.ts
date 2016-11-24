@@ -288,7 +288,7 @@ export default class ViewportAction {
             componentProps.gaeaNativeEventData = []
         }
         if (!componentProps.gaeaVariables) {
-            componentProps.gaeaVariables = map()
+            componentProps.gaeaVariables = {}
         }
         return componentProps
     }
