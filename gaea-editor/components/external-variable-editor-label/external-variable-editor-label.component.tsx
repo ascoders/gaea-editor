@@ -14,7 +14,8 @@ export default class ExternalVariableEditorLabel extends React.Component<typings
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
-    static position = 'editorLabel'
+    //static position = 'editorLabel'
+    static position = 'aa'
 
     @autoBindMethod handleUseVariable() {
         this.props.ExternalVariableEditorAction.setCurrentEditComponentVariableByField(this.props.editInfo.field, null)
@@ -25,26 +26,27 @@ export default class ExternalVariableEditorLabel extends React.Component<typings
     }
 
     render() {
-        console.log(this.props.ViewportStore.currentEditComponentInfo.props.gaeaVariables.get)
-        const variable = this.props.ViewportStore.currentEditComponentInfo.props.gaeaVariables.get(this.props.editInfo.field)
-        console.log(variable)
+        // console.log(this.props.ViewportStore.currentEditComponentInfo.props.gaeaVariables.get)
+        // const variable = this.props.ViewportStore.currentEditComponentInfo.props.gaeaVariables.get(this.props.editInfo.field)
+        // console.log(variable)
 
-        if (variable === undefined) {
-            return (
-                <Tooltip title="点击使用变量">
-                    <div className="_namespace" onClick={this.handleUseVariable}>
-                        <i className="fa fa-ravelry" />
-                    </div>
-                </Tooltip>
-            )
-        } else {
-            return (
-                <Tooltip title="点击使用常量">
-                    <div className="_namespace" onClick={this.handleCancelVariable}>
-                        <i className="fa fa-font" />
-                    </div>
-                </Tooltip>
-            )
-        }
+        // if (variable === undefined) {
+        //     return (
+        //         <Tooltip title="点击使用变量">
+        //             <div className="_namespace" onClick={this.handleUseVariable}>
+        //                 <i className="fa fa-ravelry" />
+        //             </div>
+        //         </Tooltip>
+        //     )
+        // } else {
+        //     return (
+        //         <Tooltip title="点击使用常量">
+        //             <div className="_namespace" onClick={this.handleCancelVariable}>
+        //                 <i className="fa fa-font" />
+        //             </div>
+        //         </Tooltip>
+        //     )
+        // }
+        return null as any
     }
 }
