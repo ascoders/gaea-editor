@@ -3,7 +3,8 @@ import * as typings from './show-layout-button.type'
 import * as classNames from 'classnames'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import { autoBindMethod } from '../../../../../common/auto-bind/index'
+import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import {Tooltip} from '../../../../../web-common/tooltip/index'
 
 import './show-layout-button.scss'
 
@@ -12,7 +13,7 @@ export default class ShowLayoutButton extends React.Component<typings.PropsDefin
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
-    static position = 'navbarLeftBottom'
+    static position = 'leftBarBottom'
 
     @autoBindMethod handleClick() {
         this.props.ViewportAction.setLayoutComponentActive(!this.props.ViewportStore.isLayoutComponentActive)
@@ -25,10 +26,12 @@ export default class ShowLayoutButton extends React.Component<typings.PropsDefin
         })
 
         return (
-            <div className={classes}
-                onClick={this.handleClick}>
-                <i className="fa fa-eye" />
-            </div>
+            <Tooltip title="布局元素显示边框">
+                <div className={classes}
+                     onClick={this.handleClick}>
+                    <i className="fa fa-eye"/>
+                </div>
+            </Tooltip>
         )
     }
 }

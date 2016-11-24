@@ -1,5 +1,5 @@
-import {inject} from '../../../../common/inject-instance/index'
-import {action, observable, extendObservable, transaction} from 'mobx'
+import { inject } from '../../../../common/inject-instance/index'
+import { action, observable, extendObservable, transaction, map } from 'mobx'
 import ViewportStore from '../stores/viewport'
 import ApplicationAction from '../actions/application'
 import EventAction from '../actions/event'
@@ -288,7 +288,7 @@ export default class ViewportAction {
             componentProps.gaeaNativeEventData = []
         }
         if (!componentProps.gaeaVariables) {
-            componentProps.gaeaVariables = []
+            componentProps.gaeaVariables = map()
         }
         return componentProps
     }

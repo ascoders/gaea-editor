@@ -71,4 +71,7 @@ export default class ApplicationStore {
 
     // 是否在预览模式
     @observable inPreview = false
+
+    // 当前左边栏显示类型
+    @observable leftBarType: string = null as string
 }

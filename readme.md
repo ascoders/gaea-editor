@@ -369,6 +369,8 @@ Gaia editor included the following plug-ins to ensure that the core function of 
 - show-layout-button
 - tree
 - global-setting
+- external-variable-button
+- external-variable
 
 You can also manually add your own plug-ins by the following way, if you want to be built in the project, you can send me an e-mail.
 
@@ -393,6 +395,7 @@ You can also manually add your own plug-ins by the following way, if you want to
 | getComponentClassByGaeaUniqueKey | gaeaUniqueKey: string | get Class by uniqueKey |
 | setPreview | inPreview: boolean | set preview statu |
 | updatePage | pageValue: string | re render full editor viewport |
+| toggleLeftBar | type: string | |
 
 
 #### 3.9.1.2 ViewportAction
@@ -450,6 +453,7 @@ You can also manually add your own plug-ins by the following way, if you want to
 | viewportStyle | React.CSSProperties | |
 | viewportContainerStyle | React.CSSProperties | |
 | inPreview | boolean | |
+| leftBarType | string | |
 
 #### 3.9.2.2 ViewportStore
 

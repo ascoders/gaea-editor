@@ -75,12 +75,4 @@ export default class GlobalSettingAction {
             })
         }
     }
-
-    @action('增加外部传参') addExternalParameter(externalParameter: FitGaea.ExternalParameter) {
-        this.globalSetting.externalParameter.push(externalParameter)
-    }
-
-    @action('删除外部传参') removeExternalParameter(index: number) {
-        this.globalSetting.externalParameter.splice(index, 1)
-    }
 }

@@ -36,6 +36,10 @@ import PluginCopyPaste from '../components/copy-paste/copy-paste.component'
 import PluginCrumbs from '../components/crumbs/crumbs.component'
 import PluginDelete from '../components/delete/delete.component'
 import PluginViewportSize from '../components/viewport-size/viewport-size.component'
+import PluginExternalVariableButton from '../components/external-variable-button/external-variable-button.component'
+import PluginExternalVariable from '../components/external-variable/external-variable.component'
+import PluginExternalVariableEditor from '../components/external-variable-editor/external-variable-editor.component'
+import PluginExternalVariableEditorLabel from '../components/external-variable-editor-label/external-variable-editor-label.component'
 
 import EventAction from '../actions/event'
 import ApplicationAction from '../actions/application'
@@ -78,7 +82,11 @@ const pluginList: Array<FitGaea.Plugin> = [
     PluginEditorTabsEvent,
     PluginCopyPaste,
     PluginCrumbs,
-    PluginDelete
+    PluginDelete,
+    PluginExternalVariableButton,
+    PluginExternalVariable,
+    PluginExternalVariableEditor,
+    PluginExternalVariableEditorLabel
 ]
 
 export interface ProviderContainerProps {

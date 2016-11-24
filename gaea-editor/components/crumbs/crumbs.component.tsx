@@ -11,7 +11,7 @@ export default class Crumbs extends React.Component<typings.PropsDefine, typings
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
-    static position = 'navbarBottom'
+    static position = 'bottomBar'
 
     @autoBindMethod handleClick(mapUniqueKey: string) {
         this.props.ViewportAction.setCurrentEditComponentMapUniqueKey(mapUniqueKey)

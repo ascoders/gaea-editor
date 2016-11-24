@@ -1,10 +1,10 @@
 import * as React from 'react'
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
+import ExternalVariableEditorAction from '../external-variable-editor/action'
 
 export interface PropsDefine {
     ViewportStore?: EditorManager.ViewportStore
-    ViewportAction?: EditorManager.ViewportAction
-    ApplicationAction?: EditorManager.ApplicationAction
+    ExternalVariableEditorAction?: ExternalVariableEditorAction
 
     editInfo?: FitGaea.ComponentPropsGaeaEdit
 }

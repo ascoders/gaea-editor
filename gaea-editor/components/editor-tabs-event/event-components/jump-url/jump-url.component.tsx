@@ -14,12 +14,10 @@ export default class JumpUrl extends React.Component<typings.PropsDefine, typing
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
-    @EditorManager.lazyInject(Action) private eventAction: Action
-
     handleChange(value: string) {
         //this.props.viewport.prepareWriteHistory()
         const eventData = this.props.isWeb ? 'gaeaEventData' : 'gaeaNativeEventData'
-        this.eventAction.updateEventData(this.props.ViewportStore.currentEditComponentMapUniqueKey, `${eventData}.${this.props.index}.eventData.url`, value)
+        this.props.EditorEventAction.updateEventData(this.props.ViewportStore.currentEditComponentMapUniqueKey, `${eventData}.${this.props.index}.eventData.url`, value)
         //this.props.viewport.writeHistory()
     }
 

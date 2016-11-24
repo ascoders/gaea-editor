@@ -2,11 +2,8 @@ import * as React from 'react'
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
 export interface PropsDefine {
-    ViewportStore?: EditorManager.ViewportStore
-    ViewportAction?: EditorManager.ViewportAction
     ApplicationAction?: EditorManager.ApplicationAction
-
-    editInfo?: FitGaea.ComponentPropsGaeaEdit
+    ApplicationStore?: EditorManager.ApplicationStore
 }
 
 export class Props implements PropsDefine {
@@ -14,9 +11,9 @@ export class Props implements PropsDefine {
 }
 
 export interface StateDefine {
-
+    show?: boolean
 }
 
 export class State implements StateDefine {
-
+    show = false
 }

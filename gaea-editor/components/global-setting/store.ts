@@ -1,4 +1,4 @@
-import { observable, lazyInject, ApplicationStore } from '../../../gaea-editor-manager/gaea-editor-manager'
+import { observable, ApplicationStore } from '../../../gaea-editor-manager/gaea-editor-manager'
 
 export default class GlobalSettingStore {
     /**

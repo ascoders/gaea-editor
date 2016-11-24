@@ -43,6 +43,15 @@ export default class ApplicationAction {
         this.application.pageValue = pageValue
     }
 
+    @action('触发左边栏') toggleLeftBar(type: string) {
+        if (this.application.leftBarType === type) {
+            // 如果触发了相同的，直接关闭
+            this.application.leftBarType = null
+        } else {
+            this.application.leftBarType = type
+        }
+    }
+
     /**
      * 将 componentInfo 不需要保存的信息都移除
      */

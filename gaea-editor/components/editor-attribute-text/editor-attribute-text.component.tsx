@@ -7,7 +7,7 @@ import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-text.scss'
 
-@EditorManager.observer(['ViewportStore', 'ViewportAction'])
+@EditorManager.observer(['ViewportStore', 'ViewportAction', 'ApplicationAction'])
 export default class EditorAttributeText extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -23,6 +23,9 @@ export default class EditorAttributeText extends React.Component<typings.PropsDe
             <div className="_namespace">
                 <div className="label">
                     {this.props.editInfo.label}
+                    {this.props.ApplicationAction.loadingPluginByPosition('editorLabel', {
+                        editInfo: this.props.editInfo
+                    })}
                 </div>
                 <div className="input-container">
                     <Input label=""

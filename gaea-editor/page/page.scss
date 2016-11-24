@@ -109,6 +109,8 @@
         flex-direction: column;
         justify-content: space-between;
         width: 30px;
+        background-color: white;
+        z-index: 1;
 
         // 左部容器上部
         .navbar-center__left__top-container {
@@ -124,10 +126,11 @@
     // 右部容器
     .navbar-center__right-container {
         display: flex;
+        margin-left: -300px;
         margin-right: -350px;
         flex-grow: 1;
         width: 0;
-        transition: margin-right .15s;
+        transition: all .15s;
 
         // 透明背景色
         &.transparent-background {
@@ -139,6 +142,11 @@
             margin-right: 0;
         }
 
+        // 显示左侧容器
+        &.show-left-bar {
+            margin-left: 0;
+        }
+
         // 视图 / 预览容器
         .viewport-container, .preview-container {
             display: flex;
@@ -147,6 +155,36 @@
             border-right: 1px solid #eee;
             border-left: 1px solid #eee;
             margin: 0 auto;
+        }
+
+        // 左侧工具容器
+        .left-bar-container {
+            background-color: whitesmoke;
+            position: relative;
+            width: 300px;
+            height: 100%;
+            z-index: 0;
+
+            // 编辑容器关闭按钮
+            .left-bar-close {
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                top: 0;
+                right: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: all .3s;
+                color: #999;
+                cursor: pointer;
+                z-index: 1;
+
+                &:hover {
+                    color: #333;
+                    transform: scale(1.2);
+                }
+            }
         }
 
         // 编辑容器

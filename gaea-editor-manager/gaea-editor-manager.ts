@@ -1,7 +1,5 @@
 export { observer, inject as reactInject } from 'mobx-react'
 export { action, observable, computed, transaction, extendObservable } from 'mobx'
-export { lazyInject } from '../gaea-editor/utils/kernel'
-export { injectable } from 'inversify'
 export { inject } from '../../../common/inject-instance/index'
 
 /**
