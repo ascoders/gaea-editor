@@ -306,6 +306,10 @@ export default class EditorAttributeBorder extends React.Component<typings.Props
     }
 
     render() {
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey===null){
+            return null
+        }
+        
         const borderRadius = this.getCommonBorderRadius()
         const commonBorder = this.getCommonBorder()
 

@@ -20,6 +20,10 @@ export default class EditorAttributeSelect extends React.Component<typings.Props
     }
 
     render() {
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey === null) {
+            return null
+        }
+
         const switchOpts = {
             label: '',
             disabled: this.props.editInfo.editable === false,

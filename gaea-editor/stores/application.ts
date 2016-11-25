@@ -1,6 +1,6 @@
-import {inject} from '../../../../common/inject-instance/index'
-import {observable} from 'mobx'
-import {PropsDefine} from '../gaea-editor.type'
+import { inject } from '../../../../common/inject-instance/index'
+import { observable } from 'mobx'
+import { PropsDefine } from '../gaea-editor.type'
 import * as _ from 'lodash'
 
 export default class ApplicationStore {
@@ -74,4 +74,7 @@ export default class ApplicationStore {
 
     // 当前左边栏显示类型
     @observable leftBarType: string = null as string
+
+    // 中间件处理函数
+    middleware = new Map<string, Array<any>>()
 }

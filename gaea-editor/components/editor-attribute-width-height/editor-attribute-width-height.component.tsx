@@ -65,6 +65,10 @@ export default class EditorAttributeWidthHeight extends React.Component<typings.
     }
 
     render() {
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey === null) {
+            return null
+        }
+
         return (
             <div className="_namespace">
                 <div className="line">

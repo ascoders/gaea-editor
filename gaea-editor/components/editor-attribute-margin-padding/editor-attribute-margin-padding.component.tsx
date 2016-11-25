@@ -29,6 +29,10 @@ export default class EditorAttributeMarginPadding extends React.Component<typing
     }
 
     render() {
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey === null) {
+            return null
+        }
+
         return (
             <div className="_namespace">
                 <MarginPaddingEditor size={220}

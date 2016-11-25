@@ -104,16 +104,18 @@ export default class EditorTabsAttribute extends React.Component<typings.PropsDe
 
         // 编辑组件
         const EditItems = this.props.ViewportStore.currentEditComponentInfo.props.gaeaEdit && this.props.ViewportStore.currentEditComponentInfo.props.gaeaEdit.map((editInfo, index) => {
+            const key = this.props.ViewportStore.currentEditComponentMapUniqueKey + '_' + index
             // 如果是字符串类型，直接生成标题
             if (editInfo.constructor.name === 'String') {
                 return (
-                    <div key={index}
+                    <div key={key}
                         className="title">{editInfo.toString()}</div>
                 )
             } else {
                 return (
-                    <div key={index}>
+                    <div key={key}>
                         {this.props.ApplicationAction.loadingPluginByPosition(`editorAttribute${_.upperFirst(_.camelCase(editInfo.editor))}`, {
+                            index,
                             editInfo
                         })}
                     </div>

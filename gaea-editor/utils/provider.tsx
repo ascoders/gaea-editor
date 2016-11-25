@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Provider } from 'mobx-react'
 import { PropsDefine as EditorPropsDefine } from '../gaea-editor.type'
+import * as _ from 'lodash'
 import injectInstance from '../../../../common/inject-instance/index'
 
 import PluginGlobalSetting from '../components/global-setting/global-setting.component'
@@ -119,6 +120,13 @@ export default class ProviderContainer extends React.Component<ProviderContainer
          * 注入核心框架的数据流
          */
         const instances = injectInstance(EventAction, ApplicationAction, ViewportAction, EventStore, ApplicationStore, ViewportStore, ...pluginActionStores)
+
+        instances.forEach(instance => {
+            if (_.endsWith(instance.constructor.name, 'Action')) {
+                // 执行 onInit 生命周期
+                instance.onInit && instance.onInit()
+            }
+        })
 
         instances.get('ApplicationStore').init(this.props.gaeaProps, pluginList)
 

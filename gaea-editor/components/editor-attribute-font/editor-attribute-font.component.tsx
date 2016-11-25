@@ -113,6 +113,10 @@ export default class EditorAttributeFont extends React.Component<typings.PropsDe
     }
 
     render() {
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey === null) {
+            return null
+        }
+
         const fontWeight = {
             defaultValue: this.props.ViewportStore.currentEditComponentInfo.props.style.fontWeight ? this.props.ViewportStore.currentEditComponentInfo.props.style.fontWeight.toString() : '400',
             options: fontWeightOpts

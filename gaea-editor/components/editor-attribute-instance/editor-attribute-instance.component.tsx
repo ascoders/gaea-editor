@@ -3,12 +3,12 @@ import * as typings from './editor-attribute-instance.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-instance.scss'
 
-@EditorManager.observer(['ViewportStore','ViewportAction','ApplicationAction'])
-export default class EditorAttributeInstance extends React.Component <typings.PropsDefine, typings.StateDefine> {
+@EditorManager.observer(['ViewportStore', 'ViewportAction', 'ApplicationAction'])
+export default class EditorAttributeInstance extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
@@ -24,19 +24,23 @@ export default class EditorAttributeInstance extends React.Component <typings.Pr
 
     handleApplyProps(props: any) {
         //this.props.viewport.prepareWriteHistory()
-        Object.keys(props).forEach(key=> {
+        Object.keys(props).forEach(key => {
             this.props.ViewportAction.updateCurrentEditComponentProps(key, props[key])
         })
         //this.props.viewport.writeHistory()
     }
 
     render() {
-        const componentInstances = this.props.editInfo.instance.map((props, index)=> {
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey === null) {
+            return null
+        }
+
+        const componentInstances = this.props.ViewportStore.currentEditComponentInfo.props.gaeaEdit[this.props.index].instance.map((props, index) => {
             const instanceElement = React.createElement(this.ComponentClass, props)
             return (
                 <div key={index}
-                     onClick={this.handleApplyProps.bind(this, props)}
-                     className="instance-item">{instanceElement}</div>
+                    onClick={this.handleApplyProps.bind(this, props)}
+                    className="instance-item">{instanceElement}</div>
             )
         })
 

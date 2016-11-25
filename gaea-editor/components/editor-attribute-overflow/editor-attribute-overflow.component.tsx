@@ -2,14 +2,14 @@ import * as React from 'react'
 import * as typings from './editor-attribute-overflow.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import {Button, ButtonGroup} from '../../../../../web-common/button/index'
-import {Tooltip} from '../../../../../web-common/tooltip/index'
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import { Button, ButtonGroup } from '../../../../../web-common/button/index'
+import { Tooltip } from '../../../../../web-common/tooltip/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-overflow.scss'
 
-@EditorManager.observer(['ViewportStore', 'ApplicationStore','ViewportAction'])
-export default class EditorAttributeOverflow extends React.Component <typings.PropsDefine, typings.StateDefine> {
+@EditorManager.observer(['ViewportStore', 'ApplicationStore', 'ViewportAction'])
+export default class EditorAttributeOverflow extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
@@ -85,24 +85,24 @@ export default class EditorAttributeOverflow extends React.Component <typings.Pr
             <ButtonGroup>
                 <Tooltip title="Auto">
                     <Button active={this.isStatu('auto')}
-                            onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'auto')}>1</Button>
+                        onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'auto')}>1</Button>
                 </Tooltip>
 
                 <Tooltip title="Visible">
                     <Button active={this.isStatu('visible')}
-                            onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'visible')}>2</Button>
+                        onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'visible')}>2</Button>
                 </Tooltip>
 
                 {!this.props.ApplicationStore.editorProps.isReactNative &&
-                <Tooltip title="Scroll">
-                    <Button active={this.isStatu('scroll')}
+                    <Tooltip title="Scroll">
+                        <Button active={this.isStatu('scroll')}
                             onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'scroll')}>3</Button>
-                </Tooltip>
+                    </Tooltip>
                 }
 
                 <Tooltip title="Hidden">
                     <Button active={this.isStatu('hidden')}
-                            onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'hidden')}>4</Button>
+                        onClick={this.handleUpdateCompressValue.bind(this, 'style.overflow', 'hidden')}>4</Button>
                 </Tooltip>
             </ButtonGroup>
         )
@@ -130,48 +130,48 @@ export default class EditorAttributeOverflow extends React.Component <typings.Pr
                 <ButtonGroup>
                     <Tooltip title="Auto">
                         <Button active={this.isExpandStatu('overflowX', 'auto')}
-                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'auto')}>1</Button>
+                            onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'auto')}>1</Button>
                     </Tooltip>
 
                     <Tooltip title="Visible">
                         <Button active={this.isExpandStatu('overflowX', 'visible')}
-                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'visible')}>2</Button>
+                            onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'visible')}>2</Button>
                     </Tooltip>
 
                     {!this.props.ApplicationStore.editorProps.isReactNative &&
-                    <Tooltip title="Scroll">
-                        <Button active={this.isExpandStatu('overflowX', 'scroll')}
+                        <Tooltip title="Scroll">
+                            <Button active={this.isExpandStatu('overflowX', 'scroll')}
                                 onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'scroll')}>3</Button>
-                    </Tooltip>
+                        </Tooltip>
                     }
 
                     <Tooltip title="Hidden">
                         <Button active={this.isExpandStatu('overflowX', 'hidden')}
-                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'hidden')}>4</Button>
+                            onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowX', 'hidden')}>4</Button>
                     </Tooltip>
                 </ButtonGroup>
 
                 <ButtonGroup>
                     <Tooltip title="Auto">
                         <Button active={this.isExpandStatu('overflowY', 'auto')}
-                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'auto')}>1</Button>
+                            onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'auto')}>1</Button>
                     </Tooltip>
 
                     <Tooltip title="Visible">
                         <Button active={this.isExpandStatu('overflowY', 'visible')}
-                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'visible')}>2</Button>
+                            onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'visible')}>2</Button>
                     </Tooltip>
 
                     {!this.props.ApplicationStore.editorProps.isReactNative &&
-                    <Tooltip title="Scroll">
-                        <Button active={this.isExpandStatu('overflowY', 'scroll')}
+                        <Tooltip title="Scroll">
+                            <Button active={this.isExpandStatu('overflowY', 'scroll')}
                                 onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'scroll')}>3</Button>
-                    </Tooltip>
+                        </Tooltip>
                     }
 
                     <Tooltip title="Hidden">
                         <Button active={this.isExpandStatu('overflowY', 'hidden')}
-                                onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'hidden')}>4</Button>
+                            onClick={this.handleUpdateExpandValue.bind(this, 'style.overflowY', 'hidden')}>4</Button>
                     </Tooltip>
                 </ButtonGroup>
             </div>
@@ -179,6 +179,10 @@ export default class EditorAttributeOverflow extends React.Component <typings.Pr
     }
 
     render() {
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey === null) {
+            return null
+        }
+
         const canExpand = !this.state.expand
         const canCompress = this.state.expand && this.isOverflowXYEqual()
 
@@ -188,20 +192,20 @@ export default class EditorAttributeOverflow extends React.Component <typings.Pr
                     <div className="overflow-expend-label-container">
                         <div className="label-item">OverflowX</div>
                         <div className="label-item">OverflowY</div>
-                    </div>:
+                    </div> :
                     <div>Overflow</div>
                 }
 
                 {!this.props.ApplicationStore.editorProps.isReactNative &&
-                <div className="overflow-expend-button-container">
-                    {canExpand &&
-                    <Button onClick={this.handleExpand.bind(this)}><i className="fa fa-expand"/></Button>
-                    }
+                    <div className="overflow-expend-button-container">
+                        {canExpand &&
+                            <Button onClick={this.handleExpand.bind(this)}><i className="fa fa-expand" /></Button>
+                        }
 
-                    {canCompress &&
-                    <Button onClick={this.handleCompress.bind(this)}><i className="fa fa-compress"/></Button>
-                    }
-                </div>
+                        {canCompress &&
+                            <Button onClick={this.handleCompress.bind(this)}><i className="fa fa-compress" /></Button>
+                        }
+                    </div>
                 }
 
                 <div className="operate-container">

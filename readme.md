@@ -371,6 +371,8 @@ Gaia editor included the following plug-ins to ensure that the core function of 
 - global-setting
 - external-variable-button
 - external-variable
+- external-variable-editor
+- external-variable-editor-label
 
 You can also manually add your own plug-ins by the following way, if you want to be built in the project, you can send me an e-mail.
 

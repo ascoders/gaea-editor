@@ -1,5 +1,5 @@
 import { inject } from '../../../../common/inject-instance/index'
-import { action, observable, extendObservable, transaction, map } from 'mobx'
+import { action, observable, extendObservable, transaction, map, asMap } from 'mobx'
 import ViewportStore from '../stores/viewport'
 import ApplicationAction from '../actions/application'
 import EventAction from '../actions/event'
@@ -32,6 +32,13 @@ export default class ViewportAction {
         if (componentInfoClone.parentMapUniqueKey === null) {
             // 最外层必须相对定位，不能修改
             componentInfoClone.props.gaeaEdit = componentInfoClone.props.gaeaEdit.filter((edit: any) => edit.editor !== 'position' && edit !== '定位')
+        }
+
+        const middlewares = this.viewport.middleware.get('setComponent')
+        if (middlewares) {
+            middlewares.forEach(middleware => {
+                componentInfo = middleware(mapUniqueKey, componentInfo)
+            })
         }
 
         componentInfoClone.props = extendObservable({}, componentInfoClone.props)
@@ -287,9 +294,14 @@ export default class ViewportAction {
         if (!componentProps.gaeaNativeEventData) {
             componentProps.gaeaNativeEventData = []
         }
-        if (!componentProps.gaeaVariables) {
-            componentProps.gaeaVariables = {}
+
+        const middlewares = this.viewport.middleware.get('completionEditProps')
+        if (middlewares) {
+            middlewares.forEach(middleware => {
+                componentProps = middleware(componentProps)
+            })
         }
+
         return componentProps
     }
 
@@ -520,6 +532,10 @@ export default class ViewportAction {
      * 获取当前编辑组件的属性值
      */
     getCurrentEditPropValueByEditInfo(editInfo: FitGaea.ComponentPropsGaeaEdit) {
+        if (!editInfo || !this.viewport.currentEditComponentMapUniqueKey) {
+            return ''
+        }
+
         const value = _.get(this.viewport.currentEditComponentInfo.props, editInfo.field)
 
         if (value === null || value === undefined || value === editInfo.emptyValue) {
@@ -620,5 +636,17 @@ export default class ViewportAction {
         }
 
         return newCopyComponent
+    }
+
+    /**
+     * 注册函数处理中间件
+     */
+    middlewareRegister(viewportFunctionName: string, func: any) {
+        if (!this.viewport.middleware.has(viewportFunctionName)) {
+            this.viewport.middleware.set(viewportFunctionName, [func])
+        } else {
+            const funcs = this.viewport.middleware.get(viewportFunctionName)
+            this.viewport.middleware.set(viewportFunctionName, funcs.concat(func))
+        }
     }
 }

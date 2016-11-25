@@ -6,6 +6,7 @@ export interface PropsDefine {
     ViewportAction?: EditorManager.ViewportAction
     ApplicationAction?: EditorManager.ApplicationAction
 
+    index?: number
     editInfo?: FitGaea.ComponentPropsGaeaEdit
 }
 

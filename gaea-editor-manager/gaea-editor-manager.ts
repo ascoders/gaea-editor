@@ -1,5 +1,5 @@
 export { observer, inject as reactInject } from 'mobx-react'
-export { action, observable, computed, transaction, extendObservable } from 'mobx'
+export { action, observable, computed, transaction, extendObservable, map } from 'mobx'
 export { inject } from '../../../common/inject-instance/index'
 
 /**

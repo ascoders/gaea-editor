@@ -19,19 +19,30 @@ export default class EditorAttributeText extends React.Component<typings.PropsDe
     }
 
     render() {
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey === null) {
+            return null
+        }
+
         return (
             <div className="_namespace">
                 <div className="label">
                     {this.props.editInfo.label}
                     {this.props.ApplicationAction.loadingPluginByPosition('editorLabel', {
+                        index: this.props.index,
                         editInfo: this.props.editInfo
                     })}
                 </div>
                 <div className="input-container">
-                    <Input label=""
-                        disabled={this.props.editInfo.editable === false}
-                        onChange={this.handleChange}
-                        value={this.props.ViewportAction.getCurrentEditPropValueByEditInfo(this.props.editInfo)} />
+                    {!this.props.editInfo.hideTool &&
+                        <Input label=""
+                            disabled={this.props.editInfo.editable === false}
+                            onChange={this.handleChange}
+                            value={this.props.ViewportAction.getCurrentEditPropValueByEditInfo(this.props.editInfo)} />
+                    }
+                    {this.props.ApplicationAction.loadingPluginByPosition('editorTool', {
+                        index: this.props.index,
+                        editInfo: this.props.editInfo
+                    })}
                 </div>
             </div>
         )

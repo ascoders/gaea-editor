@@ -97,6 +97,10 @@ export default class EditorAttributePosition extends React.Component<typings.Pro
     }
 
     render() {
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey === null) {
+            return null
+        }
+
         return (
             <div className="_namespace">
                 <ButtonGroup>

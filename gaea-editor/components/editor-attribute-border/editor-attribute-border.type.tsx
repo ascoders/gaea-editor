@@ -7,6 +7,7 @@ export interface PropsDefine {
     ApplicationStore?: EditorManager.ApplicationStore
     ApplicationAction?: EditorManager.ApplicationAction
 
+    index?: number
     editInfo?: FitGaea.ComponentPropsGaeaEdit
 }
 

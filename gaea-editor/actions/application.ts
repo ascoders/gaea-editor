@@ -1,6 +1,6 @@
 import * as React from 'react'
-import {inject} from '../../../../common/inject-instance/index'
-import {action, extendObservable, observable} from 'mobx'
+import { inject } from '../../../../common/inject-instance/index'
+import { action, extendObservable, observable } from 'mobx'
 import ApplicationStore from '../stores/application'
 import deepDiff from '../utils/deep-diff'
 
@@ -101,12 +101,15 @@ export default class ApplicationAction {
             delete planComponentProps.gaeaNativeEventData
         }
 
-        if (planComponentProps.gaeaVariables.length === 0) {
-            delete planComponentProps.gaeaVariables
-        }
-
         if (_.isEmpty(planComponentProps.style)) {
             delete planComponentProps.style
+        }
+
+        const middlewares = this.application.middleware.get('cleanComponentProps')
+        if (middlewares) {
+            middlewares.forEach(middleware => {
+                planComponentProps = middleware(planComponentProps)
+            })
         }
 
         // 如果 props 已经被删完了, 直接删掉 props
@@ -142,5 +145,17 @@ export default class ApplicationAction {
         planComponentProps = _.merge(defaultProps, planComponentProps)
 
         return planComponentProps
+    }
+
+    /**
+    * 注册函数处理中间件
+    */
+    middlewareRegister(viewportFunctionName: string, func: any) {
+        if (!this.application.middleware.has(viewportFunctionName)) {
+            this.application.middleware.set(viewportFunctionName, [func])
+        } else {
+            const funcs = this.application.middleware.get(viewportFunctionName)
+            this.application.middleware.set(viewportFunctionName, funcs.concat(func))
+        }
     }
 }

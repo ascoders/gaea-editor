@@ -19,6 +19,10 @@ export default class EditorAttributeBackground extends React.Component<typings.P
     }
 
     render() {
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey===null){
+            return null
+        }
+
         return (
             <div className="_namespace">
                 <div className="label">

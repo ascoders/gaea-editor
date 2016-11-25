@@ -2,13 +2,13 @@ import * as React from 'react'
 import * as typings from './editor-attribute-number.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import {Number} from '../../../../../web-common/number/index'
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import { Number } from '../../../../../web-common/number/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-number.scss'
 
 // 根据 inputRange outputRange 转换值
-const parseInputToOutRange = (value: number, inputRange: Array<number>, outputRange: Array<number>)=> {
+const parseInputToOutRange = (value: number, inputRange: Array<number>, outputRange: Array<number>) => {
     if (value >= inputRange[0] && value <= inputRange[1]) {
         // 给的值必须在 input 范围内
         // 转换成 0~1 的小数
@@ -22,7 +22,7 @@ const parseInputToOutRange = (value: number, inputRange: Array<number>, outputRa
 }
 
 @EditorManager.observer(['ViewportStore', 'ViewportAction'])
-export default class EditorAttributeNumber extends React.Component <typings.PropsDefine, typings.StateDefine> {
+export default class EditorAttributeNumber extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
@@ -49,6 +49,10 @@ export default class EditorAttributeNumber extends React.Component <typings.Prop
     }
 
     render() {
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey === null) {
+            return null
+        }
+
         let inputValue = this.props.ViewportAction.getCurrentEditPropValueByEditInfo(this.props.editInfo)
 
         // 如果不为空，进行输入转换
@@ -60,7 +64,7 @@ export default class EditorAttributeNumber extends React.Component <typings.Prop
             label: '',
             disabled: this.props.editInfo.editable === false,
             value: inputValue,
-            onChange: (value: string, unit: string)=> {
+            onChange: (value: string, unit: string) => {
                 this.handleChangeValue(value, unit)
                 this.setState({
                     unit
@@ -75,19 +79,19 @@ export default class EditorAttributeNumber extends React.Component <typings.Prop
             InputElement = (
                 <div className="range-container">
                     <input className="range"
-                           max={this.props.editInfo.number.max}
-                           min={this.props.editInfo.number.min}
-                           step={this.props.editInfo.number.step}
-                           value={inputValue}
-                           disabled={this.props.editInfo.editable === false}
-                           onChange={this.handleChange.bind(this)}
-                           type="range"/>
-                    <Number {...this.props.editInfo.number} {...textOpts}/>
+                        max={this.props.editInfo.number.max}
+                        min={this.props.editInfo.number.min}
+                        step={this.props.editInfo.number.step}
+                        value={inputValue}
+                        disabled={this.props.editInfo.editable === false}
+                        onChange={this.handleChange.bind(this)}
+                        type="range" />
+                    <Number {...this.props.editInfo.number} {...textOpts} />
                 </div>
             )
         } else {
             InputElement = (
-                <Number {...this.props.editInfo.number} {...textOpts}/>
+                <Number {...this.props.editInfo.number} {...textOpts} />
             )
         }
 

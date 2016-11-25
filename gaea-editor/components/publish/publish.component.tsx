@@ -70,8 +70,9 @@ export default class Publish extends React.Component<typings.PropsDefine, typing
         this.setState({
             show: false
         }, () => {
-            this.props.ApplicationStore.editorProps.onPublish(this.state.selectedVersion)
-            this.props.PublishAction.updateVersion(this.state.selectedVersion)
+            this.props.ApplicationStore.editorProps.onPublish(this.state.selectedVersion, () => {
+                this.props.PublishAction.updateVersion(this.state.selectedVersion)
+            })
         })
     }
 

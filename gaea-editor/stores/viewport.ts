@@ -1,12 +1,12 @@
-import {inject} from '../../../../common/inject-instance/index'
-import {observable, computed, map, transaction, ObservableMap, extendObservable, action} from 'mobx'
+import { inject } from '../../../../common/inject-instance/index'
+import { observable, computed, map, transaction, ObservableMap, extendObservable, action } from 'mobx'
 
 export default class ViewportStore {
     // 视图区域所有组件集合
     @observable components = map<FitGaea.ViewportComponentInfo>()
 
     // 视图区域 dom 集合
-    componentDomInstances = new Map<string,HTMLElement>()
+    componentDomInstances = new Map<string, HTMLElement>()
 
     // 根节点唯一标识
     @observable rootMapUniqueKey: string = null
@@ -64,4 +64,7 @@ export default class ViewportStore {
 
         return finderPath
     }
+
+    // 中间件处理函数
+    middleware = new Map<string, Array<any>>()
 }

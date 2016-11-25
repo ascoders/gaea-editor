@@ -39,12 +39,12 @@ export interface PropsDefine {
     /**
      * 保存的回调
      */
-    onSave?: (info?: string, setting?: string)=>void
+    onSave?: (info?: string, setting?: string) => void
 
     /**
      * 发布的回调
      */
-    onPublish?: (version: string)=>void
+    onPublish?: (version: string, callback?: () => void) => void
 
     /**
      * 当前版本号
@@ -54,17 +54,17 @@ export interface PropsDefine {
     /**
      * 获取发布列表
      */
-    onGetPublishList?: (page?: number, callback?: (result: Array<FitGaea.GetPublishListResult>)=>void)=>void
+    onGetPublishList?: (page?: number, callback?: (result: Array<FitGaea.GetPublishListResult>) => void) => void
 
     /**
      * 预览版本内容(内容是根版本走的，但配置一个编辑器只有一份)
      */
-    onPreviewVersion?: (version?: string, callback?: (content: string)=>void)=>void
+    onPreviewVersion?: (version?: string, callback?: (content: string) => void) => void
 
     /**
      * 切换版本号
      */
-    onSwitchVersion?: (version?: string, callback?: (content: string)=>void)=>void
+    onSwitchVersion?: (version?: string, callback?: (content: string) => void) => void
 
     /**
      * 自定义组件的配置文件，当然还是优先使用组件 props 中的配置
@@ -84,15 +84,15 @@ export class Props implements PropsDefine {
     defaultValue = null as string
     defaultSetting = null as string
     isReactNative = false
-    onSave = ()=> {
+    onSave = () => {
     }
-    onPublish = ()=> {
+    onPublish = () => {
     }
-    onGetPublishList = ()=> {
+    onGetPublishList = () => {
     }
-    onSwitchVersion = ()=> {
+    onSwitchVersion = () => {
     }
-    onPreviewVersion = ()=> {
+    onPreviewVersion = () => {
     }
     currentVersion = '0.0.0'
     customOptions = null as any

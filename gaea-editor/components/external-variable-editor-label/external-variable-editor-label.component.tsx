@@ -9,7 +9,7 @@ import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './external-variable-editor-label.scss'
 
-@EditorManager.observer(['ViewportStore', 'ExternalVariableEditorAction'])
+@EditorManager.observer(['ViewportStore', 'ExternalVariableEditorAction', 'ExternalVariableEditorStore'])
 export default class ExternalVariableEditorLabel extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -18,16 +18,18 @@ export default class ExternalVariableEditorLabel extends React.Component<typings
 
     @autoBindMethod handleUseVariable() {
         this.props.ExternalVariableEditorAction.setCurrentEditComponentVariableByField(this.props.editInfo.field, null)
+        this.props.ExternalVariableEditorAction.hideCurrentEditTool(this.props.index)
     }
 
     @autoBindMethod handleCancelVariable() {
         this.props.ExternalVariableEditorAction.removeCurrentEditComponentVariableByField(this.props.editInfo.field)
+        this.props.ExternalVariableEditorAction.showCurrentEditTool(this.props.index)
     }
 
     render() {
-        const variables = this.props.ViewportStore.currentEditComponentInfo.props.gaeaVariables
+        const variable = this.props.ExternalVariableEditorStore.variables.get(this.props.ViewportStore.currentEditComponentMapUniqueKey + '_' + this.props.editInfo.field)
 
-        if (variables[this.props.editInfo.field] === undefined) {
+        if (variable === undefined) {
             return (
                 <Tooltip title="点击使用变量">
                     <div className="_namespace" onClick={this.handleUseVariable}>
@@ -46,3 +48,48 @@ export default class ExternalVariableEditorLabel extends React.Component<typings
         }
     }
 }
+
+
+
+
+// let obj = {
+//     a: 1,
+//     b: {
+//         c: 2
+//     },
+//     d: [] as any,
+//     e: [1, 2],
+//     f: function () { }
+// }
+
+// let proxyHandle: ProxyHandler<any> = {
+//     set: (target, key, value, receiver) => {
+//         console.log('set', target, key, value, receiver)
+//         return Reflect.set(target, key, value, receiver)
+//     },
+//     get: (target, key, receiver) => {
+//         console.log('get', target, key, receiver)
+//         var result = Reflect.get(target, key, receiver)
+//         return result
+//     }
+// }
+
+// const isObj = (obj: Object) => {
+//     return obj !== null && typeof obj === 'object'
+// }
+
+// const observer = (obj: any) => {
+//     if (!isObj(obj)) {
+//         return obj
+//     }
+
+//     Object.keys(obj).forEach(key => {
+//         obj[key] = observer(obj[key])
+//     })
+
+//     return new Proxy(obj, proxyHandle)
+// }
+
+// let proxyObj = observer(obj)
+
+// proxyObj.b.c = 3
