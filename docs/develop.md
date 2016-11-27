@@ -1,4 +1,4 @@
-# 3 Developer - Create your own plugin
+# Developer - Create your own plugin
 
 Import `EditorManager` first.
 
@@ -6,7 +6,7 @@ Import `EditorManager` first.
 import {EditorManager} from 'gaea-editor'
 ```
 
-The following is a complete screenshot, so you understand the principles of plugin work:
+The following three maps, respectively, is the plug-in UI files, action and store, marked on the map a special part of the plug-in:
 
 `tree.component.tsx`:
 
@@ -20,7 +20,7 @@ The following is a complete screenshot, so you understand the principles of plug
 
 ![](../assets/plugin-store.jpg)
 
-## 3.1 Render to editor
+## 1.1 Render to editor
 
 Then create `my-first-plugin.tsx`, and render it in the navigation bar:
 
@@ -41,7 +41,7 @@ class MyFirstPlugin extends React.Component <any, any> {
 <GaeaEditor plugins={[MyFirstPlugin]}/>
 ```
 
-## 3.2 Inject data stream
+## 1.2 Inject data stream
 
 ```typescript
 @EditorManager.observer(['ApplicationStore'])
@@ -79,7 +79,7 @@ class MyFirstPlugin extends React.Component <any, any> {
 }
 ```
 
-## 3.3 With type helper
+## 1.3 With type helper
 
 ```typescript
 interface Props {
@@ -93,7 +93,7 @@ class MyFirstPlugin extends React.Component <Props, {}}> {
 }
 ```
 
-## 3.4 Create plugin store
+## 1.4 Create plugin store
 
 Create `store.ts`:
 
@@ -135,7 +135,7 @@ export default class MyFirstPluginStore {
 }
 ```
 
-## 3.5 Create plugin action
+## 1.5 Create plugin action
 
 Similar to create store, can inject any store:
 
@@ -170,7 +170,7 @@ class MyFirstPlugin extends React.Component <any, any> {
 }
 ```
 
-## 3.6 Create Plugin render position
+## 1.6 Create Plugin render position
 
 In addition to rendering in the editor to provide location such as the navigation bar, the plug-in can also set aside their own location for other plug-ins to expand.
 
@@ -197,11 +197,11 @@ class MyFirstPlugin extends React.Component <any, any> {
 }
 ```
 
-## 3.7 Extend Edit Type
+## 1.7 Extend Edit Type
 
 You can named `static position='editorAttributeCustomName'` to handle `editor='customName'`.
 
-## 3.8 Deploy plugin
+## 1.8 Deploy plugin
 
 Gaia editor included the following plug-ins to ensure that the core function of stability: 
 
@@ -249,13 +249,13 @@ You can also manually add your own plug-ins by the following way, if you want to
 <GaeaEditor plugins={[MyFirstPlugin]}/>
 ```
 
-## 3.9 core data stream
+## 1.9 core data stream
 
-### 3.9.1 Actions
+### 1.9.1 Actions
 
 **`ApplicationAction`** **`ViewportAction`** **`EventAction`**
 
-#### 3.9.1.1 ApplicationAction
+#### 1.9.1.1 ApplicationAction
 
 | Method        | Params           | Description  |
 | :------------- |:-------------| :-----|
@@ -269,7 +269,7 @@ You can also manually add your own plug-ins by the following way, if you want to
 | toggleLeftBar | type: string | |
 
 
-#### 3.9.1.2 ViewportAction
+#### 1.9.1.2 ViewportAction
 
 | Method        | Params           | Description  |
 | :------------- |:-------------| :-----|
@@ -300,7 +300,7 @@ You can also manually add your own plug-ins by the following way, if you want to
 | registerOuterDrag | dragParentElement: HTMLElement, groupName = 'gaea-can-drag-in' | set menu draggable |
 | getComponentFullInfoByMapUniqueKey | mapUniqueKey: string | |
 
-#### 3.9.1.3 EventAction
+#### 1.9.1.3 EventAction
 
 | Method        | Params           | Description  |
 | :------------- |:-------------| :-----|
@@ -308,11 +308,11 @@ You can also manually add your own plug-ins by the following way, if you want to
 | on | eventType: EventType, callback: Function, context?: any | listener event |
 | off | eventType: EventType, callback: Function | Cancel listener event |
 
-### 3.9.2 Stores
+### 1.9.2 Stores
 
 **`ApplicationStore`** **`ViewportStore`** **`EventStore`**
 
-#### 3.9.2.1 ApplicationStore
+#### 1.9.2.1 ApplicationStore
 
 | Data        | Type           | Description  |
 | :------------- |:-------------| :-----|
@@ -326,7 +326,7 @@ You can also manually add your own plug-ins by the following way, if you want to
 | inPreview | boolean | |
 | leftBarType | string | |
 
-#### 3.9.2.2 ViewportStore
+#### 1.9.2.2 ViewportStore
 
 | Data        | Type           | Description  |
 | :------------- |:-------------| :-----|
@@ -343,7 +343,7 @@ You can also manually add your own plug-ins by the following way, if you want to
 | isLayoutComponentActive | boolean | show empty layout component? |
 | currentEditComponentPath | Array<string> | `eg:['self-key', 'parent1-key', 'parent2-key', 'root-key']` |
 
-#### 3.9.2.3 EventStore
+#### 1.9.2.3 EventStore
 
 | Data        | Type           | Description  |
 | :------------- |:-------------| :-----|
