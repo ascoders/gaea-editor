@@ -1,0 +1,7 @@
+.nt-editor-gaea-editor-gaea_editor-components-viewport_guideline {
+  position: absolute;
+  z-index: 10;
+  border: 2px dotted #23b7e5;
+  -webkit-transition: all .1s;
+  transition: all .1s;
+  pointer-events: none; }

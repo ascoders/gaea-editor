@@ -1,0 +1,20 @@
+.nt-editor-gaea-editor-gaea_editor-utils-color {
+  position: relative;
+  margin-right: 5px; }
+
+.nt-editor-gaea-editor-gaea_editor-utils-color .color-picker-label-container {
+  padding: 3px;
+  background: white;
+  border-radius: 1px;
+  box-shadow: rgba(0, 0, 0, 0.0980392) 0 0 0 1px; }
+
+.nt-editor-gaea-editor-gaea_editor-utils-color .color-picker-label {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px; }
+
+.nt-editor-gaea-editor-gaea_editor-utils-color .picker-container {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  z-index: 100; }
