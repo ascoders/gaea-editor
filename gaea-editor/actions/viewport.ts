@@ -1,5 +1,5 @@
 import { inject } from '../../../../common/inject-instance/index'
-import { action, observable, extendObservable, transaction, map, asMap } from 'mobx'
+import { action, observable, extendObservable, transaction, map, asMap, isObservable } from 'mobx'
 import ViewportStore from '../stores/viewport'
 import ApplicationAction from '../actions/application'
 import EventAction from '../actions/event'
@@ -41,7 +41,9 @@ export default class ViewportAction {
             })
         }
 
-        componentInfoClone.props = extendObservable({}, componentInfoClone.props)
+        if (!isObservable(componentInfoClone.props)) {
+            componentInfoClone.props = extendObservable({}, componentInfoClone.props)
+        }
 
         this.viewport.components.set(mapUniqueKey, componentInfoClone)
     }
