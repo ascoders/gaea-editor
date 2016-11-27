@@ -39,16 +39,18 @@ export default class ExternalVariableEditorAction {
             })
 
             // 初始化 hideTool
-            componentInfo.props.gaeaEdit = componentInfo.props.gaeaEdit.map(editInfo => {
-                if (editInfo.constructor.name !== 'String') {
-                    if (componentInfo.props.gaeaVariables[editInfo.field] !== undefined) {
-                        editInfo.hideTool = true
-                    } else {
-                        editInfo.hideTool = false
+            if (componentInfo.props.gaeaEdit) {
+                componentInfo.props.gaeaEdit = componentInfo.props.gaeaEdit.map(editInfo => {
+                    if (editInfo.constructor.name !== 'String') {
+                        if (componentInfo.props.gaeaVariables[editInfo.field] !== undefined) {
+                            editInfo.hideTool = true
+                        } else {
+                            editInfo.hideTool = false
+                        }
                     }
-                }
-                return editInfo
-            })
+                    return editInfo
+                })
+            }
 
             return componentInfo
         })
@@ -60,15 +62,6 @@ export default class ExternalVariableEditorAction {
             }
             return componentProps
         })
-
-        // 初始化时，把所有组件的 gaeaVariables 拿出来打平，便于监听
-        // setImmediate(() => {
-        //     this.ViewportStore.components.forEach((component, mapUniqueKey) => {
-        //         component.props.gaeaVariables && Object.keys(component.props.gaeaVariables).map(variableField => {
-        //             this.externalVariableEditorStore.variables.set(mapUniqueKey + '_' + variableField, component.props.gaeaVariables[variableField])
-        //         })
-        //     })
-        // })
     }
 
     @action('设置当前编辑组件某个字段使用的变量') setCurrentEditComponentVariableByField(field: string, variable: FitGaea.VariableData) {

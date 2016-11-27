@@ -51,10 +51,12 @@ export default class GlobalSettingAction {
     @action('设置视图区域宽度') setViewportSize(width: number, height: number) {
         this.globalSetting.viewportWidth = width
         this.globalSetting.viewportHeight = height
-        this.applicationAction.setViewportStyle({
-            width: this.globalSetting.viewportWidth,
-            height: this.globalSetting.viewportHeight
-        })
+        if (this.globalSetting.fitInWeb === 'mobile') {
+            this.applicationAction.setViewportStyle({
+                width: this.globalSetting.viewportWidth,
+                height: this.globalSetting.viewportHeight
+            })
+        }
     }
 
     @action('修改网页适配') changeFitInWeb(type: string) {
