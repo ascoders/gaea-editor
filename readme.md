@@ -7,7 +7,7 @@ A scalable web page editor.
 
 # Description
 
-Editor can be divided into menu area and view area, any react component can be used as a menu item, and be dragged into the view, we can customize the configuration item, control the instantiation of the view area components properties. Clicking the Save button will invoke the `onCall` callback to output the configuration of all the components in the viewport as strings, passing that string to the `GaeaPreview` component (installed via `npm i gaea-preview --save`), which will render the runtime page.
+Editor can be divided into menu area and view area, any react component can be used as a menu item, and be dragged into the view, we can customize the configuration item, control the instantiation of the view area components properties. Clicking the Save button will invoke the `onSave` callback to output the configuration of all the components in the viewport as strings, passing that string to the `GaeaPreview` component (installed via `npm i gaea-preview --save`), which will render the runtime page.
 
 # Usage
 
@@ -21,68 +21,64 @@ npm i gaea-editor gaea-web-components --save
 
 ## A simple example
 
-Write a custom component.
+Write a custom component `custom-component.tsx`.
+
+```typescript
+import * as React from 'react'
+export default class CustomComponent extends React.Component<any, any>{
+    // You need at least two properties in defaultProps to fit into the editor
+    static defaultProps = {
+        // Edit the name of the menu display
+        gaeaName: 'my-textarea', 
+        // Ensure that the other components and the overall does not repeat
+        // Do not worry, `gaea-web-components` All this field starts with `gaea-`
+        gaeaUniqueKey: 'textarea' 
+    }
+
+    render() { return <textarea /> }
+}
+```
+
+Next, display the editor:
 
 ```typescript
 import * as React from 'react'
 import GaeaEditor from 'gaea-editor'
 import webBaseComponents from 'gaea-web-components'
+import CustomComponent from './custom-component'
 
-class CustomComponent extends React.Component<any, any>{
-    static defaultProps = {
-        gaeaName: '输入框',
-        gaeaUniqueKey: 'textarea'
-    }
-
-    render() {
-        return (
-            <textarea />
-        )
-    }
-}
-
-const customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>> = [CustomComponent]
+// Put the custom components in the array, they will be displayed in the right menu
+const customComponentArray: Array<FitGaea.Component> = [CustomComponent]
 
 export default class Home extends React.Component<any, any>{
     render() {
+        // Menu components are divided into common and custom, if you like, you can remove the common components
+        // However, if there is no gaeaUniqueKey called gaea-layout, or a new outer container is defined by `rootLayoutComponentUniqueKey`, view area rendering will block
         return (
             <div style={{ height: 500 }}>
-                <GaeaEditor commonComponents={webBaseComponents} customComponents={customComponents} />
+                <GaeaEditor commonComponents={webBaseComponents} customComponents={customComponentArray} />
             </div>
         )
     }
 }
 ```
 
+## External configuration
+
+If you do not want to put the configuration on defaultProps, or need to migrate many components, you can [achieve through external configuration.](<docs/custom-options.md>)
+
+## The configured rules
+
+In addition to the necessary `gaeaName` and `gaeaUniqueKey`, you can set the [gaeaEdit](<docs/gaea-edit.md>) custom edit settings, set the [gaeaEvent](<docs/gaea-event.md>) custom component event settings.
 
 
 
 
 
-```bash
-npm i gaea-web-components
-```
 
-```typescript
-import {GaeaEditor} from 'gaea-editor'
-import webBaseComponents from 'gaea-web-components' // or yours
 
-export default class Demo extends React.Component <any, any> {
-    render() {
-        return (
-            <div style={{width:500, height:400}}>
-                <GaeaEditor commonComponents={webBaseComponents}
-                            defaultValue=""
-                            onSave={(saveInfo: string)=>{})}/>
-            </div>
-        )
-    }
-}
-```
 
-## 2.2 Component access platform
 
-Any react component can access.
 
 ### 2.2.1 Define editing effect by props
 
@@ -126,29 +122,7 @@ export default class Demo extends React.Component <any, any> {
 
 ### 2.2.2 Define editing effect by json
 
-```typescript
-import {Input} from 'ant-design'
 
-const antdOptions = {
-    Input: { // key 'Input' is same with Input's className
-        gaeaName = 'antInput'
-        gaeaUniqueKey = 'ant-input'
-        gaeaEdit = [{
-            field: 'value', 
-            label: 'antd input value',
-            editor: 'text'
-       }]
-    }
-}
-
-export default class Demo extends React.Component <any, any> {
-    render() {
-        return (
-            <GaeaEditor commonComponents={[Text]} customOptions={antdOptions}/>
-        )
-    }
-}
-```
 
 ### 2.3 Deploy
 
