@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as typings from './event.type'
-import {observer, inject} from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 
 import AutoComplete from '../../../../../../../web-common/auto-complete/index'
 
@@ -9,7 +9,7 @@ import * as EditorManager from '../../../../../gaea-editor-manager/gaea-editor-m
 import './event.scss'
 
 @inject('ViewportStore', 'EditorEventAction') @observer
-export default class Event extends React.Component <typings.PropsDefine, typings.StateDefine> {
+export default class Event extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
@@ -23,7 +23,7 @@ export default class Event extends React.Component <typings.PropsDefine, typings
     render() {
         const customData = this.props.isWeb ? this.props.ViewportStore.currentEditComponentInfo.props.gaeaEventData[this.props.index].typeData as FitGaea.EventTriggerEvent : this.props.ViewportStore.currentEditComponentInfo.props.gaeaNativeEventData[this.props.index].typeData as FitGaea.EventTriggerEvent
 
-        const datas = this.props.EditorEventAction.getEventListName().map(name=> {
+        const datas = this.props.EditorEventAction.getEventListName().map(name => {
             return {
                 text: name,
                 value: name
@@ -32,10 +32,10 @@ export default class Event extends React.Component <typings.PropsDefine, typings
 
         return (
             <AutoComplete value={customData.listen || ''}
-                          label="监听的事件名称"
-                          datas={datas}
-                          onChange={this.handleChange.bind(this)}
-                          onSelect={this.handleChange.bind(this)}/>
+                label="监听的事件名称"
+                datas={datas}
+                onChange={this.handleChange.bind(this)}
+                onSelect={this.handleChange.bind(this)} />
         )
     }
 }

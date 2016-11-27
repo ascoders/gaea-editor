@@ -67,7 +67,7 @@ export default class EditorEventAction {
             return
         }
 
-        const eventType = componentInfo.props.gaeaEvent.types[Number(typeIndex)]
+        const eventType = componentInfo.props.gaeaEvent.triggers[Number(typeIndex)]
 
         transaction(() => {
             _.set(componentInfo.props, `${eventDataName}.${dataIndex}.type`, eventType.type)
@@ -95,14 +95,14 @@ export default class EditorEventAction {
             return
         }
 
-        const eventAction = componentInfo.props.gaeaEvent.events[Number(eventIndex)]
+        const eventAction = componentInfo.props.gaeaEvent.effects[Number(eventIndex)]
         transaction(() => {
             _.set(componentInfo.props, `${eventDataName}.${dataIndex}.event`, eventAction.event)
             _.set(componentInfo.props, `${eventDataName}.${dataIndex}.eventIndex`, Number(eventIndex))
         })
 
         // 初始化 gaeaEvent.data
-        switch (eventAction.event) {
+        switch (eventAction.type) {
             case 'jumpUrl':
                 _.set(componentInfo.props, `${eventDataName}.${dataIndex}.eventData`, observable({
                     url: ''

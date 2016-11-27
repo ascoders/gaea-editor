@@ -10,15 +10,15 @@ The following is a complete screenshot, so you understand the principles of plug
 
 `tree.component.tsx`:
 
-![](assets/plugin-component.jpg)
+![](../assets/plugin-component.jpg)
 
 `tree.action.ts`:
 
-![](assets/plugin-action.jpg)
+![](../assets/plugin-action.jpg)
 
 `tree.store.ts`:
 
-![](assets/plugin-store.jpg)
+![](../assets/plugin-store.jpg)
 
 ## 3.1 Render to editor
 

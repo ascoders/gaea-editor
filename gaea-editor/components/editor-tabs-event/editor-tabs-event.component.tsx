@@ -120,10 +120,10 @@ export default class EditorTabsEvent extends React.Component<typings.PropsDefine
      * 生成事件配置结构
      */
     renderEventEditor(eventData: Array<FitGaea.EventData>) {
-        const typeOptions = (this.props.ViewportStore.currentEditComponentInfo.props.gaeaEvent && this.props.ViewportStore.currentEditComponentInfo.props.gaeaEvent.types) ? this.props.ViewportStore.currentEditComponentInfo.props.gaeaEvent.types.map((type, index) => {
+        const typeOptions = (this.props.ViewportStore.currentEditComponentInfo.props.gaeaEvent && this.props.ViewportStore.currentEditComponentInfo.props.gaeaEvent.triggers) ? this.props.ViewportStore.currentEditComponentInfo.props.gaeaEvent.triggers.map((trigger, index) => {
             return {
                 key: index.toString(),
-                value: type.name
+                value: trigger.name
             }
         }) : []
 
@@ -137,10 +137,10 @@ export default class EditorTabsEvent extends React.Component<typings.PropsDefine
             value: '初始化'
         })
 
-        const eventOptions = (this.props.ViewportStore.currentEditComponentInfo.props.gaeaEvent && this.props.ViewportStore.currentEditComponentInfo.props.gaeaEvent.events) ? this.props.ViewportStore.currentEditComponentInfo.props.gaeaEvent.events.map((event, index) => {
+        const eventOptions = (this.props.ViewportStore.currentEditComponentInfo.props.gaeaEvent && this.props.ViewportStore.currentEditComponentInfo.props.gaeaEvent.effects) ? this.props.ViewportStore.currentEditComponentInfo.props.gaeaEvent.effects.map((effect, index) => {
             return {
                 key: index.toString(),
-                value: event.name
+                value: effect.name
             }
         }) : []
 
@@ -199,7 +199,7 @@ export default class EditorTabsEvent extends React.Component<typings.PropsDefine
             }
 
             return (
-                <div key={index}
+                <div key={this.props.ViewportStore.currentEditComponentMapUniqueKey + '_' + index}
                     className="event-item-container">
                     <div className="event-choose-container">
                         <div className="event-label">
@@ -240,7 +240,7 @@ export default class EditorTabsEvent extends React.Component<typings.PropsDefine
         const notEmpty = this.state.editType === 'web' ? this.props.ViewportStore.currentEditComponentInfo.props.gaeaEventData.length > 0 : this.props.ViewportStore.currentEditComponentInfo.props.gaeaNativeEventData.length > 0
 
         return (
-            <div className="_namespace">
+            <div className="_namespace" key={this.props.ViewportStore.currentEditComponentMapUniqueKey}>
                 {notEmpty &&
                     <div className="event-container">
                         {Events}

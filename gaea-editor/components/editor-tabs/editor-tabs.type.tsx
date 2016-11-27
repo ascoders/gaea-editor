@@ -4,7 +4,7 @@ import EventStore from '../editor-tabs-event/store'
 
 export interface PropsDefine {
     ViewportStore?: EditorManager.ViewportStore
-    EventStore?: EventStore
+    EditorEventStore?: EventStore
     ApplicationAction?: EditorManager.ApplicationAction
 }
 
