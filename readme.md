@@ -1,20 +1,63 @@
-# 1 GaeaEditor
+# GaeaEditor
 
-A cross three end online application editor.
+A scalable web page editor.
 
-![](assets/screenshot.jpg)
+- **Adaptation**: Support all react components. Add a few lines of configuration, you can let your components in the edit menu display, and can be dragged into the view area, and edit its properties.
+- **Expand**: Support plug-ins to expand the editor for any function. Plug-ins can be inserted into any part of the editor, plug-ins can also provide slots for other plug-ins, plug-ins can create and share data flow editor, call the editor arbitrary function.
 
-# 2 Usage
+# Description
 
-## 2.1 Installation
+Editor can be divided into menu area and view area, any react component can be used as a menu item, and be dragged into the view, we can customize the configuration item, control the instantiation of the view area components properties. Clicking the Save button will invoke the `onCall` callback to output the configuration of all the components in the viewport as strings, passing that string to the `GaeaPreview` component (installed via `npm i gaea-preview --save`), which will render the runtime page.
+
+# Usage
+
+## Installation
+
+All components can be written on their own, we also provide a set of basic components of the adaptation editor called `gaea-web-components`:
 
 ```bash
-npm i gaea-editor --save
+npm i gaea-editor gaea-web-components --save
 ```
 
-## 2.2 Basic Usage
+## A simple example
 
-Install the basic components of the author, or write your own basic components.
+Write a custom component.
+
+```typescript
+import * as React from 'react'
+import GaeaEditor from 'gaea-editor'
+import webBaseComponents from 'gaea-web-components'
+
+class CustomComponent extends React.Component<any, any>{
+    static defaultProps = {
+        gaeaName: '输入框',
+        gaeaUniqueKey: 'textarea'
+    }
+
+    render() {
+        return (
+            <textarea />
+        )
+    }
+}
+
+const customComponents: Array<React.ComponentClass<FitGaea.ComponentProps>> = [CustomComponent]
+
+export default class Home extends React.Component<any, any>{
+    render() {
+        return (
+            <div style={{ height: 500 }}>
+                <GaeaEditor commonComponents={webBaseComponents} customComponents={customComponents} />
+            </div>
+        )
+    }
+}
+```
+
+
+
+
+
 
 ```bash
 npm i gaea-web-components

@@ -4,7 +4,7 @@ import * as typings from './editor-attribute-border.type'
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 import { Button, ButtonGroup } from '../../../../../web-common/button/index'
 import { Number } from '../../../../../web-common/number/index'
-import Color from '../../../components/color/color.component'
+import Color from '../../utils/color/color.component'
 import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-border.scss'
@@ -306,10 +306,10 @@ export default class EditorAttributeBorder extends React.Component<typings.Props
     }
 
     render() {
-        if (this.props.ViewportStore.currentEditComponentMapUniqueKey===null){
+        if (this.props.ViewportStore.currentEditComponentMapUniqueKey === null) {
             return null
         }
-        
+
         const borderRadius = this.getCommonBorderRadius()
         const commonBorder = this.getCommonBorder()
 

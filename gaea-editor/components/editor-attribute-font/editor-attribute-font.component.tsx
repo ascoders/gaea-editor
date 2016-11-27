@@ -6,7 +6,7 @@ import { Select } from '../../../../../web-common/select/index'
 import { Tooltip } from '../../../../../web-common/tooltip/index'
 import { ButtonGroup, Button } from '../../../../../web-common/button/index'
 import { Number } from '../../../../../web-common/number/index'
-import Color from '../../../components/color/color.component'
+import Color from '../../utils/color/color.component'
 import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-font.scss'

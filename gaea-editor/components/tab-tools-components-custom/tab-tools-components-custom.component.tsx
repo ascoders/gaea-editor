@@ -4,7 +4,7 @@ import * as typings from './tab-tools-components-custom.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './tab-tools-components-custom.scss'
 
@@ -23,8 +23,8 @@ export default class TabToolsComponentsCommon extends React.Component<typings.Pr
         const CommonDraggableItems = this.props.ApplicationStore.customComponents.map((ComponentClass, index) => {
             return (
                 <div key={index}
-                     data-unique-key={ComponentClass.defaultProps.gaeaUniqueKey}
-                     className="component-draggable-item">
+                    data-unique-key={ComponentClass.defaultProps.gaeaUniqueKey}
+                    className="component-draggable-item">
                     {ComponentClass.defaultProps.gaeaName}
                 </div>
             )

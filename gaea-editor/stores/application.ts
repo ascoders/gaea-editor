@@ -30,6 +30,9 @@ export default class ApplicationStore {
                 ComponentClass.defaultProps = _.merge(ComponentClass.defaultProps, this.editorProps.customOptions[ComponentClass.name])
                 return ComponentClass
             })
+        } else {
+            // 否则直接赋值
+            this.customComponents = this.editorProps.customComponents
         }
 
         // 拓展插件

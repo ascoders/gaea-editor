@@ -15,6 +15,11 @@ export default class ViewportSize extends React.Component<typings.PropsDefine, t
 
     static position = 'navbarRight'
 
+    componentWillMount() {
+        this.props.GlobalSettingAction.changeFitInWeb(this.props.GlobalSettingStore.fitInWeb)
+        this.props.GlobalSettingAction.setViewportSize(this.props.GlobalSettingStore.viewportWidth, this.props.GlobalSettingStore.viewportHeight)
+    }
+
     @autoBindMethod changeFitInWeb(type: string) {
         this.props.GlobalSettingAction.changeFitInWeb(type)
     }
