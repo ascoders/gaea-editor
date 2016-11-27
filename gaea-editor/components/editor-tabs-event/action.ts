@@ -97,7 +97,7 @@ export default class EditorEventAction {
 
         const eventAction = componentInfo.props.gaeaEvent.effects[Number(eventIndex)]
         transaction(() => {
-            _.set(componentInfo.props, `${eventDataName}.${dataIndex}.event`, eventAction.event)
+            _.set(componentInfo.props, `${eventDataName}.${dataIndex}.event`, eventAction.type)
             _.set(componentInfo.props, `${eventDataName}.${dataIndex}.eventIndex`, Number(eventIndex))
         })
 
