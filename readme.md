@@ -101,4 +101,4 @@ export default class Production extends React.Component <any, any> {
 
 # Development
 
-If you want to extend the plug-in, look at the [developer documentation](<docs/develop.md>)
+If you want to extend the plug-in, look at the [developer documentation](<docs/develop.md>).
