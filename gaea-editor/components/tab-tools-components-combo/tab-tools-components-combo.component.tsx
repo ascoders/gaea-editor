@@ -8,7 +8,7 @@ import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager
 import Action from './action'
 import Store from './store'
 
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import {autoBindMethod} from 'nt-auto-bind'
 
 import './tab-tools-components-combo.scss'
 

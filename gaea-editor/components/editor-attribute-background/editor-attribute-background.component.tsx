@@ -3,7 +3,7 @@ import * as typings from './editor-attribute-background.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 import Color from '../../utils/color/color.component'
-import { autoBindMethod } from '../../../../../common/auto-bind/index'
+import { autoBindMethod } from 'nt-auto-bind'
 
 import './editor-attribute-background.scss'
 

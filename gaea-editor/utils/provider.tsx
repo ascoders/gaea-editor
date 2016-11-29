@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Provider } from 'mobx-react'
 import { PropsDefine as EditorPropsDefine } from '../gaea-editor.type'
 import * as _ from 'lodash'
-import injectInstance from '../../../../common/inject-instance/index'
+import injectInstance from 'inject-instance'
 
 import PluginGlobalSetting from '../components/global-setting/global-setting.component'
 import PluginTabTools from '../components/tab-tools/tab-tools.component'

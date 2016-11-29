@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import Provider from './utils/provider'
 import Page from './page/page.component'
 
-import {autoBindMethod} from '../../../common/auto-bind/index'
+import {autoBindMethod} from 'nt-auto-bind'
 
 import './gaea-editor.scss'
 

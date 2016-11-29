@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 import * as typings from './edit-helper.type'
 import {observer, inject} from 'mobx-react'
 
-import {autoBindMethod} from '../../../../../../common/auto-bind/index'
+import {autoBindMethod} from 'nt-auto-bind'
 
 import './edit-helper.scss'
 

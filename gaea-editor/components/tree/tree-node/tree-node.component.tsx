@@ -4,9 +4,9 @@ import * as typings from './tree-node.type'
 import * as classNames from 'classnames'
 
 import * as EditorManager from '../../../../gaea-editor-manager/gaea-editor-manager'
-import { autoBindMethod } from '../../../../../../common/auto-bind/index'
+import { autoBindMethod } from 'nt-auto-bind'
 
-import { TreeNode } from '../../../../../../web-common/tree/index'
+import { TreeNode } from 'nt-web-tree'
 
 import './tree-node.scss'
 

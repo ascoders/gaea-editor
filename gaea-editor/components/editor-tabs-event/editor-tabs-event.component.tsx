@@ -4,9 +4,9 @@ import * as _ from 'lodash'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import { Button, ButtonGroup } from '../../../../../web-common/button/index'
-import { Select } from '../../../../../web-common/select/index'
-import { Tooltip } from '../../../../../web-common/tooltip/index'
+import { Button, ButtonGroup } from 'nt-web-button'
+import { Select } from 'nt-web-select'
+import { Tooltip } from 'nt-web-tooltip'
 
 import JumpUrlEvent from './event-components/jump-url/jump-url.component'
 import CallEvent from './event-components/call/call.component'

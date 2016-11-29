@@ -2,9 +2,9 @@ import * as React from 'react'
 import * as typings from './publish.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import Modal from '../../../../../web-common/modal/index'
-import Select from '../../../../../web-common/select/index'
-import { autoBindMethod } from '../../../../../common/auto-bind/index'
+import Modal from 'nt-web-modal'
+import Select from 'nt-web-select'
+import { autoBindMethod } from 'nt-auto-bind'
 
 import Action from './action'
 import Store from './store'
