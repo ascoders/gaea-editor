@@ -14,5 +14,5 @@ export default class TabToolsVersionStore {
     /**
      * 当前版本号
      */
-    @observable currentVersion: string
+    currentVersion: string
 }

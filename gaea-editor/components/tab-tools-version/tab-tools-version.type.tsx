@@ -9,6 +9,8 @@ export interface PropsDefine {
     ApplicationStore?: EditorManager.ApplicationStore
     ApplicationAction?: EditorManager.ApplicationAction
     TabToolsVersionAction?: TabToolsVersionAction
+    EventStore?: EditorManager.EventStore
+    EventAction?: EditorManager.EventAction
 }
 
 export class Props implements PropsDefine {

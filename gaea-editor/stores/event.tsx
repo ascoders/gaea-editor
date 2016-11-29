@@ -1,4 +1,4 @@
-import {observable} from 'mobx'
+import { observable } from 'mobx'
 
 export default class EventStore {
     // 鼠标离开视图区域
@@ -12,4 +12,7 @@ export default class EventStore {
 
     // 某个视图中元素 dom 位置发生了变化
     @observable viewportDomUpdate = 'viewportDomUpdate'
+
+    // 页面冲渲染
+    @observable refreshPage = 'refreshPage'
 }

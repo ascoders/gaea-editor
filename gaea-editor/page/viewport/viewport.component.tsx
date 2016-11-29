@@ -2,21 +2,40 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as typings from './viewport.type'
 import * as classNames from 'classnames'
-import {observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 import * as LZString from 'lz-string'
 
-import {autoBindMethod} from 'nt-auto-bind'
+import { autoBindMethod } from 'nt-auto-bind'
 
 import EditHelper from './edit-helper/edit-helper.component'
 
 import './viewport.scss'
 
 @observer(['ApplicationStore', 'ViewportStore', 'EventStore', 'ApplicationAction', 'EventAction', 'ViewportAction'])
-export default class Viewport extends React.Component <typings.PropsDefine, typings.StateDefine> {
+export default class Viewport extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
     componentWillMount() {
+        this.freshView()
+        this.props.EventAction.on(this.props.EventStore.refreshPage, this.refreshView)
+    }
+
+    componentWillUnmount() {
+        this.props.EventAction.off(this.props.EventStore.refreshPage, this.refreshView)
+    }
+
+    /**
+     * 重刷新页面
+     */
+    @autoBindMethod refreshView() {
+
+    }
+
+    /**
+     * 刷新整个视图
+     */
+    freshView() {
         if (this.props.ApplicationStore.pageValue === 'empty') {
             // 还没有初始化
             return
@@ -77,10 +96,6 @@ export default class Viewport extends React.Component <typings.PropsDefine, typi
         }
     }
 
-    componentDidMount() {
-
-    }
-
     /**
      * 获取自己的实例
      */
@@ -113,9 +128,9 @@ export default class Viewport extends React.Component <typings.PropsDefine, typi
 
         return (
             <div className={classes}
-                 onMouseLeave={this.handleMouseLeave}
-                 ref={this.getRootRef}>
-                <EditHelper mapUniqueKey={this.props.ViewportStore.rootMapUniqueKey}/>
+                onMouseLeave={this.handleMouseLeave}
+                ref={this.getRootRef}>
+                <EditHelper mapUniqueKey={this.props.ViewportStore.rootMapUniqueKey} />
             </div>
         )
     }

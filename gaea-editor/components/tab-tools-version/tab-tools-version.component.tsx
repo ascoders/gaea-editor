@@ -11,7 +11,7 @@ import { autoBindMethod } from 'nt-auto-bind'
 
 import './tab-tools-version.scss'
 
-@EditorManager.observer(['TabToolsVersionStore', 'ApplicationStore', 'ApplicationAction', 'TabToolsVersionAction'])
+@EditorManager.observer(['TabToolsVersionStore', 'ApplicationStore', 'ApplicationAction', 'TabToolsVersionAction', 'EventStore', 'EventAction'])
 export default class TabToolsVersion extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
@@ -36,6 +36,7 @@ export default class TabToolsVersion extends React.Component<typings.PropsDefine
     handlePreviewVersion(version: string) {
         this.props.ApplicationStore.editorProps.onPreviewVersion(version, content => {
             this.props.ApplicationAction.updatePage(content)
+            this.props.EventAction.emit(this.props.EventStore.refreshPage)
         })
     }
 
