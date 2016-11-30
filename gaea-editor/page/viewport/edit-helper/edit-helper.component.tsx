@@ -50,11 +50,14 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         this.domInstance.addEventListener('mouseover', this.handleMouseOver)
         this.domInstance.addEventListener('click', this.handleClick)
 
-        this.props.EventAction.on(`${this.props.EventStore.viewportDomUpdate}.${this.props.mapUniqueKey}`, this.updateDom)
+        if (this.isAbsolute()) {
+            // 绝对定位元素可以拖拽
+            this.domInstance.addEventListener('mousedown', this.handleMouseDown)
+            this.domInstance.addEventListener('mousemove', this.handleMouseMove)
+            this.domInstance.addEventListener('mouseup', this.handleMouseUp)
+        }
 
-        // this.domInstance.addEventListener('mousedown', this.handleMouseDown)
-        // this.domInstance.addEventListener('mousemove', this.handleMouseMove)
-        // this.domInstance.addEventListener('mouseup', this.handleMouseUp)
+        this.props.EventAction.on(`${this.props.EventStore.viewportDomUpdate}.${this.props.mapUniqueKey}`, this.updateDom)
 
         // 增加统一 class
         this.domInstance.className += ' _namespace'
@@ -86,10 +89,23 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         this.domInstance.removeEventListener('mouseover', this.handleMouseOver)
         this.domInstance.removeEventListener('click', this.handleClick)
 
+        if (this.isAbsolute()){
+            this.domInstance.removeEventListener('mousedown', this.handleMouseDown)
+            this.domInstance.removeEventListener('mousemove', this.handleMouseMove)
+            this.domInstance.removeEventListener('mouseup', this.handleMouseUp)
+        }
+
         this.props.EventAction.off(`${this.props.EventStore.viewportDomUpdate}.${this.props.mapUniqueKey}`, this.updateDom)
 
         // 在 dom 列表中移除
         this.props.ViewportAction.removeDomInstance(this.props.mapUniqueKey)
+    }
+
+    /**
+     * 判断是否是绝对定位
+     */
+    isAbsolute(){
+        return this.componentInfo.props.style && this.componentInfo.props.style.position === 'absolute'
     }
 
     /**
@@ -165,6 +181,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     @autoBindMethod handleMouseDown(event: MouseEvent) {
         event.preventDefault()
 
+
         if (this.componentInfo.props.style.position === 'gaea-draggable') {
             return
         }
@@ -186,11 +203,11 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         }
 
         // 拖动的元素一定是 absolute 的，直接修改位置
-        const diffX = this.lastClientX === null ? 0 : event.clientX - this.lastClientX
-        const diffY = this.lastClientY === null ? 0 : event.clientY - this.lastClientY
-
-        this.lastClientX = event.clientX
-        this.lastClientY = event.clientY
+        // const diffX = this.lastClientX === null ? 0 : event.clientX - this.lastClientX
+        // const diffY = this.lastClientY === null ? 0 : event.clientY - this.lastClientY
+        //
+        // this.lastClientX = event.clientX
+        // this.lastClientY = event.clientY
 
         //this.props.ViewportStore.updateAbsoluteXY(this.props.mapUniqueKey, diffX, diffY)
         //this.props.ViewportStore.setIsMovingComponent(false)
@@ -203,9 +220,9 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
             return
         }
 
-        this.startDrag = false
-        this.lastClientX = null as number
-        this.lastClientY = null as number
+        // this.startDrag = false
+        // this.lastClientX = null as number
+        // this.lastClientY = null as number
         //this.props.ViewportStore.writeHistory(this.props.mapUniqueKey)
     }
 

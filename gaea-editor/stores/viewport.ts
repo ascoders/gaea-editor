@@ -37,7 +37,7 @@ export default class ViewportStore {
     @observable showEditComponents = false
 
     // 布局元素是否高亮
-    @observable isLayoutComponentActive = false
+    @observable isLayoutComponentActive = true
 
     // 当前编辑元素的寻找路径
     @computed get currentEditComponentPath() {
