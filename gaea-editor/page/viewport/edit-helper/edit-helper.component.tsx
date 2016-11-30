@@ -2,21 +2,11 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as typings from './edit-helper.type'
 import {observer, inject} from 'mobx-react'
+import {hasClass, removeClass} from '../../../utils/dom'
 
 import {autoBindMethod} from 'nt-auto-bind'
 
 import './edit-helper.scss'
-
-const hasClass = (obj: HTMLElement, cls: string) => {
-    return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
-}
-
-const removeClass = (obj: HTMLElement, cls: string) => {
-    if (hasClass(obj, cls)) {
-        var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
-        obj.className = obj.className.replace(reg, ' ')
-    }
-}
 
 @observer(['ApplicationStore', 'ViewportStore', 'EventStore', 'ApplicationAction', 'EventAction', 'ViewportAction'])
 export default class EditHelper extends React.Component <typings.PropsDefine, typings.StateDefine> {
@@ -225,7 +215,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
 
         // 布局元素可以有子元素
         if (this.componentInfo.props.canDragIn && this.componentInfo.layoutChilds) {
-            childs = this.componentInfo.layoutChilds.map(layoutChildUniqueMapKey=> {
+            childs = this.componentInfo.layoutChilds.map(layoutChildUniqueMapKey => {
                 return (
                     <EditHelper.ObserveEditHelper key={layoutChildUniqueMapKey}
                                                   mapUniqueKey={layoutChildUniqueMapKey}
@@ -245,7 +235,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         delete componentProps.gaeaUniqueKey
         delete componentProps.gaeaVariables
 
-        componentProps.ref = (ref: React.ReactInstance)=> {
+        componentProps.ref = (ref: React.ReactInstance) => {
             this.wrappedInstance = ref
         }
 
