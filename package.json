@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "盖亚",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
