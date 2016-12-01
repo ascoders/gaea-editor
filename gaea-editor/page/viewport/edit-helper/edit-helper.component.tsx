@@ -1,15 +1,15 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as typings from './edit-helper.type'
-import {observer, inject} from 'mobx-react'
-import {hasClass, removeClass} from '../../../utils/dom'
+import { observer, inject } from 'mobx-react'
+import { hasClass, removeClass } from '../../../utils/dom'
 
-import {autoBindMethod} from 'nt-auto-bind'
+import { autoBindMethod } from 'nt-auto-bind'
 
 import './edit-helper.scss'
 
 @observer(['ApplicationStore', 'ViewportStore', 'EventStore', 'ApplicationAction', 'EventAction', 'ViewportAction'])
-export default class EditHelper extends React.Component <typings.PropsDefine, typings.StateDefine> {
+export default class EditHelper extends React.Component<typings.PropsDefine, typings.StateDefine> {
     static defaultProps: typings.PropsDefine = new typings.Props()
     public state: typings.StateDefine = new typings.State()
 
@@ -89,7 +89,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         this.domInstance.removeEventListener('mouseover', this.handleMouseOver)
         this.domInstance.removeEventListener('click', this.handleClick)
 
-        if (this.isAbsolute()){
+        if (this.isAbsolute()) {
             this.domInstance.removeEventListener('mousedown', this.handleMouseDown)
             this.domInstance.removeEventListener('mousemove', this.handleMouseMove)
             this.domInstance.removeEventListener('mouseup', this.handleMouseUp)
@@ -104,7 +104,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     /**
      * 判断是否是绝对定位
      */
-    isAbsolute(){
+    isAbsolute() {
         return this.componentInfo.props.style && this.componentInfo.props.style.position === 'absolute'
     }
 
@@ -155,7 +155,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         this.props.EventAction.emit(this.props.EventStore.mouseHoveringComponent, {
             mapUniqueKey: this.props.mapUniqueKey,
             type: 'component'
-        }as FitGaea.MouseHoverComponentEvent)
+        } as FitGaea.MouseHoverComponentEvent)
 
         this.props.ViewportAction.setCurrentHoverComponentMapUniqueKey(this.props.mapUniqueKey)
     }
@@ -179,7 +179,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
      * :TODO 绝对定位移动
      */
     @autoBindMethod handleMouseDown(event: MouseEvent) {
-        event.preventDefault()
+        //event.preventDefault()
 
 
         if (this.componentInfo.props.style.position === 'gaea-draggable') {
@@ -192,7 +192,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     }
 
     @autoBindMethod handleMouseMove(event: MouseEvent) {
-        event.preventDefault()
+        //event.preventDefault()
 
         if (this.componentInfo.props.style.position === 'gaea-draggable') {
             return
@@ -205,7 +205,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
         // 拖动的元素一定是 absolute 的，直接修改位置
         // const diffX = this.lastClientX === null ? 0 : event.clientX - this.lastClientX
         // const diffY = this.lastClientY === null ? 0 : event.clientY - this.lastClientY
-        //
+
         // this.lastClientX = event.clientX
         // this.lastClientY = event.clientY
 
@@ -214,7 +214,7 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
     }
 
     @autoBindMethod handleMouseUp(event: MouseEvent) {
-        event.preventDefault()
+        //event.preventDefault()
 
         if (this.componentInfo.props.style.position === 'gaea-draggable') {
             return
@@ -235,8 +235,8 @@ export default class EditHelper extends React.Component <typings.PropsDefine, ty
             childs = this.componentInfo.layoutChilds.map(layoutChildUniqueMapKey => {
                 return (
                     <EditHelper.ObserveEditHelper key={layoutChildUniqueMapKey}
-                                                  mapUniqueKey={layoutChildUniqueMapKey}
-                                                  ref={`edit-${layoutChildUniqueMapKey}`}/>
+                        mapUniqueKey={layoutChildUniqueMapKey}
+                        ref={`edit-${layoutChildUniqueMapKey}`} />
                 )
             })
         }

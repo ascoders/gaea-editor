@@ -124,7 +124,7 @@ export default class ProviderContainer extends React.Component<ProviderContainer
         instances.forEach(instance => {
             if (_.endsWith(instance.constructor.name, 'Action')) {
                 // 执行 onInit 生命周期
-                instance.onInit && instance.onInit()
+                instance.onInit && instance.onInit.call(instance)
             }
         })
 

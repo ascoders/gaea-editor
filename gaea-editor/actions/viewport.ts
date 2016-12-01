@@ -1,5 +1,5 @@
-import {inject} from 'inject-instance'
-import {action, observable, extendObservable, transaction, map, asMap, isObservable} from 'mobx'
+import { inject } from 'inject-instance'
+import { action, observable, extendObservable, transaction, map, asMap, isObservable, autorun, observe } from 'mobx'
 import ViewportStore from '../stores/viewport'
 import ApplicationAction from '../actions/application'
 import EventAction from '../actions/event'
@@ -7,7 +7,7 @@ import EventStore from '../stores/event'
 import * as Sortable from 'sortablejs'
 import * as _ from 'lodash'
 import * as LZString from 'lz-string'
-import {hasClass, removeClass} from '../utils/dom'
+import { hasClass, removeClass } from '../utils/dom'
 
 export default class ViewportAction {
     @inject('ViewportStore') private viewport: ViewportStore
@@ -16,6 +16,32 @@ export default class ViewportAction {
     @inject('EventStore') private event: EventStore
 
     @observable observableClass = true
+
+    onInit() {
+        // 监听当前编辑组件变化
+        observe(this.viewport, 'currentEditComponentMapUniqueKey', (newValue: string, oldValue: string) => {
+            // 过 150 毫秒再显示编辑区域，不让动画被阻塞
+            setTimeout(() => {
+                this.viewport.showEditComponents = !!newValue
+            }, 150)
+
+            const selectClass = 'gaea-selected'
+
+            // 把上一个元素选中样式置空
+            if (oldValue !== null) {
+                const prevEditDom = this.viewport.componentDomInstances.get(oldValue)
+                if (hasClass(prevEditDom, selectClass)) {
+                    removeClass(prevEditDom, selectClass)
+                }
+            }
+
+            // 设置新元素为选中样式
+            if (newValue !== null) {
+                const nextEditDom = this.viewport.componentDomInstances.get(newValue)
+                nextEditDom.className += ` ${selectClass}`
+            }
+        })
+    }
 
     @action('设置根节点唯一标识') setRootMapUniqueKey(mapUniqueKey: string) {
         this.viewport.rootMapUniqueKey = mapUniqueKey
@@ -218,27 +244,6 @@ export default class ViewportAction {
         // 如果和当前正在编辑元素相同，不做操作
         if (this.viewport.currentEditComponentMapUniqueKey === mapUniqueKey) {
             return
-        }
-
-        // 过 150 毫秒再显示编辑区域，不让动画被阻塞
-        setTimeout(() => {
-            this.viewport.showEditComponents = !!mapUniqueKey
-        }, 150)
-
-        const selectClass = 'gaea-selected'
-
-        // 把上一个元素选中样式置空
-        if (this.viewport.currentEditComponentMapUniqueKey !== null) {
-            const prevEditDom = this.viewport.componentDomInstances.get(this.viewport.currentEditComponentMapUniqueKey)
-            if (hasClass(prevEditDom, selectClass)) {
-                removeClass(prevEditDom, selectClass)
-            }
-        }
-
-        // 设置新元素为选中样式
-        if (mapUniqueKey!==null){
-            const nextEditDom = this.viewport.componentDomInstances.get(mapUniqueKey)
-            nextEditDom.className += ` ${selectClass}`
         }
 
         // 修改 mapUniqueKey
