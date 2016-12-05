@@ -8,3 +8,9 @@ export function removeClass(obj: HTMLElement, cls: string) {
         obj.className = obj.className.replace(reg, ' ')
     }
 }
+
+export function addClass(obj: HTMLElement, cls: string) {
+    if (!hasClass(obj, cls)) {
+        obj.className += ` ${cls}`
+    }
+}

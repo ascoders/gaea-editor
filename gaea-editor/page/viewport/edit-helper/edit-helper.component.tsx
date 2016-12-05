@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as typings from './edit-helper.type'
 import { observer, inject } from 'mobx-react'
-import { hasClass, removeClass } from '../../../utils/dom'
+import { hasClass, removeClass, addClass } from '../../../utils/dom'
 
 import { autoBindMethod } from 'nt-auto-bind'
 
@@ -119,23 +119,21 @@ export default class EditHelper extends React.Component<typings.PropsDefine, typ
      * 如果是 absolute 布局，加上 absolute class
      */
     @autoBindMethod setDragableClassIfNeed() {
-        if (!this.componentInfo.props.style || !this.componentInfo.props.style.position) {
-            if (!hasClass(this.domInstance, 'gaea-draggable')) {
-                this.domInstance.className += ' gaea-draggable'
+        if (!this.componentInfo.props.style) { // 没有 style 属性，可以拖拽
+            addClass(this.domInstance, 'gaea-draggable')
+        } else { // 有 style 属性
+            if (!this.componentInfo.props.style.position) { // 没有 position 属性，可以拖拽
+                addClass(this.domInstance, 'gaea-draggable')
+            } else if (this.componentInfo.props.style.position === 'absolute' || this.componentInfo.props.style.position === 'fixed') { // absolute 没有拖拽
+                removeClass(this.domInstance, 'gaea-draggable')
+            } else { // 其它 position 可以拖拽
+                addClass(this.domInstance, 'gaea-draggable')
             }
-            return
-        }
-
-        // 给绝对定位元素增加 absolute class，避免 sortable 响应
-        if (this.componentInfo.props.style.position !== 'absolute' && !hasClass(this.domInstance, 'gaea-draggable')) {
-            this.domInstance.className += ' gaea-draggable'
-        } else if (this.componentInfo.props.style.position === 'absolute' && hasClass(this.domInstance, 'gaea-draggable')) {
-            removeClass(this.domInstance, 'gaea-draggable')
         }
     }
 
     /**
-     * 如果是布局容器，添加 class
+     * 如果是布局容器，且不是最外层元素，添加 gaea-layout class，用于添加布局样式
      */
     @autoBindMethod setLayoutClassIfCanDragIn() {
         if (this.componentInfo.props.canDragIn && this.componentInfo.parentMapUniqueKey !== null) {
@@ -158,14 +156,6 @@ export default class EditHelper extends React.Component<typings.PropsDefine, typ
         } as FitGaea.MouseHoverComponentEvent)
 
         this.props.ViewportAction.setCurrentHoverComponentMapUniqueKey(this.props.mapUniqueKey)
-    }
-
-    /**
-     * 让树视图高亮框移动到自己身上
-     */
-    @autoBindMethod outerMoveBoxToSelf() {
-        // TODO
-        // this.props.ViewportStore.setHoverComponent(this.domInstance)
     }
 
     @autoBindMethod handleClick(event: MouseEvent) {
