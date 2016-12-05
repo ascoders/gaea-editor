@@ -15,7 +15,7 @@ export default class GaeaEditor extends React.Component<typings.PropsDefine, typ
     public state: typings.StateDefine = new typings.State()
 
     render() {
-        // 注入 actions 与 stores
+        // inject actions and stores
         return (
             <Provider gaeaProps={this.props}>
                 <Page />
