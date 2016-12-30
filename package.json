@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "盖亚",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -39,7 +39,7 @@
     "nt-web-tree": "^1.0.5",
     "gaea-preview": "^1.0.18",
     "react-color": "^2.3.2",
-    "gaea-model": "^1.0.27"
+    "gaea-model": "^1.0.28"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0",
