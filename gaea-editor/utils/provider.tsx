@@ -121,14 +121,15 @@ export default class ProviderContainer extends React.Component<ProviderContainer
          */
         const instances = injectInstance(EventAction, ApplicationAction, ViewportAction, EventStore, ApplicationStore, ViewportStore, ...pluginActionStores)
 
+        // 先初始化 applicationStore
+        instances.get('ApplicationStore').init(this.props.gaeaProps, pluginList)
+
         instances.forEach(instance => {
             if (_.endsWith(instance.constructor.name, 'Action')) {
                 // 执行 onInit 生命周期
                 instance.onInit && instance.onInit.call(instance)
             }
         })
-
-        instances.get('ApplicationStore').init(this.props.gaeaProps, pluginList)
 
         /**
          * mobx 注入核心框架的数据流

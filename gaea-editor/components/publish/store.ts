@@ -4,5 +4,5 @@ export default class PublishStore {
     @inject('ApplicationStore') private application: ApplicationStore
 
     // 当前版本号
-    @observable currentVersion = this.application.editorProps && this.application.editorProps.currentVersion
+    @observable currentVersion = '0.0.0'
 }
