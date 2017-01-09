@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "盖亚",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -30,7 +30,7 @@
     "nt-web-margin-padding-editor": "^1.1.6",
     "nt-web-switch": "^1.0.5",
     "nt-web-input": "^1.0.6",
-    "nt-web-tabs": "^1.0.6",
+    "nt-web-tabs": "^1.0.7",
     "nt-web-modal": "^0.0.5",
     "mobx-react": "^3.5.5",
     "nt-web-auto-complete": "^1.0.0",
