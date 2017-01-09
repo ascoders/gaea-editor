@@ -4,7 +4,7 @@ import * as keymaster from 'keymaster'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import { autoBindMethod } from '../../../../../common/auto-bind/index'
+import { autoBindMethod } from 'nt-auto-bind'
 
 import './save.scss'
 

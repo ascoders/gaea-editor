@@ -2,8 +2,8 @@ import * as React from 'react'
 import * as typings from './editor-attribute-margin-padding.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import MarginPaddingEditor from '../../../../../web-common/margin-padding-editor/index'
-import { autoBindMethod } from '../../../../../common/auto-bind/index'
+import MarginPaddingEditor from 'nt-web-margin-padding-editor'
+import { autoBindMethod } from 'nt-auto-bind'
 
 import './editor-attribute-margin-padding.scss'
 

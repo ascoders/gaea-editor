@@ -3,8 +3,8 @@ import * as typings from './color.type'
 import {observer, inject} from 'mobx-react'
 
 import {ChromePicker} from 'react-color'
-import {autoBindMethod} from '../../../../../common/auto-bind/index'
-import Tooltip from '../../../../../web-common/tooltip/index'
+import {autoBindMethod} from 'nt-auto-bind'
+import Tooltip from 'nt-web-tooltip'
 
 import './color.scss'
 

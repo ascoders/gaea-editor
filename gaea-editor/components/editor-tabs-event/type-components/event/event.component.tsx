@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as typings from './event.type'
 import { observer, inject } from 'mobx-react'
 
-import AutoComplete from '../../../../../../../web-common/auto-complete/index'
+import AutoComplete from 'nt-web-auto-complete'
 
 import * as EditorManager from '../../../../../gaea-editor-manager/gaea-editor-manager'
 

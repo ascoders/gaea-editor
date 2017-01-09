@@ -2,8 +2,8 @@ import * as React from 'react'
 import * as typings from './editor-attribute-switch.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import { Switch } from '../../../../../web-common/switch/index'
-import { autoBindMethod } from '../../../../../common/auto-bind/index'
+import { Switch } from 'nt-web-switch'
+import { autoBindMethod } from 'nt-auto-bind'
 
 import './editor-attribute-switch.scss'
 

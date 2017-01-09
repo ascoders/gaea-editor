@@ -1,4 +1,4 @@
-import { inject } from '../../../../common/inject-instance/index'
+import { inject } from 'inject-instance'
 import { observable, computed, map, transaction, ObservableMap, extendObservable, action } from 'mobx'
 
 export default class ViewportStore {

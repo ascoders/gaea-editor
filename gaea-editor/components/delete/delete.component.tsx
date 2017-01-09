@@ -4,8 +4,8 @@ import * as keymaster from 'keymaster'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import { autoBindMethod } from '../../../../../common/auto-bind/index'
-import notice from '../../../../../web-common/message/index'
+import { autoBindMethod } from 'nt-auto-bind'
+import notice from 'nt-web-message'
 
 import './delete.scss'
 

@@ -2,11 +2,11 @@ import * as React from 'react'
 import * as typings from './editor-attribute-layout.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import { Button, ButtonGroup } from '../../../../../web-common/button/index'
-import { Tooltip } from '../../../../../web-common/tooltip/index'
-import { Checkbox } from '../../../../../web-common/checkbox/index'
-import { Number } from '../../../../../web-common/number/index'
-import { autoBindMethod } from '../../../../../common/auto-bind/index'
+import { Button, ButtonGroup } from 'nt-web-button'
+import { Tooltip } from 'nt-web-tooltip'
+import { Checkbox } from 'nt-web-checkbox'
+import { Number } from 'nt-web-number'
+import { autoBindMethod } from 'nt-auto-bind'
 
 import './editor-attribute-layout.scss'
 
