@@ -5,8 +5,8 @@ import * as typings from './tree.type'
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
 import TreeNode from './tree-node/tree-node.component'
-import { Tree } from 'nt-web-tree'
-import { autoBindMethod } from 'nt-auto-bind'
+import { Tree } from '../../../../../web-common/tree/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import TreeAction from './action'
 import TreeStore from './store'

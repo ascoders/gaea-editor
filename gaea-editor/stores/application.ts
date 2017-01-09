@@ -1,4 +1,4 @@
-import { inject } from 'inject-instance'
+import { inject } from '../../../../common/inject-instance/index'
 import { observable } from 'mobx'
 import { PropsDefine } from '../gaea-editor.type'
 import * as _ from 'lodash'

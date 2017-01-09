@@ -3,7 +3,7 @@ import * as typings from './update-props.type'
 import {observer, inject} from 'mobx-react'
 import * as _ from 'lodash'
 
-import {Button} from 'nt-web-button'
+import {Button} from '../../../../../../../web-common/button/index'
 
 import * as EditorManager from '../../../../../gaea-editor-manager/gaea-editor-manager'
 import Action from '../../action'

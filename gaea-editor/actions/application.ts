@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { inject } from 'inject-instance'
+import { inject } from '../../../../common/inject-instance/index'
 import { action, extendObservable, observable } from 'mobx'
 import ApplicationStore from '../stores/application'
 import deepDiff from '../utils/deep-diff'

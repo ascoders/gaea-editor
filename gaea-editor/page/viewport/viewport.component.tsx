@@ -5,7 +5,7 @@ import * as classNames from 'classnames'
 import { observer } from 'mobx-react'
 import * as LZString from 'lz-string'
 
-import { autoBindMethod } from 'nt-auto-bind'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import EditHelper from './edit-helper/edit-helper.component'
 

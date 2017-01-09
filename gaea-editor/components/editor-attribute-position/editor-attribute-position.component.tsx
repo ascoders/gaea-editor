@@ -2,10 +2,10 @@ import * as React from 'react'
 import * as typings from './editor-attribute-position.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import { ButtonGroup, Button } from 'nt-web-button'
-import { Number } from 'nt-web-number'
-import { Tooltip } from 'nt-web-tooltip'
-import { autoBindMethod } from 'nt-auto-bind'
+import { ButtonGroup, Button } from '../../../../../web-common/button/index'
+import { Number } from '../../../../../web-common/number/index'
+import { Tooltip } from '../../../../../web-common/tooltip/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-position.scss'
 

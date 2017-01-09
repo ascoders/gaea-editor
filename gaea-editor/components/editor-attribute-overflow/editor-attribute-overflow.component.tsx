@@ -2,9 +2,9 @@ import * as React from 'react'
 import * as typings from './editor-attribute-overflow.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import { Button, ButtonGroup } from 'nt-web-button'
-import { Tooltip } from 'nt-web-tooltip'
-import { autoBindMethod } from 'nt-auto-bind'
+import { Button, ButtonGroup } from '../../../../../web-common/button/index'
+import { Tooltip } from '../../../../../web-common/tooltip/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-overflow.scss'
 

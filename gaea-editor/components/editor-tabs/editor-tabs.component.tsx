@@ -3,7 +3,7 @@ import * as typings from './editor-tabs.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import { TabPanel, Tabs } from 'nt-web-tabs'
+import { TabPanel, Tabs } from '../../../../../web-common/tabs/index'
 
 import './editor-tabs.scss'
 

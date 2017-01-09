@@ -4,7 +4,7 @@ import * as typings from './tab-tools-components-custom.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import { autoBindMethod } from 'nt-auto-bind'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './tab-tools-components-custom.scss'
 

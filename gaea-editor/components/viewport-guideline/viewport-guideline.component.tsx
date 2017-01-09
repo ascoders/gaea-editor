@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as typings from './viewport-guideline.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import { autoBindMethod } from 'nt-auto-bind'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './viewport-guideline.scss'
 

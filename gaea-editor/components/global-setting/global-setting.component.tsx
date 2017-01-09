@@ -3,8 +3,8 @@ import * as typings from './global-setting.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import { autoBindMethod } from 'nt-auto-bind'
-import { Modal } from 'nt-web-modal'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
+import { Modal } from '../../../../../web-common/modal/index'
 import Color from '../../utils/color/color.component'
 
 import Action from './action'

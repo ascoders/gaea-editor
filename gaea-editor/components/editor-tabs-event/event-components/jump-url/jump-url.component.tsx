@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as typings from './jump-url.type'
 import { observer, inject } from 'mobx-react'
 
-import Input from 'nt-web-input'
+import Input from '../../../../../../../web-common/input/index'
 
 import * as EditorManager from '../../../../../gaea-editor-manager/gaea-editor-manager'
 import Action from '../../action'

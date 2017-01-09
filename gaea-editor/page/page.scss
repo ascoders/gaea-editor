@@ -21,6 +21,9 @@
     background-color: white;
     overflow: hidden;
 
+    // 修复 safari 被盖在编辑区下面的问题
+    transform: translateZ(1px);
+
     // 控制状态切换的容器
     .viewport-tool-switch-container {
         display: flex;
@@ -37,7 +40,6 @@
             display: flex;
             flex-direction: column;
             width: 300px;
-            height: 100%;
         }
 
         // 预览状态工具容器
@@ -162,8 +164,9 @@
             background-color: whitesmoke;
             position: relative;
             width: 300px;
-            height: 100%;
             z-index: 0;
+            display: flex;
+            flex-direction: column;
 
             // 编辑容器关闭按钮
             .left-bar-close {
@@ -192,8 +195,11 @@
             background-color: whitesmoke;
             position: relative;
             width: 350px;
-            height: 100%;
             z-index: 0;
+            display: flex;
+            flex-direction: column;
+            // 因为经常移动，单独放在一个图层
+            transform: translateZ(0);
 
             // 编辑容器关闭按钮
             .editor-close {

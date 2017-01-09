@@ -3,10 +3,10 @@ import * as typings from './to-template.type'
 
 import * as EditorManager from '../../../../gaea-editor-manager/gaea-editor-manager'
 
-import {autoBindMethod} from 'nt-auto-bind'
-import {Modal} from 'nt-web-modal'
-import {Button} from 'nt-web-button'
-import {Input} from 'nt-web-input'
+import {autoBindMethod} from '../../../../../../common/auto-bind/index'
+import {Modal} from '../../../../../../web-common/modal/index'
+import {Button} from '../../../../../../web-common/button/index'
+import {Input} from '../../../../../../web-common/input/index'
 
 import './to-template.scss'
 

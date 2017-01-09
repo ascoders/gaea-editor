@@ -3,8 +3,8 @@ import * as typings from './show-layout-button.type'
 import * as classNames from 'classnames'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import {autoBindMethod} from 'nt-auto-bind'
-import {Tooltip} from 'nt-web-tooltip'
+import {autoBindMethod} from '../../../../../common/auto-bind/index'
+import {Tooltip} from '../../../../../web-common/tooltip/index'
 
 import './show-layout-button.scss'
 

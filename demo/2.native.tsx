@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {observer} from 'mobx-react'
 import Gaea from '../index'
-import nativeBaseComponents from 'gaea-native-components'
+import nativeBaseComponents from '../../gaea-native-components/index'
 
 @observer
 export default class Demo extends React.Component <any, any> {

@@ -3,10 +3,10 @@ import * as typings from './page.type'
 import { observer } from 'mobx-react'
 import * as classNames from 'classnames'
 
-import { autoBindMethod } from 'nt-auto-bind'
+import { autoBindMethod } from '../../../../common/auto-bind/index'
 
 import Viewport from './viewport/viewport.component'
-import Preview from 'gaea-preview'
+import Preview from '../../../gaea-preview/index'
 import LeftBar from './left-bar/left-bar.component'
 
 import Svg from './svg'

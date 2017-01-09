@@ -3,7 +3,7 @@ import * as typings from './left-bar.type'
 import { observer } from 'mobx-react'
 import * as _ from 'lodash'
 
-import { autoBindMethod } from 'nt-auto-bind'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './left-bar.scss'
 

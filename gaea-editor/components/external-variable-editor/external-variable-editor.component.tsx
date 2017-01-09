@@ -4,11 +4,11 @@ import * as classNames from 'classnames'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import { Tooltip } from 'nt-web-tooltip'
-import { autoBindMethod } from 'nt-auto-bind'
-import { Button } from 'nt-web-button'
-import { Modal } from 'nt-web-modal'
-import { Tabs, TabPanel } from 'nt-web-tabs'
+import { Tooltip } from '../../../../../web-common/tooltip/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
+import { Button } from '../../../../../web-common/button/index'
+import { Modal } from '../../../../../web-common/modal/index'
+import { Tabs, TabPanel } from '../../../../../web-common/tabs/index'
 
 import Action from './action'
 import Store from './store'

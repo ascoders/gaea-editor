@@ -6,8 +6,8 @@ import Action from './action'
 import Store from './store'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import { Button, ButtonGroup } from 'nt-web-button'
-import { autoBindMethod } from 'nt-auto-bind'
+import { Button, ButtonGroup } from '../../../../../web-common/button/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './tab-tools-version.scss'
 

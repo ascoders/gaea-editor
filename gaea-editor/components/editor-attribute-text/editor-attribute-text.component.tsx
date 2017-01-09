@@ -2,8 +2,8 @@ import * as React from 'react'
 import * as typings from './editor-attribute-text.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import { Input } from 'nt-web-input'
-import { autoBindMethod } from 'nt-auto-bind'
+import { Input } from '../../../../../web-common/input/index'
+import { autoBindMethod } from '../../../../../common/auto-bind/index'
 
 import './editor-attribute-text.scss'
 
