@@ -1,0 +1,78 @@
+.nt-editor-gaea-editor-gaea_editor-components-viewport_size {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 20px; }
+  .nt-editor-gaea-editor-gaea_editor-components-viewport_size .mobile-container {
+    position: absolute;
+    display: none;
+    z-index: 100;
+    width: 250px;
+    right: -105px;
+    top: 35px;
+    background: white;
+    border: 1px solid #ddd;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px; }
+    .nt-editor-gaea-editor-gaea_editor-components-viewport_size .mobile-container .slider {
+      width: 100%; }
+  .nt-editor-gaea-editor-gaea_editor-components-viewport_size .fa-mobile {
+    font-size: 19px; }
+  .nt-editor-gaea-editor-gaea_editor-components-viewport_size .fa-desktop {
+    font-size: 12px; }
+
+.nt-editor-gaea-editor-gaea_editor-components-viewport_size .mobile-root {
+  position: relative; }
+  .nt-editor-gaea-editor-gaea_editor-components-viewport_size .mobile-root:hover .mobile-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between; }
+
+.nt-editor-gaea-editor-gaea_editor-components-viewport_size .viewport-size-active {
+  background: #ddd; }
+
+.nt-editor-gaea-editor-gaea_editor-components-viewport_size .phone {
+  width: 40px;
+  height: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 10px; }
+  .nt-editor-gaea-editor-gaea_editor-components-viewport_size .phone.active {
+    background-color: whitesmoke; }
+  .nt-editor-gaea-editor-gaea_editor-components-viewport_size .phone:hover {
+    background-color: #efefef; }
+
+.nt-editor-gaea-editor-gaea_editor-components-viewport_size .menu-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 10px;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+  .nt-editor-gaea-editor-gaea_editor-components-viewport_size .menu-item:hover {
+    background-color: #eaeaea; }

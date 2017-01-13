@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "盖亚",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -35,9 +35,10 @@
     "mobx-react": "^3.5.5",
     "nt-web-auto-complete": "^1.0.0",
     "classnames": "^2.2.5",
+    "nt-web-radio": "^1.0.5",
     "jquery": "^3.1.0",
     "nt-web-tree": "^1.0.5",
-    "gaea-preview": "^1.0.18",
+    "gaea-preview": "^1.0.20",
     "react-color": "^2.3.2",
     "gaea-model": "^1.0.28"
   },

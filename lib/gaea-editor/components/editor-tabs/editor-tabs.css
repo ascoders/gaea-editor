@@ -1,0 +1,11 @@
+.nt-editor-gaea-editor-gaea_editor-components-editor_tabs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  background-color: white; }
+
+.nt-editor-gaea-editor-gaea_editor-components-editor_tabs .content-container {
+  overflow-y: scroll; }
