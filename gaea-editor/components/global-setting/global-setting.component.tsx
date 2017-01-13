@@ -3,14 +3,39 @@ import * as typings from './global-setting.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 
-import { autoBindMethod } from 'nt-auto-bind'
-import { Modal } from 'nt-web-modal'
+import {autoBindMethod} from 'nt-auto-bind'
+import {Modal} from 'nt-web-modal'
 import Color from '../../utils/color/color.component'
+import Radio from 'nt-web-radio'
 
 import Action from './action'
 import Store from './store'
 
 import './global-setting.scss'
+
+function getMonthMM(month:number){
+
+}
+
+function formatDate(date: Date) {
+    if (date === null) {
+        return ''
+    }
+
+    // YYYY-mm-dd
+    console.log(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+}
+
+function formatTime(date: Date) {
+    if (date === null) {
+        return ''
+    }
+
+    // HH-mm-ss
+    console.log(date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds())
+    return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+}
 
 @EditorManager.observer(['ApplicationStore', 'GlobalSettingAction', 'GlobalSettingStore'])
 export default class GlobalSetting extends React.Component<typings.PropsDefine, typings.StateDefine> {
@@ -57,21 +82,49 @@ export default class GlobalSetting extends React.Component<typings.PropsDefine, 
         this.props.GlobalSettingAction.setBackgroundColor(`rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`, color.rgb.a)
     }
 
+    @autoBindMethod handleSwitchShowTimeUnlimited() {
+        this.props.GlobalSettingAction.changeShowTimeUnlimited()
+    }
+
+    @autoBindMethod handleSwitchShowTimeLimited() {
+        this.props.GlobalSettingAction.changeShowTimeLimited()
+    }
+
     render() {
         return (
             <div onClick={this.handleShowModal}>
                 全局设置
 
                 <Modal title="全局设置"
-                    className="_namespace modal"
-                    show={this.state.show}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}>
+                       className="_namespace modal"
+                       show={this.state.show}
+                       onOk={this.handleOk}
+                       size="large"
+                       onCancel={this.handleCancel}>
                     <div className="row">
                         <div className="col">画布背景颜色</div>
                         <div className="col-right">
                             <Color color={this.props.GlobalSettingStore.backgroundColor || 'transparent'}
-                                onChange={this.handleBackgroundColorChange} />
+                                   onChange={this.handleBackgroundColorChange}/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">展示时间段</div>
+                        <div className="col-right">
+                            <Radio checked={this.props.GlobalSettingStore.showTimeStart===null}
+                                   onChange={this.handleSwitchShowTimeUnlimited}/>
+                            无限制
+                            <Radio checked={this.props.GlobalSettingStore.showTimeStart!==null}
+                                   onChange={this.handleSwitchShowTimeLimited}/>
+                            <input type="date"
+                                   value={formatDate(this.props.GlobalSettingStore.showTimeStart)}/>
+                            <input type="time"
+                                   value={formatTime(this.props.GlobalSettingStore.showTimeStart)}/>
+                            ~
+                            <input type="date"
+                                   value={formatDate(this.props.GlobalSettingStore.showTimeEnd)}/>
+                            <input type="time"
+                                   value={formatTime(this.props.GlobalSettingStore.showTimeEnd)}/>
                         </div>
                     </div>
                 </Modal>

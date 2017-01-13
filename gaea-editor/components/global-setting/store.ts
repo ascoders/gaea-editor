@@ -1,4 +1,4 @@
-import { observable, ApplicationStore } from '../../../gaea-editor-manager/gaea-editor-manager'
+import {observable, ApplicationStore} from '../../../gaea-editor-manager/gaea-editor-manager'
 
 export default class GlobalSettingStore {
     /**
@@ -35,4 +35,10 @@ export default class GlobalSettingStore {
      * 外部传参
      */
     @observable externalParameter: Array<FitGaea.ExternalParameter> = []
+
+    /**
+     * 展示时间段
+     */
+    @observable showTimeStart: Date = null
+    @observable showTimeEnd: Date = null
 }

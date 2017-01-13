@@ -77,4 +77,14 @@ export default class GlobalSettingAction {
             })
         }
     }
+
+    @action('设置显示时间段为无限制') changeShowTimeUnlimited() {
+        this.globalSetting.showTimeStart = null
+        this.globalSetting.showTimeEnd = null
+    }
+
+    @action('设置显示时间段为限制') changeShowTimeLimited() {
+        this.globalSetting.showTimeStart = new Date()
+        this.globalSetting.showTimeEnd = new Date()
+    }
 }

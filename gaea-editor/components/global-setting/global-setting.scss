@@ -2,13 +2,19 @@
     .row {
         display: flex;
         justify-content: space-between;
+        &:not(:first-child) {
+            margin-top: 15px;
+        }
     }
     .col, .col-right {
         display: flex;
+        flex-basis: 0;
+    }
+    .col {
         flex-grow: 1;
-        width: 0;
     }
     .col-right {
         justify-content: flex-end;
+        flex-grow: 2;
     }
 }
