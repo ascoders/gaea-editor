@@ -27,7 +27,7 @@ export default class Call extends React.Component<typings.PropsDefine, typings.S
 
         return (
             <div>
-                <Input style={{marginBottom:10}}
+                <Input style={{marginBottom:8}}
                        value={customData.functionName}
                        onChange={this.handleChange.bind(this)}
                        label="自定义命令"/>
