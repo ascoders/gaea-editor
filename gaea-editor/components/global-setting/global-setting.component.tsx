@@ -13,28 +13,39 @@ import Store from './store'
 
 import './global-setting.scss'
 
-function getMonthMM(month:number){
-
+function getMonthMM(month: number) {
+    month += 1
+    return fixBefore(month)
 }
 
-function formatDate(date: Date) {
+/**
+ * 前面补0
+ */
+function fixBefore(count: number) {
+    if (count < 10) {
+        return '0' + count.toString()
+    }
+    return count.toString()
+}
+
+function formatDate(date: string) {
+    const dateObj = new Date(date)
     if (date === null) {
         return ''
     }
 
     // YYYY-mm-dd
-    console.log(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
-    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+    return dateObj.getFullYear() + '-' + getMonthMM(dateObj.getMonth()) + '-' + fixBefore(dateObj.getDate())
 }
 
-function formatTime(date: Date) {
+function formatTime(date: string) {
+    const dateObj = new Date(date)
     if (date === null) {
         return ''
     }
 
     // HH-mm-ss
-    console.log(date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds())
-    return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+    return fixBefore(dateObj.getHours()) + ':' + fixBefore(dateObj.getMinutes()) + ':' + fixBefore(dateObj.getSeconds())
 }
 
 @EditorManager.observer(['ApplicationStore', 'GlobalSettingAction', 'GlobalSettingStore'])
@@ -90,6 +101,22 @@ export default class GlobalSetting extends React.Component<typings.PropsDefine, 
         this.props.GlobalSettingAction.changeShowTimeLimited()
     }
 
+    @autoBindMethod handleChangeStartDate(event: any) {
+        this.props.GlobalSettingAction.changeShowTime('start', 'date', event.target.value)
+    }
+
+    @autoBindMethod handleChangeStartTime(event: any) {
+        this.props.GlobalSettingAction.changeShowTime('start', 'time', event.target.value)
+    }
+
+    @autoBindMethod handleChangeEndDate(event: any) {
+        this.props.GlobalSettingAction.changeShowTime('end', 'date', event.target.value)
+    }
+
+    @autoBindMethod handleChangeEndTime(event: any) {
+        this.props.GlobalSettingAction.changeShowTime('end', 'time', event.target.value)
+    }
+
     render() {
         return (
             <div onClick={this.handleShowModal}>
@@ -115,15 +142,20 @@ export default class GlobalSetting extends React.Component<typings.PropsDefine, 
                                    onChange={this.handleSwitchShowTimeUnlimited}/>
                             无限制
                             <Radio checked={this.props.GlobalSettingStore.showTimeStart!==null}
-                                   onChange={this.handleSwitchShowTimeLimited}/>
+                                   onChange={this.handleSwitchShowTimeLimited}
+                                   style={{marginLeft:10}}/>
                             <input type="date"
+                                   onChange={this.handleChangeStartDate}
                                    value={formatDate(this.props.GlobalSettingStore.showTimeStart)}/>
                             <input type="time"
+                                   onChange={this.handleChangeStartTime}
                                    value={formatTime(this.props.GlobalSettingStore.showTimeStart)}/>
-                            ~
+                            &nbsp;~&nbsp;
                             <input type="date"
+                                   onChange={this.handleChangeEndDate}
                                    value={formatDate(this.props.GlobalSettingStore.showTimeEnd)}/>
                             <input type="time"
+                                   onChange={this.handleChangeEndTime}
                                    value={formatTime(this.props.GlobalSettingStore.showTimeEnd)}/>
                         </div>
                     </div>

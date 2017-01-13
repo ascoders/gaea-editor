@@ -145,6 +145,11 @@ export default class EditorTabsEvent extends React.Component<typings.PropsDefine
         }) : []
 
         eventOptions.unshift({
+            key: 'call',
+            value: '命令（端功能）'
+        })
+
+        eventOptions.unshift({
             key: 'updateProps',
             value: '修改属性'
         })

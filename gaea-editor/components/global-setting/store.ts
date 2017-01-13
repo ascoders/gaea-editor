@@ -39,6 +39,10 @@ export default class GlobalSettingStore {
     /**
      * 展示时间段
      */
-    @observable showTimeStart: Date = null
-    @observable showTimeEnd: Date = null
+    @observable showTimeStart: string = null
+    @observable showTimeEnd: string = null
+    showTimeStartDate = ''
+    showTimeStartTime = ''
+    showTimeEndDate = ''
+    showTimeEndTime = ''
 }

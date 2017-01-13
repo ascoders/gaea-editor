@@ -84,7 +84,32 @@ export default class GlobalSettingAction {
     }
 
     @action('设置显示时间段为限制') changeShowTimeLimited() {
-        this.globalSetting.showTimeStart = new Date()
-        this.globalSetting.showTimeEnd = new Date()
+        this.globalSetting.showTimeStart = new Date().toString()
+        const currentDate = new Date()
+        this.globalSetting.showTimeEnd = new Date((currentDate.getTime() / 1000 + 86400) * 1000).toString()
+    }
+
+    @action('设置时间段') changeShowTime(startOrEnd: string, dateOrTime: string, value: string) {
+        if (startOrEnd === 'start') {
+            if (dateOrTime === 'date') {
+                this.globalSetting.showTimeStartDate = value
+                this.globalSetting.showTimeStart = this.globalSetting.showTimeStartDate + ' ' + this.globalSetting.showTimeStartTime
+            } else {
+                this.globalSetting.showTimeStartTime = value
+                if (this.globalSetting.showTimeStartDate !== '') {
+                    this.globalSetting.showTimeStart = this.globalSetting.showTimeStartDate + ' ' + this.globalSetting.showTimeStartTime
+                }
+            }
+        } else {
+            if (dateOrTime === 'date') {
+                this.globalSetting.showTimeEndDate = value
+                this.globalSetting.showTimeEnd = this.globalSetting.showTimeEndDate + ' ' + this.globalSetting.showTimeEndTime
+            } else {
+                this.globalSetting.showTimeEndTime = value
+                if (this.globalSetting.showTimeEndDate !== '') {
+                    this.globalSetting.showTimeEnd = this.globalSetting.showTimeEndDate + ' ' + this.globalSetting.showTimeEndTime
+                }
+            }
+        }
     }
 }
