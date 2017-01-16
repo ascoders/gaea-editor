@@ -20,23 +20,29 @@ export default class Call extends React.Component<typings.PropsDefine, typings.S
         const eventData = this.props.isWeb ? 'gaeaEventData' : 'gaeaNativeEventData'
         this.props.EditorEventAction.updateEventData(this.props.ViewportStore.currentEditComponentMapUniqueKey, `${eventData}.${this.props.index}.eventData.functionName`, value)
         // this.props.viewport.writeHistory()
+        this.forceUpdate()
     }
 
     render() {
         const customData = this.props.isWeb ? this.props.ViewportStore.currentEditComponentInfo.props.gaeaEventData[this.props.index].eventData as FitGaea.EventActionCall : this.props.ViewportStore.currentEditComponentInfo.props.gaeaNativeEventData[this.props.index].eventData as FitGaea.EventActionCall
 
+        let functionName = ''
+        if (customData && customData.functionName) {
+            functionName = customData.functionName
+        }
+
         return (
             <div>
                 <Input style={{marginBottom:8}}
-                       value={customData.functionName}
+                       value={functionName}
                        onChange={this.handleChange.bind(this)}
                        label="自定义命令"/>
 
                 <Button onClick={this.handleChange.bind(this, 'back')}
-                        active={customData.functionName==='back'}>回退</Button>
+                        active={functionName==='back'}>回退</Button>
                 <Button style={{marginLeft:5}}
                         onClick={this.handleChange.bind(this, 'close')}
-                        active={customData.functionName==='close'}>关闭</Button>
+                        active={functionName==='close'}>关闭</Button>
             </div>
         )
     }
