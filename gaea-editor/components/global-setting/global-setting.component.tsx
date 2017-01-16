@@ -34,8 +34,8 @@ function formatDate(date: string) {
         return ''
     }
 
-    // YYYY-mm-dd
-    return dateObj.getFullYear() + '-' + getMonthMM(dateObj.getMonth()) + '-' + fixBefore(dateObj.getDate())
+    // YYYY/mm/dd
+    return dateObj.getFullYear() + '/' + getMonthMM(dateObj.getMonth()) + '/' + fixBefore(dateObj.getDate())
 }
 
 function formatTime(date: string) {
@@ -44,7 +44,7 @@ function formatTime(date: string) {
         return ''
     }
 
-    // HH-mm-ss
+    // HH:mm:ss
     return fixBefore(dateObj.getHours()) + ':' + fixBefore(dateObj.getMinutes()) + ':' + fixBefore(dateObj.getSeconds())
 }
 
