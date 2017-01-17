@@ -78,8 +78,7 @@ export default class EditHelper extends React.Component<typings.PropsDefine, typ
         }
     }
 
-    componentWillUpdate(nextProps: typings.PropsDefine, nextState: typings
-        .StateDefine) {
+    componentWillUpdate(nextProps: typings.PropsDefine, nextState: typings.StateDefine) {
         this.setLayoutClassIfCanDragIn()
         this.setDragableClassIfNeed()
     }
