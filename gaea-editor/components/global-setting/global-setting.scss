@@ -14,7 +14,16 @@
         flex-grow: 1;
     }
     .col-right {
+        display: flex;
         justify-content: flex-end;
         flex-grow: 2;
+    }
+    .custom-setting {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        background-color: whitesmoke;
+        padding: 10px;
+        border-bottom: 2px solid #999;
     }
 }

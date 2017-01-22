@@ -2,10 +2,10 @@ import * as React from 'react'
 import * as typings from './editor-attribute-border.type'
 
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
-import { Button, ButtonGroup } from 'nt-web-button'
-import { Number } from 'nt-web-number'
+import {Button, ButtonGroup} from 'nt-web-button'
+import {Number} from 'nt-web-number'
 import Color from '../../utils/color/color.component'
-import { autoBindMethod } from 'nt-auto-bind'
+import {autoBindMethod} from 'nt-auto-bind'
 
 import './editor-attribute-border.scss'
 
@@ -101,24 +101,24 @@ export default class EditorAttributeBorder extends React.Component<typings.Props
         let width: number
         let color: string
 
-        if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderLeftWidth !== null) {
+        if (this.state.selectLeft) {
             width = this.props.ViewportStore.currentEditComponentInfo.props.style.borderLeftWidth
-            style = this.props.ViewportStore.currentEditComponentInfo.props.style.borderLeftStyle
+            style = this.props.ViewportStore.currentEditComponentInfo.props.style.borderStyle
             color = this.props.ViewportStore.currentEditComponentInfo.props.style.borderLeftColor
         }
-        if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopWidth !== null) {
+        if (this.state.selectTop) {
             width = this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopWidth
-            style = this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopStyle
+            style = this.props.ViewportStore.currentEditComponentInfo.props.style.borderStyle
             color = this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopColor
         }
-        if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderRightWidth !== null) {
+        if (this.state.selectRight) {
             width = this.props.ViewportStore.currentEditComponentInfo.props.style.borderRightWidth
-            style = this.props.ViewportStore.currentEditComponentInfo.props.style.borderRightStyle
+            style = this.props.ViewportStore.currentEditComponentInfo.props.style.borderStyle
             color = this.props.ViewportStore.currentEditComponentInfo.props.style.borderRightColor
         }
-        if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomWidth !== null) {
+        if (this.state.selectBottom) {
             width = this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomWidth
-            style = this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomStyle
+            style = this.props.ViewportStore.currentEditComponentInfo.props.style.borderStyle
             color = this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomColor
         }
 
@@ -126,7 +126,7 @@ export default class EditorAttributeBorder extends React.Component<typings.Props
             color = this.props.ViewportStore.currentEditComponentInfo.props.style.borderColor
         }
 
-        return { style, width, color }
+        return {style, width, color}
     }
 
     handleBorderClick(position: string) {
@@ -134,123 +134,165 @@ export default class EditorAttributeBorder extends React.Component<typings.Props
 
         switch (position) {
             case 'left':
-                if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderLeftWidth === null) {
-                    // todo this.props.ViewportStore.prepareWriteHistory()
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftWidth', commonBorder.width)
-                    if (this.props.ApplicationStore.editorProps.isReactNative) {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', commonBorder.color)
+                this.setState({
+                    selectLeft: !this.state.selectLeft
+                }, ()=>{
+                    if (this.state.selectLeft) {
+                        // todo this.props.ViewportStore.prepareWriteHistory()
+                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftWidth', commonBorder.width)
+                        if (this.props.ApplicationStore.editorProps.isReactNative) {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', commonBorder.color)
+                        } else {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftColor', commonBorder.color)
+                        }
+                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderStyle', commonBorder.style)
+                        // todo this.props.ViewportStore.writeHistory()
                     } else {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftColor', commonBorder.color)
+                        // todo this.props.ViewportStore.prepareWriteHistory()
+                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftWidth', 0)
+                        if (this.props.ApplicationStore.editorProps.isReactNative) {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', null)
+                        } else {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftColor', null)
+                        }
+                        // todo this.props.ViewportStore.writeHistory()
                     }
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftStyle', commonBorder.style)
-                    // todo this.props.ViewportStore.writeHistory()
-                } else {
-                    // todo this.props.ViewportStore.prepareWriteHistory()
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftWidth', null)
-                    if (this.props.ApplicationStore.editorProps.isReactNative) {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', null)
-                    } else {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftColor', null)
-                    }
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftStyle', null)
-                    // todo this.props.ViewportStore.writeHistory()
+                })
+
+                if (!this.state.selectTop) {
+                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopWidth', 0)
                 }
+                if (!this.state.selectRight) {
+                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightWidth', 0)
+                }
+                if (!this.state.selectBottom) {
+                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomWidth', 0)
+                }
+
                 break
             case 'top':
-                if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopWidth === null) {
-                    // todo this.props.ViewportStore.prepareWriteHistory()
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopWidth', commonBorder.width)
-                    if (this.props.ApplicationStore.editorProps.isReactNative) {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', commonBorder.color)
+                this.setState({
+                    selectTop: !this.state.selectTop
+                }, ()=>{
+                    if (this.state.selectTop) {
+                        // todo this.props.ViewportStore.prepareWriteHistory()
+                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopWidth', commonBorder.width)
+                        if (this.props.ApplicationStore.editorProps.isReactNative) {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', commonBorder.color)
+                        } else {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopColor', commonBorder.color)
+                        }
+                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderStyle', commonBorder.style)
+                        // todo this.props.ViewportStore.writeHistory()
                     } else {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopColor', commonBorder.color)
+                        // todo this.props.ViewportStore.prepareWriteHistory()
+                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopWidth', 0)
+                        if (this.props.ApplicationStore.editorProps.isReactNative) {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', null)
+                        } else {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopColor', null)
+                        }
+                        // todo this.props.ViewportStore.writeHistory()
                     }
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopStyle', commonBorder.style)
-                    // todo this.props.ViewportStore.writeHistory()
-                } else {
-                    // todo this.props.ViewportStore.prepareWriteHistory()
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopWidth', null)
-                    if (this.props.ApplicationStore.editorProps.isReactNative) {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', null)
-                    } else {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopColor', null)
-                    }
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopStyle', null)
-                    // todo this.props.ViewportStore.writeHistory()
+                })
+
+                if (!this.state.selectLeft) {
+                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftWidth', 0)
+                }
+                if (!this.state.selectRight) {
+                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightWidth', 0)
+                }
+                if (!this.state.selectBottom) {
+                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomWidth', 0)
                 }
                 break
             case 'right':
-                if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderRightWidth === null) {
-                    // todo this.props.ViewportStore.prepareWriteHistory()
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightWidth', commonBorder.width)
-                    if (this.props.ApplicationStore.editorProps.isReactNative) {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', commonBorder.color)
+                this.setState({
+                    selectRight: !this.state.selectRight
+                }, ()=>{
+                    if (this.state.selectRight) {
+                        // todo this.props.ViewportStore.prepareWriteHistory()
+                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightWidth', commonBorder.width)
+                        if (this.props.ApplicationStore.editorProps.isReactNative) {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', commonBorder.color)
+                        } else {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightColor', commonBorder.color)
+                        }
+                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderStyle', commonBorder.style)
+                        // todo this.props.ViewportStore.writeHistory()
                     } else {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightColor', commonBorder.color)
+                        // todo this.props.ViewportStore.prepareWriteHistory()
+                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightWidth', 0)
+                        if (this.props.ApplicationStore.editorProps.isReactNative) {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', null)
+                        } else {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightColor', null)
+                        }
+                        // todo this.props.ViewportStore.writeHistory()
                     }
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightStyle', commonBorder.style)
-                    // todo this.props.ViewportStore.writeHistory()
-                } else {
-                    // todo this.props.ViewportStore.prepareWriteHistory()
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightWidth', null)
-                    if (this.props.ApplicationStore.editorProps.isReactNative) {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', null)
-                    } else {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightColor', null)
-                    }
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightStyle', null)
-                    // todo this.props.ViewportStore.writeHistory()
+                })
+
+                if (!this.state.selectLeft) {
+                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftWidth', 0)
+                }
+                if (!this.state.selectTop) {
+                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopWidth', 0)
+                }
+                if (!this.state.selectBottom) {
+                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomWidth', 0)
                 }
                 break
             case 'bottom':
-                if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomWidth === null) {
-                    // todo this.props.ViewportStore.prepareWriteHistory()
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomWidth', commonBorder.width)
-                    if (this.props.ApplicationStore.editorProps.isReactNative) {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', commonBorder.color)
+                this.setState({
+                    selectBottom: !this.state.selectBottom
+                }, ()=>{
+                    if (this.state.selectBottom) {
+                        // todo this.props.ViewportStore.prepareWriteHistory()
+                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomWidth', commonBorder.width)
+                        if (this.props.ApplicationStore.editorProps.isReactNative) {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', commonBorder.color)
+                        } else {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomColor', commonBorder.color)
+                        }
+                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderStyle', commonBorder.style)
+                        // todo this.props.ViewportStore.writeHistory()
                     } else {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomColor', commonBorder.color)
+                        // todo this.props.ViewportStore.prepareWriteHistory()
+                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomWidth', 0)
+                        if (this.props.ApplicationStore.editorProps.isReactNative) {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', null)
+                        } else {
+                            this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomColor', null)
+                        }
+                        // todo this.props.ViewportStore.writeHistory()
                     }
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomStyle', commonBorder.style)
-                    // todo this.props.ViewportStore.writeHistory()
-                } else {
-                    // todo this.props.ViewportStore.prepareWriteHistory()
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomWidth', null)
-                    if (this.props.ApplicationStore.editorProps.isReactNative) {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', null)
-                    } else {
-                        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomColor', null)
-                    }
-                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomStyle', null)
-                    // todo this.props.ViewportStore.writeHistory()
+                })
+
+                if (!this.state.selectLeft) {
+                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftWidth', 0)
+                }
+                if (!this.state.selectTop) {
+                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopWidth', 0)
+                }
+                if (!this.state.selectRight) {
+                    this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightWidth', 0)
                 }
                 break
         }
     }
 
     handleBorderStyleChange(style: string) {
-        if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopWidth !== null || this.props.ViewportStore.currentEditComponentInfo.props.style.borderLeftWidth !== null || this.props.ViewportStore.currentEditComponentInfo.props.style.borderRightWidth !== null || this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomWidth !== null) {
-            // todo this.props.ViewportStore.prepareWriteHistory()
-            if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderLeftWidth !== null) {
-                this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftStyle', style)
-            }
-            if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopWidth !== null) {
-                this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopStyle', style)
-            }
-            if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderRightWidth !== null) {
-                this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightStyle', style)
-            }
-            if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomWidth !== null) {
-                this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomStyle', style)
-            }
-            // todo this.props.ViewportStore.writeHistory()
-        }
+        // 因为 rn 没有 borderLeftStyle 等细化设置，所以直接修改全部
+        // 控制上下左右由边框宽度控制
+        // todo this.props.ViewportStore.prepareWriteHistory()
+        this.props.ViewportAction.updateCurrentEditComponentProps('style.borderStyle', style)
+        // todo this.props.ViewportStore.writeHistory()
     }
 
     handleBorderColorChange(color: any) {
         const rgba = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`
 
-        if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopWidth !== null || this.props.ViewportStore.currentEditComponentInfo.props.style.borderLeftWidth !== null || this.props.ViewportStore.currentEditComponentInfo.props.style.borderRightWidth !== null || this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomWidth !== null) {
+        if (this.state.selectLeft || this.state.selectTop || this.state.selectRight || this.state.selectBottom) {
             this.colorHasChange = true
             if (this.colorChangeStatus === 'finish') {
                 this.colorChangeStatus = 'start'
@@ -260,16 +302,16 @@ export default class EditorAttributeBorder extends React.Component<typings.Props
             if (this.props.ApplicationStore.editorProps.isReactNative) {
                 this.props.ViewportAction.updateCurrentEditComponentProps('style.borderColor', rgba)
             } else {
-                if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderLeftWidth !== null) {
+                if (this.state.selectLeft) {
                     this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftColor', rgba)
                 }
-                if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopWidth !== null) {
+                if (this.state.selectTop) {
                     this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopColor', rgba)
                 }
-                if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderRightWidth !== null) {
+                if (this.state.selectRight) {
                     this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightColor', rgba)
                 }
-                if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomWidth !== null) {
+                if (this.state.selectBottom) {
                     this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomColor', rgba)
                 }
             }
@@ -287,18 +329,18 @@ export default class EditorAttributeBorder extends React.Component<typings.Props
     }
 
     handleBorderWidthChange(value: string) {
-        if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopWidth !== null || this.props.ViewportStore.currentEditComponentInfo.props.style.borderLeftWidth !== null || this.props.ViewportStore.currentEditComponentInfo.props.style.borderRightWidth !== null || this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomWidth !== null) {
+        if (this.state.selectLeft || this.state.selectTop || this.state.selectRight || this.state.selectBottom) {
             // todo this.props.ViewportStore.prepareWriteHistory()
-            if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderLeftWidth !== null) {
+            if (this.state.selectLeft) {
                 this.props.ViewportAction.updateCurrentEditComponentProps('style.borderLeftWidth', parseFloat(value))
             }
-            if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopWidth !== null) {
+            if (this.state.selectTop) {
                 this.props.ViewportAction.updateCurrentEditComponentProps('style.borderTopWidth', parseFloat(value))
             }
-            if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderRightWidth !== null) {
+            if (this.state.selectRight) {
                 this.props.ViewportAction.updateCurrentEditComponentProps('style.borderRightWidth', parseFloat(value))
             }
-            if (this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomWidth !== null) {
+            if (this.state.selectBottom) {
                 this.props.ViewportAction.updateCurrentEditComponentProps('style.borderBottomWidth', parseFloat(value))
             }
             // todo this.props.ViewportStore.writeHistory()
@@ -318,31 +360,31 @@ export default class EditorAttributeBorder extends React.Component<typings.Props
                 <div className="border-container">
                     <div className="left-container">
                         <Button className="border-left"
-                            active={this.props.ViewportStore.currentEditComponentInfo.props.style.borderLeftWidth !== null}
-                            onClick={this.handleBorderClick.bind(this, 'left')}>
+                                active={this.state.selectLeft}
+                                onClick={this.handleBorderClick.bind(this, 'left')}>
                             <svg className="svg-icon rotate-270">
-                                <use xlinkHref="#border" />
+                                <use xlinkHref="#border"/>
                             </svg>
                         </Button>
                         <Button className="border-top"
-                            active={this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopWidth !== null}
-                            onClick={this.handleBorderClick.bind(this, 'top')}>
+                                active={this.state.selectTop}
+                                onClick={this.handleBorderClick.bind(this, 'top')}>
                             <svg className="svg-icon">
-                                <use xlinkHref="#border" />
+                                <use xlinkHref="#border"/>
                             </svg>
                         </Button>
                         <Button className="border-right"
-                            active={this.props.ViewportStore.currentEditComponentInfo.props.style.borderRightWidth !== null}
-                            onClick={this.handleBorderClick.bind(this, 'right')}>
+                                active={this.state.selectRight}
+                                onClick={this.handleBorderClick.bind(this, 'right')}>
                             <svg className="svg-icon rotate-90">
-                                <use xlinkHref="#border" />
+                                <use xlinkHref="#border"/>
                             </svg>
                         </Button>
                         <Button className="border-bottom"
-                            active={this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomWidth !== null}
-                            onClick={this.handleBorderClick.bind(this, 'bottom')}>
+                                active={this.state.selectBottom}
+                                onClick={this.handleBorderClick.bind(this, 'bottom')}>
                             <svg className="svg-icon rotate-180">
-                                <use xlinkHref="#border" />
+                                <use xlinkHref="#border"/>
                             </svg>
                         </Button>
                     </div>
@@ -353,26 +395,26 @@ export default class EditorAttributeBorder extends React.Component<typings.Props
                             <ButtonGroup>
                                 {this.props.ApplicationStore.editorProps.isReactNative ?
                                     <Button active={commonBorder.style === null}
-                                        onClick={this.handleBorderStyleChange.bind(this, null)}>x</Button> :
+                                            onClick={this.handleBorderStyleChange.bind(this, null)}>x</Button> :
                                     <Button active={commonBorder.style === 'none'}
-                                        onClick={this.handleBorderStyleChange.bind(this, 'none')}>x</Button>
+                                            onClick={this.handleBorderStyleChange.bind(this, 'none')}>x</Button>
                                 }
                                 <Button active={commonBorder.style === 'solid'}
-                                    onClick={this.handleBorderStyleChange.bind(this, 'solid')}>
+                                        onClick={this.handleBorderStyleChange.bind(this, 'solid')}>
                                     <svg className="svg-icon rotate-180">
-                                        <use xlinkHref="#solid" />
+                                        <use xlinkHref="#solid"/>
                                     </svg>
                                 </Button>
                                 <Button active={commonBorder.style === 'dashed'}
-                                    onClick={this.handleBorderStyleChange.bind(this, 'dashed')}>
+                                        onClick={this.handleBorderStyleChange.bind(this, 'dashed')}>
                                     <svg className="svg-icon rotate-180">
-                                        <use xlinkHref="#dashed" />
+                                        <use xlinkHref="#dashed"/>
                                     </svg>
                                 </Button>
                                 <Button active={commonBorder.style === 'dotted'}
-                                    onClick={this.handleBorderStyleChange.bind(this, 'dotted')}>
+                                        onClick={this.handleBorderStyleChange.bind(this, 'dotted')}>
                                     <svg className="svg-icon rotate-180">
-                                        <use xlinkHref="#dotted" />
+                                        <use xlinkHref="#dotted"/>
                                     </svg>
                                 </Button>
                             </ButtonGroup>
@@ -380,14 +422,14 @@ export default class EditorAttributeBorder extends React.Component<typings.Props
                         <div className="row">
                             <div className="icon-title">Width</div>
                             <Number label=""
-                                value={commonBorder.width ? commonBorder.width.toString() : '0'}
-                                onChange={this.handleBorderWidthChange.bind(this)} />
+                                    value={commonBorder.width ? commonBorder.width.toString() : '0'}
+                                    onChange={this.handleBorderWidthChange.bind(this)}/>
                         </div>
                         <div className="row">
                             <div className="icon-title">Color</div>
                             <Color onChange={this.handleBorderColorChange.bind(this)}
-                                onChangeComplete={this.handleBorderColorChangeComplete.bind(this)}
-                                color={commonBorder.color || 'white'} />
+                                   onChangeComplete={this.handleBorderColorChangeComplete.bind(this)}
+                                   color={commonBorder.color || 'white'}/>
                         </div>
                     </div>
                 </div>
@@ -396,31 +438,31 @@ export default class EditorAttributeBorder extends React.Component<typings.Props
                     <div className="left-container">
                         <div className="radius-content">
                             <Button className="radius-left"
-                                active={this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopLeftRadius !== null}
-                                onClick={this.handleRadiusClick.bind(this, 'topLeft')}>
+                                    active={this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopLeftRadius !== null}
+                                    onClick={this.handleRadiusClick.bind(this, 'topLeft')}>
                                 <svg className="svg-icon">
-                                    <use xlinkHref="#border-radius" />
+                                    <use xlinkHref="#border-radius"/>
                                 </svg>
                             </Button>
                             <Button className="radius-top"
-                                active={this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopRightRadius !== null}
-                                onClick={this.handleRadiusClick.bind(this, 'topRight')}>
+                                    active={this.props.ViewportStore.currentEditComponentInfo.props.style.borderTopRightRadius !== null}
+                                    onClick={this.handleRadiusClick.bind(this, 'topRight')}>
                                 <svg className="svg-icon rotate-90">
-                                    <use xlinkHref="#border-radius" />
+                                    <use xlinkHref="#border-radius"/>
                                 </svg>
                             </Button>
                             <Button className="radius-right"
-                                active={this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomRightRadius !== null}
-                                onClick={this.handleRadiusClick.bind(this, 'bottomRight')}>
+                                    active={this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomRightRadius !== null}
+                                    onClick={this.handleRadiusClick.bind(this, 'bottomRight')}>
                                 <svg className="svg-icon rotate-180">
-                                    <use xlinkHref="#border-radius" />
+                                    <use xlinkHref="#border-radius"/>
                                 </svg>
                             </Button>
                             <Button className="radius-bottom"
-                                active={this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomLeftRadius !== null}
-                                onClick={this.handleRadiusClick.bind(this, 'bottomLeft')}>
+                                    active={this.props.ViewportStore.currentEditComponentInfo.props.style.borderBottomLeftRadius !== null}
+                                    onClick={this.handleRadiusClick.bind(this, 'bottomLeft')}>
                                 <svg className="svg-icon rotate-270">
-                                    <use xlinkHref="#border-radius" />
+                                    <use xlinkHref="#border-radius"/>
                                 </svg>
                             </Button>
                         </div>
@@ -430,9 +472,9 @@ export default class EditorAttributeBorder extends React.Component<typings.Props
                         <div className="row">
                             <div className="icon-title">边距</div>
                             <Number label=""
-                                min={0}
-                                onChange={this.handleCommonBorderRadiusChange.bind(this)}
-                                value={borderRadius ? borderRadius.toString() : '0'} />
+                                    min={0}
+                                    onChange={this.handleCommonBorderRadiusChange.bind(this)}
+                                    value={borderRadius ? borderRadius.toString() : '0'}/>
                         </div>
                     </div>
                 </div>

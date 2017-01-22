@@ -16,9 +16,18 @@ export class Props implements PropsDefine {
 }
 
 export interface StateDefine {
-
+    /**
+     * 是否选中了上下左右边框
+     */
+    selectLeft?: boolean
+    selectTop?: boolean
+    selectRight?: boolean
+    selectBottom?: boolean
 }
 
 export class State implements StateDefine {
-
+    selectLeft = true
+    selectTop = true
+    selectRight = true
+    selectBottom = true
 }

@@ -15,7 +15,12 @@ export default class GlobalSettingAction {
 
     @observable observableClass = true
 
+    @action('修改任意配置信息') changeCustomSetting(key: string, value: string) {
+        (this.globalSetting as any)[key] = value
+    }
+
     @action('获取压缩的配置信息') getZipSettingData() {
+        console.log(JSON.parse(JSON.stringify(this.globalSetting)))
         return LZString.compressToBase64(JSON.stringify(this.globalSetting))
     }
 
@@ -80,36 +85,39 @@ export default class GlobalSettingAction {
 
     @action('设置显示时间段为无限制') changeShowTimeUnlimited() {
         this.globalSetting.showTimeStart = null
+        this.globalSetting.showTimeStartDate = ''
+        this.globalSetting.showTimeStartTime = ''
         this.globalSetting.showTimeEnd = null
+        this.globalSetting.showTimeEndDate = ''
+        this.globalSetting.showTimeEndTime = ''
     }
 
-    @action('设置显示时间段为限制') changeShowTimeLimited() {
-        this.globalSetting.showTimeStart = new Date().toString()
-        const currentDate = new Date()
-        this.globalSetting.showTimeEnd = new Date((currentDate.getTime() / 1000 + 86400) * 1000).toString()
+    @action('设置显示时间段为限制') changeShowTimeLimited(startDate = new Date(), endDate = new Date((new Date().getTime() / 1000 + 86400) * 1000)) {
+        this.globalSetting.showTimeStart = startDate.toString()
+        this.globalSetting.showTimeStartDate = startDate.toDateString()
+        this.globalSetting.showTimeStartTime = startDate.toTimeString()
+        this.globalSetting.showTimeEnd = endDate.toString()
+        this.globalSetting.showTimeEndDate = endDate.toDateString()
+        this.globalSetting.showTimeEndTime = endDate.toTimeString()
     }
 
     @action('设置时间段') changeShowTime(startOrEnd: string, dateOrTime: string, value: string) {
         if (startOrEnd === 'start') {
             if (dateOrTime === 'date') {
-                this.globalSetting.showTimeStartDate = value
-                this.globalSetting.showTimeStart = this.globalSetting.showTimeStartDate + ' ' + this.globalSetting.showTimeStartTime
+                this.globalSetting.showTimeStartDate = value.replace(/-/g, '\/')
             } else {
-                this.globalSetting.showTimeStartTime = value
-                if (this.globalSetting.showTimeStartDate !== '') {
-                    this.globalSetting.showTimeStart = this.globalSetting.showTimeStartDate + ' ' + this.globalSetting.showTimeStartTime
-                }
+                this.globalSetting.showTimeStartTime = value.replace(/-/g, '\/')
             }
         } else {
             if (dateOrTime === 'date') {
-                this.globalSetting.showTimeEndDate = value
-                this.globalSetting.showTimeEnd = this.globalSetting.showTimeEndDate + ' ' + this.globalSetting.showTimeEndTime
+                this.globalSetting.showTimeEndDate = value.replace(/-/g, '\/')
             } else {
-                this.globalSetting.showTimeEndTime = value
-                if (this.globalSetting.showTimeEndDate !== '') {
-                    this.globalSetting.showTimeEnd = this.globalSetting.showTimeEndDate + ' ' + this.globalSetting.showTimeEndTime
-                }
+                this.globalSetting.showTimeEndTime = value.replace(/-/g, '\/')
             }
         }
+
+        const startDate = new Date(this.globalSetting.showTimeStartDate + ' ' + this.globalSetting.showTimeStartTime)
+        const endDate = new Date(this.globalSetting.showTimeEndDate + ' ' + this.globalSetting.showTimeEndTime)
+        this.changeShowTimeLimited(startDate, endDate)
     }
 }

@@ -7,6 +7,7 @@ import {autoBindMethod} from 'nt-auto-bind'
 import {Modal} from 'nt-web-modal'
 import Color from '../../utils/color/color.component'
 import Radio from 'nt-web-radio'
+import Input from 'nt-web-input'
 
 import Action from './action'
 import Store from './store'
@@ -34,8 +35,8 @@ function formatDate(date: string) {
         return ''
     }
 
-    // YYYY/mm/dd
-    return dateObj.getFullYear() + '/' + getMonthMM(dateObj.getMonth()) + '/' + fixBefore(dateObj.getDate())
+    // YYYY-mm-dd
+    return dateObj.getFullYear() + '-' + getMonthMM(dateObj.getMonth()) + '-' + fixBefore(dateObj.getDate())
 }
 
 function formatTime(date: string) {
@@ -117,7 +118,33 @@ export default class GlobalSetting extends React.Component<typings.PropsDefine, 
         this.props.GlobalSettingAction.changeShowTime('end', 'time', event.target.value)
     }
 
+    @autoBindMethod handleChangeCustomSetting(key: string, value: string) {
+        this.props.GlobalSettingAction.changeCustomSetting(key, value)
+    }
+
     render() {
+        // 文本编辑所有字段
+        const TextSettings = Object.keys(this.props.GlobalSettingStore).map((settingKey: string, index: number) => {
+            if (typeof (this.props.GlobalSettingStore as any)[settingKey] !== 'string' && (this.props.GlobalSettingStore as any)[settingKey] !== 'number') {
+                return null
+            }
+
+            const value = (this.props.GlobalSettingStore as any)[settingKey] ? (this.props.GlobalSettingStore as any)[settingKey].toString() : ''
+
+            return (
+                <div className="row"
+                     key={index}>
+                    <div className="col">{settingKey}</div>
+                    <div className="col-right">
+                        <Input value={value}
+                               label=""
+                               style={{width:400}}
+                               onChange={this.handleChangeCustomSetting.bind(this, settingKey)}/>
+                    </div>
+                </div>
+            )
+        })
+
         return (
             <div onClick={this.handleShowModal}>
                 全局设置
@@ -159,6 +186,10 @@ export default class GlobalSetting extends React.Component<typings.PropsDefine, 
                                    value={formatTime(this.props.GlobalSettingStore.showTimeEnd)}/>
                         </div>
                     </div>
+                    <div className="custom-setting">
+                        自定义配置
+                    </div>
+                    {TextSettings}
                 </Modal>
             </div>
         )

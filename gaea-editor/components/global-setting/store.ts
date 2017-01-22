@@ -1,6 +1,10 @@
 import {observable, ApplicationStore} from '../../../gaea-editor-manager/gaea-editor-manager'
 
-export default class GlobalSettingStore {
+export interface IStore {
+    [x: string]: any
+}
+
+export default class GlobalSettingStore implements IStore {
     /**
      * 点击编辑框移除按钮时, 是否二次确认
      */
