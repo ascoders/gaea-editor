@@ -20,9 +20,14 @@ export default class ApplicationStore {
     viewportStyle = {}
 
     /**
-     * 插件
+     * 所有插件，包括内置与第三方
      */
     plugins?: Plugin[] = []
+
+    /**
+     * 所有组件类
+     */
+    componentClasses = new Map<string, React.ComponentClass<ComponentProps>>()
 
     /**
      * 页面初始化数据
