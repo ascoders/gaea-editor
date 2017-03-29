@@ -1,0 +1,13 @@
+{
+    "entrys": [
+        "docs/index.tsx"
+    ],
+    "dlls": [
+        "react",
+        "react-dom",
+        "react-router",
+        "styled-components",
+        "dynamic-object",
+        "dependency-inject"
+    ]
+}
