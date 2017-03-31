@@ -1,36 +1,36 @@
 export default class ApplicationStore {
     /**
-     * 导航条高度
+     * Navbar height
      */
     navbarHeight = 40
-
     /**
-     * 是否处于预览状态
+     * Is in preview
      */
     isPreview = false
-
     /**
-     * 实图外层容器样式
+     * Viewport parent container's style
      */
     viewportContainerStyle = {}
-
     /**
-     * 视图容器样式
+     * Viewport style
      */
     viewportStyle = {}
-
     /**
-     * 所有插件，包括内置与第三方
+     * All gaea plugins
      */
     plugins?: Plugin[] = []
-
     /**
-     * 所有组件类
+     * All component's class
+     * key: component's name
+     * value: component's class
      */
     componentClasses = new Map<string, React.ComponentClass<ComponentProps>>()
-
     /**
-     * 页面初始化数据
+     * Viewport's initialization data
      */
     defaultValue?: any = null
+    /**
+     * Viewport root component's name
+     */
+    rootComponentName = ''
 }

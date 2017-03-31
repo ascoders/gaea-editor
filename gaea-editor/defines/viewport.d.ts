@@ -3,9 +3,9 @@
  */
 declare interface InstanceInfo {
     /**
-     * Props
+     * Component information
      */
-    props: ComponentProps
+    info: ComponentProps
     /**
      * Children's instanceKey（only canDragIn）
      */

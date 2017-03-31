@@ -107,7 +107,6 @@ export default class Viewport extends React.Component<Props, State> {
     }
 
     render() {
-
         // if (this.props.stores.ApplicationStore.defaultValue === null) {
         //     return null
         // }

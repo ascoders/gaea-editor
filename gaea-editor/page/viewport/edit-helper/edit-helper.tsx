@@ -7,9 +7,6 @@ import { StoreProps } from '../../../stores'
 import { Props, State } from './edit-helper.type'
 import * as Style from './edit-helper.style'
 
-// 绑定数据的 EditHelper
-const ObserveEditHelper = Connect(EditHelper)
-
 /**
  * 一个辅助编辑状态的外壳，内部包裹实际渲染的组件
  */
@@ -17,6 +14,9 @@ const ObserveEditHelper = Connect(EditHelper)
 export default class EditHelper extends React.Component<Props, State> {
     static defaultProps = new Props()
     public state = new State()
+
+    // 绑定数据的 EditHelper
+    static ObserveEditHelper = Connect(EditHelper)
 
     /**
      * 暴露内层组件实例
@@ -43,7 +43,7 @@ export default class EditHelper extends React.Component<Props, State> {
         this.instanceInfo = this.props.stores.ViewportStore.components.get(this.props.instanceKey)
 
         // 获取当前要渲染的组件 class
-        this.ComponentClass = this.props.stores.ApplicationStore.componentClasses.get(this.instanceInfo.props.gaeaUniqueKey)
+        this.ComponentClass = this.props.stores.ApplicationStore.componentClasses.get(this.instanceInfo.info.gaeaUniqueKey)
     }
 
     render() {
