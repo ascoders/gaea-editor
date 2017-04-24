@@ -121,7 +121,7 @@ export default class Viewport extends React.Component<Props, State> {
                 onMouseLeave={this.handleMouseLeave}
                 ref={this.getRef}
             >
-                <EditHelper instanceKey={this.props.stores.ViewportStore.rootInstanceKey} />
+                {/*<EditHelper instanceKey={this.props.stores.ViewportStore.rootInstanceKey} />*/}
             </div>
         )
     }
