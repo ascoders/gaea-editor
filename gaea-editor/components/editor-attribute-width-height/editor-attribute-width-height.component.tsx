@@ -4,6 +4,7 @@ import * as typings from './editor-attribute-width-height.type'
 import * as EditorManager from '../../../gaea-editor-manager/gaea-editor-manager'
 import { Number } from 'nt-web-number'
 import { autoBindMethod } from 'nt-auto-bind'
+import * as _ from 'lodash'
 
 import './editor-attribute-width-height.scss'
 

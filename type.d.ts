@@ -1,0 +1,7 @@
+declare module 'sortablejs'
+declare module 'nt-web-button'
+declare module 'nt-web-input'
+declare module 'nt-web-auto-complete'
+declare module 'nt-web-select'
+declare module 'nt-web-tree'
+declare module 'nt-web-number'

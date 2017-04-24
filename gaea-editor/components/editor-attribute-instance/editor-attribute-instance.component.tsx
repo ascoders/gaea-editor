@@ -36,7 +36,7 @@ export default class EditorAttributeInstance extends React.Component<typings.Pro
         }
 
         const componentInstances = this.props.ViewportStore.currentEditComponentInfo.props.gaeaEdit[this.props.index].instance.map((props, index) => {
-            const instanceElement = React.createElement(this.ComponentClass, props)
+            const instanceElement = React.createElement(this.ComponentClass, props as any)
             return (
                 <div key={index}
                     onClick={this.handleApplyProps.bind(this, props)}

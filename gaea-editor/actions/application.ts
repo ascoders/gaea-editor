@@ -3,6 +3,7 @@ import { inject } from 'inject-instance'
 import { action, extendObservable, observable } from 'mobx'
 import ApplicationStore from '../stores/application'
 import deepDiff from '../utils/deep-diff'
+import * as _ from 'lodash'
 
 export default class ApplicationAction {
     @inject('ApplicationStore') private application: ApplicationStore
@@ -12,7 +13,7 @@ export default class ApplicationAction {
         return this.application.plugins.map((plugin, index) => {
             if (plugin.position === position) {
                 props.key = index
-                return React.createElement(plugin, props)
+                return React.createElement(plugin as any, props)
             }
         })
     }

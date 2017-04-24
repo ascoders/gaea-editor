@@ -52,9 +52,9 @@ export default class EditHelper extends React.Component<typings.PropsDefine, typ
 
         if (this.isAbsolute()) {
             // 绝对定位元素可以拖拽
-            this.domInstance.addEventListener('mousedown', this.handleMouseDown)
-            this.domInstance.addEventListener('mousemove', this.handleMouseMove)
-            this.domInstance.addEventListener('mouseup', this.handleMouseUp)
+            // this.domInstance.addEventListener('mousedown', this.handleMouseDown)
+            // this.domInstance.addEventListener('mousemove', this.handleMouseMove)
+            // this.domInstance.addEventListener('mouseup', this.handleMouseUp)
         }
 
         this.props.EventAction.on(`${this.props.EventStore.viewportDomUpdate}.${this.props.mapUniqueKey}`, this.updateDom)
@@ -89,9 +89,9 @@ export default class EditHelper extends React.Component<typings.PropsDefine, typ
         this.domInstance.removeEventListener('click', this.handleClick)
 
         if (this.isAbsolute()) {
-            this.domInstance.removeEventListener('mousedown', this.handleMouseDown)
-            this.domInstance.removeEventListener('mousemove', this.handleMouseMove)
-            this.domInstance.removeEventListener('mouseup', this.handleMouseUp)
+            // this.domInstance.removeEventListener('mousedown', this.handleMouseDown)
+            // this.domInstance.removeEventListener('mousemove', this.handleMouseMove)
+            // this.domInstance.removeEventListener('mouseup', this.handleMouseUp)
         }
 
         this.props.EventAction.off(`${this.props.EventStore.viewportDomUpdate}.${this.props.mapUniqueKey}`, this.updateDom)
@@ -164,56 +164,55 @@ export default class EditHelper extends React.Component<typings.PropsDefine, typ
         this.props.ViewportAction.setCurrentEditComponentMapUniqueKey(this.props.mapUniqueKey)
     }
 
-    /**
-     * :TODO 绝对定位移动
-     */
-    @autoBindMethod handleMouseDown(event: MouseEvent) {
-        //event.preventDefault()
+    // /**
+    //  * :TODO 绝对定位移动
+    //  */
+    // @autoBindMethod handleMouseDown(event: MouseEvent) {
+    //     //event.preventDefault()
 
+    //     if (this.componentInfo.props.style.position === 'gaea-draggable') {
+    //         return
+    //     }
 
-        if (this.componentInfo.props.style.position === 'gaea-draggable') {
-            return
-        }
+    //     this.startDrag = true
+    //     //this.props.ViewportStore.setIsMovingComponent(true)
+    //     //this.props.ViewportStore.prepareWriteHistory(this.props.mapUniqueKey)
+    // }
 
-        this.startDrag = true
-        //this.props.ViewportStore.setIsMovingComponent(true)
-        //this.props.ViewportStore.prepareWriteHistory(this.props.mapUniqueKey)
-    }
+    // @autoBindMethod handleMouseMove(event: MouseEvent) {
+    //     //event.preventDefault()
 
-    @autoBindMethod handleMouseMove(event: MouseEvent) {
-        //event.preventDefault()
+    //     if (this.componentInfo.props.style.position === 'gaea-draggable') {
+    //         return
+    //     }
 
-        if (this.componentInfo.props.style.position === 'gaea-draggable') {
-            return
-        }
+    //     if (!this.startDrag) {
+    //         return
+    //     }
 
-        if (!this.startDrag) {
-            return
-        }
+    //     // 拖动的元素一定是 absolute 的，直接修改位置
+    //     // const diffX = this.lastClientX === null ? 0 : event.clientX - this.lastClientX
+    //     // const diffY = this.lastClientY === null ? 0 : event.clientY - this.lastClientY
 
-        // 拖动的元素一定是 absolute 的，直接修改位置
-        // const diffX = this.lastClientX === null ? 0 : event.clientX - this.lastClientX
-        // const diffY = this.lastClientY === null ? 0 : event.clientY - this.lastClientY
+    //     // this.lastClientX = event.clientX
+    //     // this.lastClientY = event.clientY
 
-        // this.lastClientX = event.clientX
-        // this.lastClientY = event.clientY
+    //     //this.props.ViewportStore.updateAbsoluteXY(this.props.mapUniqueKey, diffX, diffY)
+    //     //this.props.ViewportStore.setIsMovingComponent(false)
+    // }
 
-        //this.props.ViewportStore.updateAbsoluteXY(this.props.mapUniqueKey, diffX, diffY)
-        //this.props.ViewportStore.setIsMovingComponent(false)
-    }
+    // @autoBindMethod handleMouseUp(event: MouseEvent) {
+    //     //event.preventDefault()
 
-    @autoBindMethod handleMouseUp(event: MouseEvent) {
-        //event.preventDefault()
+    //     if (this.componentInfo.props.style.position === 'gaea-draggable') {
+    //         return
+    //     }
 
-        if (this.componentInfo.props.style.position === 'gaea-draggable') {
-            return
-        }
-
-        // this.startDrag = false
-        // this.lastClientX = null as number
-        // this.lastClientY = null as number
-        //this.props.ViewportStore.writeHistory(this.props.mapUniqueKey)
-    }
+    //     // this.startDrag = false
+    //     // this.lastClientX = null as number
+    //     // this.lastClientY = null as number
+    //     //this.props.ViewportStore.writeHistory(this.props.mapUniqueKey)
+    // }
 
     render() {
         // 子元素

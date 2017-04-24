@@ -8,6 +8,7 @@ import {
     observable,
     extendObservable
 } from '../../../gaea-editor-manager/gaea-editor-manager'
+import * as _ from 'lodash'
 
 import EventStore from './store'
 

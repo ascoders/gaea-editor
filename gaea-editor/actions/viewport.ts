@@ -87,7 +87,7 @@ export default class ViewportAction {
         let component: FitGaea.ViewportComponentInfo = {
             props: newProps,
             parentMapUniqueKey: parentMapUniqueKey
-        }
+        } as FitGaea.ViewportComponentInfo
 
         if (ComponentClass.defaultProps.canDragIn) {
             // 如果是个布局元素, 将其 layoutChilds 设置为数组
@@ -291,7 +291,7 @@ export default class ViewportAction {
     @action('重置属性') resetProps(mapUniqueKey: string) {
         const componentInfo = this.viewport.components.get(mapUniqueKey)
         const ComponentClass = this.applicationAction.getComponentClassByGaeaUniqueKey(componentInfo.props.gaeaUniqueKey)
-        componentInfo.props = extendObservable({}, _.cloneDeep(ComponentClass.defaultProps))
+        componentInfo.props = extendObservable({}, _.cloneDeep(ComponentClass.defaultProps)) as FitGaea.ComponentProps
     }
 
     @action('清空当前状态') clean() {
