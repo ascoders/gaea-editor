@@ -24,7 +24,7 @@ export default class ApplicationStore {
      * key: component's name
      * value: component's class
      */
-    componentClasses = new Map<string, React.ComponentClass<ComponentProps>>()
+    componentClasses = new Map<string, React.ComponentClass<GaeaProps>>()
     /**
      * Viewport's initialization data
      */

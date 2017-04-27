@@ -20,7 +20,7 @@ export default class ApplicationAction {
         return this.store.plugins
             .filter(plugin => plugin.position === position)
             .map((plugin, index) => {
-                return React.createElement(plugin.component, {
+                return React.createElement(plugin.class, {
                     key: index
                 })
             })

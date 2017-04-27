@@ -32,11 +32,11 @@ class GlobalSetting extends React.Component<Props, State> {
 
 export default {
     position: 'navbarLeft',
-    component: GlobalSetting,
+    class: GlobalSetting,
     actions: {
         GlobalSettingAction: store.GlobalSettingsAction
     },
     stores: {
         GlobalSettingsStore: store.GlobalSettingsStore
     }
-} as Plugin
+}

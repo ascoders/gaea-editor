@@ -43,7 +43,7 @@ export default class EditHelper extends React.Component<Props, State> {
         this.instanceInfo = this.props.stores.ViewportStore.components.get(this.props.instanceKey)
 
         // 获取当前要渲染的组件 class
-        this.ComponentClass = this.props.stores.ApplicationStore.componentClasses.get(this.instanceInfo.info.gaeaUniqueKey)
+        this.ComponentClass = this.props.stores.ApplicationStore.componentClasses.get(this.instanceInfo.info.key)
     }
 
     render() {

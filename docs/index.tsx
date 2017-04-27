@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { GaeaEditor } from '../gaea-editor'
+import { GaeaEditor } from '../src'
 
 ReactDOM.render((
     <div style={{ width: '100vw', height: '100vh' }}>

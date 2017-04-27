@@ -5,14 +5,14 @@ declare interface InstanceInfo {
     /**
      * Component information
      */
-    info: ComponentProps
+    info: GaeaSetting
     /**
      * Children's instanceKey（only canDragIn）
      */
-    layoutChilds?: Array<string>
+    childs?: Array<string>
     /**
      * Parent component's instanceKey
-     * Root component's is null
+     * Root component's parentInstanceKey is null
      */
     parentInstanceKey: string
 }
