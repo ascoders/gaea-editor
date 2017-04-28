@@ -16,7 +16,7 @@ export default class EditHelper extends React.Component<Props, State> {
     public state = new State()
 
     // 绑定数据的 EditHelper
-    static ObserveEditHelper = Connect(EditHelper)
+    static ObserveEditHelper = () => Connect(EditHelper)
 
     /**
      * 暴露内层组件实例
@@ -26,7 +26,7 @@ export default class EditHelper extends React.Component<Props, State> {
     /**
      * 组件的类
      */
-    private ComponentClass: React.ComponentClass<any>
+    private componentClass: React.ComponentClass<any>
 
     /**
      * 组件实例的信息
@@ -39,11 +39,8 @@ export default class EditHelper extends React.Component<Props, State> {
     private domInstance: HTMLElement
 
     componentWillMount() {
-        // 从 store 找到自己信息
         this.instanceInfo = this.props.stores.ViewportStore.components.get(this.props.instanceKey)
-
-        // 获取当前要渲染的组件 class
-        this.ComponentClass = this.props.stores.ApplicationStore.componentClasses.get(this.instanceInfo.info.key)
+        this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey)
     }
 
     render() {

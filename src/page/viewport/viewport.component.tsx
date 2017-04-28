@@ -4,7 +4,7 @@ import * as classNames from 'classnames'
 import { Connect } from 'dynamic-react'
 
 import { StoreProps } from '../../stores'
-import EditHelper from './edit-helper/edit-helper'
+import EditHelper from './edit-helper/edit-helper.component'
 
 class Props extends StoreProps {
 
@@ -52,35 +52,25 @@ export default class Viewport extends React.Component<Props, State> {
      */
     freshView() {
         if (this.props.stores.ApplicationStore.defaultValue === null) {  // 空白应用
-            // 生成根节点唯一 id
-            const rootInstanceKey = this.props.actions.ViewportAction.createNewInstanceKey()
+            const RootClass = this.props.actions.ApplicationAction.getComponentClassByKey('gaea-container')
+
+            const rootInstanceKey = this.props.actions.ViewportAction.addComponent('gaea-container', {
+                gaeaKey: 'gaea-container',
+                data: {},
+                childs: [],
+                parentInstanceKey: null
+            })
+
             this.props.actions.ViewportAction.setRootInstanceKey(rootInstanceKey)
 
-            // // 获得根节点类
-            // const RootClass = this.props.ApplicationAction.getComponentClassByGaeaUniqueKey(this.props.ApplicationStore.editorProps.rootLayoutComponentUniqueKey)
-
             // // 设置根节点属性
-            // let rootProps = _.cloneDeep(RootClass.defaultProps)
-            // rootProps.style.backgroundColor = 'white'
-
-            // if (this.props.ApplicationStore.editorProps.isReactNative) {
-            //     rootProps.style.flex = 1
-            //     rootProps.style.overflowY = 'auto'
-            //     rootProps.style.flexDirection = 'column'
-            // } else {
             //     rootProps.style.flexGrow = 1
             //     rootProps.style.flexDirection = 'column'
             //     rootProps.style.display = 'block'
             //     rootProps.style.overflow = null
             //     rootProps.style.overflowX = 'hidden'
             //     rootProps.style.overflowY = 'auto'
-            // }
-
-            // this.props.ViewportAction.setComponent(this.props.ViewportStore.rootMapUniqueKey, {
-            //     props: rootProps,
-            //     layoutChilds: [],
-            //     parentMapUniqueKey: null
-            // })
+            // rootProps.style.backgroundColor = 'white'
         } else { // 根据默认配置渲染
             // const defaultValue = JSON.parse(LZString.decompressFromBase64(this.props.ApplicationStore.pageValue)) as {
             //     [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
@@ -120,7 +110,7 @@ export default class Viewport extends React.Component<Props, State> {
             <div className={classes}
                 onMouseLeave={this.handleMouseLeave}
                 ref={this.getRef}>
-                {/*<EditHelper instanceKey={this.props.stores.ViewportStore.rootInstanceKey} />*/}
+                <EditHelper instanceKey={this.props.stores.ViewportStore.rootInstanceKey} />
             </div>
         )
     }

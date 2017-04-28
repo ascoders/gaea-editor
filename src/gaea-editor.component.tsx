@@ -5,12 +5,7 @@ import { Store, ActionsOrStores } from './stores'
 import Page from './page/page.component'
 
 import globalSettings from './plugins/global-settings'
-
-export class Props {
-}
-
-export class State {
-}
+import { Props, State } from './gaea-editor.type'
 
 export default class GaeaEditor extends React.Component<Props, State> {
     static defaultProps = new Props()
@@ -26,6 +21,11 @@ export default class GaeaEditor extends React.Component<Props, State> {
         // 注入插件数据流
         this.stores.addActions(globalSettings.actions)
         this.stores.addStores(globalSettings.stores)
+
+        // add componentClasses to store
+        this.props.componentClasses.forEach(componentClass => {
+            this.stores.getStore().actions.ApplicationAction.addComponentClass(componentClass)
+        })
     }
 
     render() {

@@ -3,7 +3,7 @@ import { Connect } from 'dynamic-react'
 
 import { StoreProps } from '../stores'
 
-import Viewport from './viewport/viewport'
+import Viewport from './viewport/viewport.component'
 
 class Props extends StoreProps {
 
