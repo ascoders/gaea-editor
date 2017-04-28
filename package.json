@@ -10,7 +10,7 @@
     "@types/lodash": "^4.14.58",
     "classnames": "^2.2.5",
     "dependency-inject": "^1.0.3",
-    "dynamic-object": "^2.0.1",
+    "dynamic-object": "^2.0.2",
     "dynamic-react": "^2.0.3",
     "lodash": "^4.17.4",
     "lz-string": "^1.4.4",
@@ -26,7 +26,7 @@
     "@types/react-redux": "^4.4.36",
     "@types/react-router": "^3.0.1",
     "@types/react-router-redux": "^4.0.40",
-    "run-react": "^0.2.4",
+    "run-react": "^1.0.3",
     "typescript": "^2.1.1"
   },
   "author": "",
