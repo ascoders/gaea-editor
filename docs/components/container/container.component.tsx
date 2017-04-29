@@ -1,21 +1,21 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import * as React from "react"
+import * as ReactDOM from "react-dom"
 
 class Props {
-  gaeaSetting = {
-    key: 'gaea-container',
-    name: '容器',
-    isContainer: true
+  public gaeaSetting = {
+    key: "gaea-container",
+    name: "容器",
+    isContainer: true,
   }
 }
 
 class State { }
 
 export default class Container extends React.Component<Props, State> {
-  static defaultProps = new Props()
+  public static defaultProps = new Props()
   public state = new State()
 
-  render() {
+  public render() {
     return (
       <div>
         {this.props.children}

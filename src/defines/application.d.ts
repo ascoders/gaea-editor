@@ -1,7 +1,7 @@
 /**
  * Plugin
  */
-declare interface Plugin {
+declare interface IPlugin {
     /**
      * Position insert to editor
      */
@@ -27,11 +27,11 @@ declare interface Plugin {
 /**
  * Drag source's props should extends this interface
  */
-declare interface GaeaProps extends React.HTMLProps<any> {
-    gaeaSetting: GaeaSetting
+declare interface IGaeaProps extends React.HTMLProps<any> {
+    gaeaSetting: IGaeaSetting
 }
 
-declare interface GaeaSetting {
+declare interface IGaeaSetting {
     /**
      * Unique key
      */
@@ -43,7 +43,7 @@ declare interface GaeaSetting {
     /**
      * Edit infos
      */
-    editor?: Array<string>
+    editor?: string[]
     /**
      * Is in preview mode
      */

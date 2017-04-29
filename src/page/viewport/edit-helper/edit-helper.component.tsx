@@ -1,22 +1,23 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import * as classNames from 'classnames'
-import { Connect } from 'dynamic-react'
+import * as classNames from "classnames"
+import { Connect } from "dynamic-react"
+import * as React from "react"
+import * as ReactDOM from "react-dom"
 
-import { StoreProps } from '../../../stores'
-import { Props, State } from './edit-helper.type'
-import * as Style from './edit-helper.style'
+import { StoreProps } from "../../../stores"
+import * as Style from "./edit-helper.style"
+import { Props, State } from "./edit-helper.type"
 
 /**
  * 一个辅助编辑状态的外壳，内部包裹实际渲染的组件
  */
 @Connect
 export default class EditHelper extends React.Component<Props, State> {
-    static defaultProps = new Props()
-    public state = new State()
+    public static defaultProps = new Props()
 
     // 绑定数据的 EditHelper
-    static ObserveEditHelper = () => Connect(EditHelper)
+    public static ObserveEditHelper = () => Connect(EditHelper)
+
+    public state = new State()
 
     /**
      * 暴露内层组件实例
@@ -38,15 +39,15 @@ export default class EditHelper extends React.Component<Props, State> {
      */
     private domInstance: HTMLElement
 
-    componentWillMount() {
+    public componentWillMount() {
         this.instanceInfo = this.props.stores.ViewportStore.components.get(this.props.instanceKey)
         this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey)
     }
 
-    render() {
+    public render() {
         return (
             <Style.Container>
-                aaa
+                {React.createElement(this.componentClass)}
             </Style.Container>
         )
     }

@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components'
+import styled, { css } from "styled-components"
 
 const NavbarContainerLeftAndNavbarContainerRight = css`
     & > div:not(.no-style) {
@@ -24,21 +24,21 @@ const ViewportContainerBoxAndPreviewContainer = css`
     margin: 0 auto;
 `
 
-export const Container = styled.div`
+export const Container = styled.div.withConfig({ componentId: "Container" }) `
     display: flex;
     width: 100%;
     height: 100%;
     overflow: hidden;
 `
 
-export const LeftContainer = styled.div`
+export const LeftContainer = styled.div.withConfig({ componentId: "LeftContainer" }) `
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     width: 0;
 `
 
-export const RightContainer = styled.div`
+export const RightContainer = styled.div.withConfig({ componentId: "RightContainer" }) `
     display: flex;
     width: 300px;
     z-index: 2;
@@ -98,13 +98,13 @@ export const ViewportContainerRight = styled.div`
     flex-grow: 1;
     width: 0;
     transition: all .15s;
-    ${props => props.theme.transparent && `
+    ${(props: any) => props.theme.transparent && `
         //background-image: url('../images/transparent.png');
     `}
-    ${props => props.theme.showRight && `
+    ${(props: any) => props.theme.showRight && `
         margin-right: 0;
     `}
-    ${props => props.theme.showLeft && `
+    ${(props: any) => props.theme.showLeft && `
         margin-left: 0;
     `}
 `
@@ -168,7 +168,7 @@ export const ToolsContainerClose = styled.div`
     color: #999;
     cursor: pointer;
     z-index: 1;
-    
+
     &:hover {
         color: #333;
         transform: scale(1.2);
@@ -207,7 +207,7 @@ export const EditorContainerClose = styled.div`
     color: #999;
     cursor: pointer;
     z-index: 1;
-    
+
     &:hover {
         color: #333;
         transform: scale(1.2);

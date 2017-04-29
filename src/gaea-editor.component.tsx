@@ -1,34 +1,48 @@
-import * as React from 'react'
-import { Provider } from 'dynamic-react'
+import { Provider } from "dynamic-react"
+import * as React from "react"
 
-import { Store, ActionsOrStores } from './stores'
-import Page from './page/page.component'
+import Page from "./page/page.component"
+import { IActionsOrStores, Store } from "./stores"
 
-import globalSettings from './plugins/global-settings'
-import { Props, State } from './gaea-editor.type'
+import { Props, State } from "./gaea-editor.type"
+
+// 所有插件
+const plugins: any[] = []
+
+const context = require.context("./plugins", true, /index\.tsx$/)
+context.keys().forEach((key: string) => {
+    plugins.push(context(key).default)
+})
 
 export default class GaeaEditor extends React.Component<Props, State> {
-    static defaultProps = new Props()
+    public static defaultProps = new Props()
     public state = new State()
 
     private stores = new Store()
     private pluginStores = {}
 
-    componentWillMount() {
+    public componentWillMount() {
         // 收集插件, 后续用来在不同地方展示
-        this.stores.getStore().actions.ApplicationAction.addPlugin(globalSettings)
+        plugins.forEach((plugin) => {
+            this.stores.getStore().actions.ApplicationAction.addPlugin(plugin)
 
-        // 注入插件数据流
-        this.stores.addActions(globalSettings.actions)
-        this.stores.addStores(globalSettings.stores)
+            // 注入插件数据流
+            if (plugin.actions) {
+                this.stores.addActions(plugin.actions)
+            }
+
+            if (plugin.stores) {
+                this.stores.addStores(plugin.stores)
+            }
+        })
 
         // add componentClasses to store
-        this.props.componentClasses.forEach(componentClass => {
+        this.props.componentClasses.forEach((componentClass) => {
             this.stores.getStore().actions.ApplicationAction.addComponentClass(componentClass)
         })
     }
 
-    render() {
+    public render() {
         return (
             <Provider {...this.stores.getStore() }>
                 <Page />

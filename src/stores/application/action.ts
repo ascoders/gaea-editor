@@ -1,7 +1,7 @@
-import * as React from 'react'
-import ApplicationStore from './store'
-import { inject } from 'dependency-inject'
-import { Action } from 'dynamic-object'
+import { inject } from "dependency-inject"
+import { Action } from "dynamic-object"
+import * as React from "react"
+import ApplicationStore from "./store"
 
 export default class ApplicationAction {
     @inject(ApplicationStore)
@@ -10,16 +10,16 @@ export default class ApplicationAction {
     /**
      * 添加插件
      */
-    @Action addPlugin(plugin: Plugin) {
+    @Action public addPlugin(plugin: IPlugin) {
         this.store.plugins.push(plugin)
     }
 
     /**
      * position 根据位置加载插件
      */
-    @Action loadingPluginByPosition(position: string) {
+    @Action public loadingPluginByPosition(position: string) {
         return this.store.plugins
-            .filter(plugin => plugin.position === position)
+            .filter((plugin) => plugin.position === position)
             .map((plugin, index) => {
                 return React.createElement(plugin.class, {
                     key: index
@@ -30,14 +30,14 @@ export default class ApplicationAction {
     /**
      * add component class
      */
-    @Action addComponentClass(componentClass: any) {
+    @Action public addComponentClass(componentClass: any) {
         this.store.componentClasses.set(componentClass.defaultProps.gaeaSetting.key, componentClass)
     }
 
     /**
      * get component class by key
      */
-    @Action getComponentClassByKey(key: string) {
+    @Action public getComponentClassByKey(key: string) {
         return this.store.componentClasses.get(key)
     }
 }

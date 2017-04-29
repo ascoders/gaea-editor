@@ -2,35 +2,35 @@ export default class ApplicationStore {
     /**
      * Navbar height
      */
-    navbarHeight = 40
+    public navbarHeight = 40
     /**
      * Is in preview
      */
-    isPreview = false
+    public isPreview = false
     /**
      * Viewport parent container's style
      */
-    viewportContainerStyle = {}
+    public viewportContainerStyle = {}
     /**
      * Viewport style
      */
-    viewportStyle = {}
+    public viewportStyle = {}
     /**
      * All gaea plugins
      */
-    plugins?: Plugin[] = []
+    public plugins?: IPlugin[] = []
     /**
      * All component's class
      * key: component's name
      * value: component's class
      */
-    componentClasses = new Map<string, React.ComponentClass<GaeaProps>>()
+    public componentClasses = new Map<string, React.ComponentClass<IGaeaProps>>()
     /**
      * Viewport's initialization data
      */
-    defaultValue?: any = null
+    public defaultValue?: any = null
     /**
      * Viewport root component's name
      */
-    rootComponentName = ''
+    public rootComponentName = ""
 }

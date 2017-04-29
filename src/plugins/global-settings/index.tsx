@@ -1,8 +1,8 @@
-import * as React from 'react'
-import { Connect } from 'dynamic-react'
+import { Connect } from "dynamic-react"
+import * as React from "react"
 
-import { StoreProps } from '../../stores'
-import * as store from './store'
+import { StoreProps } from "../../stores"
+import * as store from "./store"
 
 export class Props extends StoreProps {
 
@@ -14,14 +14,10 @@ export class State {
 
 @Connect
 class GlobalSetting extends React.Component<Props, State> {
-    static defaultProps = new Props()
+    public static defaultProps = new Props()
     public state = new State()
 
-    componentWillMount() {
-
-    }
-
-    render() {
+    public render() {
         return (
             <div>
                 全局设置
@@ -31,7 +27,7 @@ class GlobalSetting extends React.Component<Props, State> {
 }
 
 export default {
-    position: 'navbarLeft',
+    position: "navbarLeft",
     class: GlobalSetting,
     actions: {
         GlobalSettingAction: store.GlobalSettingsAction

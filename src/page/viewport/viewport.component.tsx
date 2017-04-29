@@ -1,10 +1,10 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import * as classNames from 'classnames'
-import { Connect } from 'dynamic-react'
+import * as classNames from "classnames"
+import { Connect } from "dynamic-react"
+import * as React from "react"
+import * as ReactDOM from "react-dom"
 
-import { StoreProps } from '../../stores'
-import EditHelper from './edit-helper/edit-helper.component'
+import { StoreProps } from "../../stores"
+import EditHelper from "./edit-helper/edit-helper.component"
 
 class Props extends StoreProps {
 
@@ -16,28 +16,28 @@ class State {
 
 import {
 
-} from './viewport.style'
+} from "./viewport.style"
 
 @Connect
 export default class Viewport extends React.Component<Props, State> {
-    static defaultProps = new Props()
+    public static defaultProps = new Props()
     public state = new State()
 
-    componentWillMount() {
+    public componentWillMount() {
         this.freshView()
     }
 
     /**
-    * 获取自己的实例
-    */
-    getRef = (ref: React.ReactInstance) => {
+     * 获取自己的实例
+     */
+    public getRef = (ref: React.ReactInstance) => {
         this.props.actions.ViewportAction.setViewportDOM(ReactDOM.findDOMNode(ref) as HTMLElement)
     }
 
     /**
-    * 鼠标移开视图区域
-    */
-    handleMouseLeave = (event: React.MouseEvent<HTMLDivElement>) => {
+     * 鼠标移开视图区域
+     */
+    public handleMouseLeave = (event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation()
 
         // // 触发事件
@@ -50,12 +50,12 @@ export default class Viewport extends React.Component<Props, State> {
     /**
      * 刷新视图
      */
-    freshView() {
+    public freshView() {
         if (this.props.stores.ApplicationStore.defaultValue === null) {  // 空白应用
-            const RootClass = this.props.actions.ApplicationAction.getComponentClassByKey('gaea-container')
+            const RootClass = this.props.actions.ApplicationAction.getComponentClassByKey("gaea-container")
 
-            const rootInstanceKey = this.props.actions.ViewportAction.addComponent('gaea-container', {
-                gaeaKey: 'gaea-container',
+            const rootInstanceKey = this.props.actions.ViewportAction.addComponent("gaea-container", {
+                gaeaKey: "gaea-container",
                 data: {},
                 childs: [],
                 parentInstanceKey: null
@@ -96,13 +96,13 @@ export default class Viewport extends React.Component<Props, State> {
         }
     }
 
-    render() {
+    public render() {
         // if (this.props.stores.ApplicationStore.defaultValue === null) {
         //     return null
         // }
 
         const classes = classNames({
-            '_namespace': true,
+            _namespace: true,
             // 'layout-active': this.props.ViewportStore.isLayoutComponentActive
         })
 

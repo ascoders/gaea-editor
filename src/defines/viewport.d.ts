@@ -9,19 +9,15 @@ declare interface InstanceInfo {
     /**
      * Component data, all operate save here
      */
-    data: InstanceData
+    data: any
     /**
      * Children's instanceKey（only isContainer)
      * Component who's property isContainer is false will not have the property
      */
-    childs?: Array<string>
+    childs?: string[]
     /**
      * Parent component's instanceKey
      * Root component's parentInstanceKey is null
      */
     parentInstanceKey: string
-}
-
-declare interface InstanceData {
-
 }

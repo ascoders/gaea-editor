@@ -1,23 +1,20 @@
-import * as React from 'react'
+import { Container } from "dependency-inject"
+import * as React from "react"
+import ApplicationAction from "./application/action"
+import ApplicationStore from "./application/store"
+import ViewportAction from "./viewport/action"
+import ViewportStore from "./viewport/store"
 
-import { Container } from 'dependency-inject'
-
-import ApplicationAction from './application/action'
-import ApplicationStore from './application/store'
-
-import ViewportAction from './viewport/action'
-import ViewportStore from './viewport/store'
-
-export interface ActionsOrStores {
+export interface IActionsOrStores {
     [x: string]: any
 }
 
 export class StoreProps {
-    actions?: {
+    public actions?: {
         ApplicationAction: ApplicationAction
         ViewportAction: ViewportAction
     }
-    stores?: {
+    public stores?: {
         ApplicationStore: ApplicationStore
         ViewportStore: ViewportStore
     }
@@ -26,8 +23,8 @@ export class StoreProps {
 export class Store {
     private container = new Container()
 
-    private actions: ActionsOrStores = {}
-    private stores: ActionsOrStores = {}
+    private actions: IActionsOrStores = {}
+    private stores: IActionsOrStores = {}
 
     constructor() {
         this.container = new Container()
@@ -38,22 +35,22 @@ export class Store {
         this.container.set(ViewportAction, new ViewportAction())
         this.container.set(ViewportStore, new ViewportStore())
 
-        this.actions['ApplicationAction'] = this.container.get(ApplicationAction)
-        this.stores['ApplicationStore'] = this.container.get(ApplicationStore)
+        this.actions["ApplicationAction"] = this.container.get(ApplicationAction)
+        this.stores["ApplicationStore"] = this.container.get(ApplicationStore)
 
-        this.actions['ViewportAction'] = this.container.get(ViewportAction)
-        this.stores['ViewportStore'] = this.container.get(ViewportStore)
+        this.actions["ViewportAction"] = this.container.get(ViewportAction)
+        this.stores["ViewportStore"] = this.container.get(ViewportStore)
     }
 
-    public addActions(actions: ActionsOrStores) {
-        Object.keys(actions).forEach(key => {
+    public addActions(actions: IActionsOrStores) {
+        Object.keys(actions).forEach((key) => {
             this.container.set(actions[key], new actions[key]())
             this.actions[key] = this.container.get(actions[key])
         })
     }
 
-    public addStores(stores: ActionsOrStores) {
-        Object.keys(stores).forEach(key => {
+    public addStores(stores: IActionsOrStores) {
+        Object.keys(stores).forEach((key) => {
             this.container.set(stores[key], new stores[key]())
             this.stores[key] = this.container.get(stores[key])
         })
@@ -65,7 +62,7 @@ export class Store {
     public getStore() {
         return {
             actions: this.actions,
-            stores: this.stores
+            stores: this.stores,
         }
     }
 }

@@ -1,1 +1,1 @@
-export { default as GaeaEditor } from './gaea-editor.component'
+export { default as GaeaEditor } from "./gaea-editor.component"
