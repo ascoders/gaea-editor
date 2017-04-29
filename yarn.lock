@@ -3626,6 +3626,10 @@ sort-keys@^1.1.1, sort-keys@^1.1.2:
   dependencies:
     is-plain-obj "^1.0.0"
 
+"sortablejs@git://github.com/RubaXa/Sortable.git#dev":
+  version "1.5.0-rc1"
+  resolved "git://github.com/RubaXa/Sortable.git#42bb4e89d2226b38fff421d800f85190fe138f06"
+
 source-list-map@^1.1.1:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/source-list-map/download/source-list-map-1.1.1.tgz#1a33ac210ca144d1e561f906ebccab5669ff4cb4"

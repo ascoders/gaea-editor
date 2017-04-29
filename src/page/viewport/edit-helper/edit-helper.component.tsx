@@ -40,7 +40,7 @@ export default class EditHelper extends React.Component<Props, State> {
     private domInstance: HTMLElement
 
     public componentWillMount() {
-        this.instanceInfo = this.props.stores.ViewportStore.components.get(this.props.instanceKey)
+        this.instanceInfo = this.props.stores.ViewportStore.instances.get(this.props.instanceKey)
         this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey)
     }
 

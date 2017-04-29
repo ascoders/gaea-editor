@@ -13,5 +13,11 @@ export default class ViewportStore {
     /**
      * 当前所有组件实例
      */
-    public components = new Map<string, any>()
+    public instances = new Map<string, InstanceInfo>()
+    /**
+     * current drag info
+     */
+    public currentDragInfo: IDragInfo = null
+    public currentHoverInstanceKey: string
+    public currentEditInstanceKey: string
 }

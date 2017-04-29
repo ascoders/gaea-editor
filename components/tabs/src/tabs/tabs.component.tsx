@@ -47,13 +47,11 @@ export class Tabs extends React.Component<typings.Props,
     this.dom = ReactDOM.findDOMNode(this)
 
     let activeIndex = -1
-    React
-      .Children
-      .map(this.props.children, (item: any, index: number) => {
-        if (this.state.activeKey === item.props.activeKey) {
-          activeIndex = index
-        }
-      })
+    React.Children.map(this.props.children, (item: any, index: number) => {
+      if (this.state.activeKey === item.props.activeKey) {
+        activeIndex = index
+      }
+    })
     this.setActive(this.state.activeKey, activeIndex)
 
     this.activeIndex = activeIndex
@@ -88,15 +86,11 @@ export class Tabs extends React.Component<typings.Props,
 
   public setActive(value: string | number, index: number) {
     // tab标题容器
-    const titleContainer = this
-      .dom
-      .getElementsByClassName("title-container")[0]
+    const titleContainer = this.dom.getElementsByClassName("title-container")[0]
     const titleContainerRect = titleContainer.getBoundingClientRect()
 
     // 当前选择标题元素
-    const titleItem = this
-      .dom
-      .getElementsByClassName(`.title-item-${index}`)[0]
+    const titleItem = this.dom.getElementsByClassName(`title-item-${index}`)[0]
     const titleItemRect = titleItem.getBoundingClientRect()
 
     // 当前标题元素距离容器的做边距
@@ -116,9 +110,9 @@ export class Tabs extends React.Component<typings.Props,
 
   public handleTitleClick = (value: string | number, index: number) => {
     this.setActive(value, index)
-    this
-      .props
-      .onChange(value)
+    if (this.props.onChange) {
+      this.props.onChange(value)
+    }
   }
 
   public render() {
@@ -129,12 +123,8 @@ export class Tabs extends React.Component<typings.Props,
 
       return (
         <Styled.TitleItem
-          onClick={this
-            .handleTitleClick
-            .bind(this, item.props.activeKey, index)}
-          theme={{
-            active: isActive,
-          }}
+          onClick={this.handleTitleClick.bind(this, item.props.activeKey, index)}
+          theme={{ active: isActive }}
           className={`title-item-${index}`}>{titleContent}</Styled.TitleItem>
       )
     })

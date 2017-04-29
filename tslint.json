@@ -15,6 +15,7 @@
     "no-string-literal": false,
     "max-line-length": [
       150
-    ]
+    ],
+    "arrow-parens": false
   }
 }

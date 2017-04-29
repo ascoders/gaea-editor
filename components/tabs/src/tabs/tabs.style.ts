@@ -6,7 +6,7 @@ export const Container = styled.div`
   width: 100%;
 `
 
-export const TitleContainer = styled.div`
+export const TitleContainer = styled.div.withConfig({ componentId: "title-container" }) `
   display: flex;
   position: relative;
   height: 30px;

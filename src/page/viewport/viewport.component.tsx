@@ -54,12 +54,7 @@ export default class Viewport extends React.Component<Props, State> {
         if (this.props.stores.ApplicationStore.defaultValue === null) {  // 空白应用
             const RootClass = this.props.actions.ApplicationAction.getComponentClassByKey("gaea-container")
 
-            const rootInstanceKey = this.props.actions.ViewportAction.addComponent("gaea-container", {
-                gaeaKey: "gaea-container",
-                data: {},
-                childs: [],
-                parentInstanceKey: null
-            })
+            const rootInstanceKey = this.props.actions.ViewportAction.addInstance("gaea-container", null, null)
 
             this.props.actions.ViewportAction.setRootInstanceKey(rootInstanceKey)
 

@@ -35,9 +35,9 @@ export default class ApplicationAction {
     }
 
     /**
-     * get component class by key
+     * get component class by gaeaKey
      */
-    @Action public getComponentClassByKey(key: string) {
-        return this.store.componentClasses.get(key)
+    @Action public getComponentClassByKey(gaeaKey: string) {
+        return this.store.componentClasses.get(gaeaKey)
     }
 }

@@ -19,7 +19,8 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-router": "^3.0.0",
-    "styled-components": "next"
+    "styled-components": "next",
+    "sortablejs": "git://github.com/RubaXa/Sortable.git#dev"
   },
   "devDependencies": {
     "@types/classnames": "^0.0.32",
