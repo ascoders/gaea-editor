@@ -2,8 +2,8 @@ import * as classNames from "classnames"
 import { Connect } from "dynamic-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-
 import { StoreProps } from "../../../stores"
+import { addClass, hasClass, removeClass } from "../../../utils/dom"
 import * as Style from "./edit-helper.style"
 import { Props, State } from "./edit-helper.type"
 
@@ -27,7 +27,7 @@ export default class EditHelper extends React.Component<Props, State> {
     /**
      * 组件的类
      */
-    private componentClass: React.ComponentClass<any>
+    private componentClass: React.ComponentClass<IGaeaProps>
 
     /**
      * 组件实例的信息
@@ -44,11 +44,54 @@ export default class EditHelper extends React.Component<Props, State> {
         this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey)
     }
 
+    public componentDidMount() {
+        this.domInstance = ReactDOM.findDOMNode(this.wrappedInstance) as HTMLElement
+
+        // 绑定监听
+        this.domInstance.addEventListener("mouseover", this.handleMouseOver)
+        this.domInstance.addEventListener("click", this.handleClick)
+
+        this.setLayoutClassIfCanDragIn()
+
+        addClass(this.domInstance, "gaea-draggable")
+
+        // 设置此实例的 dom 节点
+        this.props.actions.ViewportAction.setDomInstance(this.props.instanceKey, this.domInstance)
+
+        // 如果自己是布局元素, 给子元素绑定 sortable
+        if (this.componentClass.defaultProps.gaeaSetting.isContainer) {
+            // 添加可排序拖拽
+            this.props.actions.ViewportAction.registerInnerDrag(this.props.instanceKey, this.domInstance, {
+                draggable: ".gaea-draggable"
+            })
+        }
+    }
+
+    public handleMouseOver = () => {
+        //
+    }
+
+    public handleClick = () => {
+        //
+    }
+
+    /**
+     * 如果是布局容器，且不是最外层元素，添加 gaea-layout class，用于添加布局样式
+     */
+    public setLayoutClassIfCanDragIn = () => {
+        if (this.componentClass.defaultProps.gaeaSetting.isContainer && this.instanceInfo.parentInstanceKey !== null) {
+            addClass(this.domInstance, "gaea-container")
+        }
+    }
+
     public render() {
-        return (
-            <Style.Container>
-                {React.createElement(this.componentClass)}
-            </Style.Container>
-        )
+        const wrapProps = {
+            ...this.componentClass.defaultProps,
+            ref: (ref: React.ReactInstance) => {
+                this.wrappedInstance = ref
+            }
+        }
+
+        return React.createElement(this.componentClass, wrapProps)
     }
 }

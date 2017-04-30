@@ -1,7 +1,9 @@
 import { Connect } from "dynamic-react"
 import * as React from "react"
+import * as ReactDOM from "react-dom";
 import { TabPanel, Tabs } from "../../../components/tabs/src/"
 import { StoreProps } from "../../stores"
+import * as Styled from "./index.style"
 
 export class Props extends StoreProps { }
 export class State { }
@@ -12,17 +14,24 @@ State> {
   public static defaultProps = new Props()
   public state = new State()
 
+  public componentDidMount() {
+    this.props.actions.ViewportAction.registerOuterDrag(ReactDOM.findDOMNode(this) as HTMLElement)
+  }
+
   public getList = () => {
     return Array.from(this.props.stores.ApplicationStore.componentClasses).map(([key, componentClass], index) => {
       return (
-        <div key={index}>{componentClass.defaultProps.gaeaSetting.name}</div>
+        <Styled.Component
+          key={index}
+          data-gaea-key={componentClass.defaultProps.gaeaSetting.key}
+        >{componentClass.defaultProps.gaeaSetting.name}</Styled.Component>
       )
     })
   }
 
   public render() {
     return (
-      <div>{this.getList()}</div>
+      <Styled.Container>{this.getList()}</Styled.Container>
     )
   }
 }

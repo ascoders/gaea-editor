@@ -2,9 +2,9 @@ import * as classNames from "classnames"
 import { Connect } from "dynamic-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-
 import { StoreProps } from "../../stores"
 import EditHelper from "./edit-helper/edit-helper.component"
+import * as Styled from "./viewport.style"
 
 class Props extends StoreProps {
 
@@ -97,16 +97,15 @@ export default class Viewport extends React.Component<Props, State> {
         // }
 
         const classes = classNames({
-            _namespace: true,
+            // _namespace: true,
             // 'layout-active': this.props.ViewportStore.isLayoutComponentActive
         })
 
         return (
-            <div className={classes}
-                onMouseLeave={this.handleMouseLeave}
+            <Styled.Container onMouseLeave={this.handleMouseLeave}
                 ref={this.getRef}>
                 <EditHelper instanceKey={this.props.stores.ViewportStore.rootInstanceKey} />
-            </div>
+            </Styled.Container>
         )
     }
 }

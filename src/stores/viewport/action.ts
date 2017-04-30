@@ -169,11 +169,11 @@ export default class ViewportAction {
     }
 
     @Action public startDrag(dragInfo: IDragInfo) {
-        //
+        this.store.currentDragInfo = dragInfo
     }
 
     @Action public endDrag() {
-        //
+        this.store.currentDragInfo = null
     }
 
     /**
@@ -189,10 +189,11 @@ export default class ViewportAction {
      * 注册子元素内部拖动
      * 指的是当前元素与视图元素一一对应，拖拽相当于视图元素的拖拽，可以实现例如 treePlugin
      */
-    @Action public registerInnerDrag(parentInstanceKey: string, dragParentDom: HTMLElement) {
+    @Action public registerInnerDrag(parentInstanceKey: string, dragParentDom: HTMLElement, params: any) {
         const instance = this.store.instances.get(parentInstanceKey)
 
         Sortable.create(dragParentDom, {
+            ...params,
             animation: 150,
             // 放在一个组里,可以跨组拖拽
             group: {
@@ -337,13 +338,13 @@ export default class ViewportAction {
                     //         source: event.item.dataset.source
                     //     }
                     // })
-                } else if (event.item.dataset.uniqueKey) {
+                } else if (event.item.dataset.gaeaKey) {
                     this.startDrag({
                         type: "new",
                         dragStartParentDom: dragParentDom,
                         dragStartIndex: event.oldIndex as number,
                         info: {
-                            gaeaKey: event.item.dataset.uniqueKey
+                            gaeaKey: event.item.dataset.gaeaKey
                         }
                     })
                 }
@@ -369,5 +370,12 @@ export default class ViewportAction {
                 }
             }
         })
+    }
+
+    /**
+     * 设置 instance 的 dom 节点
+     */
+    @Action public setDomInstance(instanceKey: string, dom: HTMLElement) {
+        this.store.instanceDoms.set(instanceKey, dom)
     }
 }

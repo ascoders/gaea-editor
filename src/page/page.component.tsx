@@ -68,6 +68,7 @@ export default class Page extends React.Component<Props, State> {
                                 {this.props.actions.ApplicationAction.loadingPluginByPosition("leftBarBottom")}
                             </Styled.ViewportContainerLeftBottom>
                         </Styled.ViewportContainerLeft>
+
                         <Styled.ViewportContainerRight
                             style={Object.assign({}, this.props.stores.ApplicationStore.viewportContainerStyle)}>
                             <Styled.ToolsContainer>
@@ -105,6 +106,7 @@ export default class Page extends React.Component<Props, State> {
                         {this.props.actions.ApplicationAction.loadingPluginByPosition("bottomBar")}
                     </Styled.FooterContainer>
                 </Styled.LeftContainer>
+
                 <Styled.RightContainer>
                     <Styled.SidebarMoveContainer>
                         <Styled.SidebarViewportContainer>

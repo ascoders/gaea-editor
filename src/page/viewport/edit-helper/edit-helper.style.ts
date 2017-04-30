@@ -1,5 +1,11 @@
-import styled from "styled-components"
+import styled, { injectGlobal } from "styled-components"
 
-export const Container = styled.div`
+export const global = injectGlobal`
+  .gaea-container {
 
+  }
+
+  .gaea-draggable {
+
+  }
 `

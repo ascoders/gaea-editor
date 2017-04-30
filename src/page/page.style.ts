@@ -18,10 +18,10 @@ const NavbarContainerLeftAndNavbarContainerRight = css`
 const ViewportContainerBoxAndPreviewContainer = css`
     display: flex;
     position: relative;
-    width: 0;
+    flex-basis: 0%;
+    flex-grow: 1;
     border-right: 1px solid #eee;
     border-left: 1px solid #eee;
-    margin: 0 auto;
 `
 
 export const Container = styled.div.withConfig({ componentId: "Container" }) `
@@ -129,6 +129,7 @@ export const SidebarPreviewContainer = styled.div`
 
 export const SidebarViewportContainerTop = styled.div`
     display: flex;
+    flex-direction: column;
     flex-grow: 2;
     height: 0;
 `

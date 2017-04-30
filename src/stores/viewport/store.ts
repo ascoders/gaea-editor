@@ -15,6 +15,10 @@ export default class ViewportStore {
      */
     public instances = new Map<string, InstanceInfo>()
     /**
+     * 组件实例到dom节点的映射
+     */
+    public instanceDoms = new Map<string, HTMLElement>()
+    /**
      * current drag info
      */
     public currentDragInfo: IDragInfo = null
