@@ -7,15 +7,14 @@ import { addClass, hasClass, removeClass } from "../../../utils/dom"
 import * as Style from "./edit-helper.style"
 import { Props, State } from "./edit-helper.type"
 
+// 注入全局样式，辅助编辑器
+Style.injectGlob()
+
 /**
  * 一个辅助编辑状态的外壳，内部包裹实际渲染的组件
  */
-@Connect
-export default class EditHelper extends React.Component<Props, State> {
+class EditHelper extends React.Component<Props, State> {
     public static defaultProps = new Props()
-
-    // 绑定数据的 EditHelper
-    public static ObserveEditHelper = () => Connect(EditHelper)
 
     public state = new State()
 
@@ -85,13 +84,30 @@ export default class EditHelper extends React.Component<Props, State> {
     }
 
     public render() {
+        // 子元素
+        let childs: Array<React.ReactElement<any>> = null
+
+        // 布局元素可以有子元素
+        if (this.componentClass.defaultProps.gaeaSetting.isContainer) {
+            childs = this.instanceInfo.childs.map(childKey => {
+                return (
+                    <ConnectedEditHelper key={childKey}
+                        instanceKey={childKey} />
+                )
+            })
+        }
+
         const wrapProps = {
             ...this.componentClass.defaultProps,
+            ...this.instanceInfo.data.props,
             ref: (ref: React.ReactInstance) => {
                 this.wrappedInstance = ref
             }
         }
 
-        return React.createElement(this.componentClass, wrapProps)
+        return React.createElement(this.componentClass, wrapProps, childs)
     }
 }
+
+const ConnectedEditHelper = Connect(EditHelper)
+export default ConnectedEditHelper

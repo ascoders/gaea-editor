@@ -11,6 +11,6 @@ export function removeClass(obj: HTMLElement, cls: string) {
 
 export function addClass(obj: HTMLElement, cls: string) {
   if (!hasClass(obj, cls)) {
-    obj.className += ` ${cls}`
+    obj.className === "" ? obj.className = `${cls}` : obj.className += ` ${cls}`
   }
 }

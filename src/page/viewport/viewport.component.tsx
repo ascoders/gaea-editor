@@ -57,6 +57,10 @@ export default class Viewport extends React.Component<Props, State> {
             const rootInstanceKey = this.props.actions.ViewportAction.addInstance("gaea-container", null, null)
 
             this.props.actions.ViewportAction.setRootInstanceKey(rootInstanceKey)
+            this.props.actions.ViewportAction.setInstanceProps(rootInstanceKey, "style", {
+                display: "flex",
+                flexGrow: 1
+            })
 
             // // 设置根节点属性
             //     rootProps.style.flexGrow = 1

@@ -7,6 +7,8 @@ class Props {
     name: "容器",
     isContainer: true,
   }
+
+  public style: React.CSSProperties
 }
 
 class State { }
@@ -17,7 +19,7 @@ export default class Container extends React.Component<Props, State> {
 
   public render() {
     return (
-      <div>
+      <div style={this.props.style}>
         {this.props.children}
       </div>
     )

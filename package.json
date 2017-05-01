@@ -8,19 +8,17 @@
     "tslint": "tslint './src/**/*.?(ts|tsx)'"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.58",
     "classnames": "^2.2.5",
     "dependency-inject": "^1.0.3",
-    "dynamic-object": "^2.0.2",
-    "dynamic-react": "^2.0.3",
+    "dynamic-object": "^2.1.0",
+    "dynamic-react": "^2.0.5",
     "lodash": "^4.17.4",
     "lz-string": "^1.4.4",
-    "nt-web-tabs": "^1.0.7",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-router": "^3.0.0",
-    "styled-components": "next",
-    "sortablejs": "git://github.com/RubaXa/Sortable.git#dev"
+    "sortablejs": "git://github.com/RubaXa/Sortable.git#dev",
+    "styled-components": "next"
   },
   "devDependencies": {
     "@types/classnames": "^0.0.32",
@@ -32,7 +30,8 @@
     "pre-commit": "^1.2.2",
     "run-react": "^1.0.4",
     "tslint": "^5.1.0",
-    "typescript": "^2.1.1"
+    "typescript": "^2.1.1",
+    "@types/lodash": "^4.14.58"
   },
   "author": "",
   "license": "ISC",

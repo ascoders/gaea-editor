@@ -8,6 +8,11 @@
         "react-router",
         "styled-components",
         "dynamic-object",
-        "dependency-inject"
+        "dynamic-react",
+        "dependency-inject",
+        "classnames",
+        "lodash",
+        "lz-string",
+        "sortablejs"
     ]
 }

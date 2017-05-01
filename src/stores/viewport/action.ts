@@ -2,6 +2,7 @@ import { inject } from "dependency-inject"
 import { Action } from "dynamic-object"
 import * as _ from "lodash"
 import * as Sortable from "sortablejs"
+import ApplicationStore from "../application/store"
 import ViewportStore from "./store"
 
 /**
@@ -12,6 +13,9 @@ import ViewportStore from "./store"
 export default class ViewportAction {
     @inject(ViewportStore)
     private store: ViewportStore
+
+    @inject(ApplicationStore)
+    private applicationStore: ApplicationStore
 
     /**
      * 设置视图区域 dom 对象
@@ -128,6 +132,22 @@ export default class ViewportAction {
         if (reomveInstanceKey === this.store.currentHoverInstanceKey) {
             this.setCurrentHoverInstanceKey(null)
         }
+    }
+
+    /**
+     * 设置实例的 props 属性
+     */
+    @Action public setInstanceProps(instanceKey: string, key: string, value: any) {
+        const instance = this.store.instances.get(instanceKey)
+        const instanceClass = this.applicationStore.componentClasses.get(instance.gaeaKey)
+
+        // 如果和 defaultProps 相同，就把字段置空
+        if (value === (instanceClass.defaultProps as any)[key]) {
+            delete instance.data.props[key]
+            return
+        }
+
+        _.set(instance.data, `props.${key}`, value)
     }
 
     /**

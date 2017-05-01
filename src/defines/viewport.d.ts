@@ -9,7 +9,12 @@ declare interface InstanceInfo {
     /**
      * Component data, all operate save here
      */
-    data: any
+    data: {
+        /**
+         * Merge to props
+         */
+        props?: any
+    }
     /**
      * Children's instanceKey（only isContainer)
      * Component who's property isContainer is false will not have the property
