@@ -52,36 +52,16 @@ export class Tabs extends React.Component<typings.Props,
         activeIndex = index
       }
     })
+
     this.setActive(this.state.activeKey, activeIndex)
 
     this.activeIndex = activeIndex
-
-    window.addEventListener("resize", this.handleAnyDomChange)
-
-    if (MutationObserver) {
-      // Listen to changes on the elements in the page that affect layout
-      const mObserver = new MutationObserver(this.handleAnyDomChange)
-      mObserver.observe(ReactDOM.findDOMNode(this), {
-        attributes: true,
-        childList: true,
-        characterData: true,
-        subtree: true,
-      })
-    }
-  }
-
-  public componentWillUnmount() {
-    window.removeEventListener("resize", this.handleAnyDomChange)
   }
 
   public componentWillReceiveProps(nextProps: typings.Props) {
     if ("activeKey" in nextProps && nextProps.activeKey !== null) {
       this.setState({ activeKey: nextProps.activeKey })
     }
-  }
-
-  public handleAnyDomChange = () => {
-    this.setActive(this.state.activeKey, this.activeIndex)
   }
 
   public setActive(value: string | number, index: number) {
@@ -101,7 +81,7 @@ export class Tabs extends React.Component<typings.Props,
       isForward: index > this.previousTitleIndex,
       moveBarStyle: {
         left: currentLeft,
-        right: titleContainerRect.width - currentLeft - titleItemRect.width - 20,
+        right: titleContainerRect.width - currentLeft - titleItemRect.width,
       },
     })
 

@@ -1,8 +1,8 @@
 import { Connect } from "dynamic-react"
 import * as React from "react"
-
 import { StoreProps } from "../../stores"
 import * as store from "./store"
+import * as Styled from "./style"
 
 export class Props extends StoreProps {
 
@@ -19,9 +19,9 @@ class GlobalSetting extends React.Component<Props, State> {
 
     public render() {
         return (
-            <div>
+            <Styled.Container>
                 全局设置
-            </div>
+            </Styled.Container>
         )
     }
 }

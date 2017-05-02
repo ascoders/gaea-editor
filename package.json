@@ -10,18 +10,19 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "dependency-inject": "^1.0.3",
-    "dynamic-object": "^2.1.0",
+    "dynamic-object": "^2.1.2",
     "dynamic-react": "^2.0.5",
     "lodash": "^4.17.4",
     "lz-string": "^1.4.4",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-router": "^3.0.0",
-    "sortablejs": "git://github.com/RubaXa/Sortable.git#dev",
+    "sortablejs": "^1.5.1",
     "styled-components": "next"
   },
   "devDependencies": {
     "@types/classnames": "^0.0.32",
+    "@types/lodash": "^4.14.58",
     "@types/react": "^0.14.54",
     "@types/react-dom": "^0.14.19",
     "@types/react-redux": "^4.4.36",
@@ -30,8 +31,7 @@
     "pre-commit": "^1.2.2",
     "run-react": "^1.0.4",
     "tslint": "^5.1.0",
-    "typescript": "^2.1.1",
-    "@types/lodash": "^4.14.58"
+    "typescript": "^2.1.1"
   },
   "author": "",
   "license": "ISC",

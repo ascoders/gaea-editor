@@ -53,7 +53,24 @@ export default class ViewportAction {
 
         // add instanceKey to parent instance's childs
         if (parentInstanceKey !== null) {
-            this.store.instances.get(parentInstanceKey).childs.splice(indexPosition, 0, newInstanceKey)
+            const parentInstance = this.store.instances.get(parentInstanceKey)
+            parentInstance.childs.splice(indexPosition, 0, newInstanceKey)
+
+            // 如果父级和自身都是 gaea-container，且父级是 display:flex，那么子元素默认 flexDirection 与父级元素相反
+            if (parentInstance.gaeaKey === "gaea-container" && gaeaKey === "gaea-container") {
+                if (this.getInstanceProps(parentInstanceKey, "style.display") === "flex" &&
+                    this.getInstanceProps(newInstanceKey, "style.display") === "flex") {
+                    switch (this.getInstanceProps(parentInstanceKey, "style.flexDirection")) {
+                        case "column":
+                            this.setInstanceProps(newInstanceKey, "style.flexDirection", "row")
+                            break
+                        case "row":
+                        default:
+                            this.setInstanceProps(newInstanceKey, "style.flexDirection", "column")
+                    }
+                }
+            }
+
         }
 
         return newInstanceKey
@@ -148,6 +165,21 @@ export default class ViewportAction {
         }
 
         _.set(instance.data, `props.${key}`, value)
+    }
+
+    /**
+     * 获得实例 props 属性，如果没有设置，选择 defaultProps 中属性
+     */
+    @Action public getInstanceProps(instanceKey: string, key: string) {
+        const instance = this.store.instances.get(instanceKey)
+        const instanceClass = this.applicationStore.componentClasses.get(instance.gaeaKey)
+
+        // 如果不存在，选择 defaultProps 中的属性
+        if (!_.has(instance.data, `props.${key}`)) {
+            return _.get(instanceClass.defaultProps, key)
+        }
+
+        return _.get(instance.data, `props.${key}`)
     }
 
     /**
@@ -248,7 +280,7 @@ export default class ViewportAction {
 
                     case "viewport":
                         // 这里只还原 dom，和记录拖拽源信息，不会修改 components 数据，跨层级移动在 remove 回调中修改
-                        // 是从视图区域另一个元素移过来，而且是新增的,而不是同一个父级改变排序
+                        // 是从视图区域另一个元素移过来，而且是新增的, 而不是同一个父级改变排序
                         // 把这个元素还给之前拖拽的父级
                         if (this.store.currentDragInfo.dragStartParentDom.childNodes.length === 0) {
                             // 之前只有一个元素
@@ -286,6 +318,7 @@ export default class ViewportAction {
                 // // 取消 srotable 对 dom 的修改, 让元素回到最初的位置即可复原
                 const oldIndex = event.oldIndex as number
                 const newIndex = event.newIndex as number
+
                 if (this.store.currentDragInfo.dragStartParentDom.childNodes.length === oldIndex + 1) {
                     // 是从最后一个元素开始拖拽的
                     this.store.currentDragInfo.dragStartParentDom.appendChild(event.item)
@@ -298,6 +331,7 @@ export default class ViewportAction {
                         this.store.currentDragInfo.dragStartParentDom.insertBefore(event.item, this.store.currentDragInfo.dragStartParentDom.childNodes[oldIndex + 1])
                     }
                 }
+
                 this.horizontalMoveInstance(parentInstanceKey, event.oldIndex as number, event.newIndex as number)
 
                 // TODO 保存历史

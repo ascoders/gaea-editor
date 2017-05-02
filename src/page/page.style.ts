@@ -6,7 +6,7 @@ const NavbarContainerLeftAndNavbarContainerRight = css`
         justify-content: center;
         align-items: center;
         padding: 0 10px;
-        font-weight: bold;
+        font-size: 14px;
         cursor: pointer;
         user-select: none;
         &:hover {

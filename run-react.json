@@ -7,8 +7,6 @@
         "react-dom",
         "react-router",
         "styled-components",
-        "dynamic-object",
-        "dynamic-react",
         "dependency-inject",
         "classnames",
         "lodash",

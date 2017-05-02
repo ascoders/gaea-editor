@@ -9,20 +9,28 @@ export const Container = styled.div`
 export const TitleContainer = styled.div.withConfig({ componentId: "title-container" }) `
   display: flex;
   position: relative;
-  height: 30px;
+  height: 40px;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+  background-color: whitesmoke;
+  color: #333;
 `
 
 export const TitleItem = styled.div`
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  padding: 5px 10px 10px 10px;
+  padding: 0 10px;
+  &:hover {
+    color: #146f8c;
+  }
   ${(props: any) => props.theme.active && `
-    color: #23b7e5;
+    color: #146f8c;
     cursor: default;
   `}
 `
 
 export const ContentContainer = styled.div`
-  padding: 0 10px;
   flex-grow: 1;
   flex-basis: 0;
 `
@@ -31,7 +39,7 @@ export const MoveBar = styled.div`
   z-index: 1;
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -1px;
   box-sizing: border-box;
   height: 2px;
   background-color: #2db7f5;

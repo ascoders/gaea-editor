@@ -3,16 +3,15 @@ import * as ReactDOM from "react-dom"
 
 class Props {
   public gaeaSetting = {
-    key: "gaea-container",
-    name: "容器",
-    isContainer: true,
+    key: "gaea-text",
+    name: "文字"
   }
 
   public style: React.CSSProperties = {
-    display: "flex",
-    minWidth: 100,
-    minHeight: 100
+
   }
+
+  public text: string = "文字"
 }
 
 class State { }
@@ -23,9 +22,9 @@ export default class Container extends React.Component<Props, State> {
 
   public render() {
     return (
-      <div style={this.props.style}>
-        {this.props.children}
-      </div>
+      <span style={this.props.style}>
+        {this.props.text}
+      </span>
     )
   }
 }

@@ -1,5 +1,6 @@
 import * as classNames from "classnames"
 import { Connect } from "dynamic-react"
+import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import { StoreProps } from "../../../stores"
@@ -97,13 +98,11 @@ class EditHelper extends React.Component<Props, State> {
             })
         }
 
-        const wrapProps = {
-            ...this.componentClass.defaultProps,
-            ...this.instanceInfo.data.props,
+        const wrapProps = _.merge({}, this.componentClass.defaultProps, this.instanceInfo.data.props, {
             ref: (ref: React.ReactInstance) => {
                 this.wrappedInstance = ref
             }
-        }
+        })
 
         return React.createElement(this.componentClass, wrapProps, childs)
     }

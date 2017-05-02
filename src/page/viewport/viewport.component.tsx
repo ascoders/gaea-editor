@@ -59,7 +59,8 @@ export default class Viewport extends React.Component<Props, State> {
             this.props.actions.ViewportAction.setRootInstanceKey(rootInstanceKey)
             this.props.actions.ViewportAction.setInstanceProps(rootInstanceKey, "style", {
                 display: "flex",
-                flexGrow: 1
+                flexGrow: 1,
+                flexDirection: "column"
             })
 
             // // 设置根节点属性
