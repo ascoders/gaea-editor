@@ -130,13 +130,7 @@ export const SidebarPreviewContainer = styled.div`
 export const SidebarViewportContainerTop = styled.div`
     display: flex;
     flex-direction: column;
-    flex-grow: 2;
-    height: 0;
-`
-
-export const SidebarViewportContainerBottom = styled.div`
-    display: flex;
-    flex-grow: 3;
+    flex-grow: 1;
     height: 0;
 `
 

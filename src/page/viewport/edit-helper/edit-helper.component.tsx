@@ -67,12 +67,22 @@ class EditHelper extends React.Component<Props, State> {
         }
     }
 
-    public handleMouseOver = () => {
-        //
+    public handleMouseOver = (event: MouseEvent) => {
+        event.stopPropagation()
+
+        this.props.actions.EventAction.emit(this.props.stores.EventStore.mouseHoveringComponent, {
+            instanceKey: this.props.instanceKey,
+            type: "instance"
+        })
+
+        this.props.actions.ViewportAction.setCurrentHoverInstanceKey(this.props.instanceKey)
     }
 
-    public handleClick = () => {
-        //
+    public handleClick = (event: MouseEvent) => {
+        event.stopPropagation()
+
+        // 将当前组件设置为正在编辑状态
+        this.props.actions.ViewportAction.setCurrentEditInstanceKey(this.props.instanceKey)
     }
 
     /**

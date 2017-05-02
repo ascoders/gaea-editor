@@ -9,7 +9,7 @@ import { Props, State } from "./gaea-editor.type"
 // 所有插件
 const plugins: any[] = []
 
-const context = require.context("./plugins", true, /index\.tsx$/)
+const context = require.context("./plugins", true, /index\.(tsx|js)$/)
 context.keys().forEach((key: string) => {
     plugins.push(context(key).default)
 })

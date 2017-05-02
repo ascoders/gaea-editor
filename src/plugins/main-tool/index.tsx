@@ -29,6 +29,6 @@ State> {
 }
 
 export default {
-  position: "mainToolTop",
+  position: "mainTool",
   class: MainTool
 }

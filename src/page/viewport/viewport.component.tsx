@@ -40,11 +40,11 @@ export default class Viewport extends React.Component<Props, State> {
     public handleMouseLeave = (event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation()
 
-        // // 触发事件
-        // this.props.EventAction.emit(this.props.EventStore.mouseLeaveViewport)
+        // 触发事件
+        this.props.actions.EventAction.emit(this.props.stores.EventStore.mouseLeaveViewport)
 
-        // // 设置当前 hover 的元素为 null
-        // this.props.ViewportAction.setCurrentHoverComponentMapUniqueKey(null)
+        // 设置当前 hover 的元素为 null
+        this.props.actions.ViewportAction.setCurrentHoverInstanceKey(null)
     }
 
     /**
@@ -57,20 +57,13 @@ export default class Viewport extends React.Component<Props, State> {
             const rootInstanceKey = this.props.actions.ViewportAction.addInstance("gaea-container", null, null)
 
             this.props.actions.ViewportAction.setRootInstanceKey(rootInstanceKey)
+
+            // 设置根节点属性
             this.props.actions.ViewportAction.setInstanceProps(rootInstanceKey, "style", {
                 display: "flex",
                 flexGrow: 1,
                 flexDirection: "column"
             })
-
-            // // 设置根节点属性
-            //     rootProps.style.flexGrow = 1
-            //     rootProps.style.flexDirection = 'column'
-            //     rootProps.style.display = 'block'
-            //     rootProps.style.overflow = null
-            //     rootProps.style.overflowX = 'hidden'
-            //     rootProps.style.overflowY = 'auto'
-            // rootProps.style.backgroundColor = 'white'
         } else { // 根据默认配置渲染
             // const defaultValue = JSON.parse(LZString.decompressFromBase64(this.props.ApplicationStore.pageValue)) as {
             //     [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
@@ -107,8 +100,7 @@ export default class Viewport extends React.Component<Props, State> {
         })
 
         return (
-            <Styled.Container onMouseLeave={this.handleMouseLeave}
-                ref={this.getRef}>
+            <Styled.Container onMouseLeave={this.handleMouseLeave} ref={this.getRef}>
                 <EditHelper instanceKey={this.props.stores.ViewportStore.rootInstanceKey} />
             </Styled.Container>
         )

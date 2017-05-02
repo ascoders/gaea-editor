@@ -238,6 +238,41 @@ export default class ViewportAction {
     }
 
     /**
+     * 递归找到节点到根实例的路径
+     */
+    @Action public getInstancePath(instanceKey: string) {
+        const finderPath: string[] = [this.store.currentEditInstanceKey]
+
+        if (this.store.currentEditInstanceKey === null) {
+            return [] as string[]
+        }
+
+        let instance = this.store.instances.get(this.store.currentEditInstanceKey)
+
+        // 如果已经是根元素, 直接返回空数组
+        if (instance.parentInstanceKey === null) {
+            return [this.store.rootInstanceKey]
+        }
+
+        // 直到父级是根元素为止
+        while (this.store.instances.get(instance.parentInstanceKey).parentInstanceKey !== null) {
+            finderPath.unshift(instance.parentInstanceKey)
+            instance = this.store.instances.get(instance.parentInstanceKey)
+        }
+
+        finderPath.unshift(this.store.rootInstanceKey)
+
+        return finderPath
+    }
+
+    /**
+     * 设置 instance 的 dom 节点
+     */
+    @Action public setDomInstance(instanceKey: string, dom: HTMLElement) {
+        this.store.instanceDoms.set(instanceKey, dom)
+    }
+
+    /**
      * 注册子元素内部拖动
      * 指的是当前元素与视图元素一一对应，拖拽相当于视图元素的拖拽，可以实现例如 treePlugin
      */
@@ -424,12 +459,5 @@ export default class ViewportAction {
                 }
             }
         })
-    }
-
-    /**
-     * 设置 instance 的 dom 节点
-     */
-    @Action public setDomInstance(instanceKey: string, dom: HTMLElement) {
-        this.store.instanceDoms.set(instanceKey, dom)
     }
 }

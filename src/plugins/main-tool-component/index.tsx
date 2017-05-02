@@ -9,8 +9,7 @@ export class Props extends StoreProps { }
 export class State { }
 
 @Connect
-class MainToolComponent extends React.Component<Props,
-State> {
+class MainToolComponent extends React.Component<Props, State> {
   public static defaultProps = new Props()
   public state = new State()
 

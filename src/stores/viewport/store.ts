@@ -22,6 +22,8 @@ export default class ViewportStore {
      * current drag info
      */
     public currentDragInfo: IDragInfo = null
-    public currentHoverInstanceKey: string
+
+    public currentHoverInstanceKey: string = null
+
     public currentEditInstanceKey: string
 }

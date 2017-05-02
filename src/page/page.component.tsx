@@ -111,11 +111,8 @@ export default class Page extends React.Component<Props, State> {
                     <Styled.SidebarMoveContainer>
                         <Styled.SidebarViewportContainer>
                             <Styled.SidebarViewportContainerTop>
-                                {this.props.actions.ApplicationAction.loadingPluginByPosition("mainToolTop")}
+                                {this.props.actions.ApplicationAction.loadingPluginByPosition("mainTool")}
                             </Styled.SidebarViewportContainerTop>
-                            <Styled.SidebarViewportContainerBottom>
-                                {this.props.actions.ApplicationAction.loadingPluginByPosition("mainToolBottom")}
-                            </Styled.SidebarViewportContainerBottom>
                         </Styled.SidebarViewportContainer>
                         <Styled.SidebarPreviewContainer>
                             您处于预览状态

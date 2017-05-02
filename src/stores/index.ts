@@ -2,6 +2,8 @@ import { Container } from "dependency-inject"
 import * as React from "react"
 import ApplicationAction from "./application/action"
 import ApplicationStore from "./application/store"
+import EventStore from "./event//store"
+import EventAction from "./event/action"
 import ViewportAction from "./viewport/action"
 import ViewportStore from "./viewport/store"
 
@@ -13,10 +15,12 @@ export class StoreProps {
     public actions?: {
         ApplicationAction: ApplicationAction
         ViewportAction: ViewportAction
+        EventAction: EventAction
     }
     public stores?: {
         ApplicationStore: ApplicationStore
         ViewportStore: ViewportStore
+        EventStore: EventStore
     }
 }
 
@@ -35,11 +39,17 @@ export class Store {
         this.container.set(ViewportAction, new ViewportAction())
         this.container.set(ViewportStore, new ViewportStore())
 
+        this.container.set(EventAction, new EventAction())
+        this.container.set(EventStore, new EventStore())
+
         this.actions["ApplicationAction"] = this.container.get(ApplicationAction)
         this.stores["ApplicationStore"] = this.container.get(ApplicationStore)
 
         this.actions["ViewportAction"] = this.container.get(ViewportAction)
         this.stores["ViewportStore"] = this.container.get(ViewportStore)
+
+        this.actions["EventAction"] = this.container.get(EventAction)
+        this.stores["EventStore"] = this.container.get(EventStore)
     }
 
     public addActions(actions: IActionsOrStores) {

@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { GaeaEditor } from "../src"
+import GaeaEditor from "../src"
 
 import Container from "./components/container/container.component"
 import Text from "./components/text/text.component"
