@@ -1,11 +1,12 @@
 {
   "name": "gaea-editor-new",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
-  "main": "built/index.js",
+  "main": "built/src/index.js",
   "scripts": {
     "start": "run-react -d",
-    "tslint": "tslint './src/**/*.?(ts|tsx)'"
+    "tslint": "tslint './src/**/*.?(ts|tsx)'",
+    "prepublish": "rm -rf lib && tsc"
   },
   "dependencies": {
     "classnames": "^2.2.5",
