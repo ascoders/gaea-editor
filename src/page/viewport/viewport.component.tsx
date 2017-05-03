@@ -6,7 +6,7 @@ import { StoreProps } from "../../stores"
 import EditHelper from "./edit-helper/edit-helper.component"
 import * as Styled from "./viewport.style"
 
-class Props extends StoreProps {
+class Props extends StoreProps<void, void> {
 
 }
 

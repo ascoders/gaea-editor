@@ -5,7 +5,7 @@ import { StoreProps } from "../stores"
 
 import Viewport from "./viewport/viewport.component"
 
-class Props extends StoreProps {
+class Props extends StoreProps<void, void> {
 
 }
 

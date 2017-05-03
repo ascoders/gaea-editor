@@ -2,8 +2,8 @@ import { Container } from "dependency-inject"
 import * as React from "react"
 import ApplicationAction from "./application/action"
 import ApplicationStore from "./application/store"
-import EventStore from "./event//store"
 import EventAction from "./event/action"
+import EventStore from "./event/store"
 import ViewportAction from "./viewport/action"
 import ViewportStore from "./viewport/store"
 
@@ -11,17 +11,17 @@ export interface IActionsOrStores {
     [x: string]: any
 }
 
-export class StoreProps {
+export class StoreProps<Actions, Stores> {
     public actions?: {
         ApplicationAction: ApplicationAction
         ViewportAction: ViewportAction
         EventAction: EventAction
-    }
+    } & Actions
     public stores?: {
         ApplicationStore: ApplicationStore
         ViewportStore: ViewportStore
         EventStore: EventStore
-    }
+    } & Stores
 }
 
 export class Store {
@@ -30,39 +30,42 @@ export class Store {
     private actions: IActionsOrStores = {}
     private stores: IActionsOrStores = {}
 
+    /**
+     * 全局 actions + stores 映射
+     */
+    private allActions = new Map<string, any>()
+    private allStores = new Map<string, any>()
+
     constructor() {
         this.container = new Container()
 
-        this.container.set(ApplicationAction, new ApplicationAction())
-        this.container.set(ApplicationStore, new ApplicationStore())
+        this.allActions.set("ApplicationAction", ApplicationAction)
+        this.allStores.set("ApplicationStore", ApplicationStore)
+        this.allActions.set("ViewportAction", ViewportAction)
+        this.allStores.set("ViewportStore", ViewportStore)
+        this.allActions.set("EventAction", EventAction)
+        this.allStores.set("EventStore", EventStore)
 
-        this.container.set(ViewportAction, new ViewportAction())
-        this.container.set(ViewportStore, new ViewportStore())
+        this.allActions.forEach((actionClass, actionName) => {
+            this.container.set(actionClass, new actionClass())
+        })
 
-        this.container.set(EventAction, new EventAction())
-        this.container.set(EventStore, new EventStore())
-
-        this.actions["ApplicationAction"] = this.container.get(ApplicationAction)
-        this.stores["ApplicationStore"] = this.container.get(ApplicationStore)
-
-        this.actions["ViewportAction"] = this.container.get(ViewportAction)
-        this.stores["ViewportStore"] = this.container.get(ViewportStore)
-
-        this.actions["EventAction"] = this.container.get(EventAction)
-        this.stores["EventStore"] = this.container.get(EventStore)
+        this.allStores.forEach((storeClass, storeName) => {
+            this.container.set(storeClass, new storeClass())
+        })
     }
 
     public addActions(actions: IActionsOrStores) {
         Object.keys(actions).forEach((key) => {
             this.container.set(actions[key], new actions[key]())
-            this.actions[key] = this.container.get(actions[key])
+            this.allActions.set(key, actions[key])
         })
     }
 
     public addStores(stores: IActionsOrStores) {
         Object.keys(stores).forEach((key) => {
             this.container.set(stores[key], new stores[key]())
-            this.stores[key] = this.container.get(stores[key])
+            this.allStores.set(key, stores[key])
         })
     }
 
@@ -70,6 +73,13 @@ export class Store {
      * 获得 store
      */
     public getStore() {
+        this.allActions.forEach((actionClass, actionName) => {
+            this.actions[actionName] = this.container.get(actionClass)
+        })
+        this.allStores.forEach((storeClass, storeName) => {
+            this.stores[storeName] = this.container.get(storeClass)
+        })
+
         return {
             actions: this.actions,
             stores: this.stores,

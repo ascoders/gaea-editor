@@ -5,7 +5,7 @@ import { TabPanel, Tabs } from "../../../components/tabs/src/"
 import { StoreProps } from "../../stores"
 import * as Styled from "./index.style"
 
-export class Props extends StoreProps { }
+export class Props extends StoreProps<void, void> { }
 export class State { }
 
 @Connect

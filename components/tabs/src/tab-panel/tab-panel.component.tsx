@@ -1,5 +1,6 @@
 import * as classNames from "classnames"
 import * as React from "react"
+import * as Styled from "./tab-panel.style"
 import * as typings from "./tab-panel.type"
 
 export class TabPanel extends React.Component<typings.Props, typings.State> {
@@ -12,9 +13,9 @@ export class TabPanel extends React.Component<typings.Props, typings.State> {
     }
 
     return (
-      <div>
+      <Styled.Container>
         {this.props.children}
-      </div>
+      </Styled.Container>
     )
   }
 }

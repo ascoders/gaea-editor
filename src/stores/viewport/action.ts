@@ -100,23 +100,25 @@ export default class ViewportAction {
      */
     @Action public horizontalMoveInstance(parentKey: string, beforeIndex: number, afterIndex: number) {
         const parentInstance = this.store.instances.get(parentKey)
+        const childs = parentInstance.childs.slice()
         if (beforeIndex < afterIndex) {
             // 从左到右
             for (let index = beforeIndex; index < afterIndex; index++) {
-                const beforeUniqueKey = parentInstance.childs[index]
-                const afterUniqueKey = parentInstance.childs[index + 1]
-                parentInstance.childs[index] = afterUniqueKey
-                parentInstance.childs[index + 1] = beforeUniqueKey
+                const beforeUniqueKey = childs[index]
+                const afterUniqueKey = childs[index + 1]
+                childs[index] = afterUniqueKey
+                childs[index + 1] = beforeUniqueKey
             }
         } else {
             // 从右到左
             for (let index = beforeIndex; index > afterIndex; index--) {
-                const beforeUniqueKey = parentInstance.childs[index]
-                const afterUniqueKey = parentInstance.childs[index - 1]
-                parentInstance.childs[index] = afterUniqueKey
-                parentInstance.childs[index - 1] = beforeUniqueKey
+                const beforeUniqueKey = childs[index]
+                const afterUniqueKey = childs[index - 1]
+                childs[index] = afterUniqueKey
+                childs[index - 1] = beforeUniqueKey
             }
         }
+        parentInstance.childs = childs
     }
 
     @Action public removeInstance(reomveInstanceKey: string) {
@@ -276,7 +278,7 @@ export default class ViewportAction {
      * 注册子元素内部拖动
      * 指的是当前元素与视图元素一一对应，拖拽相当于视图元素的拖拽，可以实现例如 treePlugin
      */
-    @Action public registerInnerDrag(parentInstanceKey: string, dragParentDom: HTMLElement, params: any) {
+    @Action public registerInnerDrag(parentInstanceKey: string, dragParentDom: HTMLElement, params?: any) {
         const instance = this.store.instances.get(parentInstanceKey)
 
         Sortable.create(dragParentDom, {

@@ -4,7 +4,7 @@ import { StoreProps } from "../../stores"
 import * as store from "./store"
 import * as Styled from "./style"
 
-export class Props extends StoreProps {
+export class Props extends StoreProps<void, void> {
 
 }
 
