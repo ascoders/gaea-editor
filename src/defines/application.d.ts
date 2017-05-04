@@ -43,7 +43,7 @@ declare interface IGaeaSetting {
     /**
      * Edit infos
      */
-    editor?: string[]
+    editor?: Array<string | IEditor>
     /**
      * Is in preview mode
      */
@@ -52,4 +52,21 @@ declare interface IGaeaSetting {
      * Container can be dragged into component
      */
     isContainer?: boolean
+}
+
+declare interface IEditor {
+    /**
+     * Which field to control?
+     * EX. text, size, user.nickname
+     */
+    field: string
+    /**
+     * Which Editor want to show?
+     * Basic type like `text` `number`, or custom editor like `layout`
+     */
+    type: string
+    /**
+     * Show label
+     */
+    label: string
 }

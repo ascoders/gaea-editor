@@ -7,7 +7,7 @@ export const Component = styled.div`
   color: #666;
   transition: background-color .3s;
   &:hover {
-    background-color: whitesmoke;
+    background-color: white;
   }
   &:not(:last-child) {
     border-bottom: 1px solid #ddd;
@@ -17,4 +17,6 @@ export const Component = styled.div`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: whitesmoke;
+  flex-grow: 1;
 `

@@ -57,12 +57,10 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
 
     this.props.actions.TreeAction.addTreeDom(this.props.instanceKey, ReactDOM.findDOMNode(this) as HTMLElement)
 
-    this.props.actions.EventAction.on(`${this.props.stores.EventStore.viewportDomUpdate}.${this.props.instanceKey}`, this.updateDom)
-
     // 如果自己是布局元素, 给子元素绑定 sortable
     if (this.componentClass.defaultProps.gaeaSetting.isContainer) {
       // 添加可排序拖拽
-      this.props.actions.ViewportAction.registerInnerDrag(this.props.instanceKey, ReactDOM.findDOMNode(this) as HTMLElement)
+      this.props.actions.ViewportAction.registerInnerDrag(this.props.instanceKey, ReactDOM.findDOMNode(this).getElementsByClassName("childs-container")[0] as HTMLElement, "gaea-tree-container")
     }
   }
 
@@ -73,8 +71,6 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
     if (this.health === 0) {
       // 在 dom 列表中移除
       this.props.actions.TreeAction.removeTreeDom(this.props.instanceKey)
-
-      this.props.actions.EventAction.off(`${this.props.stores.EventStore.viewportDomUpdate}.${this.props.instanceKey}`, this.updateDom)
     }
   }
 

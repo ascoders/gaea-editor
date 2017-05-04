@@ -26,8 +26,7 @@ const renderTab = (name: string) => {
   }
 }
 
-export class Tabs extends React.Component<typings.Props,
-  typings.State> {
+export class Tabs extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props()
   public state = new typings.State()
 
@@ -35,6 +34,11 @@ export class Tabs extends React.Component<typings.Props,
   private dom: Element
 
   private activeIndex: number
+
+  /**
+   * 存储 key => index
+   */
+  private keyMapIndex = new Map<number | string, number>()
 
   public componentWillMount() {
     this.state = {
@@ -60,7 +64,7 @@ export class Tabs extends React.Component<typings.Props,
 
   public componentWillReceiveProps(nextProps: typings.Props) {
     if ("activeKey" in nextProps && nextProps.activeKey !== null) {
-      this.setState({ activeKey: nextProps.activeKey })
+      this.setActive(nextProps.activeKey, this.keyMapIndex.get(nextProps.activeKey))
     }
   }
 
@@ -100,6 +104,7 @@ export class Tabs extends React.Component<typings.Props,
       const isActive = this.state.activeKey === item.props.activeKey
 
       const titleContent: React.ReactElement<any> = item.props.tab || item.props.tabRender(isActive)
+      this.keyMapIndex.set(item.props.activeKey, index)
 
       return (
         <Styled.TitleItem

@@ -3,6 +3,8 @@ import { Action } from "dynamic-object"
 import * as _ from "lodash"
 import * as Sortable from "sortablejs"
 import ApplicationStore from "../application/store"
+import EventAction from "../event/action"
+import EventStore from "../event/store"
 import ViewportStore from "./store"
 
 /**
@@ -16,6 +18,12 @@ export default class ViewportAction {
 
     @inject(ApplicationStore)
     private applicationStore: ApplicationStore
+
+    @inject(EventAction)
+    private eventAction: EventAction
+
+    @inject(EventStore)
+    private eventStore: EventStore
 
     /**
      * 设置视图区域 dom 对象
@@ -161,27 +169,36 @@ export default class ViewportAction {
         const instanceClass = this.applicationStore.componentClasses.get(instance.gaeaKey)
 
         // 如果和 defaultProps 相同，就把字段置空
-        if (value === (instanceClass.defaultProps as any)[key]) {
+        if (value === _.get(instanceClass.defaultProps, key)) {
             delete instance.data.props[key]
+
+            // 强制刷新组件
+            this.eventAction.emit(`${this.eventStore.instanceUpdate}.${instanceKey}`)
             return
         }
 
         _.set(instance.data, `props.${key}`, value)
+
+        // 强制刷新组件
+        this.eventAction.emit(`${this.eventStore.instanceUpdate}.${instanceKey}`)
     }
 
     /**
      * 获得实例 props 属性，如果没有设置，选择 defaultProps 中属性
+     * 辅助方法，在编辑器 render 函数中调用，因此没有使用 @Action, 为了数据追踪
      */
-    @Action public getInstanceProps(instanceKey: string, key: string) {
+    public getInstanceProps(instanceKey: string, key: string) {
         const instance = this.store.instances.get(instanceKey)
         const instanceClass = this.applicationStore.componentClasses.get(instance.gaeaKey)
 
-        // 如果不存在，选择 defaultProps 中的属性
-        if (!_.has(instance.data, `props.${key}`)) {
-            return _.get(instanceClass.defaultProps, key)
-        }
+        const dataResult = _.get(instance.data, `props.${key}`)
 
-        return _.get(instance.data, `props.${key}`)
+        // 如果不存在，选择 defaultProps 中的属性
+        if (dataResult === undefined) {
+            return _.get(instanceClass.defaultProps, key).toString()
+        } else {
+            return dataResult.toString()
+        }
     }
 
     /**
@@ -278,7 +295,7 @@ export default class ViewportAction {
      * 注册子元素内部拖动
      * 指的是当前元素与视图元素一一对应，拖拽相当于视图元素的拖拽，可以实现例如 treePlugin
      */
-    @Action public registerInnerDrag(parentInstanceKey: string, dragParentDom: HTMLElement, params?: any) {
+    @Action public registerInnerDrag(parentInstanceKey: string, dragParentDom: HTMLElement, params?: any, groupName = "gaea-container") {
         const instance = this.store.instances.get(parentInstanceKey)
 
         Sortable.create(dragParentDom, {
@@ -286,7 +303,7 @@ export default class ViewportAction {
             animation: 150,
             // 放在一个组里,可以跨组拖拽
             group: {
-                name: "gaea-container",
+                name: groupName,
                 pull: true,
                 put: true
             },
@@ -387,12 +404,6 @@ export default class ViewportAction {
                 const dragTargetKey = this.store.instances.get(parentInstanceKey).childs[this.store.currentDragInfo.dragStartIndex]
                 const dragViewportInfo = this.store.currentDragInfo.info as IDragInfoViewport
                 this.moveInstance(dragTargetKey, dragViewportInfo.targetInstanceKey, dragViewportInfo.targetIndex)
-
-                // 一个元素被跨父级移动，生命周期执行顺序是： 新位置的 didMount -> 原来位置的 willUnmount -> 执行这个方法
-                // onEnd 是最后执行，所以不用担心拖拽中间数据被清除
-                // 因此在这里修正位置最好
-                // 触发一个事件
-                // this.eventAction.emit(`${this.event.viewportDomUpdate}.${this.viewport.currentDragComponentInfo.viewportInfo.mapUniqueKey}`)
             }
         })
     }

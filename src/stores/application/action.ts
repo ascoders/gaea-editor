@@ -17,12 +17,13 @@ export default class ApplicationAction {
     /**
      * position 根据位置加载插件
      */
-    @Action public loadingPluginByPosition(position: string) {
+    @Action public loadingPluginByPosition(position: string, props?: any) {
         return this.store.plugins
             .filter((plugin) => plugin.position === position)
             .map((plugin, index) => {
                 return React.createElement(plugin.class, {
-                    key: index
+                    key: index,
+                    ...props
                 })
             })
     }

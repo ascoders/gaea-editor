@@ -32,7 +32,7 @@ export const EmptyCaret = styled.div`
  width: 25px;
 `
 
-export const Children = styled.div`
+export const Children = styled.div.withConfig({ componentId: "childs-container" }) `
   display: none;
   padding-left: 10px;
 `

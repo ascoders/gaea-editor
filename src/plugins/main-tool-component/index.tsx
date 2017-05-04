@@ -1,7 +1,7 @@
 import { Connect } from "dynamic-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom";
-import { TabPanel, Tabs } from "../../../components/tabs/src/"
+import { TabPanel, Tabs } from "../../../components/tabs/src"
 import { StoreProps } from "../../stores"
 import * as Styled from "./index.style"
 

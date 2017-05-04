@@ -65,6 +65,17 @@ class EditHelper extends React.Component<Props, State> {
                 draggable: ".gaea-draggable"
             })
         }
+
+        // 当组件 props 设置改变时，会触发，强制刷新
+        this.props.actions.EventAction.on(`${this.props.stores.EventStore.instanceUpdate}.${this.props.instanceKey}`, this.forceRender)
+    }
+
+    public componentWillUnmount() {
+        this.props.actions.EventAction.off(`${this.props.stores.EventStore.instanceUpdate}.${this.props.instanceKey}`, this.forceRender)
+    }
+
+    public forceRender = () => {
+        this.forceUpdate()
     }
 
     public handleMouseOver = (event: MouseEvent) => {
@@ -108,7 +119,8 @@ class EditHelper extends React.Component<Props, State> {
             })
         }
 
-        const wrapProps = _.merge({}, this.componentClass.defaultProps, this.instanceInfo.data.props, {
+        // 这里 this.instanceInfo.data.props 内部数据变化是无法检测的，这里采用事件机制强制刷新
+        const wrapProps = _.merge({}, this.componentClass.defaultProps, Object.assign({}, this.instanceInfo.data.props), {
             ref: (ref: React.ReactInstance) => {
                 this.wrappedInstance = ref
             }
