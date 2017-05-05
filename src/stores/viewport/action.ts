@@ -300,7 +300,7 @@ export default class ViewportAction {
 
         Sortable.create(dragParentDom, {
             ...params,
-            animation: 150,
+            animation: 50,
             // 放在一个组里,可以跨组拖拽
             group: {
                 name: groupName,
@@ -419,7 +419,7 @@ export default class ViewportAction {
         let lastDragStartIndex = -1
 
         Sortable.create(dragParentDom, {
-            animation: 150,
+            animation: 50,
             // 放在一个组里,可以跨组拖拽
             group: {
                 name: "gaea-container",

@@ -68,7 +68,7 @@ export class Tabs extends React.Component<typings.Props, typings.State> {
     }
   }
 
-  public setActive(value: string | number, index: number) {
+  public setActive = (value: string | number, index: number) => {
     // tab标题容器
     const titleContainer = this.dom.getElementsByClassName("title-container")[0]
     const titleContainerRect = titleContainer.getBoundingClientRect()
@@ -93,7 +93,11 @@ export class Tabs extends React.Component<typings.Props, typings.State> {
   }
 
   public handleTitleClick = (value: string | number, index: number) => {
-    this.setActive(value, index)
+    // 只有非受控状态，才需要主动触发修改
+    if (!this.props.activeKey) {
+      this.setActive(value, index)
+    }
+
     if (this.props.onChange) {
       this.props.onChange(value)
     }
