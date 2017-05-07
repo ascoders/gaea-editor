@@ -1,3 +1,5 @@
+import { Action } from "dynamic-object"
+
 export declare type EventType = number | string
 
 /**
@@ -17,7 +19,7 @@ export default class EventAction {
   /**
    * 订阅事件
    */
-  public on(eventType: EventType, callback: ICallback, context?: any) {
+  @Action public on(eventType: EventType, callback: ICallback, context?: any) {
     const event: IEvent = {
       callback,
       context
@@ -35,7 +37,7 @@ export default class EventAction {
   /**
    * 取消订阅
    */
-  public off(eventType: EventType, callback: ICallback) {
+  @Action public off(eventType: EventType, callback: ICallback) {
     if (!this.events.get(eventType)) {
       return false
     }
@@ -52,7 +54,7 @@ export default class EventAction {
   /**
    * 广播事件
    */
-  public emit(eventType: EventType, context?: any) {
+  @Action public emit(eventType: EventType, context?: any) {
     if (!eventType || !this.events.get(eventType)) {
       return false
     }

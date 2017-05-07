@@ -108,25 +108,23 @@ export default class ViewportAction {
      */
     @Action public horizontalMoveInstance(parentKey: string, beforeIndex: number, afterIndex: number) {
         const parentInstance = this.store.instances.get(parentKey)
-        const childs = parentInstance.childs.slice()
         if (beforeIndex < afterIndex) {
             // 从左到右
             for (let index = beforeIndex; index < afterIndex; index++) {
-                const beforeUniqueKey = childs[index]
-                const afterUniqueKey = childs[index + 1]
-                childs[index] = afterUniqueKey
-                childs[index + 1] = beforeUniqueKey
+                const beforeUniqueKey = parentInstance.childs[index]
+                const afterUniqueKey = parentInstance.childs[index + 1]
+                parentInstance.childs[index] = afterUniqueKey
+                parentInstance.childs[index + 1] = beforeUniqueKey
             }
         } else {
             // 从右到左
             for (let index = beforeIndex; index > afterIndex; index--) {
-                const beforeUniqueKey = childs[index]
-                const afterUniqueKey = childs[index - 1]
-                childs[index] = afterUniqueKey
-                childs[index - 1] = beforeUniqueKey
+                const beforeUniqueKey = parentInstance.childs[index]
+                const afterUniqueKey = parentInstance.childs[index - 1]
+                parentInstance.childs[index] = afterUniqueKey
+                parentInstance.childs[index - 1] = beforeUniqueKey
             }
         }
-        parentInstance.childs = childs
     }
 
     @Action public removeInstance(reomveInstanceKey: string) {
