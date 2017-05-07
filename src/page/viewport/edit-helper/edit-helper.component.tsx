@@ -106,6 +106,8 @@ class EditHelper extends React.Component<Props, State> {
     }
 
     public render() {
+        console.log('*****render start', this.props.instanceKey)
+
         // 子元素
         let childs: Array<React.ReactElement<any>> = null
 
@@ -120,13 +122,23 @@ class EditHelper extends React.Component<Props, State> {
         }
 
         // 这里 this.instanceInfo.data.props 内部数据变化是无法检测的，这里采用事件机制强制刷新
-        const wrapProps = _.merge({}, this.componentClass.defaultProps, Object.assign({}, this.instanceInfo.data.props), {
+        // const wrapProps = _.merge({}, this.componentClass.defaultProps, Object.assign({}, this.instanceInfo.data.props), {
+        //     ref: (ref: React.ReactInstance) => {
+        //         this.wrappedInstance = ref
+        //     }
+        // })
+
+        const wrapProps = _.merge({}, this.componentClass.defaultProps, {
             ref: (ref: React.ReactInstance) => {
                 this.wrappedInstance = ref
             }
         })
 
-        return React.createElement(this.componentClass, wrapProps, childs)
+        const result = React.createElement(this.componentClass, wrapProps, childs)
+
+        console.log('render end*****', this.props.instanceKey)
+
+        return result
     }
 }
 
