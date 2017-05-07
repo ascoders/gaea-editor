@@ -1368,9 +1368,9 @@ duplexer2@^0.1.4:
   dependencies:
     readable-stream "^2.0.2"
 
-dynamic-object@^2.1.4, dynamic-object@^2.1.5:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/dynamic-object/-/dynamic-object-2.1.5.tgz#1f5e48b9c3c99c5ab731f5bfb8c6427de1561387"
+dynamic-object@^2.1.4, dynamic-object@^2.1.6:
+  version "2.1.6"
+  resolved "http://registry.npm.taobao.org/dynamic-object/download/dynamic-object-2.1.6.tgz#00b49d571aa04956cf1a28f11f693b4ca98515d0"
   dependencies:
     "@types/lodash" "^4.14.63"
     lodash "^4.17.4"
@@ -1379,7 +1379,7 @@ dynamic-object@^2.1.4, dynamic-object@^2.1.5:
 
 dynamic-react@^2.0.6:
   version "2.0.6"
-  resolved "https://registry.yarnpkg.com/dynamic-react/-/dynamic-react-2.0.6.tgz#e6f183b7e14d36f6eb65741c85304bf0926d9448"
+  resolved "http://registry.npm.taobao.org/dynamic-react/download/dynamic-react-2.0.6.tgz#e6f183b7e14d36f6eb65741c85304bf0926d9448"
   dependencies:
     dynamic-object "^2.1.4"
     mobx "^3.1.7"
