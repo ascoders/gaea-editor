@@ -1,10 +1,9 @@
 import { Provider } from "dynamic-react"
+import gaeaBasicComponents from "gaea-basic-components"
 import * as React from "react"
-
+import { Props, State } from "./gaea-editor.type"
 import Page from "./page/page.component"
 import { IActionsOrStores, Store } from "./stores"
-
-import { Props, State } from "./gaea-editor.type"
 
 // 所有插件
 const plugins: any[] = []
@@ -36,8 +35,9 @@ export default class GaeaEditor extends React.Component<Props, State> {
             }
         })
 
+        // add gaea-basic-components
         // add componentClasses to store
-        this.props.componentClasses.forEach((componentClass) => {
+        gaeaBasicComponents.concat(this.props.componentClasses).forEach(componentClass => {
             this.stores.getStore().actions.ApplicationAction.addComponentClass(componentClass)
         })
     }

@@ -2,7 +2,6 @@ import { Connect } from "dynamic-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import { TreeNode } from "../../../../components/tree/src"
-import scrollTo from "../../../utils/scroll-to"
 import * as Styled from "./tree-node.style"
 import * as typings from "./tree-node.type"
 
@@ -24,28 +23,6 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
    * 记录组件生命值，只要大于 0，说明没有被销毁
    */
   private health = 1
-
-  public componentWillReact() {
-    if (this.props.stores.ViewportStore.currentHoverInstanceKey === null || this.props.stores.TreeStore.currentHoverTreeDom === undefined) {
-      return
-    }
-
-    // 正在拖拽中不显示
-    if (this.props.stores.ViewportStore.currentDragInfo !== null) {
-      return
-    }
-
-    // 让 dom 树外层滚动到这个元素上
-    const nodeDom = ReactDOM.findDOMNode(this.props.stores.TreeStore.currentHoverTreeDom)
-    const nodeDomRect = nodeDom.getBoundingClientRect()
-    const containerDom = this.props.stores.TreeStore.treeRootDom
-    const containerDomRect = containerDom.getBoundingClientRect()
-
-    // 如果超过一定范围，就移动
-    if (nodeDomRect.top - containerDomRect.top < 20 || nodeDomRect.top - containerDomRect.top > containerDomRect.height - 50) {
-      scrollTo(containerDom, nodeDomRect.top - containerDomRect.top - 50, 50)
-    }
-  }
 
   public componentWillMount() {
     // 从 store 找到自己信息

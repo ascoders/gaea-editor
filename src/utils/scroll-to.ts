@@ -31,7 +31,6 @@ export default function scrollTo(element: HTMLElement, target: number, duration:
     // This is like a think function from a game loop
     const scrollFrame = () => {
       if (element.scrollTop !== previousTop) {
-        reject("interrupted")
         return
       }
 

@@ -1,6 +1,7 @@
 import { Connect } from "dynamic-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
+import scrollTo from "../../../utils/scroll-to"
 import * as Styled from "./guideline.style"
 import * as typings from "./guideline.type"
 
@@ -20,14 +21,14 @@ export default class Guideline extends React.Component<typings.Props, typings.St
     }
 
     // 让 dom 树外层滚动到这个元素上
-    const nodeDom = ReactDOM.findDOMNode(this.props.stores.TreeStore.currentHoverTreeDom).getBoundingClientRect()
-    const containerDom = this.props.stores.TreeStore.treeRootDom.getBoundingClientRect()
+    const nodeDom = ReactDOM.findDOMNode(this.props.stores.TreeStore.currentHoverTreeDom)
+    const nodeDomRect = nodeDom.getBoundingClientRect()
+    const containerDom = this.props.stores.TreeStore.treeRootDom
+    const containerDomRect = containerDom.getBoundingClientRect()
 
     // 如果超过一定范围，就移动
-    if (nodeDom.top - containerDom.top < 20 || nodeDom.top - containerDom.top > containerDom.height - 50) {
-      // containerDom.stop().animate({
-      //   scrollTop: nodeDom.top - containerDom.top + containerDom.scrollTop() - 50
-      // }, 50)
+    if (nodeDomRect.top - containerDomRect.top < 20 || nodeDomRect.top - containerDomRect.top > containerDomRect.height - 50) {
+      scrollTo(containerDom, nodeDomRect.top - containerDomRect.top + containerDom.scrollTop - 50, 50)
     }
   }
 
