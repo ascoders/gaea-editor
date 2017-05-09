@@ -33,4 +33,9 @@ export default class ApplicationStore {
      * Viewport root component's name
      */
     public rootComponentName = ""
+    /**
+     * is show left tool?
+     */
+    public isShowLeftTool = false
+    public isFullLeftTool = false
 }

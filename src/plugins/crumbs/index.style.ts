@@ -4,8 +4,6 @@ export const Container = styled.div`
   display: flex;
   align-items: stretch;
   flex-grow: 1;
-  border-top: 1px solid #eee;
-  border-right: 1px solid #eee;
   background-color: whitesmoke;
 `
 

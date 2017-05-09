@@ -1738,6 +1738,13 @@ gaea-basic-components@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/gaea-basic-components/-/gaea-basic-components-1.0.3.tgz#3fc518c38d3117d73d6cbdb23154ad6c7347087d"
 
+gaea-render@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gaea-render/-/gaea-render-1.0.0.tgz#1fa81eba91002234ad2b7d136a83a3f616f43a43"
+  dependencies:
+    lodash "^4.17.4"
+    lz-string "^1.4.4"
+
 gauge@~2.7.3:
   version "2.7.4"
   resolved "https://registry.yarnpkg.com/gauge/-/gauge-2.7.4.tgz#2c03405c7538c39d7eb37b317022e325fb018bf7"

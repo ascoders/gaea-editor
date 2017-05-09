@@ -1,6 +1,6 @@
 import { Connect } from "dynamic-react"
+import Render from "gaea-render"
 import * as React from "react"
-import Render from "../../gaea-render/src"
 import { StoreProps } from "../stores"
 import Viewport from "./viewport/viewport.component"
 
@@ -59,7 +59,7 @@ export default class Page extends React.Component<Props, State> {
                         </Styled.NavbarContainerRight>
                     </Styled.NavbarContainer>
                     <Styled.ViewportContainer>
-                        <Styled.ViewportContainerLeft>
+                        <Styled.ViewportContainerLeft theme={{ fullScreen: this.props.stores.ApplicationStore.isFullLeftTool }}>
                             <Styled.ViewportContainerLeftTop>
                                 {this.props.actions.ApplicationAction.loadingPluginByPosition("leftBarTop")}
                             </Styled.ViewportContainerLeftTop>
@@ -69,11 +69,11 @@ export default class Page extends React.Component<Props, State> {
                         </Styled.ViewportContainerLeft>
 
                         <Styled.ViewportContainerRight
+                            theme={{ showLeft: this.props.stores.ApplicationStore.isShowLeftTool, hidden: this.props.stores.ApplicationStore.isFullLeftTool }}
                             style={Object.assign({}, this.props.stores.ApplicationStore.viewportContainerStyle)}>
                             <Styled.ToolsContainer>
-                                {/*<LeftBar />*/}
                                 <Styled.ToolsContainerClose onClick={this.handleCloseLeftBar}>
-                                    {/*<i className="fa fa-close close-button"/>*/}
+
                                 </Styled.ToolsContainerClose>
                             </Styled.ToolsContainer>
 
@@ -91,14 +91,9 @@ export default class Page extends React.Component<Props, State> {
                                 </Styled.PreviewContainer>
                             }
 
-                            <Styled.EditorContainer>
-                                {this.props.actions.ApplicationAction.loadingPluginByPosition("editor")}
-                                <Styled.EditorContainerClose onClick={this.handleCloseEditor}>
-                                    {/*<i className="fa fa-close close-button"/>*/}
-                                </Styled.EditorContainerClose>
-                            </Styled.EditorContainer>
                         </Styled.ViewportContainerRight>
                     </Styled.ViewportContainer>
+
                     <Styled.FooterContainer>
                         {this.props.actions.ApplicationAction.loadingPluginByPosition("bottomBar")}
                     </Styled.FooterContainer>

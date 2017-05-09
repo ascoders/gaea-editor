@@ -20,8 +20,6 @@ const ViewportContainerBoxAndPreviewContainer = css`
     position: relative;
     flex-basis: 0%;
     flex-grow: 1;
-    border-right: 1px solid #eee;
-    border-left: 1px solid #eee;
 `
 
 export const Container = styled.div.withConfig({ componentId: "Container" }) `
@@ -81,31 +79,59 @@ export const ViewportContainerLeft = styled.div`
     width: 30px;
     background-color: white;
     z-index: 1;
+    background-color: whitesmoke;
+    border-right: 1px solid #ddd;
+    ${(props: any) => props.theme.fullScreen && `
+       width: 100%;
+    `}
 `
 
 export const ViewportContainerLeftTop = styled.div`
     width: 100%;
+    & > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        height: 30px;
+        cursor: pointer;
+        user-select: none;
+        &:hover {
+            background-color: #eaeaea;
+        }
+    }
 `
 
 export const ViewportContainerLeftBottom = styled.div`
     width: 100%;
+    & > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        height: 30px;
+        cursor: pointer;
+        user-select: none;
+        &:hover {
+            background-color: #eaeaea;
+        }
+    }
 `
 
 export const ViewportContainerRight = styled.div`
     display: flex;
     margin-left: -300px;
-    margin-right: -350px;
     flex-grow: 1;
     width: 0;
     transition: all .15s;
     ${(props: any) => props.theme.transparent && `
         //background-image: url('../images/transparent.png');
     `}
-    ${(props: any) => props.theme.showRight && `
-        margin-right: 0;
-    `}
     ${(props: any) => props.theme.showLeft && `
         margin-left: 0;
+    `}
+    ${(props: any) => props.theme.hidden && `
+        display: none;
     `}
 `
 
@@ -176,35 +202,4 @@ export const ViewportContainerBox = styled.div`
 
 export const PreviewContainer = styled.div`
     ${ViewportContainerBoxAndPreviewContainer}
-`
-
-export const EditorContainer = styled.div`
-    background-color: whitesmoke;
-    position: relative;
-    width: 350px;
-    z-index: 0;
-    display: flex;
-    flex-direction: column;
-    // 因为经常移动，单独放在一个图层
-    transform: translateZ(0);
-`
-
-export const EditorContainerClose = styled.div`
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    top: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all .3s;
-    color: #999;
-    cursor: pointer;
-    z-index: 1;
-
-    &:hover {
-        color: #333;
-        transform: scale(1.2);
-    }
 `

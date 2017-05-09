@@ -48,4 +48,12 @@ export default class ApplicationAction {
     @Action public setPreview(isPreview: boolean) {
         this.store.isPreview = isPreview
     }
+
+    @Action public setIsShowLeftTool(isShow: boolean) {
+        this.store.isShowLeftTool = isShow
+    }
+
+    @Action public setIsFullLeftTool(isFull: boolean) {
+        this.store.isFullLeftTool = isFull
+    }
 }

@@ -19,17 +19,17 @@ class GlobalSetting extends React.Component<Props, State> {
     public render() {
         return (
             <Styled.Container onClick={this.handleClick}>
-                {this.props.stores.ApplicationStore.isPreview ? "取消" : "预览"}
+                +
             </Styled.Container>
         )
     }
 
     private handleClick = () => {
-        this.props.actions.ApplicationAction.setPreview(!this.props.stores.ApplicationStore.isPreview)
+        this.props.actions.ApplicationAction.setIsShowLeftTool(!this.props.stores.ApplicationStore.isShowLeftTool)
     }
 }
 
 export default {
-    position: "navbarRight",
+    position: "leftBarTop",
     class: GlobalSetting
 }

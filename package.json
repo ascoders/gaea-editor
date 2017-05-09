@@ -14,6 +14,7 @@
     "dynamic-object": "^2.1.6",
     "dynamic-react": "^2.0.6",
     "gaea-basic-components": "^1.0.3",
+    "gaea-render": "^1.0.0",
     "lodash": "^4.17.4",
     "lz-string": "^1.4.4",
     "react": "^15.4.1",
