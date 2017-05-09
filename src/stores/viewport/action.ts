@@ -1,6 +1,7 @@
 import { inject } from "dependency-inject"
 import { Action } from "dynamic-object"
 import * as _ from "lodash"
+import * as LZString from "lz-string"
 import * as Sortable from "sortablejs"
 import ApplicationStore from "../application/store"
 import EventAction from "../event/action"
@@ -287,6 +288,23 @@ export default class ViewportAction {
      */
     @Action public setDomInstance(instanceKey: string, dom: HTMLElement) {
         this.store.instanceDoms.set(instanceKey, dom)
+    }
+
+    /**
+     * 获取当前视窗全部信息
+     */
+    @Action public getFullInformation() {
+        const fullObj: {
+            [instanceKey: string]: InstanceInfo
+        } = {}
+        this.store.instances.forEach((instanceInfo, instanceKey) => {
+            fullObj[instanceKey] = instanceInfo
+        })
+        return fullObj
+    }
+
+    @Action public getFullInformationGzipped() {
+        return LZString.compressToBase64(JSON.stringify(this.getFullInformation()))
     }
 
     /**

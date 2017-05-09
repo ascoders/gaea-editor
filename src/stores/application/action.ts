@@ -41,4 +41,11 @@ export default class ApplicationAction {
     @Action public getComponentClassByKey(gaeaKey: string) {
         return this.store.componentClasses.get(gaeaKey)
     }
+
+    /**
+     * set preview
+     */
+    @Action public setPreview(isPreview: boolean) {
+        this.store.isPreview = isPreview
+    }
 }

@@ -186,6 +186,9 @@ export default class RenderHelper extends React.Component<Props, State> {
     // gaeaData 注入
     props.gaeaData = this.props.gaeaData
 
+    // 注入 props
+    _.merge(props, _.get(this.instanceInfo, "data.props") || {})
+
     return React.createElement(this.componentClass, props, childs)
   }
 }

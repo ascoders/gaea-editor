@@ -45,7 +45,7 @@ export default class GaeaEditor extends React.Component<Props, State> {
     public render() {
         return (
             <Provider {...this.stores.getStore() }>
-                <Page />
+                <Page componentClasses={this.props.componentClasses} />
             </Provider>
         )
     }

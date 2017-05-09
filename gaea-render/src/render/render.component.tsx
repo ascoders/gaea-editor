@@ -59,6 +59,10 @@ export class GaeaRender extends React.Component<Props, State> {
   }
 
   public render() {
+    if (!this.viewport.rootInstanceKey) {
+      return null
+    }
+
     return (
       <Helper viewport={this.viewport}
         instanceKey={this.viewport.rootInstanceKey} />

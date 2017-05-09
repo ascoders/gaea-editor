@@ -1,12 +1,11 @@
 import { Connect } from "dynamic-react"
 import * as React from "react"
-
+import Render from "../../gaea-render/src"
 import { StoreProps } from "../stores"
-
 import Viewport from "./viewport/viewport.component"
 
 class Props extends StoreProps<void, void> {
-
+    public componentClasses?: any[] = []
 }
 
 class State {
@@ -87,9 +86,7 @@ export default class Page extends React.Component<Props, State> {
                             {this.props.stores.ApplicationStore.isPreview &&
                                 <Styled.PreviewContainer
                                     style={Object.assign({}, this.props.stores.ApplicationStore.viewportStyle)}>
-                                    {/*<Preview value={this.props.ViewportAction.getIncrementComponentsInfo()}*/}
-                                    {/*baseComponents={this.props.ApplicationActionStore.editorProps.commonComponents}*/}
-                                    {/*customComponents={this.props.ApplicationActionStore.editorProps.customComponents}/>*/}
+                                    <Render value={this.props.actions.ViewportAction.getFullInformationGzipped()} componentClasses={this.props.componentClasses} />
                                     {this.props.actions.ApplicationAction.loadingPluginByPosition("preview")}
                                 </Styled.PreviewContainer>
                             }
