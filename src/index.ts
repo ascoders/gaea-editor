@@ -6,3 +6,4 @@
 /// <reference path="./defines/viewport.d.ts"/>
 
 export { default as default } from "./gaea-editor.component"
+export { StoreProps } from "./stores/index"
