@@ -6,7 +6,7 @@ import Page from "./page/page.component"
 import { IActionsOrStores, Store } from "./stores"
 
 // 所有插件
-const plugins: any[] = []
+const plugins: IPlugin[] = []
 
 const context = require.context("./plugins", true, /index\.(tsx|js)$/)
 context.keys().forEach((key: string) => {
@@ -22,7 +22,7 @@ export default class GaeaEditor extends React.Component<Props, State> {
 
     public componentWillMount() {
         // 收集插件, 后续用来在不同地方展示
-        plugins.forEach((plugin) => {
+        plugins.concat(this.props.plugins).forEach((plugin) => {
             this.stores.getStore().actions.ApplicationAction.addPlugin(plugin)
 
             // 注入插件数据流

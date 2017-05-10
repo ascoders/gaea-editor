@@ -1734,9 +1734,9 @@ fstream@^1.0.0, fstream@^1.0.10, fstream@^1.0.2:
     mkdirp ">=0.5 0"
     rimraf "2"
 
-gaea-basic-components@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/gaea-basic-components/-/gaea-basic-components-1.0.3.tgz#3fc518c38d3117d73d6cbdb23154ad6c7347087d"
+gaea-basic-components@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/gaea-basic-components/-/gaea-basic-components-1.0.4.tgz#0c4969e7d27e88491365852747f35eb86c90149b"
 
 gaea-render@^1.0.0:
   version "1.0.0"

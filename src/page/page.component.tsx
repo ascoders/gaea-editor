@@ -7,7 +7,7 @@ import { StoreProps } from "../stores"
 import Viewport from "./viewport/viewport.component"
 
 class Props extends StoreProps<void, void> {
-    public componentClasses?: any[] = []
+    public componentClasses?: Array<React.ComponentClass<IGaeaProps>> = []
 }
 
 class State {
