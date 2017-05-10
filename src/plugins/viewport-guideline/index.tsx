@@ -38,8 +38,8 @@ class ViewportGuideline extends React.Component<typings.Props, typings.State> {
     const viewportBoundingClientRect = this.props.stores.ViewportStore.viewportDOM.getBoundingClientRect()
 
     const style = {
-      width: targetBoundingClientRect.width - 2,
-      height: targetBoundingClientRect.height - 2,
+      width: targetBoundingClientRect.width - 1,
+      height: targetBoundingClientRect.height - 1,
       top: targetBoundingClientRect.top - viewportBoundingClientRect.top,
       left: targetBoundingClientRect.left - viewportBoundingClientRect.left
     }
