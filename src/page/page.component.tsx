@@ -1,6 +1,8 @@
 import { Connect } from "dynamic-react"
 import Render from "gaea-render"
+import * as _ from "lodash"
 import * as React from "react"
+import Icon from "../../components/icon/src"
 import { StoreProps } from "../stores"
 import Viewport from "./viewport/viewport.component"
 
@@ -30,7 +32,8 @@ export default class Page extends React.Component<Props, State> {
      * 关闭左边工具栏
      */
     public handleCloseLeftBar = () => {
-        // this.props.ApplicationActionAction.toggleLeftBar(null)
+        this.props.actions.ApplicationAction.setLeftTool(null)
+        this.props.actions.ApplicationAction.setIsFullLeftTool(false)
     }
 
     public render() {
@@ -59,7 +62,7 @@ export default class Page extends React.Component<Props, State> {
                         </Styled.NavbarContainerRight>
                     </Styled.NavbarContainer>
                     <Styled.ViewportContainer>
-                        <Styled.ViewportContainerLeft theme={{ fullScreen: this.props.stores.ApplicationStore.isFullLeftTool }}>
+                        <Styled.ViewportContainerLeft>
                             <Styled.ViewportContainerLeftTop>
                                 {this.props.actions.ApplicationAction.loadingPluginByPosition("leftBarTop")}
                             </Styled.ViewportContainerLeftTop>
@@ -69,15 +72,17 @@ export default class Page extends React.Component<Props, State> {
                         </Styled.ViewportContainerLeft>
 
                         <Styled.ViewportContainerRight
-                            theme={{ showLeft: this.props.stores.ApplicationStore.isShowLeftTool, hidden: this.props.stores.ApplicationStore.isFullLeftTool }}
+                            theme={{ showLeft: this.props.stores.ApplicationStore.leftTool }}
                             style={Object.assign({}, this.props.stores.ApplicationStore.viewportContainerStyle)}>
-                            <Styled.ToolsContainer>
+                            <Styled.ToolsContainer theme={{ fullScreen: this.props.stores.ApplicationStore.isFullLeftTool }}>
                                 <Styled.ToolsContainerClose onClick={this.handleCloseLeftBar}>
-
+                                    <Icon type="close" />
                                 </Styled.ToolsContainerClose>
+                                {this.props.actions.ApplicationAction.loadingPluginByPosition(`toolContainer${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.leftTool))}`)}
                             </Styled.ToolsContainer>
 
                             <Styled.ViewportContainerBox
+                                theme={{ hidden: this.props.stores.ApplicationStore.isFullLeftTool }}
                                 style={Object.assign({}, this.props.stores.ApplicationStore.viewportStyle, { display: this.props.stores.ApplicationStore.isPreview ? "none" : null })}>
                                 <Viewport />
                                 {this.props.actions.ApplicationAction.loadingPluginByPosition("viewport")}
@@ -85,6 +90,7 @@ export default class Page extends React.Component<Props, State> {
 
                             {this.props.stores.ApplicationStore.isPreview &&
                                 <Styled.PreviewContainer
+                                    theme={{ hidden: this.props.stores.ApplicationStore.isFullLeftTool }}
                                     style={Object.assign({}, this.props.stores.ApplicationStore.viewportStyle)}>
                                     <Render value={this.props.actions.ViewportAction.getFullInformationGzipped()} componentClasses={this.props.componentClasses} />
                                     {this.props.actions.ApplicationAction.loadingPluginByPosition("preview")}

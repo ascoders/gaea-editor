@@ -20,6 +20,9 @@ const ViewportContainerBoxAndPreviewContainer = css`
     position: relative;
     flex-basis: 0%;
     flex-grow: 1;
+    ${(props: any) => props.theme.hidden && `
+        display: none;
+    `}
 `
 
 export const Container = styled.div.withConfig({ componentId: "Container" }) `
@@ -81,9 +84,6 @@ export const ViewportContainerLeft = styled.div`
     z-index: 1;
     background-color: whitesmoke;
     border-right: 1px solid #ddd;
-    ${(props: any) => props.theme.fullScreen && `
-       width: 100%;
-    `}
 `
 
 export const ViewportContainerLeftTop = styled.div`
@@ -130,9 +130,6 @@ export const ViewportContainerRight = styled.div`
     ${(props: any) => props.theme.showLeft && `
         margin-left: 0;
     `}
-    ${(props: any) => props.theme.hidden && `
-        display: none;
-    `}
 `
 
 export const SidebarMoveContainer = styled.div`
@@ -174,6 +171,9 @@ export const ToolsContainer = styled.div`
     z-index: 0;
     display: flex;
     flex-direction: column;
+    ${(props: any) => props.theme.fullScreen && `
+       width: 100%;
+    `}
 `
 
 export const ToolsContainerClose = styled.div`

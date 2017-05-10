@@ -34,8 +34,8 @@ export default class ApplicationStore {
      */
     public rootComponentName = ""
     /**
-     * is show left tool?
+     * left tool name
      */
-    public isShowLeftTool = false
+    public leftTool: string | null = null
     public isFullLeftTool = false
 }

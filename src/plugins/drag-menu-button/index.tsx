@@ -12,7 +12,7 @@ export class State {
 }
 
 @Connect
-class GlobalSetting extends React.Component<Props, State> {
+class DragMenuButton extends React.Component<Props, State> {
     public static defaultProps = new Props()
     public state = new State()
 
@@ -25,11 +25,16 @@ class GlobalSetting extends React.Component<Props, State> {
     }
 
     private handleClick = () => {
-        this.props.actions.ApplicationAction.setIsShowLeftTool(!this.props.stores.ApplicationStore.isShowLeftTool)
+        if (this.props.stores.ApplicationStore.leftTool === null) {
+            this.props.actions.ApplicationAction.setLeftTool("dragMenu")
+        } else {
+            this.props.actions.ApplicationAction.setLeftTool(null)
+            this.props.actions.ApplicationAction.setIsFullLeftTool(false)
+        }
     }
 }
 
 export default {
     position: "leftBarTop",
-    class: GlobalSetting
+    class: DragMenuButton
 }

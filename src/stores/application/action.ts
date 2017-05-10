@@ -49,8 +49,8 @@ export default class ApplicationAction {
         this.store.isPreview = isPreview
     }
 
-    @Action public setIsShowLeftTool(isShow: boolean) {
-        this.store.isShowLeftTool = isShow
+    @Action public setLeftTool(name: string | null) {
+        this.store.leftTool = name
     }
 
     @Action public setIsFullLeftTool(isFull: boolean) {
