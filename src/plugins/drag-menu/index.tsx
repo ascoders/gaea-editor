@@ -30,7 +30,10 @@ class DragMenu extends React.Component<Props, State> {
 
   public render() {
     return (
-      <Styled.Container>{this.getList()}</Styled.Container>
+      <Styled.Container>
+        {this.getList()}
+        {this.props.actions.ApplicationAction.loadingPluginByPosition("toolContainerDragMenuList")}
+      </Styled.Container>
     )
   }
 }
