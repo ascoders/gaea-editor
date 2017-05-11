@@ -37,5 +37,5 @@ export default class ApplicationStore {
      * left tool name
      */
     public leftTool: string | null = null
-    public isFullLeftTool = false
+    public rightTool: string | null = null
 }

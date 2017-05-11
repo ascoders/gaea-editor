@@ -1,12 +1,10 @@
 import { Connect } from "dynamic-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom";
+import Icon from "../../../components/icon/src"
 import { TabPanel, Tabs } from "../../../components/tabs/src"
-import { StoreProps } from "../../stores"
 import * as Styled from "./index.style"
-
-export class Props extends StoreProps<void, void> { }
-export class State { }
+import { Props, State } from "./index.type"
 
 @Connect
 class DragMenu extends React.Component<Props, State> {
@@ -17,7 +15,23 @@ class DragMenu extends React.Component<Props, State> {
     this.props.actions.ViewportAction.registerOuterDrag(ReactDOM.findDOMNode(this) as HTMLElement)
   }
 
-  public getList = () => {
+  public render() {
+    return (
+      <Styled.Container>
+        <Styled.Title >
+          <div>添加组件</div>
+          <Styled.CloseContainer onClick={this.handleCloseLeftBar}>
+            <Icon type="close" />
+          </Styled.CloseContainer>
+        </Styled.Title>
+
+        {this.getList()}
+        {this.props.actions.ApplicationAction.loadingPluginByPosition("toolContainerDragMenuList")}
+      </Styled.Container>
+    )
+  }
+
+  private getList = () => {
     return Array.from(this.props.stores.ApplicationStore.componentClasses).map(([key, componentClass], index) => {
       return (
         <Styled.Component
@@ -28,17 +42,13 @@ class DragMenu extends React.Component<Props, State> {
     })
   }
 
-  public render() {
-    return (
-      <Styled.Container>
-        {this.getList()}
-        {this.props.actions.ApplicationAction.loadingPluginByPosition("toolContainerDragMenuList")}
-      </Styled.Container>
-    )
+  private handleCloseLeftBar = () => {
+    this.props.actions.ApplicationAction.setLeftTool(null)
+    this.props.actions.ApplicationAction.setRightTool(null)
   }
 }
 
 export default {
-  position: "toolContainerDragMenu",
+  position: "toolContainerLeftDragMenu",
   class: DragMenu
 }

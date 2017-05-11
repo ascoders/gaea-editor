@@ -79,7 +79,7 @@ export const ViewportContainerLeft = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 30px;
+    width: 40px;
     background-color: white;
     z-index: 1;
     background-color: whitesmoke;
@@ -93,9 +93,11 @@ export const ViewportContainerLeftTop = styled.div`
         justify-content: center;
         align-items: center;
         font-size: 14px;
-        height: 30px;
+        height: 40px;
+        fill: #666;
         cursor: pointer;
         user-select: none;
+        border-bottom: 1px solid #ddd;
         &:hover {
             background-color: #eaeaea;
         }
@@ -165,35 +167,32 @@ export const FooterContainer = styled.div`
 `
 
 export const ToolsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
     background-color: whitesmoke;
     position: relative;
     width: 300px;
-    z-index: 0;
-    display: flex;
-    flex-direction: column;
     ${(props: any) => props.theme.fullScreen && `
        width: 100%;
     `}
 `
 
-export const ToolsContainerClose = styled.div`
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    top: 0;
-    right: 0;
+export const ToolsContainerLeft = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all .3s;
-    color: #999;
-    cursor: pointer;
-    z-index: 1;
+    flex-direction: column;
+    width: 300px;
+    border-right: 1px solid #ddd;
+`
 
-    &:hover {
-        color: #333;
-        transform: scale(1.2);
-    }
+export const ToolsContainerRight = styled.div`
+    display: flex;
+    flex-direction: column;
+    display: none;
+    flex-grow: 1;
+    flex-basis: 0%;
+    ${(props: any) => props.theme.show && `
+       display: block;
+    `}
 `
 
 export const ViewportContainerBox = styled.div`

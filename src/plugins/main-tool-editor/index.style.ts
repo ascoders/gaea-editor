@@ -8,7 +8,7 @@ export const EmptyContainer = styled.div`
 export const EmptyTitle = styled.div`
   display: flex;
   justify-content: center;
-  color: #666;
+  color: #888;
   font-weight: bold;
   padding: 10px;
   margin-top: 10px;
@@ -18,7 +18,7 @@ export const EmptyTitle = styled.div`
 export const EmptyDescription = styled.div`
   margin: 15px 10px 0 10px;
   padding: 20px;
-  color: #666;
+  color: #888;
   border: 1px solid #ccc;
   border-radius: 3px;
   font-size: 13px;

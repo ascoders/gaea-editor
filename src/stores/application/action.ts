@@ -53,7 +53,7 @@ export default class ApplicationAction {
         this.store.leftTool = name
     }
 
-    @Action public setIsFullLeftTool(isFull: boolean) {
-        this.store.isFullLeftTool = isFull
+    @Action public setRightTool(name: string | null) {
+        this.store.rightTool = name
     }
 }

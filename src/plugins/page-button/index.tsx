@@ -13,21 +13,21 @@ export class State {
 }
 
 @Connect
-class DragMenuButton extends React.Component<Props, State> {
+class PageButton extends React.Component<Props, State> {
     public static defaultProps = new Props()
     public state = new State()
 
     public render() {
         return (
             <Styled.Container onClick={this.handleClick}>
-                <Icon type="component" />
+                <Icon type="page" />
             </Styled.Container>
         )
     }
 
     private handleClick = () => {
         if (this.props.stores.ApplicationStore.leftTool === null) {
-            this.props.actions.ApplicationAction.setLeftTool("dragMenu")
+            this.props.actions.ApplicationAction.setLeftTool("page")
         } else {
             this.props.actions.ApplicationAction.setLeftTool(null)
             this.props.actions.ApplicationAction.setRightTool(null)
@@ -37,5 +37,5 @@ class DragMenuButton extends React.Component<Props, State> {
 
 export default {
     position: "leftBarTop",
-    class: DragMenuButton
+    class: PageButton
 }

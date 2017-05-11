@@ -8,7 +8,7 @@ export class Props {
   /**
    * 图标大小
    */
-  public size?: number = 15
+  public size?: number = 20
 }
 
 export class State {

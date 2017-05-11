@@ -1,20 +1,5 @@
 import styled from "styled-components"
 
-export const Component = styled.div`
-  cursor: pointer;
-  padding: 10px;
-  font-size: 14px;
-  color: #666;
-  background-color: #eee;
-  transition: background-color .3s;
-  &:hover {
-    background-color: whitesmoke;
-  }
-  &:not(:last-child) {
-    border-bottom: 1px solid #ddd;
-  }
-`
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -30,8 +15,17 @@ export const Title = styled.div`
   font-size: 16px;
   align-items: center;
   color: #777;
-  font-weight: bold;
   border-bottom: 1px solid #ddd;
+`
+
+export const TitleLeftContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const TitleRightContainer = styled.div`
+  display: flex;
+  align-items: center;
 `
 
 export const CloseContainer = styled.div`

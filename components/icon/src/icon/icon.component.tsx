@@ -4,10 +4,22 @@ import * as ReactDOM from "react-dom"
 import * as Styled from "./icon.style"
 import * as typings from "./icon.type"
 
+import addFile from "../icons/add-file"
+import addFolder from "../icons/add-folder"
 import close from "../icons/close"
+import component from "../icons/component"
+import file from "../icons/file"
+import folder from "../icons/folder"
+import page from "../icons/page"
 
 const iconMap = new Map<string, (size: number) => React.ReactElement<any>>()
 iconMap.set("close", close)
+iconMap.set("page", page)
+iconMap.set("component", component)
+iconMap.set("folder", folder)
+iconMap.set("file", file)
+iconMap.set("addFile", addFile)
+iconMap.set("addFolder", addFolder)
 
 export class Icon extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props()

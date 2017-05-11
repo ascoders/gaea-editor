@@ -21,34 +21,7 @@ export default class Page extends React.Component<Props, State> {
     public static defaultProps = new Props()
     public state = new State()
 
-    /**
-     * 关闭编辑框
-     */
-    public handleCloseEditor = () => {
-        // this.props.ViewportAction.setCurrentEditComponentMapUniqueKey(null)
-    }
-
-    /**
-     * 关闭左边工具栏
-     */
-    public handleCloseLeftBar = () => {
-        this.props.actions.ApplicationAction.setLeftTool(null)
-        this.props.actions.ApplicationAction.setIsFullLeftTool(false)
-    }
-
     public render() {
-        // const navbarBottomRightContainerClasses = classNames({
-        // 'navbar-center__right-container': true,
-        // 'show-editor-container': this.props.ViewportStore.currentEditComponentMapUniqueKey !== null,
-        // 'transparent-background': this.props.ApplicationActionStore.viewportContainerStyle.backgroundColor === 'transparent',
-        // 'show-left-bar': this.props.ApplicationActionStore.leftBarType !== null
-        // })
-
-        // .15s 后触发视图区域刷新事件
-        setTimeout(() => {
-            // this.props.EventAction.emit(this.props.EventStore.viewportUpdated)
-        }, 200)
-
         return (
             <Styled.Container>
                 <Styled.LeftContainer>
@@ -74,15 +47,17 @@ export default class Page extends React.Component<Props, State> {
                         <Styled.ViewportContainerRight
                             theme={{ showLeft: this.props.stores.ApplicationStore.leftTool }}
                             style={Object.assign({}, this.props.stores.ApplicationStore.viewportContainerStyle)}>
-                            <Styled.ToolsContainer theme={{ fullScreen: this.props.stores.ApplicationStore.isFullLeftTool }}>
-                                <Styled.ToolsContainerClose onClick={this.handleCloseLeftBar}>
-                                    <Icon type="close" />
-                                </Styled.ToolsContainerClose>
-                                {this.props.actions.ApplicationAction.loadingPluginByPosition(`toolContainer${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.leftTool))}`)}
+                            <Styled.ToolsContainer theme={{ fullScreen: this.props.stores.ApplicationStore.rightTool }}>
+                                <Styled.ToolsContainerLeft>
+                                    {this.props.actions.ApplicationAction.loadingPluginByPosition(`toolContainerLeft${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.leftTool))}`)}
+                                </Styled.ToolsContainerLeft>
+                                <Styled.ToolsContainerRight theme={{ show: this.props.stores.ApplicationStore.rightTool }}>
+                                    {this.props.actions.ApplicationAction.loadingPluginByPosition(`toolContainerRight${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.rightTool))}`)}
+                                </Styled.ToolsContainerRight>
                             </Styled.ToolsContainer>
 
                             <Styled.ViewportContainerBox
-                                theme={{ hidden: this.props.stores.ApplicationStore.isFullLeftTool }}
+                                theme={{ hidden: this.props.stores.ApplicationStore.rightTool }}
                                 style={Object.assign({}, this.props.stores.ApplicationStore.viewportStyle, { display: this.props.stores.ApplicationStore.isPreview ? "none" : null })}>
                                 <Viewport />
                                 {this.props.actions.ApplicationAction.loadingPluginByPosition("viewport")}
@@ -90,7 +65,7 @@ export default class Page extends React.Component<Props, State> {
 
                             {this.props.stores.ApplicationStore.isPreview &&
                                 <Styled.PreviewContainer
-                                    theme={{ hidden: this.props.stores.ApplicationStore.isFullLeftTool }}
+                                    theme={{ hidden: this.props.stores.ApplicationStore.rightTool }}
                                     style={Object.assign({}, this.props.stores.ApplicationStore.viewportStyle)}>
                                     <Render value={this.props.actions.ViewportAction.getFullInformationGzipped()} componentClasses={this.props.componentClasses} />
                                     {this.props.actions.ApplicationAction.loadingPluginByPosition("preview")}
