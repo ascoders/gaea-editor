@@ -2,6 +2,7 @@ import { Connect } from "dynamic-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
+import Icon from "../../../components/icon/src"
 import { TabPanel, Tabs } from "../../../components/tabs/src/"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
@@ -56,12 +57,21 @@ class MainToolEditor extends React.Component<Props, State> {
 
     return (
       <Styled.Container>
-        <Styled.ComponentName>{this.componentClass.defaultProps.gaeaSetting.name}</Styled.ComponentName>
+        <Styled.ComponentName>
+          <span>{this.componentClass.defaultProps.gaeaSetting.name}</span>
+          <Styled.CloseButton onClick={this.handleClose}>
+            <Icon type="close" size={15} />
+          </Styled.CloseButton>
+        </Styled.ComponentName>
         {EditorFields}
 
         {this.props.actions.ApplicationAction.loadingPluginByPosition("mainToolEditorAddon")}
       </Styled.Container>
     )
+  }
+
+  private handleClose = () => {
+    this.props.actions.ViewportAction.setCurrentEditInstanceKey(null)
   }
 }
 

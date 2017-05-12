@@ -3,6 +3,7 @@ import Render from "gaea-render"
 import * as _ from "lodash"
 import * as React from "react"
 import Icon from "../../components/icon/src"
+import { Modal } from "../../components/modal/src"
 import { StoreProps } from "../stores"
 import Viewport from "./viewport/viewport.component"
 
@@ -92,7 +93,23 @@ export default class Page extends React.Component<Props, State> {
                         </Styled.SidebarPreviewContainer>
                     </Styled.SidebarMoveContainer>
                 </Styled.RightContainer>
+
+                <Modal show={this.props.stores.ApplicationStore.isShowModal}>
+                    <Styled.ModalTitleContainer>
+                        <Styled.ModalTitle>
+                            {this.props.stores.ApplicationStore.modalTitle}
+                        </Styled.ModalTitle>
+                        <Styled.ModalTitleClose onClick={this.handleModalClick}>
+                            <Icon type="close" />
+                        </Styled.ModalTitleClose>
+                    </Styled.ModalTitleContainer>
+                    {this.props.actions.ApplicationAction.renderModalContent()}
+                </Modal>
             </Styled.Container>
         )
+    }
+
+    private handleModalClick = () => {
+        this.props.actions.ApplicationAction.closeModal()
     }
 }

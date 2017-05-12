@@ -38,4 +38,10 @@ export default class ApplicationStore {
      */
     public leftTool: string | null = null
     public rightTool: string | null = null
+    /**
+     * Show modal?
+     */
+    public isShowModal = false
+    public modalTitle = ""
+    public modalContentRender: () => (React.ReactElement<any>) = null
 }

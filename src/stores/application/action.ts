@@ -56,4 +56,33 @@ export default class ApplicationAction {
     @Action public setRightTool(name: string | null) {
         this.store.rightTool = name
     }
+
+    /**
+     * 弹出模态框
+     */
+    @Action public createModal(config: { title: string }, renderContent: () => React.ReactElement<any>) {
+        this.store.modalTitle = config.title
+        this.store.modalContentRender = renderContent
+        this.store.isShowModal = true
+    }
+
+    /**
+     * 关闭模态框
+     */
+    @Action public closeModal() {
+        this.store.isShowModal = false
+        this.store.modalTitle = null
+        this.store.modalContentRender = null
+    }
+
+    /**
+     * 渲染模态框内容
+     */
+    @Action public renderModalContent() {
+        if (typeof this.store.modalContentRender === "function") {
+            return this.store.modalContentRender()
+        } else {
+            return null
+        }
+    }
 }

@@ -13,7 +13,7 @@ export const TitleContainer = styled.div.withConfig({ componentId: "title-contai
   font-size: 14px;
   border-bottom: 1px solid #ddd;
   background-color: whitesmoke;
-  color: #333;
+  color: #666;
 `
 
 export const TitleItem = styled.div`

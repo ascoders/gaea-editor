@@ -33,7 +33,8 @@ export const Container = styled.div`
 `
 
 export const ComponentName = styled.div`
-  padding: 5px 10px;
+  display: flex;
+  padding: 7px 10px;
   font-size: 14px;
   color: #666;
   font-weight: bold;
@@ -45,4 +46,15 @@ export const TabTitle = styled.div`
   font-size: 13px;
   color: #666;
   background-color: #eee;
+`
+
+export const CloseButton = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  cursor: pointer;
+  fill: #999;
+  &:hover {
+    fill: #333;
+  }
 `

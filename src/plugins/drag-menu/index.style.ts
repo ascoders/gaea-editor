@@ -10,9 +10,7 @@ export const Component = styled.div`
   &:hover {
     background-color: whitesmoke;
   }
-  &:not(:last-child) {
-    border-bottom: 1px solid #ddd;
-  }
+  border-bottom: 1px solid #ddd;
 `
 
 export const Container = styled.div`

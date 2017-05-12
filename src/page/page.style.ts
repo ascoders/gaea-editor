@@ -11,6 +11,7 @@ const NavbarContainerLeftAndNavbarContainerRight = css`
         user-select: none;
         &:hover {
             background-color: #eaeaea;
+            color: #333;
         }
     }
 `
@@ -60,12 +61,14 @@ export const NavbarContainer = styled.div`
 
 export const NavbarContainerLeft = styled.div`
     display: flex;
+    border-right: 1px solid #ddd;
     ${NavbarContainerLeftAndNavbarContainerRight}
 `
 
 export const NavbarContainerRight = styled.div`
     display: flex;
     justify-content: flex-end;
+    border-left: 1px solid #ddd;
     ${NavbarContainerLeftAndNavbarContainerRight}
 `
 
@@ -201,4 +204,31 @@ export const ViewportContainerBox = styled.div`
 
 export const PreviewContainer = styled.div`
     ${ViewportContainerBoxAndPreviewContainer}
+`
+
+export const ModalTitleContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 45px;
+    padding: 0 15px;
+    border-bottom: 1px solid #ddd;
+`
+
+export const ModalTitle = styled.div`
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: #666;
+    font-weight: bold;
+`
+
+export const ModalTitleClose = styled.div`
+    display: flex;
+    align-items: center;
+    fill: #999;
+    cursor: pointer;
+    &:hover {
+        fill: #333;
+    }
 `

@@ -11,8 +11,10 @@ class DragMenu extends React.Component<Props, State> {
   public static defaultProps = new Props()
   public state = new State()
 
+  private listContainer: React.ReactInstance
+
   public componentDidMount() {
-    this.props.actions.ViewportAction.registerOuterDrag(ReactDOM.findDOMNode(this) as HTMLElement)
+    this.props.actions.ViewportAction.registerOuterDrag(ReactDOM.findDOMNode(this.listContainer) as HTMLElement)
   }
 
   public render() {
@@ -25,7 +27,10 @@ class DragMenu extends React.Component<Props, State> {
           </Styled.CloseContainer>
         </Styled.Title>
 
-        {this.getList()}
+        <div ref={ref => this.listContainer = ref}>
+          {this.getList()}
+        </div>
+
         {this.props.actions.ApplicationAction.loadingPluginByPosition("toolContainerDragMenuList")}
       </Styled.Container>
     )
