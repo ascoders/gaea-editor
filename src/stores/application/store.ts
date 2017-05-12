@@ -43,5 +43,5 @@ export default class ApplicationStore {
      */
     public isShowModal = false
     public modalTitle = ""
-    public modalContentRender: () => (React.ReactElement<any>) = null
+    public modalContentRender: (closeModal?: () => void) => (React.ReactElement<any>) = null
 }

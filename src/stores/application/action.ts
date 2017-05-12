@@ -80,7 +80,7 @@ export default class ApplicationAction {
      */
     @Action public renderModalContent() {
         if (typeof this.store.modalContentRender === "function") {
-            return this.store.modalContentRender()
+            return this.store.modalContentRender(this.closeModal)
         } else {
             return null
         }
