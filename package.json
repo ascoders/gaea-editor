@@ -1,60 +1,46 @@
 {
   "name": "gaea-editor",
-  "version": "1.0.26",
-  "description": "盖亚",
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ascoders/gaea.git"
+  "version": "2.0.11",
+  "description": "",
+  "main": "built/src/index.js",
+  "typings": "src/index.ts",
+  "scripts": {
+    "start": "run-react -d",
+    "tslint": "tslint './src/**/*.?(ts|tsx)'",
+    "prepublish": "rm -rf lib && tsc"
   },
-  "keywords": [
-    "gaea"
-  ],
-  "author": "ascoders",
-  "license": "ISC",
   "dependencies": {
+    "@types/lz-string": "^1.3.32",
     "classnames": "^2.2.5",
-    "gaea-model": "^1.0.29",
-    "gaea-preview": "^1.0.23",
-    "inject-instance": "^1.0.5",
-    "jquery": "^3.1.0",
-    "keymaster": "^1.6.2",
-    "lodash": "^4.15.0",
+    "dependency-inject": "^1.0.3",
+    "dynamic-object": "^2.1.6",
+    "dynamic-react": "^2.0.6",
+    "gaea-basic-components": "^1.0.4",
+    "gaea-render": "^1.0.0",
+    "lodash": "^4.17.4",
     "lz-string": "^1.4.4",
-    "mobx": "^2.4.3",
-    "mobx-react": "^3.5.5",
-    "nt-auto-bind": "^2.0.5",
-    "nt-web-auto-complete": "^1.0.0",
-    "nt-web-button": "^1.0.5",
-    "nt-web-checkbox": "^1.0.5",
-    "nt-web-input": "^1.0.6",
-    "nt-web-margin-padding-editor": "^1.1.6",
-    "nt-web-message": "^1.0.5",
-    "nt-web-modal": "^0.0.5",
-    "nt-web-number": "^1.0.2",
-    "nt-web-radio": "^1.0.5",
-    "nt-web-select": "^0.0.4",
-    "nt-web-switch": "^1.0.5",
-    "nt-web-tabs": "^1.0.7",
-    "nt-web-tooltip": "^1.2.3",
-    "nt-web-tree": "^1.0.5",
-    "react-color": "^2.3.2",
-    "sortablejs": "git://github.com/RubaXa/Sortable.git#dev"
-  },
-  "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0",
-    "react-dom": "^0.14.0 || ^15.0.0"
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-router": "^3.0.0",
+    "sortablejs": "^1.5.1",
+    "styled-components": "next"
   },
   "devDependencies": {
     "@types/classnames": "^0.0.32",
-    "@types/keymaster": "^1.6.28",
-    "@types/lodash": "^4.14.63",
-    "@types/lz-string": "^1.3.32",
-    "@types/react": "^15.0.22",
-    "@types/react-color": "^2.11.1",
-    "@types/react-dom": "^15.5.0",
-    "gaea-native-components": "^1.0.24",
-    "gaea-web-components": "^1.0.20"
-  }
+    "@types/lodash": "^4.14.58",
+    "@types/react": "^0.14.54",
+    "@types/react-dom": "^0.14.19",
+    "@types/react-redux": "^4.4.36",
+    "@types/react-router": "^3.0.1",
+    "@types/react-router-redux": "^4.0.40",
+    "pre-commit": "^1.2.2",
+    "run-react": "^1.0.4",
+    "tslint": "^5.1.0",
+    "typescript": "^2.1.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "pre-commit": [
+    "tslint"
+  ]
 }

@@ -1,5 +1,16 @@
 {
     "entrys": [
-        "demo/1.web.tsx"
+        "docs/index.tsx"
+    ],
+    "dlls": [
+        "react",
+        "react-dom",
+        "react-router",
+        "styled-components",
+        "dependency-inject",
+        "classnames",
+        "lodash",
+        "lz-string",
+        "sortablejs"
     ]
 }

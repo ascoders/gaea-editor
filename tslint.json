@@ -1,0 +1,21 @@
+{
+  "extends": "tslint:latest",
+  "defaultSeverity": "warning",
+  "rules": {
+    "semicolon": [
+      false
+    ],
+    "object-literal-sort-keys": false,
+    "max-classes-per-file": [
+      5
+    ],
+    "trailing-comma": [
+      false
+    ],
+    "no-string-literal": false,
+    "max-line-length": [
+      150
+    ],
+    "arrow-parens": false
+  }
+}
