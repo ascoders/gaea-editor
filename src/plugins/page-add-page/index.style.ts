@@ -37,3 +37,16 @@ export const CloseContainer = styled.div`
     fill: #333;
   }
 `
+
+export const FormTitle = styled.div`
+  padding: 15px 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #666;
+`
+
+export const Description = styled.div`
+
+`
+
+export const Button = styled.div``

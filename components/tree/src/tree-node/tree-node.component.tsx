@@ -26,6 +26,8 @@ export class TreeNode extends React.Component<typings.Props, typings.State> {
   }
 
   public handleArrowClick = (event: Event) => {
+    event.stopPropagation()
+
     this.setState({
       showChildren: !this.state.showChildren
     })
@@ -58,6 +60,7 @@ export class TreeNode extends React.Component<typings.Props, typings.State> {
           }
           {this.props.title || this.props.render()}
         </Styled.Title>
+
         <Styled.Children style={childrenStyle}>
           {Children ? Children : null}
         </Styled.Children>

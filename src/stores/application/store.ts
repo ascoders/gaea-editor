@@ -44,4 +44,22 @@ export default class ApplicationStore {
     public isShowModal = false
     public modalTitle = ""
     public modalContentRender: (closeModal?: () => void) => (React.ReactElement<any>) = null
+    /**
+     * page instances
+     */
+    public pages = new Map<string, IPage>()
+    /**
+     * Current create page key
+     */
+    public currentCreatedPageKey: string = null
+    /**
+     * current edit page key
+     */
+    public currentEditPageKey: string = null
+    /**
+     * current edit page
+     */
+    public get currentEditPage() {
+        return this.pages.get(this.currentEditPageKey)
+    }
 }

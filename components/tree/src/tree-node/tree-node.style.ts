@@ -1,16 +1,19 @@
 import styled from "styled-components"
 
-export const Container = styled.div`
-
+export const Container = styled.div.withConfig({ componentId: "tree-node-container" }) `
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 `
 
 export const Title = styled.div`
   cursor: pointer;
   display: flex;
-  align-items: center;
   user-select: none;
   font-size: 14px;
   color: #666;
+  flex-grow: 1;
+  align-items: center;
 `
 
 export const TitleCaret = styled.div`

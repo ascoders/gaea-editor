@@ -9,6 +9,7 @@ const NavbarContainerLeftAndNavbarContainerRight = css`
         font-size: 14px;
         cursor: pointer;
         user-select: none;
+        color: #666;
         &:hover {
             background-color: #eaeaea;
             color: #333;

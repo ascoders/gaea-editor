@@ -8,7 +8,7 @@ export const Component = styled.div`
   background-color: #eee;
   transition: background-color .3s;
   &:hover {
-    background-color: whitesmoke;
+    background-color: white;
   }
   border-bottom: 1px solid #ddd;
 `

@@ -7,6 +7,6 @@ export class Props extends StoreProps<{
 }, {
     PageStore: PageStore
   }> {
-  public instanceKey: string
+  public pageKey: string
 }
 export class State { }

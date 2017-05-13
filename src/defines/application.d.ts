@@ -70,3 +70,41 @@ declare interface IEditor {
      */
     label: string
 }
+
+declare interface IPage {
+    /**
+     * Can create a folder or page
+     */
+    type: "page" | "folder"
+    /**
+     * description name
+     */
+    name: string
+    /**
+     * Real path
+     */
+    path: string
+    parentKey: string
+    /**
+     * Only exist in folder
+     */
+    childs?: string[]
+}
+
+/**
+ * Page store structor
+ */
+declare interface IAllInformation {
+    pages: {
+        [pageKey: string]: IPage
+    }
+    instances: {
+        /**
+         * The page instances belong to
+         */
+        pageKey: string
+        info: {
+            [instanceKey: string]: InstanceInfo
+        }
+    }
+}

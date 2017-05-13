@@ -11,6 +11,7 @@ import component from "../icons/component"
 import file from "../icons/file"
 import folder from "../icons/folder"
 import page from "../icons/page"
+import setting from "../icons/setting"
 
 const iconMap = new Map<string, (size: number) => React.ReactElement<any>>()
 iconMap.set("close", close)
@@ -20,6 +21,7 @@ iconMap.set("folder", folder)
 iconMap.set("file", file)
 iconMap.set("addFile", addFile)
 iconMap.set("addFolder", addFolder)
+iconMap.set("setting", setting)
 
 export class Icon extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props()

@@ -7,37 +7,8 @@ import { TabPanel, Tabs } from "../../../components/tabs/src"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
-const selects: any = {
-  defaultValue: "aa",
-  options: [{
-    key: "a",
-    value: "小明"
-  }, {
-    key: "b",
-    value: "小红"
-  }, {
-    key: "c",
-    value: "小白"
-  }, {
-    key: "d",
-    value: "小王"
-  }, {
-    key: "e",
-    value: "小李"
-  }, {
-    groupValue: "其它",
-    children: [{
-      key: "aa",
-      value: "小黑"
-    }, {
-      key: "bb",
-      value: "小天"
-    }]
-  }]
-}
-
 @Connect
-class PageAddFolder extends React.Component<Props, State> {
+class PageAddPage extends React.Component<Props, State> {
   public static defaultProps = new Props()
   public state = new State()
 
@@ -53,7 +24,7 @@ class PageAddFolder extends React.Component<Props, State> {
     return (
       <Styled.Container>
         <Styled.Title >
-          <div>{this.props.stores.ApplicationStore.currentCreatedPageKey ? "添加文件夹" : "编辑文件夹"}</div>
+          <div>{this.props.stores.ApplicationStore.currentCreatedPageKey ? "添加页面" : "编辑页面"}</div>
           <Styled.CloseContainer onClick={this.handleCloseRightBar}>
             <Icon type="close" />
           </Styled.CloseContainer>
@@ -64,9 +35,11 @@ class PageAddFolder extends React.Component<Props, State> {
 
         <Styled.FormTitle>路径名</Styled.FormTitle>
         <input value={this.pageInfo.path} onChange={this.handleChangePath} />
+        <Styled.Description>
+
+        </Styled.Description>
 
         <Styled.FormTitle>父级文件夹</Styled.FormTitle>
-        <Select {...selects} />
 
         {this.props.stores.ApplicationStore.currentCreatedPageKey &&
           <Styled.Button onClick={this.handleCreate}>
@@ -77,18 +50,19 @@ class PageAddFolder extends React.Component<Props, State> {
     )
   }
 
-  private handleCloseRightBar = () => {
-    this.props.actions.ApplicationAction.RemoveCreatingPage()
-
-    this.props.actions.ApplicationAction.setRightTool(null)
-  }
-
   private handleChangeName = (event: React.FormEvent<HTMLInputElement>) => {
     this.props.actions.ApplicationAction.changePageName(this.props.stores.ApplicationStore.currentEditPageKey, event.currentTarget.value as string)
   }
 
   private handleChangePath = (event: React.FormEvent<HTMLInputElement>) => {
     this.props.actions.ApplicationAction.changePagePath(this.props.stores.ApplicationStore.currentEditPageKey, event.currentTarget.value as string)
+  }
+
+  private handleCloseRightBar = () => {
+    // 如果此时有正在编辑的页面，直接删除
+    this.props.actions.ApplicationAction.RemoveCreatingPage()
+
+    this.props.actions.ApplicationAction.setRightTool(null)
   }
 
   private handleCreate = () => {
@@ -98,6 +72,6 @@ class PageAddFolder extends React.Component<Props, State> {
 }
 
 export default {
-  position: "toolContainerRightAddFolder",
-  class: PageAddFolder
+  position: "toolContainerRightAddPage",
+  class: PageAddPage
 }

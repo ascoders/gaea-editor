@@ -14,7 +14,7 @@ export const Title = styled.div`
   height: 40px;
   font-size: 16px;
   align-items: center;
-  color: #777;
+  color: #666;
   border-bottom: 1px solid #ddd;
 `
 
@@ -37,3 +37,12 @@ export const CloseContainer = styled.div`
     fill: #333;
   }
 `
+
+export const FormTitle = styled.div`
+  padding: 15px 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #666;
+`
+
+export const Button = styled.div``

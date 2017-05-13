@@ -8,13 +8,24 @@ import PageAction from "./action"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 import PageStore from "./store"
+import TreeNode from "./tree-node/tree-node.component"
 
 @Connect
 class Page extends React.Component<Props, State> {
   public static defaultProps = new Props()
   public state = new State()
 
+  public componentWillMount() {
+    this.props.actions.ApplicationAction.RemoveCreatingPage()
+  }
+
   public render() {
+    const Pages = Array.from(this.props.stores.ApplicationStore.pages).map(([pageKey, pageInfo], index) => {
+      return (
+        <TreeNode key={pageKey} pageKey={pageKey} />
+      )
+    })
+
     return (
       <Styled.Container>
         <Styled.Title >
@@ -28,37 +39,48 @@ class Page extends React.Component<Props, State> {
             <Styled.AddIcon onClick={this.handleAddFolder}>
               <Icon type="addFolder" />
             </Styled.AddIcon>
-            <Styled.AddIcon onClick={this.handleAddFile}>
+            <Styled.AddIcon onClick={this.handleAddPage}>
               <Icon type="addFile" size={17} />
             </Styled.AddIcon>
           </Styled.TitleRightContainer>
         </Styled.Title>
 
-        <Styled.EmptyContainer>
-          <Styled.EmptyTitle>
-            添加新页面
-          </Styled.EmptyTitle>
-          <Styled.EmptyDescription>
-            点击右上角按钮，创建文件夹或页面
-          </Styled.EmptyDescription>
-        </Styled.EmptyContainer>
+        {this.props.stores.ApplicationStore.pages.size > 0 &&
+          <Tree>
+            {Pages}
+          </Tree>
+        }
 
-        <Tree></Tree>
+        {this.props.stores.ApplicationStore.pages.size === 0 &&
+          <Styled.EmptyContainer>
+            <Styled.EmptyTitle>
+              添加新页面
+          </Styled.EmptyTitle>
+            <Styled.EmptyDescription>
+              点击右上角按钮，创建文件夹或页面
+          </Styled.EmptyDescription>
+          </Styled.EmptyContainer>
+        }
       </Styled.Container>
     )
   }
 
   private handleCloseLeftBar = () => {
+    this.props.actions.ApplicationAction.RemoveCreatingPage()
     this.props.actions.ApplicationAction.setLeftTool(null)
     this.props.actions.ApplicationAction.setRightTool(null)
   }
 
   private handleAddFolder = () => {
+    this.props.actions.ApplicationAction.RemoveCreatingPage()
+    this.props.actions.ApplicationAction.createNewPage(true)
     this.props.actions.ApplicationAction.setRightTool("addFolder")
   }
 
-  private handleAddFile = () => {
-    this.props.actions.ApplicationAction.setRightTool("addFile")
+  private handleAddPage = () => {
+    this.props.actions.ApplicationAction.RemoveCreatingPage()
+    this.props.actions.ApplicationAction.createNewPage(false)
+    this.props.actions.ApplicationAction.setRightTool("addPage")
   }
 }
 
