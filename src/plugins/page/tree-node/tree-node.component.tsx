@@ -35,19 +35,27 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
 
     const pageName = this.pageInfo.name
     const currentCreatedPageKey = this.props.stores.ApplicationStore.currentCreatedPageKey
+    const currentViewportPageKey = this.props.stores.ApplicationStore.currentViewportPageKey
 
     const childProps = {
       render: () => {
         return (
           <Styled.Content>
-            <Styled.Title>
+            <Styled.Title theme={{ isHome: this.pageInfo.isHomePage }}>
               {pageName === "" ?
                 <Styled.UnNamed>&lt;未命名&gt;</Styled.UnNamed> : pageName}
             </Styled.Title>
             {currentCreatedPageKey !== this.props.pageKey &&
-              <Styled.Setting onClick={this.handleEdit}>
-                <Icon type="setting" size={15} />
-              </Styled.Setting>
+              <Styled.RightContainer>
+                {currentViewportPageKey === this.props.pageKey &&
+                  <Styled.InUseTag>
+                    正在编辑
+                </Styled.InUseTag>
+                }
+                <Styled.Setting onClick={this.handleEdit}>
+                  <Icon type="setting" size={15} />
+                </Styled.Setting>
+              </Styled.RightContainer>
             }
           </Styled.Content>
         )
@@ -65,10 +73,42 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
   }
 
   private handleClick = () => {
-    // console.log(123)
+    // 当前正在创建，未确定的页面不能设置为当前编辑
+    if (this.props.pageKey === this.props.stores.ApplicationStore.currentCreatedPageKey) {
+      return
+    }
+
+    // 是当前使用的页面，什么都不发生
+    if (this.props.pageKey === this.props.stores.ApplicationStore.currentViewportPageKey) {
+      return
+    }
+
+    if (this.pageInfo.type === "page") {
+      // 更新前，将当前页面内容保存
+      const fullInformation = this.props.stores.ViewportStore.currentFullInformation
+      this.props.stores.ApplicationStore.pageInstances.set(this.props.stores.ApplicationStore.currentViewportPageKey, fullInformation)
+
+      // 重置应用
+      this.props.actions.ApplicationAction.resetApplication()
+
+      // 设置 viewport
+      if (this.props.stores.ApplicationStore.pageInstances.has(this.props.pageKey)) {
+        this.props.actions.ViewportAction.resetViewport(this.props.stores.ApplicationStore.pageInstances.get(this.props.pageKey))
+      } else {
+        // 清空当前视图
+        this.props.actions.ViewportAction.clearViewport()
+        // 创建一个初始视图
+        this.props.actions.ViewportAction.initViewport()
+      }
+
+      // 设置当前 viewport 使用的页面
+      this.props.actions.ApplicationAction.changeCurrentViewportPageKey(this.props.pageKey)
+    }
   }
 
-  private handleEdit = () => {
+  private handleEdit = (event: React.FormEvent<HTMLDivElement>) => {
+    event.stopPropagation()
+
     this.props.actions.ApplicationAction.RemoveCreatingPage()
     this.props.actions.ApplicationAction.setCurrentEditPageKey(this.props.pageKey)
     const pageInfo = this.props.stores.ApplicationStore.pages.get(this.props.pageKey)

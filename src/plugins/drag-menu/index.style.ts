@@ -1,8 +1,11 @@
 import styled from "styled-components"
 
 export const Component = styled.div`
+  display: flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 10px;
   cursor: pointer;
-  padding: 10px;
   font-size: 14px;
   color: #666;
   background-color: #eee;

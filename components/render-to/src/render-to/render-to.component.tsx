@@ -1,11 +1,10 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import * as typings from "./render-to.type"
 import { Props, State } from "./render-to.type"
 
-export class RenderTo extends React.Component<typings.Props, typings.State> {
-  public static defaultProps = new typings.Props()
-  public state = new typings.State()
+export class RenderTo extends React.Component<Props, State> {
+  public static defaultProps = new Props()
+  public state = new State()
 
   private popups: HTMLElement[]
   private selectorLength: number

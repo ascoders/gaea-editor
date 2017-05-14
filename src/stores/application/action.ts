@@ -1,13 +1,17 @@
 import { inject } from "dependency-inject"
 import { Action } from "dynamic-object"
 import * as _ from "lodash"
+import * as LZString from "lz-string"
 import * as React from "react"
+import ViewportStore from "../viewport/store"
 import ApplicationStore from "./store"
 
 export default class ApplicationAction {
     @inject(ApplicationStore)
     private store: ApplicationStore
 
+    @inject(ViewportStore)
+    private viewportStore: ViewportStore
     /**
      * 添加插件
      */
@@ -117,6 +121,22 @@ export default class ApplicationAction {
                 parentKey: null
             })
         }
+        return pageKey
+    }
+
+    /**
+     * 创建首页
+     */
+    @Action public createHomePage() {
+        const pageKey = this.createNewPageKey()
+        this.store.pages.set(pageKey, {
+            type: "page",
+            name: "首页",
+            path: "",
+            parentKey: null,
+            isHomePage: true
+        })
+        return pageKey
     }
 
     /**
@@ -173,5 +193,55 @@ export default class ApplicationAction {
     @Action public confirmCreatePage() {
         // 把当前创建页面 key 删除，这个页面就不会随着关闭而消失，进而成功创建了页面
         this.store.currentCreatedPageKey = null
+    }
+
+    /**
+     * 更新当前 viewport 使用的页面
+     */
+    @Action public changeCurrentViewportPageKey(pageKey: string) {
+        this.store.currentViewportPageKey = pageKey
+    }
+
+    /**
+     * 初始化应用状态
+     */
+    @Action public resetApplication() {
+        this.store.isPreview = false
+        this.store.isShowModal = false
+        this.store.rightTool = null
+        this.store.currentCreatedPageKey = null
+        this.store.currentEditPageKey = null
+    }
+
+    /**
+     * 获得应用全部信息
+     */
+    @Action public getAllInformation(): IAllInformation {
+        // 把当前  viewport 信息保存到 page 中
+        const fullInformation = this.viewportStore.currentFullInformation
+        this.store.pageInstances.set(this.store.currentViewportPageKey, fullInformation)
+
+        const pages: IPages = {}
+        this.store.pages.forEach((pageInfo, pageKey) => {
+            pages[pageKey] = pageInfo
+        })
+
+        const instancesArray: InstancesArray = []
+
+        Array.from(this.store.pageInstances).forEach(([pageKey, instances], index) => {
+            instancesArray.push({
+                pageKey,
+                instances: Object.assign({}, instances)
+            })
+        })
+
+        return {
+            pages,
+            instancesArray
+        }
+    }
+
+    @Action public getFullInformationGzipped() {
+        return LZString.compressToBase64(JSON.stringify(this.getAllInformation()))
     }
 }

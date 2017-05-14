@@ -1,3 +1,5 @@
+import { Static } from "dynamic-object"
+
 export default class ApplicationStore {
     /**
      * Navbar height
@@ -36,8 +38,8 @@ export default class ApplicationStore {
     /**
      * left tool name
      */
-    public leftTool: string | null = null
-    public rightTool: string | null = null
+    public leftTool: string = null
+    public rightTool: string = null
     /**
      * Show modal?
      */
@@ -53,13 +55,21 @@ export default class ApplicationStore {
      */
     public currentCreatedPageKey: string = null
     /**
-     * current edit page key
+     * Current edit page key
      */
     public currentEditPageKey: string = null
     /**
-     * current edit page
+     * Current edit page
      */
     public get currentEditPage() {
         return this.pages.get(this.currentEditPageKey)
     }
+    /**
+     * The page key used by viewport at present
+     */
+    public currentViewportPageKey: string = null
+    /**
+     * Static save instance per page
+     */
+    public pageInstances = Static(new Map<string, IFullInformation>())
 }

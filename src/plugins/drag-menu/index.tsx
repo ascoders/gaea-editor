@@ -23,7 +23,7 @@ class DragMenu extends React.Component<Props, State> {
         <Styled.Title >
           <div>添加组件</div>
           <Styled.CloseContainer onClick={this.handleCloseLeftBar}>
-            <Icon type="close" />
+            <Icon type="close" size={15} />
           </Styled.CloseContainer>
         </Styled.Title>
 

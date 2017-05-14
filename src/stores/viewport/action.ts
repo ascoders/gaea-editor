@@ -1,8 +1,8 @@
 import { inject } from "dependency-inject"
 import { Action } from "dynamic-object"
 import * as _ from "lodash"
-import * as LZString from "lz-string"
 import * as Sortable from "sortablejs"
+import ApplicationAction from "../application/action"
 import ApplicationStore from "../application/store"
 import EventAction from "../event/action"
 import EventStore from "../event/store"
@@ -19,6 +19,9 @@ export default class ViewportAction {
 
     @inject(ApplicationStore)
     private applicationStore: ApplicationStore
+
+    @inject(ApplicationAction)
+    private applicationAction: ApplicationAction
 
     @inject(EventAction)
     private eventAction: EventAction
@@ -291,20 +294,56 @@ export default class ViewportAction {
     }
 
     /**
-     * 获取当前视窗全部信息
+     * 重置当前视图
      */
-    @Action public getFullInformation() {
-        const fullObj: {
-            [instanceKey: string]: InstanceInfo
-        } = {}
-        this.store.instances.forEach((instanceInfo, instanceKey) => {
-            fullObj[instanceKey] = instanceInfo
+    @Action public resetViewport(fullInformation: IFullInformation) {
+        this.clearViewport()
+
+        Object.keys(fullInformation).forEach(instanceKey => {
+            const instanceInfo = fullInformation[instanceKey]
+
+            if (instanceInfo.parentInstanceKey === null) {
+                this.setRootInstanceKey(instanceKey)
+            }
+
+            this.store.instances.set(instanceKey, Object.assign({}, instanceInfo))
         })
-        return fullObj
     }
 
-    @Action public getFullInformationGzipped() {
-        return LZString.compressToBase64(JSON.stringify(this.getFullInformation()))
+    /**
+     * 初始化视图
+     */
+    @Action public initViewport() {
+        const RootClass = this.applicationAction.getComponentClassByKey("gaea-container")
+
+        const rootInstanceKey = this.addInstance("gaea-container", null, null)
+
+        this.setRootInstanceKey(rootInstanceKey)
+
+        // 设置根节点属性
+        this.setInstanceProps(rootInstanceKey, "style", {
+            display: "flex",
+            flexGrow: 1,
+            flexDirection: "column"
+        })
+
+        // 设置首页，如果没有的话
+        if (this.applicationStore.pages.size === 0) {
+            const homePageKey = this.applicationAction.createHomePage()
+            this.applicationAction.changeCurrentViewportPageKey(homePageKey)
+        }
+    }
+
+    /**
+     * 清空当前视图
+     */
+    @Action public clearViewport() {
+        this.store.instanceDoms.clear()
+        this.store.instances.clear()
+        this.store.rootInstanceKey = null
+        this.store.currentDragInfo = null
+        this.store.currentHoverInstanceKey = null
+        this.store.currentEditInstanceKey = null
     }
 
     /**

@@ -57,3 +57,10 @@ declare interface IDragInfoViewport {
      */
     targetIndex?: number
 }
+
+/**
+ * full viewport information
+ */
+declare interface IFullInformation {
+    [instanceKey: string]: InstanceInfo
+}

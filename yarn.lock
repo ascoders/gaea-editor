@@ -1377,9 +1377,9 @@ duplexer2@^0.1.4:
   dependencies:
     readable-stream "^2.0.2"
 
-dynamic-object@^2.1.4, dynamic-object@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/dynamic-object/-/dynamic-object-2.1.6.tgz#00b49d571aa04956cf1a28f11f693b4ca98515d0"
+dynamic-object@^2.1.4, dynamic-object@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/dynamic-object/-/dynamic-object-2.1.9.tgz#d4cb46796a7c21c76f2688c464d0f602a35bc098"
   dependencies:
     "@types/lodash" "^4.14.63"
     lodash "^4.17.4"
@@ -1743,9 +1743,9 @@ gaea-basic-components@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/gaea-basic-components/-/gaea-basic-components-1.0.4.tgz#0c4969e7d27e88491365852747f35eb86c90149b"
 
-gaea-render@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/gaea-render/-/gaea-render-1.0.0.tgz#1fa81eba91002234ad2b7d136a83a3f616f43a43"
+gaea-render@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/gaea-render/-/gaea-render-1.0.1.tgz#6df22c1368a34628d6427ee2b3a95837d047ff28"
   dependencies:
     lodash "^4.17.4"
     lz-string "^1.4.4"

@@ -23,6 +23,15 @@ export const TitleLeftContainer = styled.div`
   align-items: center;
 `
 
+export const RemoveButtonContainer = styled.div`
+  fill: #666;
+  cursor: pointer;
+  margin-left: 5px;
+  &:hover {
+    fill: #333;
+  }
+`
+
 export const TitleRightContainer = styled.div`
   display: flex;
   align-items: center;
@@ -45,4 +54,24 @@ export const FormTitle = styled.div`
   color: #666;
 `
 
-export const Button = styled.div``
+export const Button = styled.div`
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  border: 1px solid #ddd;
+  background-color: #eee;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-left: 10px;
+  font-size: 16px;
+  color: #666;
+  cursor: pointer;
+  transition: background-color .3s;
+  &:hover {
+    background-color: white;
+    color: #333;
+  }
+}
+`

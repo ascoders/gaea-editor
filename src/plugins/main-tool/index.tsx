@@ -38,9 +38,6 @@ class MainTool extends React.Component<Props, State> {
           <TabPanel tab="树图" activeKey="tree">
             {this.props.actions.ApplicationAction.loadingPluginByPosition("mainToolTree")}
           </TabPanel>
-          <TabPanel tab="版本" activeKey="version">
-            {this.props.actions.ApplicationAction.loadingPluginByPosition("mainToolVersion")}
-          </TabPanel>
         </Tabs>
       </Styled.Container>
     )

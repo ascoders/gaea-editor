@@ -26,4 +26,12 @@ export default class ViewportStore {
     public currentHoverInstanceKey: string = null
 
     public currentEditInstanceKey: string
+
+    public get currentFullInformation() {
+        const fullObj: IFullInformation = {}
+        this.instances.forEach((instanceInfo, instanceKey) => {
+            fullObj[instanceKey] = instanceInfo
+        })
+        return fullObj
+    }
 }

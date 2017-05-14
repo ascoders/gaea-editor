@@ -68,7 +68,7 @@ export default class Page extends React.Component<Props, State> {
                                 <Styled.PreviewContainer
                                     theme={{ hidden: this.props.stores.ApplicationStore.rightTool }}
                                     style={Object.assign({}, this.props.stores.ApplicationStore.viewportStyle)}>
-                                    <Render value={this.props.actions.ViewportAction.getFullInformationGzipped()} componentClasses={this.props.componentClasses} />
+                                    <Render value={this.props.stores.ViewportStore.currentFullInformation} componentClasses={this.props.componentClasses} />
                                     {this.props.actions.ApplicationAction.loadingPluginByPosition("preview")}
                                 </Styled.PreviewContainer>
                             }

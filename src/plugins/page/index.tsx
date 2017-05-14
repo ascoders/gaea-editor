@@ -32,7 +32,7 @@ class Page extends React.Component<Props, State> {
           <Styled.TitleLeftContainer>
             <div>配置页面</div>
             <Styled.CloseContainer onClick={this.handleCloseLeftBar}>
-              <Icon type="close" />
+              <Icon type="close" size={15} />
             </Styled.CloseContainer>
           </Styled.TitleLeftContainer>
           <Styled.TitleRightContainer>
@@ -51,13 +51,13 @@ class Page extends React.Component<Props, State> {
           </Tree>
         }
 
-        {this.props.stores.ApplicationStore.pages.size === 0 &&
+        {this.props.stores.ApplicationStore.pages.size === 1 &&
           <Styled.EmptyContainer>
             <Styled.EmptyTitle>
               添加新页面
           </Styled.EmptyTitle>
             <Styled.EmptyDescription>
-              点击右上角按钮，创建文件夹或页面
+              点击右上角按钮，创建文件夹或页面，应用默认拥有首页
           </Styled.EmptyDescription>
           </Styled.EmptyContainer>
         }

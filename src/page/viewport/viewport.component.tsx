@@ -52,18 +52,7 @@ export default class Viewport extends React.Component<Props, State> {
      */
     public freshView() {
         if (this.props.stores.ApplicationStore.defaultValue === null) {  // 空白应用
-            const RootClass = this.props.actions.ApplicationAction.getComponentClassByKey("gaea-container")
-
-            const rootInstanceKey = this.props.actions.ViewportAction.addInstance("gaea-container", null, null)
-
-            this.props.actions.ViewportAction.setRootInstanceKey(rootInstanceKey)
-
-            // 设置根节点属性
-            this.props.actions.ViewportAction.setInstanceProps(rootInstanceKey, "style", {
-                display: "flex",
-                flexGrow: 1,
-                flexDirection: "column"
-            })
+            this.props.actions.ViewportAction.initViewport()
         } else { // 根据默认配置渲染
             // const defaultValue = JSON.parse(LZString.decompressFromBase64(this.props.ApplicationStore.pageValue)) as {
             //     [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
@@ -90,18 +79,13 @@ export default class Viewport extends React.Component<Props, State> {
     }
 
     public render() {
-        // if (this.props.stores.ApplicationStore.defaultValue === null) {
-        //     return null
-        // }
-
-        const classes = classNames({
-            // _namespace: true,
-            // 'layout-active': this.props.ViewportStore.isLayoutComponentActive
-        })
+        if (this.props.stores.ViewportStore.rootInstanceKey === null) {
+            return null
+        }
 
         return (
             <Styled.Container onMouseLeave={this.handleMouseLeave} ref={this.getRef}>
-                <EditHelper instanceKey={this.props.stores.ViewportStore.rootInstanceKey} />
+                <EditHelper key={this.props.stores.ViewportStore.rootInstanceKey} instanceKey={this.props.stores.ViewportStore.rootInstanceKey} />
             </Styled.Container>
         )
     }

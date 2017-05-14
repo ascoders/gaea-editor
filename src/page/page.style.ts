@@ -11,7 +11,7 @@ const NavbarContainerLeftAndNavbarContainerRight = css`
         user-select: none;
         color: #666;
         &:hover {
-            background-color: #eaeaea;
+            background-color: white;
             color: #333;
         }
     }
@@ -62,14 +62,18 @@ export const NavbarContainer = styled.div`
 
 export const NavbarContainerLeft = styled.div`
     display: flex;
-    border-right: 1px solid #ddd;
+    & > div:not(.no-style) {
+        border-right: 1px solid #ddd;
+    }
     ${NavbarContainerLeftAndNavbarContainerRight}
 `
 
 export const NavbarContainerRight = styled.div`
     display: flex;
     justify-content: flex-end;
-    border-left: 1px solid #ddd;
+    & > div:not(.no-style) {
+        border-left: 1px solid #ddd;
+    }
     ${NavbarContainerLeftAndNavbarContainerRight}
 `
 
@@ -103,7 +107,7 @@ export const ViewportContainerLeftTop = styled.div`
         user-select: none;
         border-bottom: 1px solid #ddd;
         &:hover {
-            background-color: #eaeaea;
+            background-color: white;
         }
     }
 `

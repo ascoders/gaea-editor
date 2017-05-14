@@ -27,6 +27,8 @@ class MainToolTree extends React.Component<Props, State> {
   }
 
   public render() {
+    const rootInstanceKey = this.props.stores.ViewportStore.rootInstanceKey
+
     return (
       <Styled.Container>
         <Styled.TreeContainer
@@ -34,7 +36,7 @@ class MainToolTree extends React.Component<Props, State> {
           ref={(ref: any) => this.treeContainer = ref}>
           <Tree defaultExpendAll={true}
             toggleByArrow={true}>
-            <CustomTreeNode instanceKey={this.props.stores.ViewportStore.rootInstanceKey} />
+            <CustomTreeNode key={rootInstanceKey} instanceKey={rootInstanceKey} />
           </Tree>
           <Guideline />
         </Styled.TreeContainer>

@@ -77,6 +77,10 @@ declare interface IPage {
      */
     type: "page" | "folder"
     /**
+     * Is home page
+     */
+    isHomePage?: boolean
+    /**
      * description name
      */
     name: string
@@ -91,20 +95,24 @@ declare interface IPage {
     childs?: string[]
 }
 
+declare interface IPages {
+    [pageKey: string]: IPage
+}
+
+declare type InstancesArray = Array<{
+    /**
+     * The page instances belong to
+     */
+    pageKey: string
+    instances: {
+        [instanceKey: string]: InstanceInfo
+    }
+}>
+
 /**
  * Page store structor
  */
 declare interface IAllInformation {
-    pages: {
-        [pageKey: string]: IPage
-    }
-    instances: {
-        /**
-         * The page instances belong to
-         */
-        pageKey: string
-        info: {
-            [instanceKey: string]: InstanceInfo
-        }
-    }
+    pages: IPages
+    instancesArray: InstancesArray
 }
