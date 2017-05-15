@@ -3,11 +3,7 @@
 A scalable web page editor.
 
 - **Adaptation**: Support all react components. Add a few lines of configuration, you can let your components in the edit menu display, and can be dragged into the view area, and edit its properties.
-- **Expand**: Support plug-ins to expand the editor for any function. Plug-ins can be inserted into any part of the editor, plug-ins can also provide slots for other plug-ins, plug-ins can create and share data flow editor, call the editor arbitrary function.
-
-# Description
-
-Editor can be divided into menu area and view area, any react component can be used as a menu item, and be dragged into the view, we can customize the configuration item, control the instantiation of the view area components properties. Clicking the Save button will invoke the `onSave` callback to output the configuration of all the components in the viewport as strings, passing that string to the `GaeaRender` component (installed via `npm i gaea-render --save`), which will render the runtime page.
+- **Scalable**: Support plug-ins to expand the editor for any function. Plug-ins can be inserted into any part of the editor, plug-ins can also provide slots for other plug-ins, plug-ins can create and share data flow editor, call the editor arbitrary function.
 
 # Usage
 
