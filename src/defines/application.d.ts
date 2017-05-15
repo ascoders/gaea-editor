@@ -113,6 +113,16 @@ declare type InstancesArray = Array<{
  * Page store structor
  */
 declare interface IAllInformation {
+    /**
+     * All page info
+     */
     pages: IPages
+    /**
+     * Root page keys
+     */
+    rootPageKeys: string[]
+    /**
+     * All instance info
+     */
     instancesArray: InstancesArray
 }

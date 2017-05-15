@@ -1,23 +1,29 @@
 import styled from "styled-components"
 
-export const Container = styled.div`
+const activeBorderColor = "#35b8d6"
+
+export const Container = styled.div.withConfig({ componentId: "plugin-tree-node-container" }) `
   display: flex;
-  height: 30px;
   background-color: #eee;
-  border-bottom: 1px solid #ddd;
   color: #666;
   font-size: 14px;
-  transition: background-color .3s;
-  &:hover {
-    background-color: white;
-  }
 `
 
 export const Content = styled.div.withConfig({ componentId: "plugin-tree-node-content" }) `
   display: flex;
   flex-grow: 1;
   align-items: center;
+  height: 30px;
   justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  transition: border-right-color .3s;
+  border-right: 3px solid transparent;
+  &:hover {
+    border-right-color: ${activeBorderColor};
+  }
+  ${(props: any) => props.theme.editted && `
+    border-right-color: ${activeBorderColor};
+  `}
 `
 
 export const Title = styled.div`

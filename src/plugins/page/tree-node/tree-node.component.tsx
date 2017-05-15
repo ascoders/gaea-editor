@@ -19,8 +19,6 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
       return null
     }
 
-    // 渲染后的结果
-    let resultElement: React.ReactElement<any>
     // 子元素
     let childs: Array<React.ReactElement<any>> = null
 
@@ -28,7 +26,7 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
       childs = this.pageInfo.childs.map(childKey => {
         return (
           <ConnectedTreeNode key={childKey}
-            instanceKey={childKey} />
+            pageKey={childKey} />
         )
       })
     }
@@ -36,27 +34,29 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
     const pageName = this.pageInfo.name
     const currentCreatedPageKey = this.props.stores.ApplicationStore.currentCreatedPageKey
     const currentViewportPageKey = this.props.stores.ApplicationStore.currentViewportPageKey
+    const currentEditPageKey = this.props.stores.ApplicationStore.currentEditPageKey
 
     const childProps = {
       render: () => {
         return (
-          <Styled.Content>
+          <Styled.Content theme={{ editted: currentEditPageKey === this.props.pageKey }}>
             <Styled.Title theme={{ isHome: this.pageInfo.isHomePage }}>
               {pageName === "" ?
                 <Styled.UnNamed>&lt;未命名&gt;</Styled.UnNamed> : pageName}
             </Styled.Title>
-            {currentCreatedPageKey !== this.props.pageKey &&
-              <Styled.RightContainer>
-                {currentViewportPageKey === this.props.pageKey &&
-                  <Styled.InUseTag>
-                    正在编辑
+
+            <Styled.RightContainer>
+              {currentViewportPageKey === this.props.pageKey &&
+                <Styled.InUseTag>
+                  使用中
                 </Styled.InUseTag>
-                }
+              }
+              {currentCreatedPageKey !== this.props.pageKey &&
                 <Styled.Setting onClick={this.handleEdit}>
                   <Icon type="setting" size={15} />
                 </Styled.Setting>
-              </Styled.RightContainer>
-            }
+              }
+            </Styled.RightContainer>
           </Styled.Content>
         )
       },
@@ -65,10 +65,10 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
       onClick: this.handleClick
     }
 
-    resultElement = React.createElement(TreeNode, childProps, childs)
-
     return (
-      <Styled.Container>{resultElement}</Styled.Container>
+      <Styled.Container>
+        {React.createElement(TreeNode, childProps, childs)}
+      </Styled.Container>
     )
   }
 

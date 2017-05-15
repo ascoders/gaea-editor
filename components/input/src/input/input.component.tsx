@@ -15,6 +15,8 @@ export class Input extends React.Component<Props, State> {
         }}
         value={this.props.value}
         onChange={this.handleChange}
+        onClick={this.props.onClick}
+        placeholder={this.props.placeholder}
         disabled={this.props.disabled} />
     )
   }

@@ -1322,9 +1322,9 @@ depd@1.1.0, depd@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.0.tgz#e1bd82c6aab6ced965b97b88b17ed3e528ca18c3"
 
-dependency-inject@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/dependency-inject/-/dependency-inject-1.0.3.tgz#f49bb1a21a9a1a73da9dfc4415ead370b65999ee"
+dependency-inject@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/dependency-inject/-/dependency-inject-1.0.4.tgz#12323d34b49ab4281fb6e9d23c675b06690cb23f"
 
 des.js@^1.0.0:
   version "1.0.0"
@@ -3520,9 +3520,9 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
-run-react@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/run-react/-/run-react-1.0.4.tgz#71ff3db59b586f19e29d2f8603988fd0b7de31a5"
+run-react@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/run-react/-/run-react-1.0.6.tgz#267941fdb44264b442802872f0ce3017e7bba9d6"
   dependencies:
     ava "^0.18.2"
     colors "^1.1.2"

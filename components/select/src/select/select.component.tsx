@@ -2,7 +2,9 @@ import * as classNames from "classnames"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
+import { Input } from "../../../input/src"
 import { RenderTo } from "../../../render-to/src"
+import { Tooltip } from "../../../tooltip/src"
 import { OptionGroup } from "../option-group/option-group.component"
 import { Option } from "../option/option.component"
 import * as Styled from "./select.style"
@@ -30,10 +32,16 @@ export class Select extends React.Component<typings.Props, typings.State> {
   }
 
   public componentWillReceiveProps(nextProps: typings.Props) {
-    if (nextProps.value !== null) {
+    if (nextProps.value !== undefined) {
       this.setState({
         value: nextProps.value,
         optionKeyPrefix: nextProps.value
+      })
+    }
+
+    if (nextProps.value === null) {
+      this.setState({
+        labelValue: ""
       })
     }
   }
@@ -56,9 +64,9 @@ export class Select extends React.Component<typings.Props, typings.State> {
 
     let renderChosen: () => React.ReactElement<any>
     if (this.props.options.length === 0) {
-      renderChosen = this.getOptionChildren.bind(this)
+      renderChosen = this.getOptionChildren
     } else {
-      renderChosen = this.getOptionChildrenByOptions.bind(this)
+      renderChosen = this.getOptionChildrenByOptions
     }
 
     const extProps: any = {}
@@ -75,10 +83,12 @@ export class Select extends React.Component<typings.Props, typings.State> {
     }
 
     return (
-      <input onClick={this.handleSelectClick.bind(this)}
-        value={this.state.labelValue}
-        /*rightRender={this.dropIconRender.bind(this)}
+      <Tooltip type="click" title={renderChosen} showArrow={false}>
+        <Input onClick={this.handleSelectClick}
+          value={this.state.labelValue}
+           /*rightRender={this.dropIconRender.bind(this)}
         innerRender={renderChosen}*/ />
+      </Tooltip>
     )
   }
 
@@ -243,10 +253,10 @@ export class Select extends React.Component<typings.Props, typings.State> {
       }
 
       return React.cloneElement(item, {
-        onClick: this.handleClick.bind(this),
+        onClick: this.handleClick,
         key: this.state.optionKeyPrefix + index,
         active,
-        setLabelValue: this.handleSetLabelValue.bind(this),
+        setLabelValue: this.handleSetLabelValue,
         activeValue: this.state.value,
         searchValue: this.state.searchValue
       })
@@ -257,9 +267,7 @@ export class Select extends React.Component<typings.Props, typings.State> {
     if (this.props.search) {
       Search = (
         <div className="chosen-search">
-          <input label=""
-            placeholder="搜索.."
-            autoComplete="off"
+          <Input placeholder="搜索.."
             ref={ref => (ReactDOM.findDOMNode(ref) as HTMLInputElement).focus()}
             onChange={this.handleSearchChange.bind(this)} />
         </div>
@@ -267,13 +275,12 @@ export class Select extends React.Component<typings.Props, typings.State> {
     }
 
     return (
-      <div className="chosen-drop"
-        style={chosenDropStyle}>
+      <Styled.ChosenDrop style={chosenDropStyle}>
         {Search}
-        <ul className="chosen-results">
+        <Styled.ChosenResults>
           {Children}
-        </ul>
-      </div>
+        </Styled.ChosenResults>
+      </Styled.ChosenDrop>
     )
   }
 
@@ -293,24 +300,21 @@ export class Select extends React.Component<typings.Props, typings.State> {
         return this.getOptionItemByType(childrenItem, childrenItemIndex, item.value, index + 2)
       })
       return (
-        <ul key={index}
-          className="chosen-results">
+        <Styled.ChosenResults key={index}>
           {options}
-        </ul>
+        </Styled.ChosenResults>
       )
     })
 
     return (
-      <div className="chosen-drop"
-        style={chosenDropStyle}>
-
+      <Styled.ChosenDrop style={chosenDropStyle}>
         <div className="flex-option-container">
-          <ul className="chosen-results">
+          <Styled.ChosenResults>
             {OptionChildren}
-          </ul>
+          </Styled.ChosenResults>
           {CascaderChildrens}
         </div>
-      </div>
+      </Styled.ChosenDrop>
     )
   }
 
@@ -339,11 +343,11 @@ export class Select extends React.Component<typings.Props, typings.State> {
     return (
       <Option key={this.state.optionKeyPrefix + key}
         value={item.key}
-        onClick={this.handleClick.bind(this)}
+        onClick={this.handleClick}
         active={active}
         zIndex={zIndex}
         optChildren={item.children}
-        setLabelValue={this.handleSetLabelValue.bind(this)}
+        setLabelValue={this.handleSetLabelValue}
         activeValue={this.state.value}
         searchValue={this.state.searchValue}>{item.value}</Option>
     )

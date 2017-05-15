@@ -47,7 +47,7 @@ export class State {
    * option key 前缀，当 props 更新时，要重新刷新 options，就为了调用 willMount 方法
    * 因为为了找到 activeLabel，必须在子元素里做（因为可能不是通过配置设置的），但这样会有循环引用，所以强刷新
    */
-  public optionKeyPrefix?: string
+  public optionKeyPrefix?: string = ""
 }
 
 /**

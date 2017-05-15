@@ -38,9 +38,9 @@ export class Props {
   public showShadow?: boolean = false
 
   /**
-   * 弹层无样式
+   * 是否显示箭头
    */
-  public simple?: boolean = false
+  public showArrow?: boolean = true
 }
 
 export class State {

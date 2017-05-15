@@ -20,7 +20,7 @@ class Page extends React.Component<Props, State> {
   }
 
   public render() {
-    const Pages = Array.from(this.props.stores.ApplicationStore.pages).map(([pageKey, pageInfo], index) => {
+    const Pages = this.props.stores.ApplicationStore.rootPageKeys.map(pageKey => {
       return (
         <TreeNode key={pageKey} pageKey={pageKey} />
       )

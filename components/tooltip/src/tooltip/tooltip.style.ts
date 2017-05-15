@@ -1,20 +1,13 @@
 import styled from "styled-components"
 
+const borderColor = "#ddd"
+
 export const Container = styled.div`
   visibility: hidden;
-  background: #e2e2e2;
-  color: #666;
-  border-radius: 3px;
-  text-align: center;
-  padding: 6px 10px;
-  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 2px 4px rgba(16, 22, 26, 0.2), 0 8px 24px rgba(216, 216, 216, 0.2);
   position: absolute;
   z-index: 1;
   opacity: 0;
   transition: opacity .3s;
-  white-space: nowrap;
-  font-size: 14px;
-  text-shadow: 0 1px 1px whitesmoke;
 
   ${(props: any) => props.theme.active && `
     opacity: 1;
@@ -29,8 +22,8 @@ export const Container = styled.div`
       left: 50%;
       margin-left: -5px;
       border: 5px solid transparent;
-      border-top-color: #dadada;
-      ${props.theme.simple && `
+      border-top-color: ${borderColor};
+      ${!props.theme.showArrow && `
         border: none;
       `}
     }
@@ -45,8 +38,8 @@ export const Container = styled.div`
       margin-top: -5px;
       margin-left: -10px;
       border: 5px solid transparent;
-      border-right-color: #dadada;
-      ${props.theme.simple && `
+      border-right-color: ${borderColor};
+      ${!props.theme.showArrow && `
         border: none;
       `}
     }
@@ -61,8 +54,8 @@ export const Container = styled.div`
       margin-left: -5px;
       margin-top: -10px;
       border: 5px solid transparent;
-      border-bottom-color: #dadada;
-      ${props.theme.simple && `
+      border-bottom-color: ${borderColor};
+      ${!props.theme.showArrow && `
         border: none;
       `}
       }
@@ -77,27 +70,39 @@ export const Container = styled.div`
       margin-top: -5px;
       margin-right: -10px;
       border: 5px solid transparent;
-      border-left-color: #dadada;
-      ${props.theme.simple && `
+      border-left-color: ${borderColor};
+      ${!props.theme.showArrow && `
         border: none;
       `}
     }
   `}
 `
 
+export const DefaultTitle = styled.div`
+  background: whitesmoke;
+  color: #666;
+  border-radius: 3px;
+  text-align: center;
+  padding: 6px 10px;
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 2px 4px rgba(16, 22, 26, 0.15), 0 8px 24px rgba(216, 216, 216, 0.15);
+  white-space: nowrap;
+  font-size: 14px;
+  text-shadow: 0 1px 1px whitesmoke;
+`
+
 export const TooltipShallow = styled.div`
-display: none;
-width: 100 %;
-height: 100 %;
-position: absolute;
-left: 0;
-top: 0;
-opacity: 0.3;
-backgroundColor: black;
-${(props: any) => props.theme.isShow && `
+  display: none;
+  width: 100 %;
+  height: 100 %;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.3;
+  backgroundColor: black;
+  ${(props: any) => props.theme.isShow && `
     display: block;
   `}
-${(props: any) => props.theme.zIndex && `
+  ${(props: any) => props.theme.zIndex && `
     zIndex: ${props.theme.zIndex};
   `}
 `

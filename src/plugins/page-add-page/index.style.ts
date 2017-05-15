@@ -55,7 +55,22 @@ export const FormTitle = styled.div`
 `
 
 export const Description = styled.div`
+  display: flex;
+  color: #777;
+  font-size: 14px;
+  margin-left: 10px;
+  margin-top: 7px;
+  align-items: center;
+`
 
+export const RealPath = styled.div`
+  margin-left: 5px;
+  padding: 2px 5px;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background-color: #eee;
+  color: green;
 `
 
 export const Button = styled.div`

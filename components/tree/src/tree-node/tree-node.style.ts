@@ -1,8 +1,6 @@
 import styled from "styled-components"
 
 export const Container = styled.div.withConfig({ componentId: "tree-node-container" }) `
-  display: flex;
-  flex-direction: column;
   flex-grow: 1;
 `
 

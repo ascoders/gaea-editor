@@ -37,6 +37,9 @@ export class Tooltip extends React.Component<typings.Props, typings.State> {
     this.childrenDom.removeEventListener("mouseleave", this.handleChildrenMouseLeave)
     this.childrenDom.addEventListener("click", this.handleChildrenClick)
 
+    // 移除全局监听
+    document.removeEventListener("click", this.handleDocumentClick)
+
     // 在 body 移除 tooltip
     document.body.removeChild(this.tooltipDom)
 
@@ -154,7 +157,7 @@ export class Tooltip extends React.Component<typings.Props, typings.State> {
   private renderTooltip() {
     const toolTipStyle: React.CSSProperties = {
       zIndex: this.props.zIndex,
-      backgroundColor: this.props.simple ? "transparent" : null
+      backgroundColor: this.props.showArrow ? "transparent" : null
     }
     let position = this.props.position
     this.setPosition(toolTipStyle, position)
@@ -179,12 +182,12 @@ export class Tooltip extends React.Component<typings.Props, typings.State> {
 
     const TooltipElement = (
       <Styled.Container style={toolTipStyle} theme={{
-        simple: this.props.simple,
+        showArrow: this.props.showArrow,
         active: this.state.show,
         position
       }}>
         {typeof this.props.title === "string" ?
-          this.props.title :
+          <Styled.DefaultTitle>{this.props.title}</Styled.DefaultTitle> :
           this.props.title()
         }
       </Styled.Container>
@@ -197,6 +200,24 @@ export class Tooltip extends React.Component<typings.Props, typings.State> {
     ReactDOM.render(TooltipElement, this.tooltipDom)
     if (this.props.showShadow) {
       ReactDOM.render(TooltipShadowElement, this.tooltipShadowDom)
+    }
+
+    setImmediate(() => {
+      if (this.state.show) {
+        // 添加全局监听
+        document.addEventListener("click", this.handleDocumentClick)
+      } else {
+        // 添加全局监听
+        document.removeEventListener("click", this.handleDocumentClick)
+      }
+    })
+  }
+
+  private handleDocumentClick = () => {
+    if (this.state.show) {
+      this.setState({
+        show: false
+      })
     }
   }
 }

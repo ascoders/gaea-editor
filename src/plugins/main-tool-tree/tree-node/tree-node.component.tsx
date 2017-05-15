@@ -89,8 +89,6 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
   }
 
   public render() {
-    // 渲染后的结果
-    let resultElement: React.ReactElement<any>
     // 子元素
     let childs: Array<React.ReactElement<any>> = null
 
@@ -111,12 +109,7 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
       onClick: this.handleClick
     }
 
-    // 执行 render 以绑定数据
-    // this.handleRenderTitle()
-
-    resultElement = React.createElement(TreeNode, childProps, childs)
-
-    return resultElement
+    return React.createElement(TreeNode, childProps, childs)
   }
 }
 

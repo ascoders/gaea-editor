@@ -12,6 +12,7 @@ export default class ApplicationAction {
 
     @inject(ViewportStore)
     private viewportStore: ViewportStore
+
     /**
      * 添加插件
      */
@@ -121,6 +122,10 @@ export default class ApplicationAction {
                 parentKey: null
             })
         }
+
+        // 新创建的页面默认都在根节点
+        this.store.rootPageKeys.push(pageKey)
+
         return pageKey
     }
 
@@ -136,6 +141,9 @@ export default class ApplicationAction {
             parentKey: null,
             isHomePage: true
         })
+
+        this.store.rootPageKeys.push(pageKey)
+
         return pageKey
     }
 
@@ -166,6 +174,14 @@ export default class ApplicationAction {
         // 先从父级元素删除此 pageKey
         if (pageInfo.parentKey !== null) {
             const parentPage = this.store.pages.get(pageInfo.parentKey)
+            const existIndex = parentPage.childs.findIndex(childKey => childKey === pageKey)
+            parentPage.childs.splice(existIndex, 1)
+        }
+
+        // 如果是根节点，从根节点数组中删除
+        if (!pageInfo.parentKey) {
+            const existIndex = this.store.rootPageKeys.findIndex(rootPageKey => rootPageKey === pageKey)
+            this.store.rootPageKeys.splice(existIndex, 1)
         }
 
         this.store.pages.delete(pageKey)
@@ -188,11 +204,63 @@ export default class ApplicationAction {
     }
 
     /**
+     * 修改 page 父级
+     */
+    @Action public changePageParentKey(pageKey: string, parentKey: string) {
+        const pageInfo = this.store.pages.get(pageKey)
+
+        // 存在父节点，说明不是根节点
+        if (pageInfo.parentKey !== null) {
+            const preParentInfo = this.store.pages.get(pageInfo.parentKey)
+            const existIndex = preParentInfo.childs.findIndex(childKey => childKey === pageKey)
+            preParentInfo.childs.splice(existIndex, 1)
+
+            if (parentKey === null) {
+                // 如果开始不在根节点，被设置到根节点，添加到数组中
+                this.store.rootPageKeys.push(pageKey)
+            }
+        } else {
+            // 如果开始在根节点，被设置到非根节点，从数组中移除
+            if (parentKey !== null) {
+                const existIndex = this.store.rootPageKeys.findIndex(rootPageKey => rootPageKey === pageKey)
+                this.store.rootPageKeys.splice(existIndex, 1)
+            }
+        }
+
+        pageInfo.parentKey = parentKey
+
+        const nextParentInfo = this.store.pages.get(parentKey)
+        nextParentInfo.childs.push(pageKey)
+    }
+
+    /**
      * 确认创建 page
      */
     @Action public confirmCreatePage() {
         // 把当前创建页面 key 删除，这个页面就不会随着关闭而消失，进而成功创建了页面
         this.store.currentCreatedPageKey = null
+        this.store.currentEditPageKey = null
+    }
+
+    /**
+     * 获取某个文件夹全部子元素数组
+     */
+    @Action public getPageAllChilds(pageKey: string) {
+        const getAllChilds = (currentPageKey: string): string[] => {
+            const currentPageInfo = this.store.pages.get(currentPageKey)
+            if (currentPageInfo.type !== "folder") {
+                return []
+            }
+
+            let childs = currentPageInfo.childs.slice()
+            currentPageInfo.childs.forEach(eachChild => {
+                childs = childs.concat(getAllChilds(eachChild))
+            })
+
+            return childs
+        }
+
+        return getAllChilds(pageKey)
     }
 
     /**
@@ -237,7 +305,8 @@ export default class ApplicationAction {
 
         return {
             pages,
-            instancesArray
+            instancesArray,
+            rootPageKeys: this.store.rootPageKeys
         }
     }
 

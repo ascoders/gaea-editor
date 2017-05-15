@@ -8,35 +8,6 @@ import { TabPanel, Tabs } from "../../../components/tabs/src"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
-const selects: any = {
-  defaultValue: "aa",
-  options: [{
-    key: "a",
-    value: "小明"
-  }, {
-    key: "b",
-    value: "小红"
-  }, {
-    key: "c",
-    value: "小白"
-  }, {
-    key: "d",
-    value: "小王"
-  }, {
-    key: "e",
-    value: "小李"
-  }, {
-    groupValue: "其它",
-    children: [{
-      key: "aa",
-      value: "小黑"
-    }, {
-      key: "bb",
-      value: "小天"
-    }]
-  }]
-}
-
 @Connect
 class PageAddFolder extends React.Component<Props, State> {
   public static defaultProps = new Props()
@@ -50,6 +21,19 @@ class PageAddFolder extends React.Component<Props, State> {
     if (!this.pageInfo) {
       return
     }
+
+    const allChilds = this.props.actions.ApplicationAction.getPageAllChilds(this.props.stores.ApplicationStore.currentEditPageKey)
+
+    const folderSelectOptions = this.props.stores.ApplicationStore.pageFolderList
+      .filter(pageKey => pageKey !== this.props.stores.ApplicationStore.currentEditPageKey)
+      .filter(pageKey => !allChilds.some(eachChild => eachChild === pageKey))
+      .map(pageKey => {
+        const folderInfo = this.props.stores.ApplicationStore.pages.get(pageKey)
+        return {
+          key: pageKey,
+          value: folderInfo.name || "未命名"
+        }
+      })
 
     return (
       <Styled.Container>
@@ -76,7 +60,7 @@ class PageAddFolder extends React.Component<Props, State> {
         <Input value={this.pageInfo.path} onChange={this.handleChangePath} />
 
         <Styled.FormTitle>父级文件夹</Styled.FormTitle>
-        <Select {...selects} />
+        <Select options={folderSelectOptions} value={this.pageInfo.parentKey} onChange={this.handleSelectParentFolder} />
 
         {this.props.stores.ApplicationStore.currentCreatedPageKey &&
           <Styled.Button onClick={this.handleCreate}>
@@ -109,6 +93,10 @@ class PageAddFolder extends React.Component<Props, State> {
   private handleRemove = () => {
     this.props.actions.ApplicationAction.removePage(this.props.stores.ApplicationStore.currentEditPageKey)
     this.props.actions.ApplicationAction.setRightTool(null)
+  }
+
+  private handleSelectParentFolder = (pageKey: string) => {
+    this.props.actions.ApplicationAction.changePageParentKey(this.props.stores.ApplicationStore.currentEditPageKey, pageKey)
   }
 }
 

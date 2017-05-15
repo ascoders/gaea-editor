@@ -22,6 +22,16 @@ class PageAddPage extends React.Component<Props, State> {
       return
     }
 
+    const folderSelectOptions = this.props.stores.ApplicationStore.pageFolderList
+      .filter(pageKey => pageKey !== this.props.stores.ApplicationStore.currentEditPageKey)
+      .map(pageKey => {
+        const folderInfo = this.props.stores.ApplicationStore.pages.get(pageKey)
+        return {
+          key: pageKey,
+          value: folderInfo.name || "未命名"
+        }
+      })
+
     return (
       <Styled.Container>
         <Styled.Title >
@@ -29,7 +39,7 @@ class PageAddPage extends React.Component<Props, State> {
             <span>
               {this.props.stores.ApplicationStore.currentCreatedPageKey ? "添加页面" : "编辑页面"}
             </span>
-            {this.props.stores.ApplicationStore.currentCreatedPageKey !== this.props.stores.ApplicationStore.currentEditPageKey && !this.pageInfo.isHomePage &&
+            {this.props.stores.ApplicationStore.currentCreatedPageKey !== this.props.stores.ApplicationStore.currentEditPageKey && !this.pageInfo.isHomePage && this.props.stores.ApplicationStore.currentViewportPageKey !== this.props.stores.ApplicationStore.currentEditPageKey &&
               < Styled.RemoveButtonContainer onClick={this.handleRemove}>
                 <Icon type="remove" size={16} />
               </Styled.RemoveButtonContainer>
@@ -45,12 +55,16 @@ class PageAddPage extends React.Component<Props, State> {
 
         <Styled.FormTitle>路径名</Styled.FormTitle>
         <Input disabled={this.pageInfo.isHomePage} value={this.pageInfo.path} onChange={this.handleChangePath} />
-        <Styled.Description>
 
+        <Styled.Description>
+          页面路径：<Styled.RealPath>/{this.props.stores.ApplicationStore.currentEditPageRealPath}</Styled.RealPath>
         </Styled.Description>
 
         {!this.pageInfo.isHomePage &&
-          <Styled.FormTitle>父级文件夹</Styled.FormTitle>
+          [
+            <Styled.FormTitle key="add-page-parent-title">父级文件夹</Styled.FormTitle>,
+            <Select key="add-page-parent-select" options={folderSelectOptions} value={this.pageInfo.parentKey} onChange={this.handleSelectParentFolder} />
+          ]
         }
 
         {this.props.stores.ApplicationStore.currentCreatedPageKey &&
@@ -85,6 +99,10 @@ class PageAddPage extends React.Component<Props, State> {
   private handleRemove = () => {
     this.props.actions.ApplicationAction.removePage(this.props.stores.ApplicationStore.currentEditPageKey)
     this.props.actions.ApplicationAction.setRightTool(null)
+  }
+
+  private handleSelectParentFolder = (pageKey: string) => {
+    this.props.actions.ApplicationAction.changePageParentKey(this.props.stores.ApplicationStore.currentEditPageKey, pageKey)
   }
 }
 
