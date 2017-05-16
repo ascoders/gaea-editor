@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "2.0.13",
+  "version": "2.0.14",
   "description": "",
   "main": "built/src/index.js",
   "typings": "src/index.ts",
@@ -11,14 +11,11 @@
   },
   "dependencies": {
     "@types/lz-string": "^1.3.32",
-    "babel-cli": "^6.24.0",
-    "babel-preset-es2015": "^6.24.0",
-    "babel-preset-stage-0": "^6.22.0",
     "classnames": "^2.2.5",
     "dependency-inject": "^1.0.4",
     "dynamic-object": "^2.1.10",
     "dynamic-react": "^2.0.7",
-    "gaea-basic-components": "^1.0.4",
+    "gaea-basic-components": "^1.0.5",
     "gaea-render": "^1.0.1",
     "lodash": "^4.17.4",
     "lz-string": "^1.4.4",
@@ -39,7 +36,10 @@
     "pre-commit": "^1.2.2",
     "run-react": "^1.0.6",
     "tslint": "^5.1.0",
-    "typescript": "^2.1.1"
+    "typescript": "^2.1.1",
+    "babel-cli": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-0": "^6.22.0"
   },
   "author": "",
   "license": "ISC",

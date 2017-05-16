@@ -1731,18 +1731,9 @@ duplexer2@^0.1.4:
   dependencies:
     readable-stream "^2.0.2"
 
-dynamic-object@^2.1.10:
+dynamic-object@^2.1.10, dynamic-object@^2.1.4:
   version "2.1.10"
   resolved "https://registry.yarnpkg.com/dynamic-object/-/dynamic-object-2.1.10.tgz#399054dc1cbab4639e53dd0e5bfc8b97c0dea70d"
-  dependencies:
-    "@types/lodash" "^4.14.63"
-    lodash "^4.17.4"
-    mobx "^3.1.9"
-    react "^15.4.2"
-
-dynamic-object@^2.1.4:
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/dynamic-object/-/dynamic-object-2.1.9.tgz#d4cb46796a7c21c76f2688c464d0f602a35bc098"
   dependencies:
     "@types/lodash" "^4.14.63"
     lodash "^4.17.4"
@@ -2106,9 +2097,9 @@ fstream@^1.0.0, fstream@^1.0.10, fstream@^1.0.2:
     mkdirp ">=0.5 0"
     rimraf "2"
 
-gaea-basic-components@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/gaea-basic-components/-/gaea-basic-components-1.0.4.tgz#0c4969e7d27e88491365852747f35eb86c90149b"
+gaea-basic-components@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/gaea-basic-components/-/gaea-basic-components-1.0.5.tgz#fac82759dbf1cae5f10298f38ccc479f99c1449f"
 
 gaea-render@^1.0.1:
   version "1.0.1"
