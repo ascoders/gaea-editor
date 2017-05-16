@@ -44,3 +44,22 @@ export const CloseContainer = styled.div`
     fill: #333;
   }
 `
+
+export const SearchInput = styled.input`
+  outline: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #666;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  border-bottom: 1px solid #ddd;
+  background-color: #fbfbfb;
+  &:focus{
+    background-color: white;
+    color: #333;
+  }
+  &::-webkit-input-placeholder{
+    color: #999;
+  }
+`

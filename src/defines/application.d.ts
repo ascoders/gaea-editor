@@ -126,3 +126,14 @@ declare interface IAllInformation {
      */
     instancesArray: InstancesArray
 }
+
+declare interface IPreComponent {
+    /**
+     * New name
+     */
+    name: string
+    /**
+     * Pre-setting props
+     */
+    props: any
+}

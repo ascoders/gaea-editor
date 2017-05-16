@@ -27,6 +27,8 @@ class DragMenu extends React.Component<Props, State> {
           </Styled.CloseContainer>
         </Styled.Title>
 
+        <Styled.SearchInput value={this.state.searchContent} onChange={this.handleSearch} placeholder="搜索.." />
+
         <div ref={ref => this.listContainer = ref}>
           {this.getList()}
         </div>
@@ -37,19 +39,54 @@ class DragMenu extends React.Component<Props, State> {
   }
 
   private getList = () => {
-    return Array.from(this.props.stores.ApplicationStore.componentClasses).map(([key, componentClass], index) => {
-      return (
-        <Styled.Component
-          key={index}
-          data-gaea-key={componentClass.defaultProps.gaeaSetting.key}
-        >{componentClass.defaultProps.gaeaSetting.name}</Styled.Component>
+    return Array.from(this.props.stores.ApplicationStore.componentClasses)
+      .filter(([key, componentClass]) => {
+        // 如果被设置为了预设组件，过滤掉
+        if (Array.from(this.props.stores.ApplicationStore.preComponents.keys()).some(gaeaKey => gaeaKey === componentClass.defaultProps.gaeaSetting.key)) {
+          return false
+        }
+
+        // 如果搜索框没有输入，展示
+        if (this.state.searchContent === "") {
+          return true
+        }
+
+        return new RegExp(this.state.searchContent).test(componentClass.defaultProps.gaeaSetting.name)
+      })
+      .map(([key, componentClass], index) => {
+        return (
+          <Styled.Component
+            key={"standard" + index}
+            data-gaea-key={componentClass.defaultProps.gaeaSetting.key}
+          >{componentClass.defaultProps.gaeaSetting.name}</Styled.Component>
+        )
+      })
+      .concat(
+      Array.from(this.props.stores.ApplicationStore.preComponents)
+        .map(([gaeaKey, preComponentInfos], index) => {
+          const componentClass = this.props.stores.ApplicationStore.componentClasses.get(gaeaKey)
+          return Array.prototype.concat.apply([], preComponentInfos.map((preComponentInfo, childIndex) => {
+            return (
+              <Styled.Component
+                key={"preSetting" + index + "&" + childIndex}
+                data-gaea-key={componentClass.defaultProps.gaeaSetting.key}
+                data-props={JSON.stringify(preComponentInfo.props)}
+              >{preComponentInfo.name}</Styled.Component>
+            )
+          }))
+        })
       )
-    })
   }
 
   private handleCloseLeftBar = () => {
     this.props.actions.ApplicationAction.setLeftTool(null)
     this.props.actions.ApplicationAction.setRightTool(null)
+  }
+
+  private handleSearch = (event: React.FormEvent<HTMLInputElement>) => {
+    this.setState({
+      searchContent: event.currentTarget.value as string
+    })
   }
 }
 

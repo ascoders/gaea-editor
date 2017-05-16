@@ -111,4 +111,11 @@ export default class ApplicationStore {
             return pageKey
         })
     }
+    /**
+     * 预设组件
+     * 将一个组件加入此配置，这个组件会从组件列表中移除，并根据配置的 props 信息展示为 N 个独立组件
+     * 在显示时，这个组件与普通组件别无二致，只是会加上默认配置，并且这个配置可以不在[可编辑配置中]
+     * key: gaeaKey
+     */
+    public preComponents = new Map<string, IPreComponent[]>()
 }

@@ -53,12 +53,14 @@ export default class ViewportAction {
     /**
      * Add new instance to viewport
      */
-    @Action public addInstance(gaeaKey: string, parentInstanceKey: string, indexPosition: number) {
+    @Action public addInstance(gaeaKey: string, parentInstanceKey: string, indexPosition: number, props?: any) {
         const newInstanceKey = this.createNewInstanceKey()
 
         this.store.instances.set(newInstanceKey, {
             gaeaKey,
-            data: {},
+            data: {
+                props
+            },
             childs: [],
             parentInstanceKey
         })
@@ -384,7 +386,7 @@ export default class ViewportAction {
                         // 是新拖进来的, 不用管, 因为工具栏会把它收回去
                         // 为什么不删掉? 因为这个元素不论是不是 clone, 都被移过来了, 不还回去 react 在更新 dom 时会无法找到
                         const newInfo = this.store.currentDragInfo.info as IDragInfoNew
-                        const newInstanceKey = this.addInstance(newInfo.gaeaKey, parentInstanceKey, event.newIndex as number)
+                        const newInstanceKey = this.addInstance(newInfo.gaeaKey, parentInstanceKey, event.newIndex as number, newInfo.props && JSON.parse(newInfo.props))
                         break
 
                     case "viewport":
@@ -496,12 +498,14 @@ export default class ViewportAction {
                     //     }
                     // })
                 } else if (event.item.dataset.gaeaKey) {
+                    // 如果同时拥有 props 属性，说明是个预设组件
                     this.startDrag({
                         type: "new",
                         dragStartParentDom: dragParentDom,
                         dragStartIndex: event.oldIndex as number,
                         info: {
-                            gaeaKey: event.item.dataset.gaeaKey
+                            gaeaKey: event.item.dataset.gaeaKey,
+                            props: event.item.dataset.props
                         }
                     })
                 }

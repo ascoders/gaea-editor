@@ -313,4 +313,16 @@ export default class ApplicationAction {
     @Action public getFullInformationGzipped() {
         return LZString.compressToBase64(JSON.stringify(this.getAllInformation()))
     }
+
+    /**
+     * 设置预设组件
+     */
+    @Action public setPreComponent(gaeaKey: string, setting: IPreComponent) {
+        if (!this.store.preComponents.has(gaeaKey)) {
+            this.store.preComponents.set(gaeaKey, [setting])
+        } else {
+            const settings = this.store.preComponents.get(gaeaKey)
+            settings.push(setting)
+        }
+    }
 }

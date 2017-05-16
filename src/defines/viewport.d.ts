@@ -39,6 +39,10 @@ declare interface IDragInfo {
 
 declare interface IDragInfoNew {
     gaeaKey?: string
+    /**
+     * 预设 props
+     */
+    props?: any
     targetInstanceKey?: string
     targetIndex?: number
 }
