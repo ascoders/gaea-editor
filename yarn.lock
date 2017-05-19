@@ -2101,9 +2101,9 @@ gaea-basic-components@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/gaea-basic-components/-/gaea-basic-components-1.0.5.tgz#fac82759dbf1cae5f10298f38ccc479f99c1449f"
 
-gaea-render@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/gaea-render/-/gaea-render-1.0.1.tgz#6df22c1368a34628d6427ee2b3a95837d047ff28"
+gaea-render@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/gaea-render/-/gaea-render-1.0.2.tgz#172679418fa2da4df539720f0a6af37152d59836"
   dependencies:
     lodash "^4.17.4"
     lz-string "^1.4.4"
@@ -3894,9 +3894,9 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
-run-react@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/run-react/-/run-react-1.0.6.tgz#267941fdb44264b442802872f0ce3017e7bba9d6"
+run-react@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/run-react/-/run-react-1.0.7.tgz#5334d02333f297fbb96ae85f88ccd38c438c2f6a"
   dependencies:
     ava "^0.18.2"
     colors "^1.1.2"

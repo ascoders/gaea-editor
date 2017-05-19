@@ -49,8 +49,9 @@ export const RightContainer = styled.div.withConfig({ componentId: "RightContain
     overflow: hidden;
     border-left: 1px solid #ddd;
 
-    // 修复 safari 被盖在编辑区下面的问题
-    transform: translateZ(1px);
+    ${(props: any) => props.theme.hidden && `
+        display: none;
+    `}
 `
 
 export const NavbarContainer = styled.div`
@@ -92,6 +93,9 @@ export const ViewportContainerLeft = styled.div`
     z-index: 1;
     background-color: whitesmoke;
     border-right: 1px solid #ddd;
+    ${(props: any) => props.theme.hidden && `
+        display: none;
+    `}
 `
 
 export const ViewportContainerLeftTop = styled.div`
@@ -140,31 +144,6 @@ export const ViewportContainerRight = styled.div`
     ${(props: any) => props.theme.showLeft && `
         margin-left: 0;
     `}
-`
-
-export const SidebarMoveContainer = styled.div`
-    display: flex;
-    transition: all .3s;
-    transform: translate3d(0, 0, 0);
-`
-
-export const SidebarViewportContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-`
-
-export const SidebarPreviewContainer = styled.div`
-    display: flex;
-    width: 300px;
-    height: 100%;
-`
-
-export const SidebarViewportContainerTop = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    height: 0;
 `
 
 export const FooterContainer = styled.div`

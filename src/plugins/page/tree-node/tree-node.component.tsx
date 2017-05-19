@@ -90,6 +90,8 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
 
       // 重置应用
       this.props.actions.ApplicationAction.resetApplication()
+      // 自己的窗口不要关
+      this.props.actions.ApplicationAction.setLeftTool("page")
 
       // 设置 viewport
       if (this.props.stores.ApplicationStore.pageInstances.has(this.props.pageKey)) {

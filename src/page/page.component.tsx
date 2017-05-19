@@ -36,7 +36,7 @@ export default class Page extends React.Component<Props, State> {
                         </Styled.NavbarContainerRight>
                     </Styled.NavbarContainer>
                     <Styled.ViewportContainer>
-                        <Styled.ViewportContainerLeft>
+                        <Styled.ViewportContainerLeft theme={{ hidden: this.props.stores.ApplicationStore.isPreview }}>
                             <Styled.ViewportContainerLeftTop>
                                 {this.props.actions.ApplicationAction.loadingPluginByPosition("leftBarTop")}
                             </Styled.ViewportContainerLeftTop>
@@ -81,17 +81,8 @@ export default class Page extends React.Component<Props, State> {
                     </Styled.FooterContainer>
                 </Styled.LeftContainer>
 
-                <Styled.RightContainer>
-                    <Styled.SidebarMoveContainer>
-                        <Styled.SidebarViewportContainer>
-                            <Styled.SidebarViewportContainerTop>
-                                {this.props.actions.ApplicationAction.loadingPluginByPosition("mainTool")}
-                            </Styled.SidebarViewportContainerTop>
-                        </Styled.SidebarViewportContainer>
-                        <Styled.SidebarPreviewContainer>
-                            您处于预览状态
-                        </Styled.SidebarPreviewContainer>
-                    </Styled.SidebarMoveContainer>
+                <Styled.RightContainer theme={{ hidden: this.props.stores.ApplicationStore.isPreview }}>
+                    {this.props.actions.ApplicationAction.loadingPluginByPosition("mainTool")}
                 </Styled.RightContainer>
 
                 <Modal show={this.props.stores.ApplicationStore.isShowModal}>

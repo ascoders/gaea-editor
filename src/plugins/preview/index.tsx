@@ -17,7 +17,9 @@ class Preview extends React.Component<Props, State> {
     }
 
     private handleClick = () => {
-        this.props.actions.ApplicationAction.setPreview(!this.props.stores.ApplicationStore.isPreview)
+        const setPreview = !this.props.stores.ApplicationStore.isPreview
+        this.props.actions.ApplicationAction.resetApplication()
+        this.props.actions.ApplicationAction.setPreview(setPreview)
     }
 }
 

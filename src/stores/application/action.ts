@@ -271,11 +271,12 @@ export default class ApplicationAction {
     }
 
     /**
-     * 初始化应用状态
+     * 初始化应用状态，将当前状态全部清空，适合做一些动作前清场
      */
     @Action public resetApplication() {
         this.store.isPreview = false
         this.store.isShowModal = false
+        this.store.leftTool = null
         this.store.rightTool = null
         this.store.currentCreatedPageKey = null
         this.store.currentEditPageKey = null
