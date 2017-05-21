@@ -53,28 +53,35 @@ export default class ViewportAction {
     /**
      * Add new instance to viewport
      */
-    @Action public addInstance(gaeaKey: string, parentInstanceKey: string, indexPosition: number, props?: any) {
+    @Action public addInstance(params: {
+        gaeaKey: string
+        parentInstanceKey: string
+        indexPosition: number
+        props?: any
+        preGaeaKey?: string
+    }) {
         const newInstanceKey = this.createNewInstanceKey()
 
         this.store.instances.set(newInstanceKey, {
-            gaeaKey,
+            gaeaKey: params.gaeaKey,
             data: {
-                props
+                props: params.props
             },
             childs: [],
-            parentInstanceKey
+            parentInstanceKey: params.parentInstanceKey,
+            preGaeaKey: params.preGaeaKey
         })
 
         // add instanceKey to parent instance's childs
-        if (parentInstanceKey !== null) {
-            const parentInstance = this.store.instances.get(parentInstanceKey)
-            parentInstance.childs.splice(indexPosition, 0, newInstanceKey)
+        if (params.parentInstanceKey !== null) {
+            const parentInstance = this.store.instances.get(params.parentInstanceKey)
+            parentInstance.childs.splice(params.indexPosition, 0, newInstanceKey)
 
             // 如果父级和自身都是 gaea-container，且父级是 display:flex，那么子元素默认 flexDirection 与父级元素相反
-            if (parentInstance.gaeaKey === "gaea-container" && gaeaKey === "gaea-container") {
-                if (this.getInstanceProps(parentInstanceKey, "style.display") === "flex" &&
+            if (parentInstance.gaeaKey === "gaea-container" && params.gaeaKey === "gaea-container") {
+                if (this.getInstanceProps(params.parentInstanceKey, "style.display") === "flex" &&
                     this.getInstanceProps(newInstanceKey, "style.display") === "flex") {
-                    switch (this.getInstanceProps(parentInstanceKey, "style.flexDirection")) {
+                    switch (this.getInstanceProps(params.parentInstanceKey, "style.flexDirection")) {
                         case "column":
                             this.setInstanceProps(newInstanceKey, "style.flexDirection", "row")
                             break
@@ -318,7 +325,11 @@ export default class ViewportAction {
     @Action public initViewport() {
         const RootClass = this.applicationAction.getComponentClassByKey("gaea-container")
 
-        const rootInstanceKey = this.addInstance("gaea-container", null, null)
+        const rootInstanceKey = this.addInstance({
+            gaeaKey: "gaea-container",
+            parentInstanceKey: null,
+            indexPosition: null
+        })
 
         this.setRootInstanceKey(rootInstanceKey)
 
@@ -386,7 +397,13 @@ export default class ViewportAction {
                         // 是新拖进来的, 不用管, 因为工具栏会把它收回去
                         // 为什么不删掉? 因为这个元素不论是不是 clone, 都被移过来了, 不还回去 react 在更新 dom 时会无法找到
                         const newInfo = this.store.currentDragInfo.info as IDragInfoNew
-                        const newInstanceKey = this.addInstance(newInfo.gaeaKey, parentInstanceKey, event.newIndex as number, newInfo.props && JSON.parse(newInfo.props))
+                        const newInstanceKey = this.addInstance({
+                            gaeaKey: newInfo.gaeaKey,
+                            parentInstanceKey,
+                            indexPosition: event.newIndex as number,
+                            props: newInfo.props && JSON.parse(newInfo.props),
+                            preGaeaKey: newInfo.preGaeaKey
+                        })
                         break
 
                     case "viewport":
@@ -505,7 +522,8 @@ export default class ViewportAction {
                         dragStartIndex: event.oldIndex as number,
                         info: {
                             gaeaKey: event.item.dataset.gaeaKey,
-                            props: event.item.dataset.props
+                            props: event.item.dataset.props,
+                            preGaeaKey: event.item.dataset.preGaeaKey
                         }
                     })
                 }

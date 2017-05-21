@@ -35,10 +35,11 @@ export default class GaeaEditor extends React.Component<Props, State> {
             }
         })
 
-        // add gaea-basic-components
-        // add componentClasses to store
+        // 将默认组件与用户自定义组件的 Class 保存在数据流
         gaeaBasicComponents.concat(this.props.componentClasses).forEach(componentClass => {
+            // 添加 componentClass
             this.stores.getStore().actions.ApplicationAction.addComponentClass(componentClass)
+
         })
     }
 

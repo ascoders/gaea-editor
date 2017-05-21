@@ -40,9 +40,11 @@ class DragMenu extends React.Component<Props, State> {
 
   private getList = () => {
     return Array.from(this.props.stores.ApplicationStore.componentClasses)
-      .filter(([key, componentClass]) => {
+      .filter(([gaeaKey, componentClass]) => {
+        const setting = this.props.stores.ApplicationStore.componentSetting.get(gaeaKey)
+
         // 如果被设置为了预设组件，过滤掉
-        if (Array.from(this.props.stores.ApplicationStore.preComponents.keys()).some(gaeaKey => gaeaKey === componentClass.defaultProps.gaeaSetting.key)) {
+        if (Array.from(this.props.stores.ApplicationStore.preComponents.keys()).some(preGaeaKey => preGaeaKey === setting.key)) {
           return false
         }
 
@@ -51,13 +53,15 @@ class DragMenu extends React.Component<Props, State> {
           return true
         }
 
-        return new RegExp(this.state.searchContent).test(componentClass.defaultProps.gaeaSetting.name)
+        return new RegExp(this.state.searchContent).test(setting.name)
       })
-      .map(([key, componentClass], index) => {
+      .map(([gaeaKey, componentClass], index) => {
+        const setting = this.props.stores.ApplicationStore.componentSetting.get(gaeaKey)
+
         return (
           <Styled.Component
             key={"standard" + index}
-            data-gaea-key={componentClass.defaultProps.gaeaSetting.key}
+            data-gaea-key={setting.key}
           >{componentClass.defaultProps.gaeaSetting.name}</Styled.Component>
         )
       })
@@ -66,12 +70,15 @@ class DragMenu extends React.Component<Props, State> {
         .map(([gaeaKey, preComponentInfos], index) => {
           const componentClass = this.props.stores.ApplicationStore.componentClasses.get(gaeaKey)
           return Array.prototype.concat.apply([], preComponentInfos.map((preComponentInfo, childIndex) => {
+            const setting = this.props.stores.ApplicationStore.componentSetting.has(preComponentInfo.key) ? this.props.stores.ApplicationStore.componentSetting.get(preComponentInfo.key) : this.props.stores.ApplicationStore.componentSetting.get(gaeaKey)
+
             return (
               <Styled.Component
                 key={"preSetting" + index + "&" + childIndex}
                 data-gaea-key={componentClass.defaultProps.gaeaSetting.key}
                 data-props={JSON.stringify(preComponentInfo.props)}
-              >{preComponentInfo.name}</Styled.Component>
+                data-pre-gaea-key={preComponentInfo.key}
+              >{setting.name}</Styled.Component>
             )
           }))
         })

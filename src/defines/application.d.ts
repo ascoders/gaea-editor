@@ -129,9 +129,9 @@ declare interface IAllInformation {
 
 declare interface IPreComponent {
     /**
-     * New name
+     * gaea Key
      */
-    name: string
+    key: string
     /**
      * Pre-setting props
      */

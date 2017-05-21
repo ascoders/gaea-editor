@@ -22,8 +22,16 @@ class MainToolEditor extends React.Component<Props, State> {
    */
   private instanceInfo: InstanceInfo
 
+  /**
+   * 组件的编辑信息
+   */
+  private setting: IGaeaSetting
+
   public render() {
-    if (!this.props.stores.ViewportStore.currentEditInstanceKey) {
+    // 当前编辑组件的 key
+    const instanceKey = this.props.stores.ViewportStore.currentEditInstanceKey
+
+    if (!instanceKey) {
       return (
         <Styled.EmptyContainer>
           <Styled.EmptyTitle>
@@ -36,14 +44,31 @@ class MainToolEditor extends React.Component<Props, State> {
       )
     }
 
-    if (!this.props.stores.ViewportStore.instances.has(this.props.stores.ViewportStore.currentEditInstanceKey)) {
+    if (!this.props.stores.ViewportStore.instances.has(instanceKey)) {
       return null
     }
 
-    this.instanceInfo = this.props.stores.ViewportStore.instances.get(this.props.stores.ViewportStore.currentEditInstanceKey)
+    this.instanceInfo = this.props.stores.ViewportStore.instances.get(instanceKey)
+
     this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey)
 
-    const EditorFields = this.componentClass.defaultProps.gaeaSetting.editor && this.componentClass.defaultProps.gaeaSetting.editor.map((editor, index) => {
+    // 优先从 preGaeaKey 取配置，因为可能是一个预设组件
+    this.setting = this.props.stores.ApplicationStore.componentSetting.has(this.instanceInfo.preGaeaKey) ? this.setting = this.props.stores.ApplicationStore.componentSetting.get(this.instanceInfo.preGaeaKey) : this.setting = this.props.stores.ApplicationStore.componentSetting.get(this.instanceInfo.gaeaKey)
+
+    if (!this.setting || !this.setting.editor || this.setting.editor.length === 0) {
+      return (
+        <Styled.EmptyContainer>
+          <Styled.EmptyTitle>
+            无编辑信息
+          </Styled.EmptyTitle>
+          <Styled.EmptyDescription>
+            该组件还未添加编辑信息，<a href="https://github.com/ascoders/gaea-editor" target="_blank">点击了解如何添加</a>
+          </Styled.EmptyDescription>
+        </Styled.EmptyContainer>
+      )
+    }
+
+    const EditorFields = this.setting.editor.map((editor, index) => {
       if (typeof editor === "string") {
         return (
           <Styled.TabTitle key={index}>{editor}</Styled.TabTitle>
@@ -62,7 +87,7 @@ class MainToolEditor extends React.Component<Props, State> {
     return (
       <Styled.Container>
         <Styled.ComponentName>
-          <span>{this.componentClass.defaultProps.gaeaSetting.name}</span>
+          <span>{this.setting.name}</span>
           <Styled.CloseButton onClick={this.handleClose}>
             <Icon type="close" size={15} />
           </Styled.CloseButton>

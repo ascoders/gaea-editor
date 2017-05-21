@@ -1237,6 +1237,10 @@ capture-stack-trace@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/capture-stack-trace/-/capture-stack-trace-1.0.0.tgz#4a6fa07399c26bba47f0b2496b4d0fb408c5550d"
 
+case-sensitive-paths-webpack-plugin@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.0.0.tgz#60142d7d0beabdb35676ef0aeace3027da0578ba"
+
 caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
@@ -3894,11 +3898,12 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
-run-react@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/run-react/-/run-react-1.0.7.tgz#5334d02333f297fbb96ae85f88ccd38c438c2f6a"
+run-react@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/run-react/-/run-react-2.0.1.tgz#365ae7af49fd7d92735637e59608a4e9590b5dcf"
   dependencies:
     ava "^0.18.2"
+    case-sensitive-paths-webpack-plugin "^2.0.0"
     colors "^1.1.2"
     commander "^2.9.0"
     concurrently "^3.4.0"

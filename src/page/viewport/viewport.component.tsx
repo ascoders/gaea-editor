@@ -25,6 +25,13 @@ export default class Viewport extends React.Component<Props, State> {
 
     public componentWillMount() {
         this.freshView()
+
+        this.props.actions.ApplicationAction.setPreComponent("gaea-text", {
+            key: "gaea-text-1",
+            props: {
+                text: "哈喽"
+            }
+        })
     }
 
     /**

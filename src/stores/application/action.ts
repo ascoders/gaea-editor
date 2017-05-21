@@ -37,8 +37,19 @@ export default class ApplicationAction {
     /**
      * add component class
      */
-    @Action public addComponentClass(componentClass: any) {
-        this.store.componentClasses.set(componentClass.defaultProps.gaeaSetting.key, componentClass)
+    @Action public addComponentClass(componentClass: React.ComponentClass<IGaeaProps>) {
+        const gaeaKey = componentClass.defaultProps.gaeaSetting.key
+        this.store.componentClasses.set(gaeaKey, componentClass)
+
+        // 添加这个组件的编辑配置
+        this.setComponentSetting(gaeaKey, componentClass.defaultProps.gaeaSetting)
+    }
+
+    /**
+     * 添加组件的配置信息
+     */
+    @Action public setComponentSetting(gaeaKey: string, setting: IGaeaSetting) {
+        this.store.componentSetting.set(gaeaKey, setting)
     }
 
     /**

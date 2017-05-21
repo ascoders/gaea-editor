@@ -1,11 +1,11 @@
 {
   "name": "gaea-editor",
-  "version": "2.0.17",
+  "version": "2.0.18",
   "description": "",
   "main": "built/src/index.js",
   "typings": "src/index.ts",
   "scripts": {
-    "start": "run-react -d",
+    "start": "run-react start",
     "tslint": "tslint './src/**/*.?(ts|tsx)'",
     "prepublish": "rm -rf built && tsc && babel built --out-dir built"
   },
@@ -37,7 +37,7 @@
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-stage-0": "^6.22.0",
     "pre-commit": "^1.2.2",
-    "run-react": "^1.0.7",
+    "run-react": "^2.0.1",
     "tslint": "^5.1.0",
     "typescript": "^2.1.1"
   },
