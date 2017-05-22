@@ -29,7 +29,7 @@ class DragMenu extends React.Component<Props, State> {
 
         <Styled.SearchInput value={this.state.searchContent} onChange={this.handleSearch} placeholder="搜索.." />
 
-        <Styled.ListContainer ref={ref => this.listContainer = ref}>
+        <Styled.ListContainer ref={(ref: React.ReactInstance) => this.listContainer = ref}>
           {this.getList()}
         </Styled.ListContainer>
 
