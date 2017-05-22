@@ -63,3 +63,9 @@ export const SearchInput = styled.input`
     color: #999;
   }
 `
+
+export const ListContainer = styled.div`
+  overflow-y: auto;
+  flex-grow: 1;
+  flex-basis: 0;
+`

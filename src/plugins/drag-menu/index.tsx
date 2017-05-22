@@ -29,9 +29,9 @@ class DragMenu extends React.Component<Props, State> {
 
         <Styled.SearchInput value={this.state.searchContent} onChange={this.handleSearch} placeholder="搜索.." />
 
-        <div ref={ref => this.listContainer = ref}>
+        <Styled.ListContainer ref={ref => this.listContainer = ref}>
           {this.getList()}
-        </div>
+        </Styled.ListContainer>
 
         {this.props.actions.ApplicationAction.loadingPluginByPosition("toolContainerDragMenuList")}
       </Styled.Container>
