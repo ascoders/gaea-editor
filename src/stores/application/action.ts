@@ -49,7 +49,12 @@ export default class ApplicationAction {
      * 添加组件的配置信息
      */
     @Action public setComponentSetting(gaeaKey: string, setting: IGaeaSetting) {
-        this.store.componentSetting.set(gaeaKey, setting)
+        if (!this.store.componentSetting.has(gaeaKey)) {
+            this.store.componentSetting.set(gaeaKey, setting)
+        } else {
+            const prevSetting = this.store.componentSetting.get(gaeaKey)
+            Object.assign(prevSetting, setting)
+        }
     }
 
     /**
