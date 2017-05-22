@@ -337,4 +337,15 @@ export default class ApplicationAction {
             settings.push(setting)
         }
     }
+
+    /**
+     * 根据 instanceKey 获取配置
+     */
+    @Action public getSettingByInstance(instance: InstanceInfo) {
+        if (this.store.componentSetting.has(instance.preGaeaKey)) {
+            return this.store.componentSetting.get(instance.preGaeaKey)
+        } else {
+            return this.store.componentSetting.get(instance.gaeaKey)
+        }
+    }
 }

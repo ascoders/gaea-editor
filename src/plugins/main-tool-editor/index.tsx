@@ -53,7 +53,7 @@ class MainToolEditor extends React.Component<Props, State> {
     this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey)
 
     // 优先从 preGaeaKey 取配置，因为可能是一个预设组件
-    this.setting = this.props.stores.ApplicationStore.componentSetting.has(this.instanceInfo.preGaeaKey) ? this.setting = this.props.stores.ApplicationStore.componentSetting.get(this.instanceInfo.preGaeaKey) : this.setting = this.props.stores.ApplicationStore.componentSetting.get(this.instanceInfo.gaeaKey)
+    this.setting = this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo)
 
     if (!this.setting || !this.setting.editor || this.setting.editor.length === 0) {
       return (

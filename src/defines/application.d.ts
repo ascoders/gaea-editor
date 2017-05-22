@@ -52,6 +52,10 @@ declare interface IGaeaSetting {
      * Container can be dragged into component
      */
     isContainer?: boolean
+    /**
+     * 组件被点击时触发
+     */
+    onClick?: () => void
 }
 
 declare interface IEditor {

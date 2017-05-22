@@ -92,6 +92,11 @@ class EditHelper extends React.Component<Props, State> {
     public handleClick = (event: MouseEvent) => {
         event.stopPropagation()
 
+        const setting = this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo)
+        if (typeof setting.onClick === "function") {
+            setting.onClick()
+        }
+
         // 将当前组件设置为正在编辑状态
         this.props.actions.ViewportAction.setCurrentEditInstanceKey(this.props.instanceKey)
     }
