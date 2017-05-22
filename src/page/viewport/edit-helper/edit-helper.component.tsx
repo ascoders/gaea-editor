@@ -94,7 +94,7 @@ class EditHelper extends React.Component<Props, State> {
 
         const setting = this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo)
         if (typeof setting.onClick === "function") {
-            setting.onClick()
+            setting.onClick(this.instanceInfo)
         }
 
         // 将当前组件设置为正在编辑状态

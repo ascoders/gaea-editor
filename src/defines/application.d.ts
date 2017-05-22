@@ -53,9 +53,13 @@ declare interface IGaeaSetting {
      */
     isContainer?: boolean
     /**
+     * 配置信息是否在获取中
+     */
+    isLoading?: boolean
+    /**
      * 组件被点击时触发
      */
-    onClick?: () => void
+    onClick?: (info?: InstanceInfo) => void
 }
 
 declare interface IEditor {

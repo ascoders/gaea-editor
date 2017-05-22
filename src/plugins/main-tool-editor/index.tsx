@@ -68,6 +68,19 @@ class MainToolEditor extends React.Component<Props, State> {
       )
     }
 
+    if (this.setting.isLoading) {
+      return (
+        <Styled.EmptyContainer>
+          <Styled.EmptyTitle>
+            加载中..
+          </Styled.EmptyTitle>
+          <Styled.EmptyDescription>
+            正在获取组件配置信息，请耐心等待
+          </Styled.EmptyDescription>
+        </Styled.EmptyContainer>
+      )
+    }
+
     const EditorFields = this.setting.editor.map((editor, index) => {
       if (typeof editor === "string") {
         return (
