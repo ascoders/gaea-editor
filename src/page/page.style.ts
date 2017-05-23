@@ -188,6 +188,7 @@ export const ViewportContainerBox = styled.div`
 
 export const PreviewContainer = styled.div`
     ${ViewportContainerBoxAndPreviewContainer}
+    overflow-y: auto;
 `
 
 export const ModalTitleContainer = styled.div`
