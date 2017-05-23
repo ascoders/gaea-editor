@@ -5,9 +5,10 @@
     "dlls": [
         "react",
         "react-dom",
-        "react-router",
         "styled-components",
         "dependency-inject",
+        "dynamic-react",
+        "dynamic-object",
         "classnames",
         "lodash",
         "lz-string",

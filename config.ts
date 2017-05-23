@@ -11,10 +11,15 @@ export const webpackDlls = [
     /** 基础库 */
     "react",
     "react-dom",
-    "react-router",
-    "redux",
-    "react-redux",
-    "react-router-redux",
+    "dynamic-object",
+    "dynamic-react",
+    "dependency-inject",
+    "classnames",
+    "gaea-basic-components",
+    "gaea-render",
+    "lz-string",
+    "sortablejs",
+    "styled-components",
 
     /** 工具库 */
     "lodash"
