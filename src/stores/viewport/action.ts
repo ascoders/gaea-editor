@@ -335,6 +335,7 @@ export default class ViewportAction {
 
         // 设置根节点属性
         this.setInstanceProps(rootInstanceKey, "style", {
+            display: "block",
             flexGrow: 1
         })
 
