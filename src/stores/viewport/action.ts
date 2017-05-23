@@ -335,9 +335,7 @@ export default class ViewportAction {
 
         // 设置根节点属性
         this.setInstanceProps(rootInstanceKey, "style", {
-            display: "flex",
-            flexGrow: 1,
-            flexDirection: "column"
+            flexGrow: 1
         })
 
         // 设置首页，如果没有的话
