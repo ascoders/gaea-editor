@@ -48,6 +48,7 @@ export default class Page extends React.Component<Props, State> {
                         <Styled.ViewportContainerRight
                             theme={{ showLeft: this.props.stores.ApplicationStore.leftTool }}
                             style={Object.assign({}, this.props.stores.ApplicationStore.viewportContainerStyle)}>
+
                             <Styled.ToolsContainer theme={{ fullScreen: this.props.stores.ApplicationStore.rightTool }}>
                                 <Styled.ToolsContainerLeft>
                                     {this.props.actions.ApplicationAction.loadingPluginByPosition(`toolContainerLeft${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.leftTool))}`)}

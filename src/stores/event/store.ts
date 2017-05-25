@@ -26,4 +26,9 @@ export default class ViewportStore {
    * 页面冲渲染
    */
   public refreshPage = "refreshPage"
+
+  /**
+   * 触发编辑器回调
+   */
+  public emitEditorCallback = "emitEditorCallback"
 }

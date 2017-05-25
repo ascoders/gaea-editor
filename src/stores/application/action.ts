@@ -287,7 +287,41 @@ export default class ApplicationAction {
     }
 
     /**
-     * 初始化应用状态，将当前状态全部清空，适合做一些动作前清场
+     * 初始化页面
+     */
+    @Action public initApplication(value: string) {
+        const info: IAllInformation = JSON.parse(LZString.decompressFromBase64(value))
+        this.store.rootPageKeys = info.rootPageKeys
+        this.store.persistenceData = info.persistenceData
+        Object.keys(info.pages).forEach(pageKey => {
+            this.store.pages.set(pageKey, info.pages[pageKey])
+        })
+        info.instancesArray.forEach(instanceInfo => {
+            this.store.pageInstances.set(instanceInfo.pageKey, instanceInfo.instances)
+        })
+
+        let homePageKey: string = null
+        this.store.pages.forEach((page, pageKey) => {
+            if (page.isHomePage) {
+                homePageKey = pageKey
+            }
+        })
+
+        const homeInstances = this.store.pageInstances.get(homePageKey)
+        Object.keys(homeInstances).forEach(instanceKey => {
+            this.viewportStore.instances.set(instanceKey, homeInstances[instanceKey])
+
+            if (homeInstances[instanceKey].parentInstanceKey === null) {
+                this.viewportStore.rootInstanceKey = instanceKey
+            }
+        })
+
+        // 将首页设置为当前编辑状态
+        this.store.currentViewportPageKey = homePageKey
+    }
+
+    /**
+     * 重置应用状态，将当前状态全部清空，适合做一些动作前清场
      */
     @Action public resetApplication() {
         this.store.isPreview = false
@@ -320,11 +354,12 @@ export default class ApplicationAction {
             })
         })
 
-        return {
+        return JSON.parse(JSON.stringify({
             pages,
             instancesArray,
-            rootPageKeys: this.store.rootPageKeys
-        }
+            rootPageKeys: this.store.rootPageKeys,
+            persistenceData: this.store.persistenceData
+        }))
     }
 
     @Action public getFullInformationGzipped() {
@@ -352,5 +387,19 @@ export default class ApplicationAction {
         } else {
             return this.store.componentSetting.get(instance.gaeaKey)
         }
+    }
+
+    /**
+     * 设置持久化信息，这个信息在 onSave 会回调出去，是页面保存的信息
+     */
+    @Action public setPersistenceData(key: string, value: any) {
+        this.store.persistenceData[key] = value
+    }
+
+    /**
+     * 获取持久化信息
+     */
+    @Action public getPersistenceData(key: string) {
+        return this.store.persistenceData[key]
     }
 }

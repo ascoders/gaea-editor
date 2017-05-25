@@ -184,6 +184,7 @@ export const ToolsContainerRight = styled.div`
 
 export const ViewportContainerBox = styled.div`
     ${ViewportContainerBoxAndPreviewContainer}
+    overflow-x: hidden;
 `
 
 export const PreviewContainer = styled.div`

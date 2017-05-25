@@ -39,8 +39,22 @@ export default class GaeaEditor extends React.Component<Props, State> {
         gaeaBasicComponents.concat(this.props.componentClasses).forEach(componentClass => {
             // 添加 componentClass
             this.stores.getStore().actions.ApplicationAction.addComponentClass(componentClass)
-
         })
+
+        // 监听触发 onXX 的回调，用于直接触发组件层级的回调
+        this.stores.getStore().actions.EventAction.on(this.stores.getStore().stores.EventStore.emitEditorCallback, this.handleCallback)
+
+        // 根据默认值设置页面初始属性
+        if (this.props.value) {
+            this.stores.getStore().actions.ApplicationAction.initApplication(this.props.value)
+        } else {
+            // 初始化一个空页面
+            this.stores.getStore().actions.ViewportAction.initViewport()
+        }
+    }
+
+    public componentWillUnmount() {
+        this.stores.getStore().actions.EventAction.off(this.stores.getStore().stores.EventStore.emitEditorCallback, this.handleCallback)
     }
 
     public render() {
@@ -49,5 +63,12 @@ export default class GaeaEditor extends React.Component<Props, State> {
                 <Page componentClasses={this.props.componentClasses} />
             </Provider>
         )
+    }
+
+    private handleCallback = (_: any, params: any) => {
+        const func = (this.props as any)[params.funcName]
+        if (typeof func === "function") {
+            func(params.data)
+        }
     }
 }

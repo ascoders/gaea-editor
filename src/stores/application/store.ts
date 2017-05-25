@@ -122,4 +122,11 @@ export default class ApplicationStore {
      * key: gaeaKey
      */
     public preComponents = new Map<string, IPreComponent[]>()
+
+    /**
+     * 页面持久化数据
+     */
+    public persistenceData?: {
+        [x: string]: any
+    } = Static({})
 }

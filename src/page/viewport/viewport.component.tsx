@@ -23,10 +23,6 @@ export default class Viewport extends React.Component<Props, State> {
     public static defaultProps = new Props()
     public state = new State()
 
-    public componentWillMount() {
-        this.freshView()
-    }
-
     /**
      * 获取自己的实例
      */
@@ -45,37 +41,6 @@ export default class Viewport extends React.Component<Props, State> {
 
         // 设置当前 hover 的元素为 null
         this.props.actions.ViewportAction.setCurrentHoverInstanceKey(null)
-    }
-
-    /**
-     * 刷新视图
-     */
-    public freshView() {
-        if (this.props.stores.ApplicationStore.defaultValue === null) {  // 空白应用
-            this.props.actions.ViewportAction.initViewport()
-        } else { // 根据默认配置渲染
-            // const defaultValue = JSON.parse(LZString.decompressFromBase64(this.props.ApplicationStore.pageValue)) as {
-            //     [mapUniqueKey: string]: FitGaea.ViewportComponentInfo
-            // }
-
-            // Object.keys(defaultValue).forEach(mapUniqueKey => {
-            //     const defaultInfo = defaultValue[mapUniqueKey]
-            //     const ComponentClass = this.props.ApplicationAction.getComponentClassByGaeaUniqueKey(defaultInfo.props.gaeaUniqueKey)
-
-            //     // 如果是根节点, 设置根据点 id
-            //     if (defaultInfo.parentMapUniqueKey === null) {
-            //         this.props.ViewportAction.setRootMapUniqueKey(mapUniqueKey)
-            //     }
-
-            //     const props = _.merge(_.cloneDeep(ComponentClass.defaultProps), defaultInfo.props || {})
-
-            //     this.props.ViewportAction.setComponent(mapUniqueKey, {
-            //         props: props,
-            //         layoutChilds: defaultInfo.layoutChilds || [],
-            //         parentMapUniqueKey: defaultInfo.parentMapUniqueKey
-            //     })
-            // })
-        }
     }
 
     public render() {

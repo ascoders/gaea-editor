@@ -17,7 +17,10 @@ class Save extends React.Component<Props, State> {
     }
 
     private handleClick = () => {
-        //
+        this.props.actions.EventAction.emit(this.props.stores.EventStore.emitEditorCallback, {
+            funcName: "onSave",
+            data: this.props.actions.ApplicationAction.getFullInformationGzipped()
+        })
     }
 }
 

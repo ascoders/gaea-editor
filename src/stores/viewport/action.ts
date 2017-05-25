@@ -206,7 +206,7 @@ export default class ViewportAction {
 
         // 如果不存在，选择 defaultProps 中的属性
         if (dataResult === undefined) {
-            return _.get(instanceClass.defaultProps, key).toString()
+            return _.get(instanceClass.defaultProps, key) ? _.get(instanceClass.defaultProps, key).toString() : ""
         } else {
             return dataResult.toString()
         }

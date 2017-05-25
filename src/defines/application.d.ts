@@ -133,6 +133,12 @@ declare interface IAllInformation {
      * All instance info
      */
     instancesArray: InstancesArray
+    /**
+     * 用户自定义数据
+     */
+    persistenceData?: {
+        [x: string]: any
+    }
 }
 
 declare interface IPreComponent {
