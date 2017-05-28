@@ -23,7 +23,7 @@ export default class ApplicationAction {
     /**
      * position 根据位置加载插件
      */
-    @Action public loadingPluginByPosition(position: string, props?: any) {
+    @Action public loadPluginByPosition(position: string, props?: any) {
         return this.store.plugins
             .filter((plugin) => plugin.position === position)
             .map((plugin, index) => {
@@ -292,7 +292,7 @@ export default class ApplicationAction {
     @Action public initApplication(value: string) {
         const info: IAllInformation = JSON.parse(LZString.decompressFromBase64(value))
         this.store.rootPageKeys = info.rootPageKeys
-        this.store.persistenceData = info.persistenceData
+        this.store.persistenceData = info.persistenceData || {}
         Object.keys(info.pages).forEach(pageKey => {
             this.store.pages.set(pageKey, info.pages[pageKey])
         })

@@ -5,12 +5,12 @@ import { Props, State } from "./gaea-editor.type"
 import Page from "./page/page.component"
 import { IActionsOrStores, Store } from "./stores"
 
-// 所有插件
-const plugins: IPlugin[] = []
+// 所有内置插件
+const builtInPlugins: IPlugin[] = []
 
 const context = require.context("./plugins", true, /index\.(tsx|js)$/)
 context.keys().forEach((key: string) => {
-    plugins.push(context(key).default)
+    builtInPlugins.push(context(key).default)
 })
 
 export default class GaeaEditor extends React.Component<Props, State> {
@@ -22,7 +22,7 @@ export default class GaeaEditor extends React.Component<Props, State> {
 
     public componentWillMount() {
         // 收集插件, 后续用来在不同地方展示
-        plugins.concat(this.props.plugins).forEach((plugin) => {
+        builtInPlugins.concat(this.props.plugins).forEach((plugin) => {
             this.stores.getStore().actions.ApplicationAction.addPlugin(plugin)
 
             // 注入插件数据流

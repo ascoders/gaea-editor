@@ -43,7 +43,7 @@ declare interface IGaeaSetting {
     /**
      * Edit infos
      */
-    editor?: Array<string | IEditor>
+    editors?: Array<string | IEditor>
     /**
      * Is in preview mode
      */
@@ -70,14 +70,20 @@ declare interface IEditor {
     field: string
     /**
      * Which Editor want to show?
-     * Basic type like `text` `number`, or custom editor like `layout`
+     * Basic type like `string` `number`, or custom editor like `layout`
      */
     type: string
     /**
      * Show label
      */
     label: string
+    /**
+     * 当类型为非普通类型时，允许添加额外配置
+     */
+    editors?: IEditorOptionArray | any
 }
+
+declare type IEditorOptionArray = IEditor[]
 
 declare interface IPage {
     /**

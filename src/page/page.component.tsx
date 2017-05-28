@@ -29,19 +29,19 @@ export default class Page extends React.Component<Props, State> {
                     <Styled.NavbarContainer
                         style={{ height: this.props.stores.ApplicationStore.navbarHeight }}>
                         <Styled.NavbarContainerLeft>
-                            {this.props.actions.ApplicationAction.loadingPluginByPosition("navbarLeft")}
+                            {this.props.actions.ApplicationAction.loadPluginByPosition("navbarLeft")}
                         </Styled.NavbarContainerLeft>
                         <Styled.NavbarContainerRight>
-                            {this.props.actions.ApplicationAction.loadingPluginByPosition("navbarRight")}
+                            {this.props.actions.ApplicationAction.loadPluginByPosition("navbarRight")}
                         </Styled.NavbarContainerRight>
                     </Styled.NavbarContainer>
                     <Styled.ViewportContainer>
                         <Styled.ViewportContainerLeft theme={{ hidden: this.props.stores.ApplicationStore.isPreview }}>
                             <Styled.ViewportContainerLeftTop>
-                                {this.props.actions.ApplicationAction.loadingPluginByPosition("leftBarTop")}
+                                {this.props.actions.ApplicationAction.loadPluginByPosition("leftBarTop")}
                             </Styled.ViewportContainerLeftTop>
                             <Styled.ViewportContainerLeftBottom>
-                                {this.props.actions.ApplicationAction.loadingPluginByPosition("leftBarBottom")}
+                                {this.props.actions.ApplicationAction.loadPluginByPosition("leftBarBottom")}
                             </Styled.ViewportContainerLeftBottom>
                         </Styled.ViewportContainerLeft>
 
@@ -51,10 +51,10 @@ export default class Page extends React.Component<Props, State> {
 
                             <Styled.ToolsContainer theme={{ fullScreen: this.props.stores.ApplicationStore.rightTool }}>
                                 <Styled.ToolsContainerLeft>
-                                    {this.props.actions.ApplicationAction.loadingPluginByPosition(`toolContainerLeft${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.leftTool))}`)}
+                                    {this.props.actions.ApplicationAction.loadPluginByPosition(`toolContainerLeft${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.leftTool))}`)}
                                 </Styled.ToolsContainerLeft>
                                 <Styled.ToolsContainerRight theme={{ show: this.props.stores.ApplicationStore.rightTool }}>
-                                    {this.props.actions.ApplicationAction.loadingPluginByPosition(`toolContainerRight${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.rightTool))}`)}
+                                    {this.props.actions.ApplicationAction.loadPluginByPosition(`toolContainerRight${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.rightTool))}`)}
                                 </Styled.ToolsContainerRight>
                             </Styled.ToolsContainer>
 
@@ -62,7 +62,7 @@ export default class Page extends React.Component<Props, State> {
                                 theme={{ hidden: this.props.stores.ApplicationStore.rightTool }}
                                 style={Object.assign({}, this.props.stores.ApplicationStore.viewportStyle, { display: this.props.stores.ApplicationStore.isPreview ? "none" : null })}>
                                 <Viewport />
-                                {this.props.actions.ApplicationAction.loadingPluginByPosition("viewport")}
+                                {this.props.actions.ApplicationAction.loadPluginByPosition("viewport")}
                             </Styled.ViewportContainerBox>
 
                             {this.props.stores.ApplicationStore.isPreview &&
@@ -70,7 +70,7 @@ export default class Page extends React.Component<Props, State> {
                                     theme={{ hidden: this.props.stores.ApplicationStore.rightTool }}
                                     style={Object.assign({}, this.props.stores.ApplicationStore.viewportStyle)}>
                                     <Render value={this.props.stores.ViewportStore.currentFullInformation} componentClasses={this.props.componentClasses} />
-                                    {this.props.actions.ApplicationAction.loadingPluginByPosition("preview")}
+                                    {this.props.actions.ApplicationAction.loadPluginByPosition("preview")}
                                 </Styled.PreviewContainer>
                             }
 
@@ -78,12 +78,12 @@ export default class Page extends React.Component<Props, State> {
                     </Styled.ViewportContainer>
 
                     <Styled.FooterContainer>
-                        {this.props.actions.ApplicationAction.loadingPluginByPosition("bottomBar")}
+                        {this.props.actions.ApplicationAction.loadPluginByPosition("bottomBar")}
                     </Styled.FooterContainer>
                 </Styled.LeftContainer>
 
                 <Styled.RightContainer theme={{ hidden: this.props.stores.ApplicationStore.isPreview }}>
-                    {this.props.actions.ApplicationAction.loadingPluginByPosition("mainTool")}
+                    {this.props.actions.ApplicationAction.loadPluginByPosition("mainTool")}
                 </Styled.RightContainer>
 
                 <Modal show={this.props.stores.ApplicationStore.isShowModal}>

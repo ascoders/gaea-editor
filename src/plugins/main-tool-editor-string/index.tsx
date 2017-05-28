@@ -7,7 +7,7 @@ import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
 @Connect
-class MainToolEditorText extends React.Component<Props, State> {
+class MainToolEditorString extends React.Component<Props, State> {
   public static defaultProps = new Props()
   public state = new State()
 
@@ -21,31 +21,34 @@ class MainToolEditorText extends React.Component<Props, State> {
    */
   private instanceInfo: InstanceInfo
 
-  public handleChange = (value: string) => {
-    this.props.actions.ViewportAction.setInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.editor.field, value)
-  }
-
   public render() {
     if (!this.props.stores.ViewportStore.instances.has(this.props.stores.ViewportStore.currentEditInstanceKey)) {
       return null
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(this.props.stores.ViewportStore.currentEditInstanceKey)
-
     this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey)
+
+    let currentValue: string = this.props.actions.ViewportAction.getInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.realField)
+
+    currentValue = currentValue ? currentValue.toString() : ""
 
     return (
       <Styled.Container>
         <Styled.Label>
           {this.props.editor.label}
         </Styled.Label>
-        <Input value={this.props.actions.ViewportAction.getInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.editor.field)} onChange={this.handleChange} />
+        <Input value={currentValue} onChange={this.handleChange} />
       </Styled.Container>
     )
+  }
+
+  private handleChange = (value: string) => {
+    this.props.actions.ViewportAction.setInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.realField, value)
   }
 }
 
 export default {
-  position: "mainToolEditorText",
-  class: MainToolEditorText
+  position: "mainToolEditorString",
+  class: MainToolEditorString
 }

@@ -55,7 +55,7 @@ class MainToolEditor extends React.Component<Props, State> {
     // 优先从 preGaeaKey 取配置，因为可能是一个预设组件
     this.setting = this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo)
 
-    if (!this.setting || !this.setting.editor || this.setting.editor.length === 0) {
+    if (!this.setting || !this.setting.editors || this.setting.editors.length === 0) {
       return (
         <Styled.EmptyContainer>
           <Styled.EmptyTitle>
@@ -81,39 +81,12 @@ class MainToolEditor extends React.Component<Props, State> {
       )
     }
 
-    const EditorFields = this.setting.editor.map((editor, index) => {
-      if (typeof editor === "string") {
-        return (
-          <Styled.TabTitle key={index}>{editor}</Styled.TabTitle>
-        )
-      } else {
-        return (
-          <div key={index}>
-            {this.props.actions.ApplicationAction.loadingPluginByPosition(`mainToolEditor${_.upperFirst(_.camelCase(editor.type))}`, {
-              editor
-            })}
-          </div>
-        )
-      }
-    })
-
     return (
       <Styled.Container>
-        <Styled.ComponentName>
-          <span>{this.setting.name}</span>
-          <Styled.CloseButton onClick={this.handleClose}>
-            <Icon type="close" size={15} />
-          </Styled.CloseButton>
-        </Styled.ComponentName>
-        {EditorFields}
-
-        {this.props.actions.ApplicationAction.loadingPluginByPosition("mainToolEditorAddon")}
+        {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditorManager")}
+        {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditorAddon")}
       </Styled.Container>
     )
-  }
-
-  private handleClose = () => {
-    this.props.actions.ViewportAction.setCurrentEditInstanceKey(null)
   }
 }
 

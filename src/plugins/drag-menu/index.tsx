@@ -33,7 +33,7 @@ class DragMenu extends React.Component<Props, State> {
           {this.getList()}
         </Styled.ListContainer>
 
-        {this.props.actions.ApplicationAction.loadingPluginByPosition("toolContainerDragMenuList")}
+        {this.props.actions.ApplicationAction.loadPluginByPosition("toolContainerDragMenuList")}
       </Styled.Container>
     )
   }

@@ -30,15 +30,7 @@ export const Container = styled.div`
   flex-direction: column;
   flex-grow: 1;
   background-color: whitesmoke;
-`
-
-export const ComponentName = styled.div`
-  display: flex;
-  padding: 7px 10px;
-  font-size: 14px;
-  color: #666;
-  font-weight: bold;
-  border-bottom: 1px solid #ddd;
+  overflow-y: auto;
 `
 
 export const TabTitle = styled.div`
@@ -46,15 +38,4 @@ export const TabTitle = styled.div`
   font-size: 13px;
   color: #666;
   background-color: #eee;
-`
-
-export const CloseButton = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  cursor: pointer;
-  fill: #999;
-  &:hover {
-    fill: #333;
-  }
 `

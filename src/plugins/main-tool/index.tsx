@@ -33,10 +33,10 @@ class MainTool extends React.Component<Props, State> {
       <Styled.Container>
         <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
           <TabPanel tab="编辑" activeKey="editor">
-            {this.props.actions.ApplicationAction.loadingPluginByPosition("mainToolEditor")}
+            {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditor")}
           </TabPanel>
           <TabPanel tab="树图" activeKey="tree">
-            {this.props.actions.ApplicationAction.loadingPluginByPosition("mainToolTree")}
+            {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolTree")}
           </TabPanel>
         </Tabs>
       </Styled.Container>

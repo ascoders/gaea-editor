@@ -41,7 +41,7 @@ class PageAddPage extends React.Component<Props, State> {
             </span>
             {this.props.stores.ApplicationStore.currentCreatedPageKey !== this.props.stores.ApplicationStore.currentEditPageKey && !this.pageInfo.isHomePage && this.props.stores.ApplicationStore.currentViewportPageKey !== this.props.stores.ApplicationStore.currentEditPageKey &&
               < Styled.RemoveButtonContainer onClick={this.handleRemove}>
-                <Icon type="remove" size={16} />
+                <Icon type="trash" size={16} />
               </Styled.RemoveButtonContainer>
             }
           </Styled.TitleLeftContainer>

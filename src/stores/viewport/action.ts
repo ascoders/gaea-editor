@@ -198,7 +198,7 @@ export default class ViewportAction {
      * 获得实例 props 属性，如果没有设置，选择 defaultProps 中属性
      * 辅助方法，在编辑器 render 函数中调用，因此没有使用 @Action, 为了数据追踪
      */
-    public getInstanceProps(instanceKey: string, key: string) {
+    public getInstanceProps(instanceKey: string, key: string): any {
         const instance = this.store.instances.get(instanceKey)
         const instanceClass = this.applicationStore.componentClasses.get(instance.gaeaKey)
 
@@ -206,9 +206,9 @@ export default class ViewportAction {
 
         // 如果不存在，选择 defaultProps 中的属性
         if (dataResult === undefined) {
-            return _.get(instanceClass.defaultProps, key) ? _.get(instanceClass.defaultProps, key).toString() : ""
+            return _.get(instanceClass.defaultProps, key)
         } else {
-            return dataResult.toString()
+            return dataResult
         }
     }
 
