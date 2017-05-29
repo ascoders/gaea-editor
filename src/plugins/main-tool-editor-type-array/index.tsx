@@ -58,7 +58,7 @@ class MainToolEditorText extends React.Component<Props, State> {
       <Styled.Container>
         <Styled.Label>
           <span>{this.props.editor.label}</span>
-          <Tooltip title="尾部新增一项" position="right">
+          <Tooltip title="新增一项" position="right">
             <Styled.AddButton onClick={this.handleAdd}>
               <Icon type="add" size={14} />
             </Styled.AddButton>
@@ -95,6 +95,6 @@ class MainToolEditorText extends React.Component<Props, State> {
 }
 
 export default {
-  position: "mainToolEditorArray",
+  position: "mainToolEditorTypeArray",
   class: MainToolEditorText
 }

@@ -10,6 +10,7 @@ export class Input extends React.Component<Props, State> {
   public render(): any {
     return (
       <Styled.Input
+        style={this.props.style}
         theme={{
           disabled: this.props.disabled
         }}

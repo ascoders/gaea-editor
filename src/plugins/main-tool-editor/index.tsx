@@ -84,6 +84,7 @@ class MainToolEditor extends React.Component<Props, State> {
     return (
       <Styled.Container>
         {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditorManager")}
+        {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditorEvent")}
         {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditorAddon")}
       </Styled.Container>
     )

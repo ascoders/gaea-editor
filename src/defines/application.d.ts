@@ -60,6 +60,10 @@ declare interface IGaeaSetting {
      * 组件被点击时触发
      */
     onClick?: (info?: InstanceInfo) => void
+    /**
+     * 自定义事件
+     */
+    events?: ISettingEvent[]
 }
 
 declare interface IEditor {
@@ -156,4 +160,15 @@ declare interface IPreComponent {
      * Pre-setting props
      */
     props: any
+}
+
+declare interface ISettingEvent {
+    // 触发的回调函数，在 props 上名称
+    trigger: string
+    // 事件名称
+    name: string
+    data: Array<{
+        // 第 index 个参数的名称
+        name: string
+    }>
 }

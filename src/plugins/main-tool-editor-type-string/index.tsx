@@ -49,6 +49,6 @@ class MainToolEditorString extends React.Component<Props, State> {
 }
 
 export default {
-  position: "mainToolEditorString",
+  position: "mainToolEditorTypeString",
   class: MainToolEditorString
 }

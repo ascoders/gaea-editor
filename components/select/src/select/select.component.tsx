@@ -86,6 +86,7 @@ export class Select extends React.Component<typings.Props, typings.State> {
       <Tooltip type="click" title={renderChosen} showArrow={false}>
         <Input onClick={this.handleSelectClick}
           value={this.state.labelValue}
+          style={this.props.style}
            /*rightRender={this.dropIconRender.bind(this)}
         innerRender={renderChosen}*/ />
       </Tooltip>
@@ -100,7 +101,7 @@ export class Select extends React.Component<typings.Props, typings.State> {
   }
 
   // 选择栏目点击
-  private handleClick = (value: string, label: string, children?: typings.IOptions[], zIndex: number = 1) => {
+  private handleClick = (index: number, value: string, label: string, children?: typings.IOptions[], zIndex: number = 1) => {
     // 如果没有 children,说明是最后一级了
     if (!children) {
       let newValue = this.state.value
@@ -148,11 +149,11 @@ export class Select extends React.Component<typings.Props, typings.State> {
             pathArray.push(item.value)
           })
           if (typeof this.props.onChange === "function") {
-            this.props.onChange(pathArray)
+            this.props.onChange(pathArray, index)
           }
         } else {
           if (typeof this.props.onChange === "function") {
-            this.props.onChange(value)
+            this.props.onChange(value, index)
           }
         }
       })
@@ -253,7 +254,7 @@ export class Select extends React.Component<typings.Props, typings.State> {
       }
 
       return React.cloneElement(item, {
-        onClick: this.handleClick,
+        onClick: this.handleClick.bind(this, index),
         key: this.state.optionKeyPrefix + index,
         active,
         setLabelValue: this.handleSetLabelValue,
@@ -321,14 +322,14 @@ export class Select extends React.Component<typings.Props, typings.State> {
   /**
    * 根据一个 Option 元素类型返回对应ReactElement
    */
-  private getOptionItemByType = (item: typings.IOptions, key: number, activeValue: string, zIndex: number = 1): React.ReactElement<any> => {
+  private getOptionItemByType = (item: typings.IOptions, index: number, activeValue: string, zIndex: number = 1): React.ReactElement<any> => {
     if (item.groupValue) {
       // 是一个分组
-      const GroupChildren = item.children.map((eachItem, index) => {
-        return this.getOptionItemByType(eachItem, index, activeValue, zIndex)
+      const GroupChildren = item.children.map((eachItem, childIndex) => {
+        return this.getOptionItemByType(eachItem, childIndex, activeValue, zIndex)
       })
       return (
-        <OptionGroup key={this.state.optionKeyPrefix + key}
+        <OptionGroup key={this.state.optionKeyPrefix + index}
           ignoreChildren={true}
           label={item.groupValue}>{GroupChildren}</OptionGroup>
       )
@@ -341,9 +342,9 @@ export class Select extends React.Component<typings.Props, typings.State> {
     }
 
     return (
-      <Option key={this.state.optionKeyPrefix + key}
+      <Option key={this.state.optionKeyPrefix + index}
         value={item.key}
-        onClick={this.handleClick}
+        onClick={this.handleClick.bind(this, index)}
         active={active}
         zIndex={zIndex}
         optChildren={item.children}

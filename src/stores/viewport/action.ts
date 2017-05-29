@@ -549,4 +549,57 @@ export default class ViewportAction {
             }
         })
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Event Event Event Event Event Event Event Event Event Event Event Event Event Event Event Event
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 给实例新增一个初始化事件
+     */
+    @Action public instanceAddEvent(instanceKey: string) {
+        const instance = this.store.instances.get(instanceKey)
+        if (!instance) {
+            throw Error(`instanceKey: ${instanceKey} 不存在`)
+        }
+
+        // 如果事件不存在，设置为空数组
+        if (!instance.data.events) {
+            instance.data.events = []
+        }
+
+        // 为事件新增一项
+        instance.data.events.push({
+            trigger: "init",
+            action: "none"
+        })
+    }
+
+    /**
+     * 删除实例第 index 个事件
+     */
+    @Action public instanceRemoveEvent(instanceKey: string, index: number) {
+        const instance = this.store.instances.get(instanceKey)
+        if (!instance) {
+            throw Error(`instanceKey: ${instanceKey} 不存在`)
+        }
+
+        instance.data.events.splice(index, 1)
+    }
+
+    /**
+     * 设置第 index 个事件的值
+     */
+    @Action public instanceSetEvent(instanceKey: string, index: number, event: InstanceInfoEvent) {
+        const instance = this.store.instances.get(instanceKey)
+        if (!instance) {
+            throw Error(`instanceKey: ${instanceKey} 不存在`)
+        }
+
+        if (!instance.data.events || !instance.data.events[index]) {
+            throw Error(`instanceKey: ${instanceKey} 的第 ${index} 个事件不存在`)
+        }
+
+        instance.data.events[index] = event
+    }
 }

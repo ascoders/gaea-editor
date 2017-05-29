@@ -17,7 +17,13 @@ declare interface InstanceInfo {
         /**
          * Merge to props
          */
-        props?: any
+        props?: {
+            [prop: string]: any
+        }
+        /**
+         * Event data
+         */
+        events?: InstanceInfoEvent[]
     }
     /**
      * Children's instanceKey（only isContainer)
@@ -75,4 +81,43 @@ declare interface IDragInfoViewport {
  */
 declare interface IFullInformation {
     [instanceKey: string]: InstanceInfo
+}
+
+declare interface InstanceInfoEvent {
+    /**
+     * 触发
+     */
+    trigger: InstanceInfoEventTrigger
+    triggerData?: InstanceInfoEventTriggerDataCallback | InstanceInfoEventTriggerDataSubscribe | any
+    /**
+     * 动作
+     */
+    action: InstanceInfoEventAction
+    actionData?: InstanceInfoEventTriggerActionEmit | any
+}
+
+declare type InstanceInfoEventTrigger = "init" | "callback" | "subscribe"
+
+declare type InstanceInfoEventAction = "none" | "emit"
+
+declare interface InstanceInfoEventTriggerDataCallback {
+    // 触发回调的函数名，在 props 上
+    // eg: onChange
+    trigger: string
+    triggerData: Array<{
+        // 第 index 个回调参数名称
+        name: string
+    }>
+}
+
+declare interface InstanceInfoEventTriggerDataSubscribe {
+    // 订阅名称
+    name: string
+}
+
+declare interface InstanceInfoEventTriggerActionEmit {
+    // 广播名称
+    name: string
+    // 广播参数
+    data?: any
 }

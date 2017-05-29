@@ -23,9 +23,11 @@ export class Props {
   /**
    * 触发选择的回调
    */
-  public onChange?: (value?: string | string[]) => void
+  public onChange?: (value?: string | string[], index?: number) => void
   public value?: string = ""
   public defaultValue?: string = ""
+
+  public style?: React.CSSProperties = {}
 }
 
 export class State {
