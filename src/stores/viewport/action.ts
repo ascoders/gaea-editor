@@ -195,6 +195,15 @@ export default class ViewportAction {
     }
 
     /**
+     * 设置实例的 event 属性
+     */
+    @Action public setInstanceEvent(instanceKey: string, key: string, value: any) {
+        const instance = this.store.instances.get(instanceKey)
+        const instanceClass = this.applicationStore.componentClasses.get(instance.gaeaKey)
+        _.set(instance.data, `events.${key}`, value)
+    }
+
+    /**
      * 获得实例 props 属性，如果没有设置，选择 defaultProps 中属性
      * 辅助方法，在编辑器 render 函数中调用，因此没有使用 @Action, 为了数据追踪
      */
@@ -356,6 +365,21 @@ export default class ViewportAction {
         this.store.currentDragInfo = null
         this.store.currentHoverInstanceKey = null
         this.store.currentEditInstanceKey = null
+    }
+
+    /**
+     * 获取同级的所有实例
+     */
+    @Action public getSiblingInstances(instanceKey: string) {
+        const instance = this.store.instances.get(instanceKey)
+
+        if (instance.parentInstanceKey === null) {
+            return []
+        }
+
+        const parentInfo = this.store.instances.get(instance.parentInstanceKey)
+        return parentInfo.childs.map(childInstanceKey => this.store
+            .instances.get(childInstanceKey))
     }
 
     /**
@@ -550,9 +574,9 @@ export default class ViewportAction {
         })
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Event Event Event Event Event Event Event Event Event Event Event Event Event Event Event Event
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // 实例的事件机制
+    ///////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 给实例新增一个初始化事件
@@ -601,5 +625,79 @@ export default class ViewportAction {
         }
 
         instance.data.events[index] = event
+    }
+
+    /**
+     * 获取事件传入同层级的变量信息
+     * 支持：回调(callback)
+     */
+    @Action public eventGetSiblingParam(event: InstanceInfoEvent) {
+        // 只有动作是传入同层级，才会记录
+        if (event.action !== "passingSiblingNodes") {
+            return null
+        }
+
+        switch (event.trigger) {
+            case "callback":
+                const callbackData = event.triggerData as InstanceInfoEventTriggerDataCallback
+                if (!callbackData.triggerData) {
+                    return null
+                }
+                return callbackData.triggerData.map(triggerData => {
+                    return triggerData.name
+                })
+        }
+
+        return null
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // 实例的变量机制
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 判断某个 realField 是否是变量
+     * PS: realField: props 下实际路径，比如 style.users.0.name
+     */
+    @Action public instanceFieldIsVariable(instanceKey: string, realField: string) {
+        const instance = this.store.instances.get(instanceKey)
+
+        if (instance.variables && Object.keys(instance.variables).some(key => key === realField)) {
+            return true
+        }
+
+        return false
+    }
+
+    /**
+     * 启用变量模式
+     */
+    @Action public instanceEnableVariable(instanceKey: string, realField: string) {
+        const instance = this.store.instances.get(instanceKey)
+
+        if (!instance.variables) {
+            instance.variables = {}
+        }
+
+        instance.variables[realField] = null
+    }
+
+    /**
+     * 取消变量模式
+     */
+    @Action public instanceDisableVariable(instanceKey: string, realField: string) {
+        const instance = this.store.instances.get(instanceKey)
+
+        if (instance.variables && Object.keys(instance.variables).some(key => key === realField)) {
+            delete instance.variables[realField]
+        }
+    }
+
+    /**
+     * 设置变量的值
+     */
+    @Action public instanceSetVariable(instanceKey: string, realField: string, value: InstanceInfoVariable) {
+        const instance = this.store.instances.get(instanceKey)
+        instance.variables[realField] = value
     }
 }

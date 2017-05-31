@@ -26,11 +26,10 @@ export const EmptyDescription = styled.div`
 `
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
   flex-grow: 1;
   background-color: whitesmoke;
   overflow-y: auto;
+  padding-right: 5px;
 `
 
 export const TabTitle = styled.div`

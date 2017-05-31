@@ -9,8 +9,10 @@ import addFile from "../icons/add-file"
 import addFolder from "../icons/add-folder"
 import close from "../icons/close"
 import component from "../icons/component"
+import database from "../icons/database"
 import file from "../icons/file"
 import folder from "../icons/folder"
+import keybroad from "../icons/keybroad"
 import page from "../icons/page"
 import remove from "../icons/remove"
 import setting from "../icons/setting"
@@ -28,6 +30,8 @@ iconMap.set("setting", setting)
 iconMap.set("remove", remove)
 iconMap.set("trash", trash)
 iconMap.set("add", add)
+iconMap.set("keybroad", keybroad)
+iconMap.set("database", database)
 
 export class Icon extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props()

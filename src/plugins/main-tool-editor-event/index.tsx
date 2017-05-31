@@ -14,11 +14,6 @@ class MainToolEditorEvent extends React.Component<Props, State> {
   public state = new State()
 
   /**
-   * 组件的类
-   */
-  private componentClass: React.ComponentClass<IGaeaProps>
-
-  /**
    * 组件实例的信息
    */
   private instanceInfo: InstanceInfo
@@ -32,7 +27,6 @@ class MainToolEditorEvent extends React.Component<Props, State> {
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(instanceKey)
-    this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey)
 
     const Events = this.instanceInfo.data && this.instanceInfo.data.events && this.instanceInfo.data.events.map((event, index) => {
       return (

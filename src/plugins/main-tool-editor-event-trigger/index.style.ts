@@ -18,3 +18,17 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 `
+
+export const BodyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const CallbackItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  padding: 5px 0;
+  color: #666;
+`

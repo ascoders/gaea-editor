@@ -3,6 +3,7 @@ import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import Icon from "../../../components/icon/src"
+import { Input } from "../../../components/input/src"
 import { Select } from "../../../components/select/src"
 import { TabPanel, Tabs } from "../../../components/tabs/src/"
 import { Tooltip } from "../../../components/tooltip/src"
@@ -18,11 +19,6 @@ const triggerOptions = [{
 class MainToolEditorEventTrigger extends React.Component<Props, State> {
   public static defaultProps = new Props()
   public state = new State()
-
-  /**
-   * 组件的类
-   */
-  private componentClass: React.ComponentClass<IGaeaProps>
 
   /**
    * 组件实例的信息
@@ -53,7 +49,6 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(instanceKey)
-    this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey)
 
     // 当前事件数据
     this.currentEventInfo = this.instanceInfo.data.events[this.props.index]
@@ -78,9 +73,13 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
         <Styled.HeaderContainer>
           <Styled.Label>
             触发
-        </Styled.Label>
+          </Styled.Label>
           <Select options={mergedTriggerOptions} style={{ width: 70 }} value={this.currentEventInfo.trigger} onChange={this.handleChange} />
         </Styled.HeaderContainer>
+
+        <Styled.BodyContainer>
+          {this.renderTriggerBody()}
+        </Styled.BodyContainer>
       </Styled.Container>
     )
   }
@@ -90,7 +89,7 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
       const event = this.indexMapCallbackEvent.get(index)
       const triggerData: InstanceInfoEventTriggerDataCallback = {
         trigger: event.trigger,
-        triggerData: event.data
+        triggerData: event.triggerData
       }
       this.props.actions.ViewportAction.instanceSetEvent(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.index, {
         ...this.currentEventInfo,
@@ -104,6 +103,32 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
       ...this.currentEventInfo,
       trigger: value
     })
+  }
+
+  private renderTriggerBody = () => {
+    switch (this.currentEventInfo.trigger) {
+      case "callback":
+        const triggerData: InstanceInfoEventTriggerDataCallback = this.instanceInfo.data.events[this.props.index].triggerData
+
+        return triggerData.triggerData.map((callbackParam, index) => {
+          return (
+            <Styled.CallbackItem key={index}>
+              <span>提供</span>
+              <Input
+                style={{ width: 70, fontSize: 13, padding: "2px 5px" }}
+                value={callbackParam.name}
+                onChange={this.handleChangeCallbackName.bind(this, index)}
+              />
+            </Styled.CallbackItem>
+          )
+        })
+      default:
+        return null
+    }
+  }
+
+  private handleChangeCallbackName = (index: number, value: string) => {
+    this.props.actions.ViewportAction.setInstanceEvent(this.props.stores.ViewportStore.currentEditInstanceKey, `${this.props.index}.triggerData.triggerData.${index}.name`, value)
   }
 }
 

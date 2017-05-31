@@ -59,12 +59,12 @@ export interface IOptions {
   /**
    * 值
    */
-  key: string,
+  key?: string,
 
   /**
    * 显示字符串
    */
-  value: string,
+  value?: string,
 
   /**
    * 子元素,二层深度以上子元素表示级联

@@ -35,7 +35,31 @@ declare interface InstanceInfo {
      * Root component's parentInstanceKey is null
      */
     parentInstanceKey: string
+    /**
+     * 哪些 props 字段使用的是变量
+     * eg: key: style.backgroundColor
+     */
+    variables?: {
+        [realField: string]: InstanceInfoVariable
+    }
 }
+
+/**
+ * 编辑字段使用变量的描述
+ */
+declare interface InstanceInfoVariable {
+    /**
+     * 什么类型，比如从：全局、url参数、当前层级
+     */
+    type: InstanceInfoVariableType
+    /**
+     * 取值的唯一 key
+     * 之所以不用 name，因为可能被修改
+     */
+    key: string
+}
+
+declare type InstanceInfoVariableType = "global" | "urlParam" | "sibling"
 
 declare interface IDragInfo {
     /**
@@ -98,7 +122,7 @@ declare interface InstanceInfoEvent {
 
 declare type InstanceInfoEventTrigger = "init" | "callback" | "subscribe"
 
-declare type InstanceInfoEventAction = "none" | "emit"
+declare type InstanceInfoEventAction = "none" | "emit" | "passingSiblingNodes"
 
 declare interface InstanceInfoEventTriggerDataCallback {
     // 触发回调的函数名，在 props 上

@@ -62,6 +62,7 @@ declare interface IGaeaSetting {
     onClick?: (info?: InstanceInfo) => void
     /**
      * 自定义事件
+     * 组件设置的事件，只支持回调事件
      */
     events?: ISettingEvent[]
 }
@@ -167,7 +168,7 @@ declare interface ISettingEvent {
     trigger: string
     // 事件名称
     name: string
-    data: Array<{
+    triggerData: Array<{
         // 第 index 个参数的名称
         name: string
     }>

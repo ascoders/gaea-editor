@@ -320,7 +320,7 @@ export class Select extends React.Component<typings.Props, typings.State> {
   }
 
   /**
-   * 根据一个 Option 元素类型返回对应ReactElement
+   * 根据一个 Option 元素类型返回对应 ReactElement
    */
   private getOptionItemByType = (item: typings.IOptions, index: number, activeValue: string, zIndex: number = 1): React.ReactElement<any> => {
     if (item.groupValue) {

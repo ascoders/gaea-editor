@@ -12,6 +12,9 @@ import { Props, State } from "./index.type"
 const actionOptions = [{
   key: "none",
   value: "无"
+}, {
+  key: "passingSiblingNodes",
+  value: "传给同级"
 }]
 
 @Connect
@@ -20,14 +23,14 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
   public state = new State()
 
   /**
-   * 组件的类
-   */
-  private componentClass: React.ComponentClass<IGaeaProps>
-
-  /**
    * 组件实例的信息
    */
   private instanceInfo: InstanceInfo
+
+  /**
+   * 当前事件数据
+   */
+  private currentEventInfo: InstanceInfoEvent = null
 
   public render() {
     // 当前编辑组件的 key
@@ -38,11 +41,10 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(instanceKey)
-    this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey)
 
-    const eventInfo = this.instanceInfo.data.events[this.props.index]
+    this.currentEventInfo = this.instanceInfo.data.events[this.props.index]
 
-    if (!eventInfo) {
+    if (!this.currentEventInfo) {
       return null
     }
 
@@ -52,10 +54,22 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
           <Styled.Label>
             动作
         </Styled.Label>
-          <Select options={actionOptions} style={{ width: 70 }} value={eventInfo.action} />
+          <Select
+            options={actionOptions}
+            style={{ width: 70 }}
+            value={this.currentEventInfo.action}
+            onChange={this.handleChangeAction}
+          />
         </Styled.HeaderContainer>
       </Styled.Container>
     )
+  }
+
+  private handleChangeAction = (value: InstanceInfoEventAction) => {
+    this.props.actions.ViewportAction.instanceSetEvent(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.index, {
+      ...this.currentEventInfo,
+      action: value
+    })
   }
 }
 

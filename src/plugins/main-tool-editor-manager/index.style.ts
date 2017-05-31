@@ -24,5 +24,27 @@ export const TabTitle = styled.div`
 `
 
 export const EditorContainer = styled.div`
+  position: relative;
+`
 
+export const Variable = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: -5px;
+  top: 0;
+  width: 30px;
+  height: 20px;
+  background-color: #eee;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  border-bottom-left-radius: 5px;
+  cursor: pointer;
+  fill: #666;
+  &:hover {
+    background-color: white;
+    fill: #333;
+  }
 `
