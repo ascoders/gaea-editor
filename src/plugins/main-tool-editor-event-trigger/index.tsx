@@ -89,7 +89,7 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
       const event = this.indexMapCallbackEvent.get(index)
       const triggerData: InstanceInfoEventTriggerDataCallback = {
         trigger: event.trigger,
-        triggerData: event.triggerData
+        triggerData: _.cloneDeep(event.triggerData)
       }
       this.props.actions.ViewportAction.instanceSetEvent(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.index, {
         ...this.currentEventInfo,
