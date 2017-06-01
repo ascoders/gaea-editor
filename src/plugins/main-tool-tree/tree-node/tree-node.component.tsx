@@ -24,10 +24,16 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
    */
   private health = 1
 
+  /**
+   * 当前实例设置信息
+   */
+  private setting: IGaeaSetting
+
   public componentWillMount() {
     // 从 store 找到自己信息
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(this.props.instanceKey)
     this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey)
+    this.setting = this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo)
   }
 
   public componentDidMount() {
@@ -36,7 +42,7 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
     this.props.actions.TreeAction.addTreeDom(this.props.instanceKey, ReactDOM.findDOMNode(this) as HTMLElement)
 
     // 如果自己是布局元素, 给子元素绑定 sortable
-    if (this.componentClass.defaultProps.gaeaSetting.isContainer) {
+    if (this.setting.isContainer) {
       // 添加可排序拖拽
       this.props.actions.ViewportAction.registerInnerDrag(this.props.instanceKey, ReactDOM.findDOMNode(this).getElementsByClassName("childs-container")[0] as HTMLElement, "gaea-tree-container")
     }
@@ -71,7 +77,7 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
     return (
       <Styled.ItemContainer>
         <div className="title">
-          {this.componentClass.defaultProps.gaeaSetting.name}
+          {this.setting.name}
           {eventTag}
         </div>
       </Styled.ItemContainer>
@@ -92,7 +98,7 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
     // 子元素
     let childs: Array<React.ReactElement<any>> = null
 
-    if (this.componentClass.defaultProps.gaeaSetting.isContainer && this.instanceInfo.childs) {
+    if (this.setting.isContainer && this.instanceInfo.childs) {
       childs = this.instanceInfo.childs.map(childKey => {
         return (
           <ConnectedCustomTreeNode key={childKey}

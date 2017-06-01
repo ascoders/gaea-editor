@@ -21,6 +21,11 @@ export class Select extends React.Component<typings.Props, typings.State> {
    */
   private firstLabelValue: string
 
+  /**
+   * 输入框宽度
+   */
+  private inputWidth: number = 0
+
   constructor(props: any) {
     super(props)
   }
@@ -83,12 +88,11 @@ export class Select extends React.Component<typings.Props, typings.State> {
     }
 
     return (
-      <Tooltip type="click" title={renderChosen} showArrow={false}>
+      <Tooltip type="click" title={renderChosen} showArrow={false} uniformWidth={true}>
         <Input onClick={this.handleSelectClick}
           value={this.state.labelValue}
           style={this.props.style}
-           /*rightRender={this.dropIconRender.bind(this)}
-        innerRender={renderChosen}*/ />
+        />
       </Tooltip>
     )
   }

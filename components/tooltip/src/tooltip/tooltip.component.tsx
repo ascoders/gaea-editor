@@ -131,22 +131,25 @@ export class Tooltip extends React.Component<typings.Props, typings.State> {
    * 根据位置计算 left top
    */
   private setPosition = (toolTipStyle: React.CSSProperties, position: string) => {
+    // 预留边距
+    const space = this.props.showArrow ? 7 : 0
+
     switch (position) {
       case "left":
-        toolTipStyle.left = this.state.childrenLeft - this.state.tooltipWidth - 7
+        toolTipStyle.left = this.state.childrenLeft - this.state.tooltipWidth - space
         toolTipStyle.top = this.state.childrenTop - (this.state.tooltipHeight / 2 - this.state.childrenHeight / 2)
         break
       case "top":
         toolTipStyle.left = this.state.childrenLeft + this.state.childrenWidth / 2 - this.state.tooltipWidth / 2
-        toolTipStyle.top = this.state.childrenTop - this.state.tooltipHeight - 7
+        toolTipStyle.top = this.state.childrenTop - this.state.tooltipHeight - space
         break
       case "right":
-        toolTipStyle.left = this.state.childrenLeft + this.state.childrenWidth + 7
+        toolTipStyle.left = this.state.childrenLeft + this.state.childrenWidth + space
         toolTipStyle.top = this.state.childrenTop - (this.state.tooltipHeight / 2 - this.state.childrenHeight / 2)
         break
       case "bottom":
         toolTipStyle.left = this.state.childrenLeft + this.state.childrenWidth / 2 - this.state.tooltipWidth / 2
-        toolTipStyle.top = this.state.childrenTop + this.state.childrenHeight + 7
+        toolTipStyle.top = this.state.childrenTop + this.state.childrenHeight + space
         break
     }
   }
@@ -155,10 +158,29 @@ export class Tooltip extends React.Component<typings.Props, typings.State> {
    * 渲染 tooltip 内部的内容
    */
   private renderTooltip() {
-    const toolTipStyle: React.CSSProperties = {
+    const toolTipStyle: React.CSSProperties = Object.assign({}, this.props.style, {
       zIndex: this.props.zIndex,
       backgroundColor: this.props.showArrow ? "transparent" : null
+    })
+
+    // 是否与子元素同高、同宽
+    if (this.props.uniformWidth) {
+      toolTipStyle.width = this.state.childrenWidth
+      if (this.state.tooltipWidth !== toolTipStyle.width) {
+        this.setState({
+          tooltipWidth: toolTipStyle.width
+        })
+      }
     }
+    if (this.props.uniformHeight) {
+      toolTipStyle.height = this.state.childrenHeight
+      if (this.state.tooltipHeight !== toolTipStyle.height) {
+        this.setState({
+          tooltipHeight: toolTipStyle.height
+        })
+      }
+    }
+
     let position = this.props.position
     this.setPosition(toolTipStyle, position)
 

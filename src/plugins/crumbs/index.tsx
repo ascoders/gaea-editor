@@ -8,18 +8,6 @@ class Crumbs extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props()
   public state = new typings.State()
 
-  public handleClick(instanceKey: string) {
-    this.props.actions.ViewportAction.setCurrentEditInstanceKey(instanceKey)
-  }
-
-  public handleHover(instanceKey: string) {
-    this.props.actions.ViewportAction.setCurrentHoverInstanceKey(instanceKey)
-  }
-
-  public handleMouseLeave = () => {
-    this.props.actions.ViewportAction.setCurrentHoverInstanceKey(null)
-  }
-
   public render() {
     let childs: Array<React.ReactElement<any>>
 
@@ -28,11 +16,13 @@ class Crumbs extends React.Component<typings.Props, typings.State> {
       childs = this.props.actions.ViewportAction.getInstancePath(this.props.stores.ViewportStore.currentEditInstanceKey).map((instanceKey, index) => {
         const instance = this.props.stores.ViewportStore.instances.get(instanceKey)
         const componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(instance.gaeaKey)
+        const setting = this.props.actions.ApplicationAction.getSettingByInstance(instance)
+
         return (
           <Styled.FooterItem onClick={this.handleClick.bind(this, instanceKey)}
             onMouseOver={this.handleHover.bind(this, instanceKey)}
             key={index}>
-            {componentClass.defaultProps.gaeaSetting.name}
+            {setting.name}
 
             <Styled.rightIconContainer>
               <Styled.rightIcon />
@@ -49,6 +39,18 @@ class Crumbs extends React.Component<typings.Props, typings.State> {
         </Styled.AutoWidthContainer>
       </Styled.Container>
     )
+  }
+
+  private handleClick(instanceKey: string) {
+    this.props.actions.ViewportAction.setCurrentEditInstanceKey(instanceKey)
+  }
+
+  private handleHover(instanceKey: string) {
+    this.props.actions.ViewportAction.setCurrentHoverInstanceKey(instanceKey)
+  }
+
+  private handleMouseLeave = () => {
+    this.props.actions.ViewportAction.setCurrentHoverInstanceKey(null)
   }
 }
 

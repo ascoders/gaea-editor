@@ -41,6 +41,21 @@ export class Props {
    * 是否显示箭头
    */
   public showArrow?: boolean = true
+
+  /**
+   * 弹出层
+   */
+  public style?: React.CSSProperties = {}
+
+  /**
+   * 是否与修饰元素宽度一致
+   */
+  public uniformWidth?: boolean = false
+
+  /**
+   * 是否与修饰元素高度一致
+   */
+  public uniformHeight?: boolean = false
 }
 
 export class State {

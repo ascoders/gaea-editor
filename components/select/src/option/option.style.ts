@@ -1,14 +1,15 @@
 import styled, { css, injectGlobal } from "styled-components"
 
 const active = css`
-  background: #f8f9fb;
+  background: white;
+  color: black;
 `
 
 export const Container = styled.div`
   padding: 5px 10px;
   cursor: pointer;
   &:hover:not(.disabled), &.active {
-    background: #f8f9fb;
+    ${active}
   }
   ${(props: any) => props.theme.active && active}
   ${(props: any) => props.theme.disabled && `

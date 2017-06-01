@@ -29,8 +29,14 @@ export default class ApplicationStore {
     public componentClasses = new Map<string, React.ComponentClass<IGaeaProps>>()
     /**
      * 所有组件的编辑属性 GaeaProps
+     * key: gaeaKey | preGaeaKey
      */
     public componentSetting = new Map<string, IGaeaSetting>()
+    /**
+     * 所有组件 defaultProps
+     * key: gaeaKey | preGaeaKey
+     */
+    public componentDefaultProps = new Map<string, IDefaultProps>()
     /**
      * Viewport's initialization data
      */

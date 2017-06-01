@@ -62,7 +62,7 @@ class DragMenu extends React.Component<Props, State> {
           <Styled.Component
             key={"standard" + index}
             data-gaea-key={setting.key}
-          >{componentClass.defaultProps.gaeaSetting.name}</Styled.Component>
+          >{setting.name}</Styled.Component>
         )
       })
       .concat(
@@ -86,7 +86,7 @@ class DragMenu extends React.Component<Props, State> {
               return (
                 <Styled.Component
                   key={"preSetting" + index + "&" + childIndex}
-                  data-gaea-key={componentClass.defaultProps.gaeaSetting.key}
+                  data-gaea-key={setting.key}
                   data-props={JSON.stringify(preComponentInfo.props)}
                   data-pre-gaea-key={preComponentInfo.key}
                 >{setting.name}</Styled.Component>

@@ -1,7 +1,10 @@
 import styled from "styled-components"
 
 export const Container = styled.div`
-  padding: 10px;
+
+`
+
+export const GroupTitle = styled.div`
+  padding: 5px 0;
   font-weight: bold;
-  background: whitesmoke;
 `

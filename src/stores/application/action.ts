@@ -43,17 +43,32 @@ export default class ApplicationAction {
 
         // 添加这个组件的编辑配置
         this.setComponentSetting(gaeaKey, componentClass.defaultProps.gaeaSetting)
+
+        // 添加这个组件的 defaultProps
+        this.setComponentDefaultProps(gaeaKey, componentClass.defaultProps)
     }
 
     /**
      * 添加组件的配置信息
      */
-    @Action public setComponentSetting(gaeaKey: string, setting: IGaeaSetting) {
-        if (!this.store.componentSetting.has(gaeaKey)) {
-            this.store.componentSetting.set(gaeaKey, setting)
+    @Action public setComponentSetting(gaeaOrPreKey: string, setting: IGaeaSetting) {
+        if (!this.store.componentSetting.has(gaeaOrPreKey)) {
+            this.store.componentSetting.set(gaeaOrPreKey, setting)
         } else {
-            const prevSetting = this.store.componentSetting.get(gaeaKey)
+            const prevSetting = this.store.componentSetting.get(gaeaOrPreKey)
             Object.assign(prevSetting, setting)
+        }
+    }
+
+    /**
+     * 添加组件 defaultProps
+     */
+    @Action public setComponentDefaultProps(gaeaOrPreKey: string, defaultProps: IDefaultProps) {
+        if (!this.store.componentDefaultProps.has(gaeaOrPreKey)) {
+            this.store.componentDefaultProps.set(gaeaOrPreKey, defaultProps)
+        } else {
+            const prevDefaultProps = this.store.componentDefaultProps.get(gaeaOrPreKey)
+            Object.assign(prevDefaultProps, defaultProps)
         }
     }
 
@@ -386,6 +401,17 @@ export default class ApplicationAction {
             return this.store.componentSetting.get(instance.preGaeaKey)
         } else {
             return this.store.componentSetting.get(instance.gaeaKey)
+        }
+    }
+
+    /**
+     * 根据 instanceKey 获取 defaultProps
+     */
+    @Action public getDefaultPropsByInstance(instance: InstanceInfo) {
+        if (this.store.componentDefaultProps.has(instance.preGaeaKey)) {
+            return this.store.componentDefaultProps.get(instance.preGaeaKey)
+        } else {
+            return this.store.componentDefaultProps.get(instance.gaeaKey)
         }
     }
 

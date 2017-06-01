@@ -39,9 +39,21 @@ class EditHelper extends React.Component<Props, State> {
      */
     private domInstance: HTMLElement
 
+    /**
+     * 当前实例设置信息
+     */
+    private setting: IGaeaSetting
+
+    /**
+     * 当前实例默认配置
+     */
+    private defaultProps: IDefaultProps
+
     public componentWillMount() {
         this.instanceInfo = this.props.stores.ViewportStore.instances.get(this.props.instanceKey)
         this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey)
+        this.setting = this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo)
+        this.defaultProps = this.props.actions.ApplicationAction.getDefaultPropsByInstance(this.instanceInfo)
     }
 
     public componentDidMount() {
@@ -59,7 +71,7 @@ class EditHelper extends React.Component<Props, State> {
         this.props.actions.ViewportAction.setDomInstance(this.props.instanceKey, this.domInstance)
 
         // 如果自己是布局元素, 给子元素绑定 sortable
-        if (this.componentClass.defaultProps.gaeaSetting.isContainer) {
+        if (this.setting.isContainer) {
             // 添加可排序拖拽
             this.props.actions.ViewportAction.registerInnerDrag(this.props.instanceKey, this.domInstance, {
                 draggable: ".gaea-draggable"
@@ -105,7 +117,7 @@ class EditHelper extends React.Component<Props, State> {
      * 如果是布局容器，且不是最外层元素，添加 gaea-layout class，用于添加布局样式
      */
     public setLayoutClassIfCanDragIn = () => {
-        if (this.componentClass.defaultProps.gaeaSetting.isContainer && this.instanceInfo.parentInstanceKey !== null) {
+        if (this.setting.isContainer && this.instanceInfo.parentInstanceKey !== null) {
             addClass(this.domInstance, "gaea-container")
         }
     }
@@ -115,7 +127,7 @@ class EditHelper extends React.Component<Props, State> {
         let childs: Array<React.ReactElement<any>> = null
 
         // 布局元素可以有子元素
-        if (this.componentClass.defaultProps.gaeaSetting.isContainer) {
+        if (this.setting.isContainer) {
             childs = this.instanceInfo.childs.map(childKey => {
                 return (
                     <ConnectedEditHelper key={childKey}
@@ -124,7 +136,7 @@ class EditHelper extends React.Component<Props, State> {
             })
         }
 
-        const wrapProps: any = _.merge({}, this.componentClass.defaultProps, Object.assign({}, this.instanceInfo.data.props), {
+        const wrapProps: any = _.merge({}, this.defaultProps, Object.assign({}, this.instanceInfo.data.props), {
             ref: (ref: React.ReactInstance) => {
                 this.wrappedInstance = ref
             }

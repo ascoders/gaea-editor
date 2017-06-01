@@ -179,8 +179,10 @@ export default class ViewportAction {
         const instance = this.store.instances.get(instanceKey)
         const instanceClass = this.applicationStore.componentClasses.get(instance.gaeaKey)
 
+        const defaultProps = this.applicationAction.getDefaultPropsByInstance(instance)
+
         // 如果和 defaultProps 相同，就把字段置空
-        if (value === _.get(instanceClass.defaultProps, key)) {
+        if (value === _.get(defaultProps, key)) {
             delete instance.data.props[key]
 
             // 强制刷新组件
@@ -210,12 +212,13 @@ export default class ViewportAction {
     public getInstanceProps(instanceKey: string, key: string): any {
         const instance = this.store.instances.get(instanceKey)
         const instanceClass = this.applicationStore.componentClasses.get(instance.gaeaKey)
+        const defaultProps = this.applicationAction.getDefaultPropsByInstance(instance)
 
         const dataResult = _.get(instance.data, `props.${key}`)
 
         // 如果不存在，选择 defaultProps 中的属性
         if (dataResult === undefined) {
-            return _.get(instanceClass.defaultProps, key)
+            return _.get(defaultProps, key)
         } else {
             return dataResult
         }

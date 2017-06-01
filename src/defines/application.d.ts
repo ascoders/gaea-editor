@@ -67,6 +67,10 @@ declare interface IGaeaSetting {
     events?: ISettingEvent[]
 }
 
+declare interface IDefaultProps {
+    [key: string]: any
+}
+
 declare interface IEditor {
     /**
      * Which field to control?

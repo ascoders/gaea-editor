@@ -33,7 +33,7 @@ export class OptionGroup extends React.Component<typings.Props, typings.State> {
 
     return (
       <Styled.Container>
-        <div className="group-result">{this.props.label}</div>
+        <Styled.GroupTitle>{this.props.label}</Styled.GroupTitle>
         {Children}
       </Styled.Container>
     )
