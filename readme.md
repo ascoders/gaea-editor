@@ -31,4 +31,4 @@ You can add custom components, custom plugins, save callback, and read saved pro
 
 # Other
 
-- [https://github.com/ascoders/gaea-app](https://github.com/ascoders/gaea-app): Render application with routes. The value of the gaea-editor `onSave` callback is required.
+- [gaea-app](https://github.com/ascoders/gaea-app): Render application with routes. The value of the gaea-editor `onSave` callback is required.
