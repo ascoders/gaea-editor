@@ -11,7 +11,7 @@ export class Props {
   /**
    * 当保存按钮被点击时
    */
-  public onSave?: (info: string) => void
+  public onSave?: (info?: string) => void
   /**
    * 已经保存的数据
    */
