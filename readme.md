@@ -30,9 +30,9 @@ You can add custom components, custom plugins, save callback, and read saved pro
 | Props | Type | Description |
 | -------- | -------- | -------- |
 | onSave | `(info?: string) => void` | When you click the Save button, feed back to you to save the information |
-| value | string | Editor initial value, you can pass the value of the onSave callback and resume the draft |
-| componentClasses | Array<React.ComponentClass<IGaeaProps>> | React classes. Any react component is supported, but you need some configuration information to tell the editor how to edit it. TODO |
-| plugins | IPlugin[] | Advanced usage for custom editor functionality. TODO |
+| value | `string` | Editor initial value, you can pass the value of the onSave callback and resume the draft |
+| componentClasses | `Array<React.ComponentClass<IGaeaProps>>` | React classes. Any react component is supported, but you need some configuration information to tell the editor how to edit it. TODO |
+| plugins | `IPlugin[]` | Advanced usage for custom editor functionality. TODO |
 
 # Debug in localhost
 
