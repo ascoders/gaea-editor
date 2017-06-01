@@ -86,7 +86,7 @@ class DragMenu extends React.Component<Props, State> {
               return (
                 <Styled.Component
                   key={"preSetting" + index + "&" + childIndex}
-                  data-gaea-key={setting.key}
+                  data-gaea-key={componentClass.defaultProps.gaeaSetting.key}
                   data-props={JSON.stringify(preComponentInfo.props)}
                   data-pre-gaea-key={preComponentInfo.key}
                 >{setting.name}</Styled.Component>

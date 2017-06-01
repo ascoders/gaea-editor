@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "2.0.31",
+  "version": "2.0.32",
   "description": "",
   "main": "built/src/index.js",
   "types": "src/index.ts",
