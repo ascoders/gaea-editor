@@ -61,7 +61,6 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
         </Styled.Label>
           <Select
             options={actionOptions}
-            style={{ width: 70 }}
             value={this.currentEventInfo.action}
             onChange={this.handleChangeAction}
           />
@@ -94,7 +93,7 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
           <Styled.IconContainer>
             <Icon type="rightArrow" size={12} />
           </Styled.IconContainer>
-          <Input style={{ width: 70, height: 12, fontSize: 13 }} value={param.name} onChange={this.handleChangeTriggerData.bind(this, index)} />
+          <Input style={{ height: 25, fontSize: 13 }} value={param.name} onChange={this.handleChangeTriggerData.bind(this, index)} />
         </Styled.ActionSiblingContainer>
       )
     })

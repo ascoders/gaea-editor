@@ -132,7 +132,7 @@ export class Tooltip extends React.Component<typings.Props, typings.State> {
    */
   private setPosition = (toolTipStyle: React.CSSProperties, position: string) => {
     // 预留边距
-    const space = this.props.showArrow ? 7 : 0
+    const space = this.props.showArrow ? 10 : 0
 
     switch (position) {
       case "left":

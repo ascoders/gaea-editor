@@ -78,7 +78,7 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
           <Styled.Label>
             触发
           </Styled.Label>
-          <Select options={mergedTriggerOptions} style={{ width: 70 }} value={this.currentEventInfo.trigger} onChange={this.handleChange} />
+          <Select options={mergedTriggerOptions} value={this.currentEventInfo.trigger} onChange={this.handleChange} />
         </Styled.HeaderContainer>
 
         <Styled.BodyContainer>
