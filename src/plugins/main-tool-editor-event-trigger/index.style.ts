@@ -11,6 +11,7 @@ export const Label = styled.div`
   font-size: 14px;
   color: #666;
   margin-right: 5px;
+  white-space: nowrap;
 `
 
 export const HeaderContainer = styled.div`

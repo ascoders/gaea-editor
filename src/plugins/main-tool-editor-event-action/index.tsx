@@ -43,11 +43,11 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(instanceKey)
 
-    this.currentEventInfo = this.instanceInfo.data.events[this.props.index]
-
     if (!this.instanceInfo.data.events) {
       return null
     }
+
+    this.currentEventInfo = this.instanceInfo.data.events[this.props.index]
 
     if (!this.currentEventInfo) {
       return null
