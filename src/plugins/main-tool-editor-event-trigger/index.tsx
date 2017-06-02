@@ -51,6 +51,10 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(instanceKey)
 
     // 当前事件数据
+    if (!this.instanceInfo.data.events) {
+      return null
+    }
+
     this.currentEventInfo = this.instanceInfo.data.events[this.props.index]
 
     if (!this.currentEventInfo) {
@@ -87,48 +91,41 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
   private handleChange = (value: InstanceInfoEventTrigger, index: number) => {
     if (value === "callback") {
       const event = this.indexMapCallbackEvent.get(index)
-      const triggerData: InstanceInfoEventTriggerDataCallback = {
-        trigger: event.trigger,
-        triggerData: _.cloneDeep(event.triggerData)
-      }
+
       this.props.actions.ViewportAction.instanceSetEvent(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.index, {
         ...this.currentEventInfo,
         trigger: value,
-        triggerData
+        triggerData: _.cloneDeep(event),
+        actionData: {
+          data: _.cloneDeep(event.data)
+        }
       })
       return
     }
 
     this.props.actions.ViewportAction.instanceSetEvent(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.index, {
       ...this.currentEventInfo,
+      triggerData: {},
+      actionData: {},
       trigger: value
     })
   }
 
   private renderTriggerBody = () => {
-    switch (this.currentEventInfo.trigger) {
-      case "callback":
-        const triggerData: InstanceInfoEventTriggerDataCallback = this.instanceInfo.data.events[this.props.index].triggerData
+    const triggerData = this.instanceInfo.data.events[this.props.index].triggerData
 
-        return triggerData.triggerData.map((callbackParam, index) => {
-          return (
-            <Styled.CallbackItem key={index}>
-              <span>提供</span>
-              <Input
-                style={{ width: 70, fontSize: 13, padding: "2px 5px" }}
-                value={callbackParam.name}
-                onChange={this.handleChangeCallbackName.bind(this, index)}
-              />
-            </Styled.CallbackItem>
-          )
-        })
-      default:
-        return null
+    if (!triggerData || !triggerData.data) {
+      return null
     }
-  }
 
-  private handleChangeCallbackName = (index: number, value: string) => {
-    this.props.actions.ViewportAction.setInstanceEvent(this.props.stores.ViewportStore.currentEditInstanceKey, `${this.props.index}.triggerData.triggerData.${index}.name`, value)
+    return triggerData.data.map((param, index) => {
+      return (
+        <Styled.CallbackItem key={index}>
+          <span>提供</span>
+          <Styled.ParamLabel>{param.name}</Styled.ParamLabel>
+        </Styled.CallbackItem>
+      )
+    })
   }
 }
 

@@ -50,14 +50,11 @@ class MainToolEditorText extends React.Component<Props, State> {
 
     return (
       <Styled.Container>
-        <Styled.Label>
-          <span>{this.props.editor.label}</span>
-          <Tooltip title="新增一项" position="right">
-            <Styled.AddButton onClick={this.handleAdd}>
-              <Icon type="add" size={14} />
-            </Styled.AddButton>
-          </Tooltip>
-        </Styled.Label>
+        <Tooltip title="新增一项" position="right">
+          <Styled.AddButton onClick={this.handleAdd}>
+            <Icon type="add" size={14} />
+          </Styled.AddButton>
+        </Tooltip>
         <Styled.ListContainer>
           {Editors}
         </Styled.ListContainer>
@@ -70,8 +67,12 @@ class MainToolEditorText extends React.Component<Props, State> {
 
     const assignValue = Object.assign([], currentValue)
 
-    // 新增的值是空对象
-    assignValue.push({})
+    if (typeof this.props.editor.editors === "string") {
+      assignValue.push(null)
+    } else {
+      // 对象类型
+      assignValue.push({})
+    }
 
     this.props.actions.ViewportAction.setInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.realField, assignValue)
   }
@@ -81,7 +82,7 @@ class MainToolEditorText extends React.Component<Props, State> {
 
     const assignValue = Object.assign([], currentValue)
 
-    // 新增的值是空对象
+    // 将此项从数组中移除
     assignValue.splice(index, 1)
 
     this.props.actions.ViewportAction.setInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.realField, assignValue)

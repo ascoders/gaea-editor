@@ -6,8 +6,3 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 `
-
-export const Label = styled.div`
-  font-size: 14px;
-  color: #666;
-`

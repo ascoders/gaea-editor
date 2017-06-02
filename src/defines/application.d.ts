@@ -88,8 +88,10 @@ declare interface IEditor {
     label: string
     /**
      * 当类型为非普通类型时，允许添加额外配置
+     * 当其为字符串时，对数组时，表示每一项都使用一种类型编辑
+     * 当其为对象时，对数组时，表示每一项都是对象，再设定每个对象的编辑方式
      */
-    editors?: IEditorOptionArray | any
+    editors?: IEditorOptionArray | string
 }
 
 declare type IEditorOptionArray = IEditor[]
@@ -168,12 +170,19 @@ declare interface IPreComponent {
 }
 
 declare interface ISettingEvent {
-    // 触发的回调函数，在 props 上名称
-    trigger: string
-    // 事件名称
-    name: string
-    triggerData: Array<{
-        // 第 index 个参数的名称
+    /**
+     * 名称
+     */
+    name?: string
+    /**
+     * 对应 props，在 callback 时主要使用
+     */
+    field?: string
+    /**
+     * 触发提供的参数
+     */
+    data?: Array<{
+        // 第 index 个回调参数名称
         name: string
     }>
 }

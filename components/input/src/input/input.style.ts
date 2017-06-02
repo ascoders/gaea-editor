@@ -9,6 +9,7 @@ export const Input = styled.input`
   margin: 0 10px;
   background-color: #fbfbfb;
   border-radius: 3px;
+  width: 100%;
   &:focus {
     background-color: white;
     border-color: #88a1c1;

@@ -406,8 +406,9 @@ export default class ApplicationAction {
 
     /**
      * 根据 instanceKey 获取 defaultProps
+     * 辅助方法，在编辑器中调用，因此没有使用 @Action, 为了数据追踪
      */
-    @Action public getDefaultPropsByInstance(instance: InstanceInfo) {
+    public getDefaultPropsByInstance(instance: InstanceInfo) {
         if (this.store.componentDefaultProps.has(instance.preGaeaKey)) {
             return this.store.componentDefaultProps.get(instance.preGaeaKey)
         } else {

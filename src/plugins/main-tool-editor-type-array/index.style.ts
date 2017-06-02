@@ -3,32 +3,26 @@ import styled from "styled-components"
 export const Container = styled.div`
   padding: 5px 0 5px 10px;
   display: flex;
-  flex-direction: column;
-`
-
-export const Label = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-size: 14px;
-  color: #666;
-`
-
-export const ListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  border-left: 1px solid #ddd;
-  margin-top: 5px;
+  flex-grow: 1;
 `
 
 export const AddButton = styled.div`
-  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
   fill: #666;
   cursor: pointer;
   transition: color .3s;
   &:hover {
     fill: #333;
   }
+`
+
+export const ListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #ddd;
+  margin-top: 20px;
 `
 
 export const ChildContainer = styled.div`

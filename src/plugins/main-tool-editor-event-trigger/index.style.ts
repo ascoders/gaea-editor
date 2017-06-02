@@ -29,6 +29,15 @@ export const CallbackItem = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 13px;
-  padding: 5px 0;
+  padding-top: 5px;
   color: #666;
+`
+
+export const ParamLabel = styled.div`
+  color: #666;
+  border: 1px dotted #ddd;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-right: 10px;
+  background-color: #eee;
 `

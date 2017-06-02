@@ -2068,13 +2068,13 @@ fstream@^1.0.0, fstream@^1.0.10, fstream@^1.0.2:
     mkdirp ">=0.5 0"
     rimraf "2"
 
-gaea-basic-components@^1.0.15, gaea-basic-components@^1.0.3:
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/gaea-basic-components/-/gaea-basic-components-1.0.15.tgz#258454146927ad7d110d8d15ba2a7dc2ffa7b524"
+gaea-basic-components@^1.0.16, gaea-basic-components@^1.0.3:
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/gaea-basic-components/-/gaea-basic-components-1.0.16.tgz#2d30b0bcb6181d0311dd545d385697c0f329f831"
 
-gaea-render@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/gaea-render/-/gaea-render-1.0.8.tgz#8182fa884c28778fb51709bec552566f7d8c43c5"
+gaea-render@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/gaea-render/-/gaea-render-1.0.10.tgz#15f94f285656d28bdd4d1aa22edb9450de986628"
   dependencies:
     "@types/lodash" "^4.14.64"
     "@types/lz-string" "^1.3.32"

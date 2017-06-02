@@ -24,7 +24,10 @@ export const TabTitle = styled.div`
 `
 
 export const EditorContainer = styled.div`
+  display: flex;
   position: relative;
+  padding-left: 10px;
+  justify-content: space-between;
 `
 
 export const Variable = styled.div`
@@ -45,6 +48,25 @@ export const Variable = styled.div`
   fill: #666;
   &:hover {
     background-color: white;
+    fill: #333;
+  }
+`
+
+export const Label = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+  white-space: nowrap;
+`
+
+export const AddButton = styled.div`
+  margin-left: 10px;
+  fill: #666;
+  cursor: pointer;
+  transition: color .3s;
+  &:hover {
     fill: #333;
   }
 `

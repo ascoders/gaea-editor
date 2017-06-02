@@ -642,12 +642,8 @@ export default class ViewportAction {
 
         switch (event.trigger) {
             case "callback":
-                const callbackData = event.triggerData as InstanceInfoEventTriggerDataCallback
-                if (!callbackData.triggerData) {
-                    return null
-                }
-                return callbackData.triggerData.map(triggerData => {
-                    return triggerData.name
+                return event.actionData.data.map(data => {
+                    return data.name
                 })
         }
 

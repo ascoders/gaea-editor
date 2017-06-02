@@ -29,9 +29,6 @@ class MainToolEditorString extends React.Component<Props, State> {
 
     return (
       <Styled.Container>
-        <Styled.Label>
-          {this.props.editor.label}
-        </Styled.Label>
         <Input value={currentValue} onChange={this.handleChange} />
       </Styled.Container>
     )

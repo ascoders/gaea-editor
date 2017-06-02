@@ -13,8 +13,24 @@ export const Label = styled.div`
   margin-right: 5px;
 `
 
+export const BodyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
 export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`
+
+export const ActionSiblingContainer = styled.div`
+  display: flex;
+  padding-top: 5px;
+  align-items: center;
+  justify-content: space-between;
+`
+
+export const IconContainer = styled.div`
+  fill: #666;
 `

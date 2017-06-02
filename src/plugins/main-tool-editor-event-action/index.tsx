@@ -3,6 +3,7 @@ import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import Icon from "../../../components/icon/src"
+import { Input } from "../../../components/input/src"
 import { Select } from "../../../components/select/src"
 import { TabPanel, Tabs } from "../../../components/tabs/src/"
 import { Tooltip } from "../../../components/tooltip/src"
@@ -44,6 +45,10 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
 
     this.currentEventInfo = this.instanceInfo.data.events[this.props.index]
 
+    if (!this.instanceInfo.data.events) {
+      return null
+    }
+
     if (!this.currentEventInfo) {
       return null
     }
@@ -61,6 +66,10 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
             onChange={this.handleChangeAction}
           />
         </Styled.HeaderContainer>
+
+        <Styled.BodyContainer>
+          {this.renderActionBody()}
+        </Styled.BodyContainer>
       </Styled.Container>
     )
   }
@@ -70,6 +79,29 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
       ...this.currentEventInfo,
       action: value
     })
+  }
+
+  private renderActionBody = () => {
+    const actionData = this.instanceInfo.data.events[this.props.index].actionData
+
+    if (!actionData || !actionData.data) {
+      return null
+    }
+
+    return actionData.data.map((param, index) => {
+      return (
+        <Styled.ActionSiblingContainer key={index}>
+          <Styled.IconContainer>
+            <Icon type="rightArrow" size={12} />
+          </Styled.IconContainer>
+          <Input style={{ width: 70, height: 12, fontSize: 13 }} value={param.name} onChange={this.handleChangeTriggerData.bind(this, index)} />
+        </Styled.ActionSiblingContainer>
+      )
+    })
+  }
+
+  private handleChangeTriggerData = (index: number, value: string) => {
+    this.props.actions.ViewportAction.setInstanceEvent(this.props.stores.ViewportStore.currentEditInstanceKey, `${this.props.index}.actionData.data.${index}.name`, value)
   }
 }
 

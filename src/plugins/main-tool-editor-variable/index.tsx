@@ -37,10 +37,6 @@ class MainToolEditorVariable extends React.Component<Props, State> {
 
     return (
       <Styled.Container>
-        <Styled.Label>
-          {this.props.editor.label}
-        </Styled.Label>
-
         <Select
           value={value}
           options={options}

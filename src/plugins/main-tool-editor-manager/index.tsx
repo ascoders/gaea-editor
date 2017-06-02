@@ -4,6 +4,7 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import Icon from "../../../components/icon/src"
 import { TabPanel, Tabs } from "../../../components/tabs/src/"
+import { Tooltip } from "../../../components/tooltip/src"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
@@ -30,41 +31,58 @@ class MainToolEditorManager extends React.Component<Props, State> {
     // 如果没有传入 editor，就使用组件根节点的 editor
     const editors = this.props.editors || this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo).editors || []
 
-    const EditorFields = editors.map((editor, index) => {
-      if (typeof editor === "string") {
-        return (
-          <Styled.TabTitle key={index}>{editor}</Styled.TabTitle>
-        )
-      } else {
-        const realField = this.props.realField === "" ? editor.field : this.props.realField + "." + editor.field
+    let EditorFields: React.ReactNode = null
 
-        let result: React.ReactNode = null
-        const isVariable = this.props.actions.ViewportAction.instanceFieldIsVariable(this.props.stores.ViewportStore.currentEditInstanceKey, realField)
-
-        if (!isVariable) {
-          // 正常编辑
-          result = this.props.actions.ApplicationAction.loadPluginByPosition(`mainToolEditorType${_.upperFirst(_.camelCase(editor.type))}`, {
-            editor,
-            realField
-          })
+    if (typeof editors === "string") {
+      return (
+        <Styled.EditorContainer>
+          {this.props.actions.ApplicationAction.loadPluginByPosition(`mainToolEditorType${_.upperFirst(_.camelCase(editors))}`, {
+            editor: editors,
+            realField: this.props.realField
+          })}
+        </Styled.EditorContainer>
+      )
+    } else {
+      EditorFields = editors.map((editor, index) => {
+        if (typeof editor === "string") {
+          return (
+            <Styled.TabTitle key={index}>{editor}</Styled.TabTitle>
+          )
         } else {
-          // 变量模式
-          result = this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditorVariable", {
-            editor,
-            realField
-          })
-        }
+          const realField = this.props.realField === "" ? editor.field : this.props.realField + "." + editor.field
 
-        return (
-          <Styled.EditorContainer key={index}>
-            {result}
-            <Styled.Variable onClick={this.handleToggleValueType.bind(this, realField)}>
-              {isVariable ? <Icon type="database" size={14} /> : <Icon type="keybroad" />}
-            </Styled.Variable>
-          </Styled.EditorContainer>
-        )
-      }
-    })
+          let result: React.ReactNode = null
+          const isVariable = this.props.actions.ViewportAction.instanceFieldIsVariable(this.props.stores.ViewportStore.currentEditInstanceKey, realField)
+
+          if (!isVariable) {
+            // 正常编辑
+            result = this.props.actions.ApplicationAction.loadPluginByPosition(`mainToolEditorType${_.upperFirst(_.camelCase(editor.type))}`, {
+              editor,
+              realField
+            })
+          } else {
+            // 变量模式
+            result = this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditorVariable", {
+              editor,
+              realField
+            })
+          }
+
+          return (
+            <Styled.EditorContainer key={index}>
+              <Styled.Label>
+                <span>{editor.label}</span>
+              </Styled.Label>
+
+              {result}
+              <Styled.Variable onClick={this.handleToggleValueType.bind(this, realField)}>
+                {isVariable ? <Icon type="database" size={14} /> : <Icon type="keybroad" />}
+              </Styled.Variable>
+            </Styled.EditorContainer>
+          )
+        }
+      })
+    }
 
     return (
       <div>{EditorFields}</div>

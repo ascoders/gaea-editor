@@ -15,6 +15,7 @@ import folder from "../icons/folder"
 import keybroad from "../icons/keybroad"
 import page from "../icons/page"
 import remove from "../icons/remove"
+import rightArrow from "../icons/right-arrow"
 import setting from "../icons/setting"
 import trash from "../icons/trash"
 
@@ -32,6 +33,7 @@ iconMap.set("trash", trash)
 iconMap.set("add", add)
 iconMap.set("keybroad", keybroad)
 iconMap.set("database", database)
+iconMap.set("rightArrow", rightArrow)
 
 export class Icon extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props()
