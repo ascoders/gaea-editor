@@ -2,7 +2,7 @@ import { Connect } from "dynamic-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { Input } from "../../../components/input/src"
+import { Input } from "../../components/input/src"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 

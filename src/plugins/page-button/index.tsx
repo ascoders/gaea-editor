@@ -1,7 +1,7 @@
 import { Connect } from "dynamic-react"
 import * as React from "react"
-import Icon from "../../../components/icon/src"
-import { Tooltip } from "../../../components/tooltip/src"
+import Icon from "../../components/icon/src"
+import { Tooltip } from "../../components/tooltip/src"
 import { StoreProps } from "../../stores"
 import * as Styled from "./style"
 

@@ -1,8 +1,8 @@
 import { Connect } from "dynamic-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import Icon from "../../../../components/icon/src"
-import { TreeNode } from "../../../../components/tree/src"
+import Icon from "../../../components/icon/src"
+import { TreeNode } from "../../../components/tree/src"
 import * as Styled from "./tree-node.style"
 import * as typings from "./tree-node.type"
 

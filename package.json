@@ -2,8 +2,25 @@
   "name": "gaea-editor",
   "version": "2.0.36",
   "description": "",
-  "main": "built/src/index.js",
+  "main": "built/index.js",
   "types": "src/index.ts",
+  "run-react": {
+    "entrys": [
+      "src/develop-entry/index.tsx"
+    ],
+    "dlls": [
+      "react",
+      "react-dom",
+      "styled-components",
+      "dependency-inject",
+      "dynamic-react",
+      "dynamic-object",
+      "classnames",
+      "lodash",
+      "lz-string",
+      "sortablejs"
+    ]
+  },
   "scripts": {
     "start": "run-react start",
     "tslint": "tslint './src/**/*.?(ts|tsx)'",
@@ -33,7 +50,7 @@
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-stage-0": "^6.22.0",
     "pre-commit": "^1.2.2",
-    "run-react": "^2.0.1",
+    "run-react": "^2.0.3",
     "tslint": "^5.1.0",
     "typescript": "^2.1.1"
   },

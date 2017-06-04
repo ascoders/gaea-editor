@@ -16,11 +16,10 @@ You can start it quickly:
 ```typescript
 import Editor from "gaea-editor"
 
-// ...
-render() {
-    return <Editor />
-}
-// ...
+ReactDOM.render(
+    <Editor />,
+    document.getElementById("react-root")
+)
 ```
 
 # Options
@@ -34,15 +33,63 @@ You can add custom components, custom plugins, save callback, and read saved pro
 | componentClasses | `Array<React.ComponentClass<IGaeaProps>>` | React classes. Any react component is supported, but you need some configuration information to tell the editor how to edit it. TODO |
 | plugins | `IPlugin[]` | Advanced usage for custom editor functionality. TODO |
 
-# Run locally
+## Parameter: `onSave`
 
-Will automatically open the default browser.
+```typescript
+export function renderGaeaEditor() {
+    return (
+        <Editor onSave={ value => {
+            // send the value data to your server.
+        } }/>
+    )
+}
+```
+
+## Parameter: `value`
+
+The `value` came from `onSave`.
+
+```typescript
+export function renderGaeaEditor() {
+    return (
+        <Editor value={value} />
+    )
+}
+```
+
+## Parameter: `componentClasses`
+
+```typescript
+class MyInput extends React.Component {
+    render() {
+        return <input />
+    }
+}
+
+export function renderGaeaEditor() {
+    return (
+        <Editor componentClasses={[ MyInput ]}/>
+    )
+}
+```
+
+## Parameter: `plugins`
+
+TODO.
+
+# Local development run
 
 ```bash
+git clone https://github.com/ascoders/gaea-editor.git
+cd gaea-editor
 yarn
 npm start
 ```
 
-# Other
+Will automatically open the default browser.
 
-- [gaea-app](https://github.com/ascoders/gaea-app): Render application with routes. The value of the gaea-editor `onSave` callback is required.
+# Deploy
+
+The page configured with the editor cannot be used as a production environment, and we provide [gaea-app](https://github.com/ascoders/gaea-app) to deploy it:
+
+Render application with routes, the value of the gaea-editor `onSave` callback is required.

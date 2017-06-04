@@ -1,7 +1,7 @@
 import { observe } from "dynamic-object"
 import { Connect } from "dynamic-react"
 import * as React from "react"
-import { TabPanel, Tabs } from "../../../components/tabs/src/"
+import { TabPanel, Tabs } from "../../components/tabs/src/"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 

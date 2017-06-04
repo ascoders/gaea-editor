@@ -3828,9 +3828,9 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
-run-react@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/run-react/-/run-react-2.0.1.tgz#365ae7af49fd7d92735637e59608a4e9590b5dcf"
+run-react@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/run-react/-/run-react-2.0.3.tgz#b78a9772aa22e78522760b7fdcba36f0be0ac9e9"
   dependencies:
     ava "^0.18.2"
     case-sensitive-paths-webpack-plugin "^2.0.0"

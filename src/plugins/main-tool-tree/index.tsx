@@ -1,8 +1,8 @@
 import { Connect } from "dynamic-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom";
-import { TabPanel, Tabs } from "../../../components/tabs/src/"
-import { Tree } from "../../../components/tree/src"
+import { TabPanel, Tabs } from "../../components/tabs/src/"
+import { Tree } from "../../components/tree/src"
 import TreeAction from "./action"
 import Guideline from "./guideline/guideline.component"
 import * as Styled from "./index.style"
