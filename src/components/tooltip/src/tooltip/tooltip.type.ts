@@ -56,6 +56,16 @@ export class Props {
    * 是否与修饰元素高度一致
    */
   public uniformHeight?: boolean = false
+
+  /**
+   * 预设 tooltip 内容区域宽度，方便计算
+   */
+  public width?: number = 0
+
+  /**
+   * 预设 tooltip 内容区域高度，方便计算
+   */
+  public height?: number = 0
 }
 
 export class State {

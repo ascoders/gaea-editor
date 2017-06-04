@@ -93,7 +93,7 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
           <Styled.IconContainer>
             <Icon type="rightArrow" size={12} />
           </Styled.IconContainer>
-          <Input style={{ height: 12, fontSize: 13 }} value={param.name} onChange={this.handleChangeTriggerData.bind(this, index)} />
+          <Input style={{ height: 25, fontSize: 13 }} value={param.name} onChange={this.handleChangeTriggerData.bind(this, index)} />
         </Styled.ActionSiblingContainer>
       )
     })

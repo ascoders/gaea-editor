@@ -181,15 +181,24 @@ export class Tooltip extends React.Component<typings.Props, typings.State> {
       }
     }
 
+    // 是否有预设的宽高
+    if (this.props.width !== 0) {
+      toolTipStyle.width = this.props.width
+    }
+
+    if (this.props.height !== 0) {
+      toolTipStyle.height = this.props.height
+    }
+
     let position = this.props.position
     this.setPosition(toolTipStyle, position)
 
-    // 如果位置有问题，换一个位置
+    // 如果位置溢出了，换一个位置
     if (toolTipStyle.left < 0) {
       this.setPosition(toolTipStyle, "right")
       position = "right"
     }
-    if (toolTipStyle.right > window.outerWidth) {
+    if (toolTipStyle.left + toolTipStyle.width > window.outerWidth) {
       this.setPosition(toolTipStyle, "left")
       position = "left"
     }
@@ -197,9 +206,31 @@ export class Tooltip extends React.Component<typings.Props, typings.State> {
       this.setPosition(toolTipStyle, "bottom")
       position = "bottom"
     }
-    if (toolTipStyle.top > window.outerHeight) {
+    if (toolTipStyle.top + toolTipStyle.height > window.outerHeight) {
       this.setPosition(toolTipStyle, "top")
       position = "top"
+    }
+
+    // 如果换过位置，还是溢出，直接将位置缩放到最合适
+    // 由于换过位置，因此其对立位置一定不会溢出
+    // 比如位置 bottom，那下部空间一定不会溢出，位置 left，左部空间一定不会溢出
+    // 因此，上下看左右，左右看上下
+    if (position === "bottom" || position === "top") {
+      if (toolTipStyle.left < 0) {
+        toolTipStyle.left = 0
+      }
+      if (toolTipStyle.left + toolTipStyle.width > window.outerWidth) {
+        toolTipStyle.left = window.outerWidth - toolTipStyle.width
+      }
+    }
+
+    if (position === "left" || position === "right") {
+      if (toolTipStyle.top < 0) {
+        toolTipStyle.top = 0
+      }
+      if (toolTipStyle.top + toolTipStyle.height > window.outerHeight) {
+        toolTipStyle.top = window.outerHeight - toolTipStyle.height
+      }
     }
 
     const TooltipElement = (
@@ -235,7 +266,12 @@ export class Tooltip extends React.Component<typings.Props, typings.State> {
     })
   }
 
-  private handleDocumentClick = () => {
+  private handleDocumentClick = (event: MouseEvent) => {
+    // 点击状态，只有不点击自己区域，才会关闭或者 trigger
+    if (this.tooltipDom.contains(event.target as HTMLElement)) {
+      return
+    }
+
     if (this.state.show) {
       this.setState({
         show: false

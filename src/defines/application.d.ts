@@ -92,9 +92,32 @@ declare interface IEditor {
      * 当其为对象时，对数组时，表示每一项都是对象，再设定每个对象的编辑方式
      */
     editors?: IEditorOptionArray | string
+    /**
+     * 特殊类型的额外描述信息
+     */
+    data?: IEditorNumberData | any
 }
 
 declare type IEditorOptionArray = IEditor[]
+
+declare interface IEditorNumberData {
+    /**
+     * 是否使用滑块
+     */
+    useSlider?: boolean
+    /**
+     * 滑块、输入框步长
+     */
+    step: number,
+    /**
+     * 输入范围
+     */
+    inputRange: number[],
+    /**
+     * 输出范围
+     */
+    outputRange: number[]
+}
 
 declare interface IPage {
     /**
