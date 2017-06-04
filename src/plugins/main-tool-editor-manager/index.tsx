@@ -51,31 +51,36 @@ class MainToolEditorManager extends React.Component<Props, State> {
         } else {
           const realField = this.props.realField === "" ? editor.field : this.props.realField + "." + editor.field
 
-          let result: React.ReactNode = null
+          let child: React.ReactNode = null
           const isVariable = this.props.actions.ViewportAction.instanceFieldIsVariable(this.props.stores.ViewportStore.currentEditInstanceKey, realField)
 
           if (!isVariable) {
             // 正常编辑
-            result = this.props.actions.ApplicationAction.loadPluginByPosition(`mainToolEditorType${_.upperFirst(_.camelCase(editor.type))}`, {
+            child = this.props.actions.ApplicationAction.loadPluginByPosition(`mainToolEditorType${_.upperFirst(_.camelCase(editor.type))}`, {
               editor,
               realField
             })
           } else {
             // 变量模式
-            result = this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditorVariable", {
+            child = this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditorVariable", {
               editor,
               realField
             })
           }
 
+          const isObjectType = editor.type === "array" || editor.type === "object"
+
           return (
-            <Styled.EditorContainer key={index}>
-              <Styled.Label>
+            <Styled.EditorContainer key={index} theme={{ isObjectType: isObjectType && !isVariable }}>
+              <Styled.Label theme={{ isObjectType: isObjectType && !isVariable }}>
                 <span>{editor.label}</span>
               </Styled.Label>
 
-              {result}
-              <Styled.Variable onClick={this.handleToggleValueType.bind(this, realField)}>
+              <Styled.EditorBoxContainer>
+                {child}
+              </Styled.EditorBoxContainer>
+
+              <Styled.Variable theme={{ isVariable }} onClick={this.handleToggleValueType.bind(this, realField)}>
                 {isVariable ? <Icon type="database" size={14} /> : <Icon type="keybroad" />}
               </Styled.Variable>
             </Styled.EditorContainer>
@@ -98,9 +103,15 @@ class MainToolEditorManager extends React.Component<Props, State> {
     if (isVariable) {
       // 取消变量模式
       this.props.actions.ViewportAction.instanceDisableVariable(this.props.stores.ViewportStore.currentEditInstanceKey, realField)
+
+      // TODO:
+      // 将变量值清空
     } else {
       // 设置为变量模式
       this.props.actions.ViewportAction.instanceEnableVariable(this.props.stores.ViewportStore.currentEditInstanceKey, realField)
+
+      // TODO:
+      // 将输入值清空
     }
 
     this.forceUpdate()

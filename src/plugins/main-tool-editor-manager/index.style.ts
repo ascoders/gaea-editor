@@ -28,6 +28,17 @@ export const EditorContainer = styled.div`
   position: relative;
   padding-left: 10px;
   justify-content: space-between;
+  &:not(:first-child) {
+    border-top: 1px solid #ddd;
+  }
+  ${(props: any) => props.theme.isObjectType && `
+    flex-direction: column;
+    justify-content: flex-start;
+  `}
+`
+
+export const EditorBoxContainer = styled.div`
+
 `
 
 export const Variable = styled.div`
@@ -50,6 +61,12 @@ export const Variable = styled.div`
     background-color: white;
     fill: #333;
   }
+  ${(props: any) => props.theme.isVariable && `
+    background-color: #cef1ff;
+    &:hover {
+      background-color: #e4f7ff;
+    }
+  `}
 `
 
 export const Label = styled.div`
@@ -59,6 +76,10 @@ export const Label = styled.div`
   font-size: 14px;
   color: #666;
   white-space: nowrap;
+  padding: 5px 0;
+  ${(props: any) => props.theme.isObjectType && `
+    align-items: flex-start;
+  `}
 `
 
 export const AddButton = styled.div`

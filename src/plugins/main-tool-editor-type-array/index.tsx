@@ -9,7 +9,7 @@ import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
 @Connect
-class MainToolEditorText extends React.Component<Props, State> {
+class MainToolEditorArray extends React.Component<Props, State> {
   public static defaultProps = new Props()
   public state = new State()
 
@@ -55,9 +55,12 @@ class MainToolEditorText extends React.Component<Props, State> {
             <Icon type="add" size={14} />
           </Styled.AddButton>
         </Tooltip>
-        <Styled.ListContainer>
-          {Editors}
-        </Styled.ListContainer>
+
+        {currentValue.length > 0 &&
+          <Styled.ListContainer>
+            {Editors}
+          </Styled.ListContainer>
+        }
       </Styled.Container>
     )
   }
@@ -91,5 +94,5 @@ class MainToolEditorText extends React.Component<Props, State> {
 
 export default {
   position: "mainToolEditorTypeArray",
-  class: MainToolEditorText
+  class: MainToolEditorArray
 }

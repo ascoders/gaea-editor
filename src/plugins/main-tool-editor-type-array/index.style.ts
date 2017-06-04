@@ -8,21 +8,27 @@ export const Container = styled.div`
 
 export const AddButton = styled.div`
   display: flex;
-  align-items: center;
   margin-right: 10px;
   fill: #666;
   cursor: pointer;
   transition: color .3s;
+  margin-left: -10px;
   &:hover {
     fill: #333;
+    background-color: white;
   }
+  transition: background-color .3s;
+  background-color: #eee;
+  border: 1px solid #ddd;
+  padding: 2px 3px;
+  border-radius: 3px;
 `
 
 export const ListContainer = styled.div`
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   border-left: 1px solid #ddd;
-  margin-top: 20px;
 `
 
 export const ChildContainer = styled.div`
