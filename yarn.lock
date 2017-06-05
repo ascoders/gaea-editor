@@ -2078,16 +2078,16 @@ gaea-basic-components@^1.0.17, gaea-basic-components@^1.0.3:
   version "1.0.17"
   resolved "https://registry.yarnpkg.com/gaea-basic-components/-/gaea-basic-components-1.0.17.tgz#c59a5297e8feb20cd80b04c240525f40c09e3884"
 
-gaea-render@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/gaea-render/-/gaea-render-1.0.10.tgz#15f94f285656d28bdd4d1aa22edb9450de986628"
+gaea-render@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/gaea-render/-/gaea-render-1.0.12.tgz#ac7032aac084d1451aa60d860b665d6edb217359"
   dependencies:
     "@types/lodash" "^4.14.64"
     "@types/lz-string" "^1.3.32"
     gaea-basic-components "^1.0.3"
     lodash "^4.17.4"
     lz-string "^1.4.4"
-    shallow-eq "^1.0.4"
+    shallow-eq "^1.0.5"
 
 gauge@~2.7.3:
   version "2.7.4"
@@ -3961,9 +3961,9 @@ shallow-eq@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/shallow-eq/-/shallow-eq-1.0.3.tgz#5b771275564ded813c71004d5ab485f762aa68fa"
 
-shallow-eq@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/shallow-eq/-/shallow-eq-1.0.4.tgz#ea3b42a3c2c81126862e7d473abad7329eb328f5"
+shallow-eq@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/shallow-eq/-/shallow-eq-1.0.5.tgz#0a4a2776bb705d960122dad8c7ed02638c12d576"
 
 shebang-command@^1.2.0:
   version "1.2.0"
