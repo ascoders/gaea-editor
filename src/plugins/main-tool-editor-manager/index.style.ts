@@ -28,9 +28,6 @@ export const EditorContainer = styled.div`
   position: relative;
   padding-left: 10px;
   justify-content: space-between;
-  &:not(:first-child) {
-    border-top: 1px solid #ddd;
-  }
   ${(props: any) => props.theme.isObjectType && `
     flex-direction: column;
     justify-content: flex-start;

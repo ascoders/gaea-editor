@@ -209,3 +209,5 @@ declare interface ISettingEvent {
         name: string
     }>
 }
+
+declare type IOnComponentDragStart = (gaeaKeyOrPreGaeaKey?: string) => Promise<any> | any

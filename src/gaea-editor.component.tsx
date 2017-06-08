@@ -51,6 +51,9 @@ export default class GaeaEditor extends React.Component<Props, State> {
             // 初始化一个空页面
             this.stores.getStore().actions.ViewportAction.initViewport()
         }
+
+        // 将 onComponentDragStart 放到 applicationStore
+        this.stores.getStore().actions.ApplicationAction.setOnComponentDragStart(this.props.onComponentDragStart)
     }
 
     public componentWillUnmount() {

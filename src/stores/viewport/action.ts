@@ -418,11 +418,18 @@ export default class ViewportAction {
                 this.setCurrentHoverInstanceKey(null)
             },
             onAdd: (event: any) => {
+                // 如果数据还没有 ready，很尴尬，什么都没有发生
+                // 此时一定是 new，不用担心 dom 节点脏掉
+                if (!this.store.dragStartDataReady) {
+                    return
+                }
+
                 switch (this.store.currentDragInfo.type) {
                     case "new":
                         // 是新拖进来的, 不用管, 因为工具栏会把它收回去
                         // 为什么不删掉? 因为这个元素不论是不是 clone, 都被移过来了, 不还回去 react 在更新 dom 时会无法找到
                         const newInfo = this.store.currentDragInfo.info as IDragInfoNew
+
                         const newInstanceKey = this.addInstance({
                             gaeaKey: newInfo.gaeaKey,
                             parentInstanceKey,
@@ -542,16 +549,29 @@ export default class ViewportAction {
                     // })
                 } else if (event.item.dataset.gaeaKey) {
                     // 如果同时拥有 props 属性，说明是个预设组件
-                    this.startDrag({
-                        type: "new",
-                        dragStartParentDom: dragParentDom,
-                        dragStartIndex: event.oldIndex as number,
-                        info: {
-                            gaeaKey: event.item.dataset.gaeaKey,
-                            props: event.item.dataset.props,
-                            preGaeaKey: event.item.dataset.preGaeaKey
-                        }
-                    })
+                    if (this.applicationStore.onComponentDragStart !== null) {
+                        // 如果有传数据的过程，先设置为数据没有 ready
+                        this.store.dragStartDataReady = false
+
+                        Promise.resolve(this.applicationStore.onComponentDragStart(event.item.dataset.preGaeaKey || event.item.dataset.gaeaKey)).then(propsData => {
+                            // 如果没有给我数据，就从 dataSet 里取了
+                            const finalProps = propsData ? JSON.stringify(propsData) : event.item.dataset.props
+                            this.store.dragStartDataReady = true
+
+                            this.startDrag({
+                                type: "new",
+                                dragStartParentDom: dragParentDom,
+                                dragStartIndex: event.oldIndex as number,
+                                info: {
+                                    gaeaKey: event.item.dataset.gaeaKey,
+                                    props: finalProps,
+                                    preGaeaKey: event.item.dataset.preGaeaKey
+                                }
+                            })
+                        }).catch(err => {
+                            this.store.dragStartDataReady = true
+                        })
+                    }
                 }
             },
             onEnd: (event: any) => {

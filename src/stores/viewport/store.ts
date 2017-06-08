@@ -34,4 +34,9 @@ export default class ViewportStore {
         })
         return fullObj
     }
+
+    /**
+     * 拖拽前数据获取是否完毕
+     */
+    public dragStartDataReady = false
 }

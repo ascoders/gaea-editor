@@ -429,4 +429,8 @@ export default class ApplicationAction {
     @Action public getPersistenceData(key: string) {
         return this.store.persistenceData[key]
     }
+
+    @Action public setOnComponentDragStart(fn: any) {
+        this.store.onComponentDragStart = fn
+    }
 }

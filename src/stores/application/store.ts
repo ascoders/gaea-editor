@@ -135,4 +135,9 @@ export default class ApplicationStore {
     public persistenceData?: {
         [x: string]: any
     } = Static({})
+
+    /**
+     * GaeaEditor props: onComponentDragStart
+     */
+    public onComponentDragStart: IOnComponentDragStart = Static(() => null as any)
 }
