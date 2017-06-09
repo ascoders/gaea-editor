@@ -53,14 +53,6 @@ declare interface IGaeaSetting {
      */
     isContainer?: boolean
     /**
-     * 配置信息是否在获取中
-     */
-    isLoading?: boolean
-    /**
-     * 组件被点击时触发
-     */
-    onClick?: (info?: InstanceInfo) => void
-    /**
      * 自定义事件
      * 组件设置的事件，只支持回调事件
      */
@@ -210,4 +202,9 @@ declare interface ISettingEvent {
     }>
 }
 
-declare type IOnComponentDragStart = (gaeaKeyOrPreGaeaKey?: string) => Promise<any> | any
+declare type IOnComponentDragStart = (gaeaKeyOrPreGaeaKey?: string) => Promise<IOnComponentDragStartReturn> | IOnComponentDragStartReturn
+
+declare interface IOnComponentDragStartReturn {
+    setting: any
+    props: any
+}

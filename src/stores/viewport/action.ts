@@ -553,24 +553,37 @@ export default class ViewportAction {
                         // 如果有传数据的过程，先设置为数据没有 ready
                         this.store.dragStartDataReady = false
 
-                        Promise.resolve(this.applicationStore.onComponentDragStart(event.item.dataset.preGaeaKey || event.item.dataset.gaeaKey)).then(propsData => {
-                            // 如果没有给我数据，就从 dataSet 里取了
-                            const finalProps = propsData ? JSON.stringify(propsData) : event.item.dataset.props
-                            this.store.dragStartDataReady = true
+                        const gaeaKey = event.item.dataset.preGaeaKey || event.item.dataset.gaeaKey
 
-                            this.startDrag({
-                                type: "new",
-                                dragStartParentDom: dragParentDom,
-                                dragStartIndex: event.oldIndex as number,
-                                info: {
-                                    gaeaKey: event.item.dataset.gaeaKey,
-                                    props: finalProps,
-                                    preGaeaKey: event.item.dataset.preGaeaKey
+                        Promise.resolve(this.applicationStore.onComponentDragStart(gaeaKey))
+                            .then(propsData => {
+                                // 如果用户传了 props，将其设置在 dataset 中
+                                if (typeof propsData.props === "object") {
+                                    event.item.dataset.props = JSON.stringify(propsData.props)
+                                }
+
+                                // 如果用户传了 setting，设置它
+                                // gaeaKey
+                                if (typeof propsData.setting === "object") {
+                                    this.applicationAction.setComponentSetting(gaeaKey, propsData.setting)
                                 }
                             })
-                        }).catch(err => {
-                            this.store.dragStartDataReady = true
-                        })
+                            .catch()
+                            .then(() => {
+                                this.startDrag({
+                                    type: "new",
+                                    dragStartParentDom: dragParentDom,
+                                    dragStartIndex: event.oldIndex as number,
+                                    info: {
+                                        gaeaKey: event.item.dataset.gaeaKey,
+                                        props: event.item.dataset.props,
+                                        preGaeaKey: event.item.dataset.preGaeaKey
+                                    }
+                                })
+
+                                // 开始拖拽完毕
+                                this.store.dragStartDataReady = true
+                            })
                     }
                 }
             },
