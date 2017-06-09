@@ -557,6 +557,10 @@ export default class ViewportAction {
 
                         Promise.resolve(this.applicationStore.onComponentDragStart(gaeaKey))
                             .then(propsData => {
+                                if (!propsData) {
+                                    return
+                                }
+
                                 // 如果用户传了 props，将其设置在 dataset 中
                                 if (typeof propsData.props === "object") {
                                     event.item.dataset.props = JSON.stringify(propsData.props)
