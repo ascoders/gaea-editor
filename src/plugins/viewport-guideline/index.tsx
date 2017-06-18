@@ -8,7 +8,7 @@ class ViewportGuideline extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props()
   public state = new typings.State()
 
-  private timeOut: number
+  private timeOut: any
 
   public componentDidMount() {
     this.props.actions.EventAction.on(this.props.stores.EventStore.viewportUpdated, this.handleViewportUpdated)

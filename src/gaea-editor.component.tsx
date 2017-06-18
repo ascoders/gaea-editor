@@ -8,6 +8,7 @@ import { IActionsOrStores, Store } from "./stores"
 // 所有内置插件
 const builtInPlugins: IPlugin[] = []
 
+declare const require: any
 const context = require.context("./plugins", true, /index\.(tsx|js)$/)
 context.keys().forEach((key: string) => {
     builtInPlugins.push(context(key).default)

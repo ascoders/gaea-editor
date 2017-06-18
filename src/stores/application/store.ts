@@ -1,5 +1,6 @@
-import { Static } from "dynamic-object"
+import { observable, Static } from "dynamic-object"
 
+@observable
 export default class ApplicationStore {
     /**
      * Navbar height

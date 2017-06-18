@@ -1,6 +1,9 @@
+import { observable } from "dynamic-object"
+
 /**
  * 存储所有编辑状态视图区域的数据
  */
+@observable
 export default class ViewportStore {
     /**
      * 视图区域 dom
