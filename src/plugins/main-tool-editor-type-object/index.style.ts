@@ -15,6 +15,7 @@ export const ChildContainer = styled.div`
 
 export const EachItem = styled.div`
   position: relative;
+  border-left: 1px solid #ddd;
   &:not(:last-child) {
     border-bottom: 1px solid #ddd;
   }
