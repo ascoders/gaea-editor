@@ -21,6 +21,7 @@ export const TabTitle = styled.div`
   font-size: 13px;
   color: #666;
   background-color: #eee;
+  width: 100%;
 `
 
 export const EditorContainer = styled.div`

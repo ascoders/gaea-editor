@@ -17,6 +17,8 @@ class State {
 
 import * as Styled from "./page.style"
 
+import { Switch } from "../components/switch/src"
+
 @Connect
 export default class Page extends React.Component<Props, State> {
     public static defaultProps = new Props()
