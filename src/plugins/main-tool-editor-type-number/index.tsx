@@ -15,6 +15,10 @@ const parseInputToOutRange = (value: number | string, inputRange: number[], outp
 
   value = Number(value)
 
+  if (inputRange[0] === outputRange[0] && inputRange[1] === outputRange[1]) {
+    return value
+  }
+
   if (value >= inputRange[0] && value <= inputRange[1]) {
     // 给的值必须在 input 范围内
     // 转换成 0~1 的小数
@@ -51,16 +55,16 @@ class MainToolEditorNumber extends React.Component<Props, State> {
     this.numberData = Object.assign({}, {
       useSlider: false,
       step: 1,
-      inputRange: [-Infinity, Infinity]
+      inputRange: [-9999999, 9999999]
     }, this.props.editor.data || {})
-
-    // 当前值转换成 inputValue
-    currentValue = parseInputToOutRange(currentValue, this.numberData.outputRange, this.numberData.inputRange)
 
     // 如果只设置了 inputRange, 默认 outputRange 要与其相同
     if (this.numberData.inputRange && !this.numberData.outputRange) {
       this.numberData.outputRange = this.numberData.inputRange.slice()
     }
+
+    // 当前值转换成 inputValue
+    currentValue = parseInputToOutRange(currentValue, this.numberData.outputRange, this.numberData.inputRange)
 
     return (
       <Styled.Container>
