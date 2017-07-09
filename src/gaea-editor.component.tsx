@@ -8,7 +8,7 @@ import { IActionsOrStores, Store } from "./stores"
 // 所有插件
 const plugins: IPlugin[] = []
 
-const context = require.context("./plugins", true, /index\.(tsx|js)$/)
+const context = (require as any).context("./plugins", true, /index\.(tsx|js)$/)
 context.keys().forEach((key: string) => {
     plugins.push(context(key).default)
 })

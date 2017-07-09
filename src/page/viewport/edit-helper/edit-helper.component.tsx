@@ -120,7 +120,7 @@ class EditHelper extends React.Component<Props, State> {
         }
 
         // 这里 this.instanceInfo.data.props 内部数据变化是无法检测的，这里采用事件机制强制刷新
-        const wrapProps = _.merge({}, this.componentClass.defaultProps, Object.assign({}, this.instanceInfo.data.props), {
+        const wrapProps = _.merge({}, this.componentClass.defaultProps, {...this.instanceInfo.data.props}, {
             ref: (ref: React.ReactInstance) => {
                 this.wrappedInstance = ref
             }

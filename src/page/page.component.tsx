@@ -47,7 +47,9 @@ export default class Page extends React.Component<Props, State> {
 
                         <Styled.ViewportContainerRight
                             theme={{ showLeft: this.props.stores.ApplicationStore.leftTool }}
-                            style={Object.assign({}, this.props.stores.ApplicationStore.viewportContainerStyle)}>
+                            style={{
+                                ...this.props.stores.ApplicationStore.viewportContainerStyle
+                            }}>
                             <Styled.ToolsContainer theme={{ fullScreen: this.props.stores.ApplicationStore.rightTool }}>
                                 <Styled.ToolsContainerLeft>
                                     {this.props.actions.ApplicationAction.loadingPluginByPosition(`toolContainerLeft${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.leftTool))}`)}
@@ -59,7 +61,11 @@ export default class Page extends React.Component<Props, State> {
 
                             <Styled.ViewportContainerBox
                                 theme={{ hidden: this.props.stores.ApplicationStore.rightTool }}
-                                style={Object.assign({}, this.props.stores.ApplicationStore.viewportStyle, { display: this.props.stores.ApplicationStore.isPreview ? "none" : null })}>
+                                style={{
+                                    ...this.props.stores.ApplicationStore.viewportStyle,
+                                    display: this.props.stores.ApplicationStore.isPreview ? "none" : null
+                                }}
+                                >
                                 <Viewport />
                                 {this.props.actions.ApplicationAction.loadingPluginByPosition("viewport")}
                             </Styled.ViewportContainerBox>
@@ -67,7 +73,9 @@ export default class Page extends React.Component<Props, State> {
                             {this.props.stores.ApplicationStore.isPreview &&
                                 <Styled.PreviewContainer
                                     theme={{ hidden: this.props.stores.ApplicationStore.rightTool }}
-                                    style={Object.assign({}, this.props.stores.ApplicationStore.viewportStyle)}>
+                                    style={{
+                                        ...this.props.stores.ApplicationStore.viewportStyle
+                                    }}>
                                     <Render value={this.props.actions.ViewportAction.getFullInformationGzipped()} componentClasses={this.props.componentClasses} />
                                     {this.props.actions.ApplicationAction.loadingPluginByPosition("preview")}
                                 </Styled.PreviewContainer>
