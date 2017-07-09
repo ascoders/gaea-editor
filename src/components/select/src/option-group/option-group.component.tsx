@@ -20,14 +20,15 @@ export class OptionGroup extends React.Component<typings.Props, typings.State> {
           active = true
         }
 
-        return React.cloneElement(item, Object.assign({}, item.props, {
+        return React.cloneElement(item, {
+          ...item.props,
           onClick: this.handleOptionClick.bind(this),
           key: index,
           active,
           setLabelValue: this.setLabelValue.bind(this),
           activeValue: this.props.activeValue,
           searchValue: this.props.searchValue
-        }))
+        })
       })
     }
 

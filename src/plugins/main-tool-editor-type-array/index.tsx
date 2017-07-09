@@ -68,7 +68,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
   private handleAdd = () => {
     const currentValue: any[] = this.props.actions.ViewportAction.getInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.realField) || []
 
-    const assignValue = Object.assign([], currentValue)
+    const assignValue = [...currentValue]
 
     if (typeof this.props.editor.editors === "string") {
       assignValue.push(null)
@@ -83,7 +83,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
   private handleRemove = (index: number) => {
     const currentValue: any[] = this.props.actions.ViewportAction.getInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.realField) || []
 
-    const assignValue = Object.assign([], currentValue)
+    const assignValue = [...currentValue]
 
     // 将此项从数组中移除
     assignValue.splice(index, 1)

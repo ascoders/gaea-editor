@@ -158,10 +158,11 @@ export class Tooltip extends React.Component<typings.Props, typings.State> {
    * 渲染 tooltip 内部的内容
    */
   private renderTooltip() {
-    const toolTipStyle: React.CSSProperties = Object.assign({}, this.props.style, {
+    const toolTipStyle: React.CSSProperties = {
+      ...this.props.style,
       zIndex: this.props.zIndex,
       backgroundColor: this.props.showArrow ? "transparent" : null
-    })
+    }
 
     // 是否与子元素同高、同宽
     if (this.props.uniformWidth) {

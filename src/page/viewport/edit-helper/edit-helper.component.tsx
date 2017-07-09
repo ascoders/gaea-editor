@@ -133,7 +133,7 @@ class EditHelper extends React.Component<Props, State> {
             })
         }
 
-        const wrapProps: any = _.merge({}, this.defaultProps, Object.assign({}, this.instanceInfo.data.props), {
+        const wrapProps: any = _.merge({}, this.defaultProps, {...this.instanceInfo.data.props}, {
             ref: (ref: React.ReactInstance) => {
                 this.wrappedInstance = ref
             }

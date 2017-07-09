@@ -67,12 +67,9 @@ export class Select extends React.Component<typings.Props, typings.State> {
     //   [this.props.className]: !!this.props.className
     // })
 
-    let renderChosen: () => React.ReactElement<any>
-    if (this.props.options.length === 0) {
-      renderChosen = this.getOptionChildren
-    } else {
-      renderChosen = this.getOptionChildrenByOptions
-    }
+    const renderChosen = this.props.options.length === 0 ?
+    this.getOptionChildren :
+    this.getOptionChildrenByOptions
 
     const extProps: any = {}
 

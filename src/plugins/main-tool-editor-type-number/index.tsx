@@ -52,11 +52,10 @@ class MainToolEditorNumber extends React.Component<Props, State> {
 
     let currentValue: number = this.props.actions.ViewportAction.getInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.realField)
 
-    this.numberData = Object.assign({}, {
+    this.numberData = {
       useSlider: false,
       step: 1,
-      inputRange: [-9999999, 9999999]
-    }, this.props.editor.data || {})
+      inputRange: [-9999999, 9999999], ...(this.props.editor.data || {})}
 
     // 如果只设置了 inputRange, 默认 outputRange 要与其相同
     if (this.numberData.inputRange && !this.numberData.outputRange) {

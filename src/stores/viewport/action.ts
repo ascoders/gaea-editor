@@ -327,7 +327,7 @@ export default class ViewportAction {
                 this.setRootInstanceKey(instanceKey)
             }
 
-            this.store.instances.set(instanceKey, Object.assign({}, instanceInfo))
+            this.store.instances.set(instanceKey, {...instanceInfo})
         })
     }
 
@@ -564,7 +564,7 @@ export default class ViewportAction {
                                 // 如果用户传了 props，将其设置在 dataset 中
                                 if (typeof propsData.props === "object") {
                                     if (event.item.dataset.props) {
-                                        propsData.props = Object.assign({}, propsData.props || {}, JSON.parse(event.item.dataset.props))
+                                        propsData.props = {...(propsData.props || {}), ...JSON.parse(event.item.dataset.props)}
                                     }
                                     event.item.dataset.props = JSON.stringify(propsData.props)
                                 }
