@@ -5,6 +5,8 @@ A scalable web page editor, written by typescript, using symbol and proxy, suppo
 - **Adaptation**: Support all react components. Add a few lines of configuration, you can let your components in the edit menu display, and can be dragged into the view area, and edit its properties.
 - **Scalable**: Support plug-ins to expand the editor for any function. Plug-ins can be inserted into any part of the editor, plug-ins can also provide slots for other plug-ins, plug-ins can create and share data flow editor, call the editor arbitrary function.
 
+[OnlineDemo](https://jsfiddle.net/gjLqweam/6/)
+
 # Quick start
 
 ```bash
