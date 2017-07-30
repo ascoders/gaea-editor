@@ -1,6 +1,7 @@
 import { Provider } from "dynamic-react"
 import gaeaBasicComponents from "gaea-basic-components"
 import * as React from "react"
+import { BoxEditor } from "./components/box-editor/src/"
 import { Props, State } from "./gaea-editor.type"
 import Page from "./page/page.component"
 import { IActionsOrStores, Store } from "./stores"
