@@ -1,4 +1,4 @@
-import { observable, Static } from "dynamic-object"
+import { observable, Static } from "dob"
 
 @observable
 export default class ApplicationStore {

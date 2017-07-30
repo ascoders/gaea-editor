@@ -1,5 +1,5 @@
 import { inject } from "dependency-inject"
-import { Action } from "dynamic-object"
+import { Action } from "dob"
 import * as _ from "lodash"
 import * as Sortable from "sortablejs"
 import ApplicationAction from "../application/action"

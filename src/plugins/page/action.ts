@@ -1,5 +1,5 @@
 import { inject } from "dependency-inject"
-import { Action } from "dynamic-object"
+import { Action } from "dob"
 import PageStore from "./store"
 
 export default class PageAction {

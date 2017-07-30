@@ -1,4 +1,4 @@
-import { Action } from "dynamic-object"
+import { Action } from "dob"
 
 export declare type EventType = number | string
 

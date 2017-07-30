@@ -1,4 +1,4 @@
-import { observable } from "dynamic-object"
+import { observable } from "dob"
 
 /**
  * 存储所有编辑状态视图区域的数据

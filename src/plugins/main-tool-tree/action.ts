@@ -1,5 +1,5 @@
 import { inject } from "dependency-inject"
-import { Action } from "dynamic-object"
+import { Action } from "dob"
 import { hasClass, removeClass } from "../../utils/dom"
 import TreeStore from "./store"
 

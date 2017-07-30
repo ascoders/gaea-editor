@@ -1,4 +1,4 @@
-import { observe } from "dynamic-object"
+import { observe } from "dob"
 import { Connect } from "dynamic-react"
 import * as React from "react"
 import { TabPanel, Tabs } from "../../components/tabs/src/"
