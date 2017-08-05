@@ -32,7 +32,7 @@ You can add custom components, custom plugins, save callback, and read saved pro
 | -------- | -------- | -------- |
 | onSave | `(info?: string) => void` | When you click the Save button, feed back to you to save the information |
 | value | `string` | Editor initial value, you can pass the value of the onSave callback and resume the draft |
-| componentClasses | `Array<React.ComponentClass<IGaeaProps>>` | React classes. Any react component is supported, but you need some configuration information to tell the editor how to edit it. TODO |
+| componentClasses | `Array<React.ComponentClass<IGaeaProps>>` | React classes. Any react component is supported, but you need some configuration information to tell the editor how to edit it. see [custom-component-config](docs/custom-component-config.md) |
 | plugins | `IPlugin[]` | Advanced usage for custom editor functionality. TODO |
 
 ## Parameter: `onSave`
@@ -77,11 +77,41 @@ export function renderGaeaEditor() {
 
 > [LiveDemo](https://jsfiddle.net/47rpn9ud/2/)
 
+Read more in [custom-component-config](docs/custom-component-config.md).
+
 ## Parameter: `plugins`
 
-TODO.
+First you should install `dob`.
+
+```bash
+npm i dob
+```
+
+```typescript
+import { Connect } from 'dob'
+
+@Connect
+class Plugin extends React.Component {
+  render() {	
+  	return 'plugin'
+  }
+}
+
+const plugin {
+  position: "mainToolEditorTypeShow",
+  class: ShowEditor
+}
+
+export function renderGaeaEditor() {
+    return (
+        <Editor plugins={[ Plugin ]}/>
+    )
+}
+```
 
 > [CustomEditTypeLiveDemo](https://jsfiddle.net/kq935dbq/3/)
+
+What is `position`? What can i do with plugin? See more in [custom-plugin](docs/custom-plugin.md)
 
 # Local development run
 
