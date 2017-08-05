@@ -102,8 +102,73 @@ Tell the editor how a field should be edited.
 |----|----|----|
 | field | string | The name of the field affected by the editor, eg: `text` will effect `props.text`, support `style.background` |
 | label | string | Form label |
-| type | string | What type of editor is used? BuiltIn enum: `string` `number` `boolean` `color` `array` `object` `box-editor`. You can add edit types by expanding plug-ins. TODO: pictures |
-| editors | array | When the type is `array` or `object`, describe how each item in the interior is edited, and the type is the same as editor. TODO: some example and pictures |
+| type | string | What type of editor is used? BuiltIn enum: `string` `number` `boolean` `color` `array` `object` `box-editor`. You can [add edit types by expanding plug-ins](custom-plugin.md) |
+| editors | array | When the type is `array` or `object`, describe how each item in the interior is edited, and the type is the same as editor. |
+
+Array example:
+
+```javascript
+{
+  field: "options",
+  label: "some label",
+  type: "array",
+  editors: [{
+    field: "value",
+    type: "string",
+    label: "some label"
+  }, {
+    field: "name",
+    type: "string",
+    label: "some label"
+  }]
+}
+
+// -->
+
+props.options = [{
+  value: '',
+  name: ''
+}]
+```
+
+```javascript
+{
+  field: "options",
+  label: "some label",
+  type: "array",
+  editors: "number"
+}
+
+// -->
+
+props.options = [1, 2, 3]
+```
+
+Object example:
+
+```javascript
+{
+  field: "options",
+  label: "some label",
+  type: "object",
+  editors: [{
+    field: "name",
+    type: "string",
+    label: "some label"
+  }, {
+    field: "age",
+    type: "number",
+    label: "some label"
+  }]
+}
+
+// -->
+
+props.options = {
+  name: 'name',
+  age: 18
+}
+```
 
 #### events: Array
 

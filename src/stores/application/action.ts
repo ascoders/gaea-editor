@@ -365,7 +365,7 @@ export default class ApplicationAction {
         Array.from(this.store.pageInstances).forEach(([pageKey, instances], index) => {
             instancesArray.push({
                 pageKey,
-                instances: {...instances}
+                instances: { ...instances }
             })
         })
 
