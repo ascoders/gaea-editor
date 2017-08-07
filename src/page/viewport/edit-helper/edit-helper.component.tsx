@@ -1,5 +1,5 @@
 import * as classNames from "classnames"
-import { Connect } from "dynamic-react"
+import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"

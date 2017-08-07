@@ -1,4 +1,4 @@
-import { Connect } from "dynamic-react"
+import { Connect } from "dob-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom";
 import { TabPanel, Tabs } from "../../components/tabs/src/"

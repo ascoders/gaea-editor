@@ -1,4 +1,4 @@
-import { Connect } from "dynamic-react"
+import { Connect } from "dob-react"
 import Render from "gaea-render"
 import * as _ from "lodash"
 import * as React from "react"

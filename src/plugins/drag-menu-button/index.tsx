@@ -1,4 +1,4 @@
-import { Connect } from "dynamic-react"
+import { Connect } from "dob-react"
 import * as React from "react"
 import Icon from "../../components/icon/src"
 import { Tooltip } from "../../components/tooltip/src"

@@ -1,5 +1,5 @@
 import { observe } from "dob"
-import { Connect } from "dynamic-react"
+import { Connect } from "dob-react"
 import * as React from "react"
 import { TabPanel, Tabs } from "../../components/tabs/src/"
 import * as Styled from "./index.style"

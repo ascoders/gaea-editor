@@ -1,4 +1,4 @@
-import { Connect } from "dynamic-react"
+import { Connect } from "dob-react"
 import * as React from "react"
 import * as Styled from "./index.style"
 import * as typings from "./index.type"

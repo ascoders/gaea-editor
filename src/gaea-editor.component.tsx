@@ -1,4 +1,4 @@
-import { Provider } from "dynamic-react"
+import { Provider } from "dob-react"
 import gaeaBasicComponents from "gaea-basic-components"
 import * as React from "react"
 import { BoxEditor } from "./components/box-editor/src/"
