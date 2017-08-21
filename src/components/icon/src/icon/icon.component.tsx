@@ -10,6 +10,7 @@ import addFolder from "../icons/add-folder"
 import close from "../icons/close"
 import component from "../icons/component"
 import database from "../icons/database"
+import edit from "../icons/edit"
 import file from "../icons/file"
 import folder from "../icons/folder"
 import keybroad from "../icons/keybroad"
@@ -34,6 +35,7 @@ iconMap.set("add", add)
 iconMap.set("keybroad", keybroad)
 iconMap.set("database", database)
 iconMap.set("rightArrow", rightArrow)
+iconMap.set("edit", edit)
 
 export class Icon extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props()

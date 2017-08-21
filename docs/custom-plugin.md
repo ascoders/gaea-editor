@@ -20,7 +20,7 @@
 
 ## Features
 
-- use `Connect` decorator from 'dynamic-react', then you can access all [built-in stores and actions](../src/stores). [Demo](../src/plugins/main-tool-editor-type-string/index.tsx#L20).
+- use `Connect` decorator from 'dob-react', then you can access all [built-in stores and actions](../src/stores). [Demo](../src/plugins/main-tool-editor-type-string/index.tsx#L20).
 - `gaea-editor` has some [built-in position](../src/page/page.component.tsx), and plugins can register positions by using `ApplicationAction.loadPluginByPosition(position: string)`.
 
 ## All built-in positions

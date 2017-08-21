@@ -81,14 +81,14 @@ Read more in [custom-component-config](docs/custom-component-config.md).
 
 ## Parameter: `plugins`
 
-First you should install `dynamic-react`.
+First you should install `dob-react`.
 
 ```bash
-npm i dynamic-react
+npm i dob-react
 ```
 
 ```typescript
-import { Connect } from 'dynamic-react'
+import { Connect } from 'dob-react'
 
 @Connect
 class Plugin extends React.Component {
