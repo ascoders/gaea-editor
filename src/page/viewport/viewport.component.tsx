@@ -14,10 +14,6 @@ class State {
 
 }
 
-import {
-
-} from "./viewport.style"
-
 @Connect
 export default class Viewport extends React.Component<Props, State> {
     public static defaultProps = new Props()
