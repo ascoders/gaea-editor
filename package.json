@@ -7,13 +7,17 @@
   "run-react": {
     "entrys": [
       "src/develop-entry/index"
-    ]
+    ],
+    "production": {
+      "path": "built",
+      "filename": "bundle.js"
+    }
   },
   "scripts": {
     "start": "run-react develop",
     "tslint": "tslint './src/**/*.?(ts|tsx)'",
     "prepublish": "rm -rf built && tsc && babel built --out-dir built && npm run build",
-    "build": "webpack --config built/scripts/webpack.config.js"
+    "build": "run-react production"
   },
   "dependencies": {
     "@types/lz-string": "^1.3.32",
@@ -45,7 +49,7 @@
     "babel-preset-stage-0": "^6.22.0",
     "dob-react-devtools": "^1.0.4",
     "pre-commit": "^1.2.2",
-    "run-react": "^2.1.2",
+    "run-react": "^2.2.2",
     "tslint": "^5.7.0",
     "typescript": "^2.5.2",
     "webpack": "^3.6.0"
