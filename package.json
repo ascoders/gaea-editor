@@ -1,12 +1,12 @@
 {
   "name": "gaea-editor",
-  "version": "2.0.50",
+  "version": "2.0.51",
   "description": "",
   "main": "built/index.js",
   "types": "src/index.ts",
   "run-react": {
     "entrys": [
-      "src/develop-entry/index"
+      "src/index"
     ],
     "production": {
       "path": "built",
