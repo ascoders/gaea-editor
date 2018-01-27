@@ -1,10 +1,10 @@
+import { Tooltip } from "antd"
 import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import Icon from "../../components/icon/src"
-import { Input } from "../../components/input/src"
-import { Tooltip } from "../../components/tooltip/src"
+import { pipeEvent } from "../../utils/functional"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 

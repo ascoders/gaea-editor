@@ -77,7 +77,7 @@ declare interface IEditor {
     /**
      * Show label
      */
-    label: string
+    text: string
     /**
      * 当类型为非普通类型时，允许添加额外配置
      * 当其为字符串时，对数组时，表示每一项都使用一种类型编辑
@@ -87,7 +87,7 @@ declare interface IEditor {
     /**
      * 特殊类型的额外描述信息
      */
-    data?: IEditorNumberData | any
+    data?: IEditorNumberData | IEditorSelectData | any
 }
 
 declare type IEditorOptionArray = IEditor[]
@@ -110,6 +110,17 @@ declare interface IEditorNumberData {
      */
     outputRange: number[]
 }
+
+declare type IEditorSelectData = Array<{
+    /**
+     * 选择框展示的 label
+     */
+    text: string
+    /**
+     * 选择框真正的值
+     */
+    value: string
+}>
 
 declare interface IPage {
     /**
@@ -188,7 +199,7 @@ declare interface ISettingEvent {
     /**
      * 名称
      */
-    name?: string
+    text?: string
     /**
      * 对应 props，在 callback 时主要使用
      */

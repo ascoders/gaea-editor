@@ -1,9 +1,8 @@
+import { InputNumber } from "antd"
 import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { Input } from "../../components/input/src"
-import { NumberInput } from "../../components/number-input/src"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
@@ -55,7 +54,8 @@ class MainToolEditorNumber extends React.Component<Props, State> {
     this.numberData = {
       useSlider: false,
       step: 1,
-      inputRange: [-9999999, 9999999], ...(this.props.editor.data || {})}
+      inputRange: [-9999999, 9999999], ...(this.props.editor.data || {})
+    }
 
     // 如果只设置了 inputRange, 默认 outputRange 要与其相同
     if (this.numberData.inputRange && !this.numberData.outputRange) {
@@ -78,7 +78,7 @@ class MainToolEditorNumber extends React.Component<Props, State> {
           />
         }
 
-        <NumberInput
+        <InputNumber
           value={currentValue}
           onChange={this.handleChange}
           min={this.numberData.inputRange[0]}

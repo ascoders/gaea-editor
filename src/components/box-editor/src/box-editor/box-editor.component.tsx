@@ -1,6 +1,5 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { RenderTo } from "../../../render-to/src"
 import * as Styled from "./box-editor.style"
 import * as typings from "./box-editor.type"
 

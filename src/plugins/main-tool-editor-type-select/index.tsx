@@ -1,14 +1,13 @@
-import { Input } from "antd"
+import { Select } from "antd"
 import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { pipeEvent } from "../../utils/functional"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
 @Connect
-class MainToolEditorString extends React.Component<Props, State> {
+class MainToolEditorSelect extends React.Component<Props, State> {
   public static defaultProps = new Props()
   public state = new State()
 
@@ -24,13 +23,22 @@ class MainToolEditorString extends React.Component<Props, State> {
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(this.props.stores.ViewportStore.currentEditInstanceKey)
 
-    let currentValue: string = this.props.actions.ViewportAction.getInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.realField)
+    const currentValue: string = this.props.actions.ViewportAction.getInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.realField)
 
-    currentValue = currentValue ? currentValue.toString() : ""
+    const data: IEditorSelectData = this.props.editor.data
 
     return (
       <Styled.Container>
-        <Input value={currentValue} onChange={pipeEvent(this.handleChange)} />
+        <Select
+          style={{ width: 150 }}
+          value={currentValue}
+          onChange={this.handleChange} >
+          {data.map((each, index) => {
+            return (
+              <Select.Option key={index} value={each.value}>{each.text}</Select.Option>
+            )
+          })}
+        </Select>
       </Styled.Container>
     )
   }
@@ -41,6 +49,6 @@ class MainToolEditorString extends React.Component<Props, State> {
 }
 
 export default {
-  position: "mainToolEditorTypeString",
-  class: MainToolEditorString
+  position: "mainToolEditorTypeSelect",
+  class: MainToolEditorSelect
 }

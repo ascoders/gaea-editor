@@ -1,5 +1,4 @@
-import { inject } from "dependency-inject"
-import { Action } from "dob"
+import { Action, inject } from "dob"
 import * as _ from "lodash"
 import * as LZString from "lz-string"
 import * as React from "react"

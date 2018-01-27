@@ -1,12 +1,9 @@
+import { Select, Tooltip } from "antd"
 import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import Icon from "../../components/icon/src"
-import { Input } from "../../components/input/src"
-import { Select } from "../../components/select/src"
-import { TabPanel, Tabs } from "../../components/tabs/src/"
-import { Tooltip } from "../../components/tooltip/src"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
@@ -63,14 +60,20 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
 
     this.setting = this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo)
 
-    // 将组件自身事件触发条件, 与通用触发条件 merge
     const mergedTriggerOptions = triggerOptions.concat((this.setting.events || []).map((event, index) => {
       this.indexMapCallbackEvent.set(index + triggerOptions.length, event)
       return {
         key: "callback",
-        value: event.name
+        value: event.text
       }
     }))
+    const MergedTriggerOptions = mergedTriggerOptions.map((each, index) => {
+      return (
+        <Select.Option key={index} value={each.key}>
+          {each.value}
+        </Select.Option>
+      )
+    })
 
     return (
       <Styled.Container>
@@ -78,7 +81,12 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
           <Styled.Label>
             触发
           </Styled.Label>
-          <Select options={mergedTriggerOptions} value={this.currentEventInfo.trigger} onChange={this.handleChange} />
+          <Select
+            value={this.currentEventInfo.trigger as string}
+            onChange={this.handleChange as any}
+          >
+            {MergedTriggerOptions}
+          </Select>
         </Styled.HeaderContainer>
 
         <Styled.BodyContainer>

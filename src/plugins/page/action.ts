@@ -1,5 +1,4 @@
-import { inject } from "dependency-inject"
-import { Action } from "dob"
+import { Action, inject } from "dob"
 import PageStore from "./store"
 
 export default class PageAction {

@@ -11,7 +11,7 @@ class Save extends React.Component<Props, State> {
     public render() {
         return (
             <Styled.Container onClick={this.handleClick}>
-                保存
+                Save
             </Styled.Container>
         )
     }

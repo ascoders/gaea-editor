@@ -4,16 +4,17 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  background-color: whitesmoke;
 `
 
 export const TabTitle = styled.div`
   display: flex;
   align-items: center;
   padding: 5px 10px;
-  font-size: 13px;
+  font-size: 14px;
   color: #666;
   background-color: #eee;
+  width: 100%;
+  font-weight: bold;
 `
 
 export const AddButton = styled.div`
@@ -58,7 +59,6 @@ export const RemoveIconContainer = styled.div`
   position: absolute;
   left: 5px;
   top: 18px;
-  background-color: whitesmoke;
   fill: #999;
   cursor: pointer;
   transition: color .3s;

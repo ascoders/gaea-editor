@@ -18,10 +18,11 @@ export const ComponentName = styled.div`
 
 export const TabTitle = styled.div`
   padding: 5px 10px;
-  font-size: 13px;
+  font-size: 14px;
   color: #666;
   background-color: #eee;
   width: 100%;
+  font-weight: bold;
 `
 
 export const EditorContainer = styled.div`
@@ -44,7 +45,7 @@ export const Variable = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  right: -5px;
+  right: 0;
   top: 0;
   width: 30px;
   height: 20px;

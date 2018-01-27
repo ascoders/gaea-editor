@@ -1,26 +1,14 @@
+import { Tabs } from "antd"
 import { observe } from "dob"
 import { Connect } from "dob-react"
 import * as React from "react"
-import { TabPanel, Tabs } from "../../components/tabs/src/"
-import * as Styled from "./index.style"
+import * as S from "./index.style"
 import { Props, State } from "./index.type"
 
 @Connect
 class MainTool extends React.Component<Props, State> {
   public static defaultProps = new Props()
   public state = new State()
-
-  public componentDidMount() {
-    observe(() => {
-      if (this.props.stores.ViewportStore.currentEditInstanceKey) {
-        this.props.actions.ViewportAction.setCurrentHoverInstanceKey(null)
-
-        this.setState({
-          activeKey: "editor"
-        })
-      }
-    })
-  }
 
   public handleChange = (activeKey: string) => {
     this.setState({
@@ -30,16 +18,20 @@ class MainTool extends React.Component<Props, State> {
 
   public render() {
     return (
-      <Styled.Container>
+      <S.Container>
         <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
-          <TabPanel tab="编辑" activeKey="editor">
-            {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditor")}
-          </TabPanel>
-          <TabPanel tab="树图" activeKey="tree">
-            {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolTree")}
-          </TabPanel>
+          <Tabs.TabPane tab="Editor" key="editor">
+            <S.ScrollContainer>
+              {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditor")}
+            </S.ScrollContainer>
+          </Tabs.TabPane>
+          <Tabs.TabPane tab="Tree" key="tree">
+            <S.ScrollContainer>
+              {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolTree")}
+            </S.ScrollContainer>
+          </Tabs.TabPane>
         </Tabs>
-      </Styled.Container>
+      </S.Container>
     )
   }
 }

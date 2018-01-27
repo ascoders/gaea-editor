@@ -2,13 +2,12 @@ import styled from "styled-components"
 
 export const EmptyContainer = styled.div`
   flex-grow: 1;
-  background-color: whitesmoke;
 `
 
 export const EmptyTitle = styled.div`
   display: flex;
   justify-content: center;
-  color: #888;
+  color: #666;
   font-weight: bold;
   padding: 10px;
   margin-top: 10px;
@@ -18,18 +17,15 @@ export const EmptyTitle = styled.div`
 export const EmptyDescription = styled.div`
   margin: 15px 10px 0 10px;
   padding: 20px;
-  color: #888;
-  border: 1px solid #ccc;
+  color: #999;
+  border: 1px solid #ddd;
   border-radius: 3px;
   font-size: 13px;
-  background-color: #e8e8e8;
 `
 
 export const Container = styled.div`
   flex-grow: 1;
-  background-color: whitesmoke;
   overflow-y: auto;
-  padding-right: 5px;
 `
 
 export const TabTitle = styled.div`

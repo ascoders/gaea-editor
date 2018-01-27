@@ -1,4 +1,4 @@
-import { inject } from "dependency-inject"
+import { inject } from "dob"
 
 export class GlobalSettingsStore {
 

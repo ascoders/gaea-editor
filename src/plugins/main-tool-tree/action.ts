@@ -1,5 +1,4 @@
-import { inject } from "dependency-inject"
-import { Action } from "dob"
+import { Action, inject } from "dob"
 import { hasClass, removeClass } from "../../utils/dom"
 import TreeStore from "./store"
 

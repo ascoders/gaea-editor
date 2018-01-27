@@ -1,9 +1,7 @@
-import * as classNames from "classnames"
 import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { StoreProps } from "../../../stores"
 import { addClass, hasClass, removeClass } from "../../../utils/dom"
 import * as Style from "./edit-helper.style"
 import { Props, State } from "./edit-helper.type"
@@ -133,7 +131,7 @@ class EditHelper extends React.Component<Props, State> {
             })
         }
 
-        const wrapProps: any = _.merge({}, this.defaultProps, {...this.instanceInfo.data.props}, {
+        const wrapProps: any = _.merge({}, this.defaultProps, { ...this.instanceInfo.data.props }, {
             ref: (ref: React.ReactInstance) => {
                 this.wrappedInstance = ref
             }

@@ -1,22 +1,26 @@
+import { Input, Select, Tooltip } from "antd"
 import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import Icon from "../../components/icon/src"
-import { Input } from "../../components/input/src"
-import { Select } from "../../components/select/src"
-import { TabPanel, Tabs } from "../../components/tabs/src/"
-import { Tooltip } from "../../components/tooltip/src"
+import { pipeEvent } from "../../utils/functional"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
-const actionOptions = [{
+const ActionOptions = [{
   key: "none",
   value: "无"
 }, {
   key: "passingSiblingNodes",
   value: "传给同级"
-}]
+}].map((each, index) => {
+  return (
+    <Select.Option key={index} value={each.key}>
+      {each.value}
+    </Select.Option>
+  )
+})
 
 @Connect
 class MainToolEditorEventAction extends React.Component<Props, State> {
@@ -58,18 +62,19 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
         <Styled.HeaderContainer>
           <Styled.Label>
             动作
-        </Styled.Label>
+          </Styled.Label>
           <Select
-            options={actionOptions}
             value={this.currentEventInfo.action}
             onChange={this.handleChangeAction}
-          />
+          >
+            {ActionOptions}
+          </Select>
         </Styled.HeaderContainer>
 
         <Styled.BodyContainer>
           {this.renderActionBody()}
         </Styled.BodyContainer>
-      </Styled.Container>
+      </Styled.Container >
     )
   }
 
@@ -93,7 +98,7 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
           <Styled.IconContainer>
             <Icon type="rightArrow" size={12} />
           </Styled.IconContainer>
-          <Input style={{ height: 25, fontSize: 13 }} value={param.name} onChange={this.handleChangeTriggerData.bind(this, index)} />
+          <Input style={{ height: 25, fontSize: 13 }} value={param.name} onChange={pipeEvent(this.handleChangeTriggerData.bind(this, index))} />
         </Styled.ActionSiblingContainer>
       )
     })

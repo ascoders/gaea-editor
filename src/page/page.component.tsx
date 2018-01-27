@@ -1,13 +1,13 @@
+import { Modal } from "antd"
 import { Connect } from "dob-react"
 import Render from "gaea-render"
 import * as _ from "lodash"
 import * as React from "react"
 import Icon from "../components/icon/src"
-import { Modal } from "../components/modal/src"
-import { StoreProps } from "../stores"
+import { PureComponent } from "../utils/react-helper"
 import Viewport from "./viewport/viewport.component"
 
-class Props extends StoreProps<void, void> {
+class Props {
     public componentClasses?: Array<React.ComponentClass<IGaeaProps>> = []
 }
 
@@ -17,10 +17,8 @@ class State {
 
 import * as Styled from "./page.style"
 
-import { Switch } from "../components/switch/src"
-
 @Connect
-export default class Page extends React.Component<Props, State> {
+export default class Page extends PureComponent<Props, State> {
     public static defaultProps = new Props()
     public state = new State()
 
@@ -49,7 +47,7 @@ export default class Page extends React.Component<Props, State> {
 
                         <Styled.ViewportContainerRight
                             theme={{ showLeft: this.props.stores.ApplicationStore.leftTool }}
-                            style={{...this.props.stores.ApplicationStore.viewportContainerStyle}}>
+                            style={{ ...this.props.stores.ApplicationStore.viewportContainerStyle }}>
 
                             <Styled.ToolsContainer theme={{ fullScreen: this.props.stores.ApplicationStore.rightTool }}>
                                 <Styled.ToolsContainerLeft>
@@ -62,7 +60,7 @@ export default class Page extends React.Component<Props, State> {
 
                             <Styled.ViewportContainerBox
                                 theme={{ hidden: this.props.stores.ApplicationStore.rightTool }}
-                                style={{...this.props.stores.ApplicationStore.viewportStyle,  display: this.props.stores.ApplicationStore.isPreview ? "none" : null}}>
+                                style={{ ...this.props.stores.ApplicationStore.viewportStyle, display: this.props.stores.ApplicationStore.isPreview ? "none" : null }}>
                                 <Viewport />
                                 {this.props.actions.ApplicationAction.loadPluginByPosition("viewport")}
                             </Styled.ViewportContainerBox>
@@ -70,7 +68,7 @@ export default class Page extends React.Component<Props, State> {
                             {this.props.stores.ApplicationStore.isPreview &&
                                 <Styled.PreviewContainer
                                     theme={{ hidden: this.props.stores.ApplicationStore.rightTool }}
-                                    style={{...this.props.stores.ApplicationStore.viewportStyle}}>
+                                    style={{ ...this.props.stores.ApplicationStore.viewportStyle }}>
                                     <Render value={this.props.stores.ViewportStore.currentFullInformation} componentClasses={this.props.componentClasses} />
                                     {this.props.actions.ApplicationAction.loadPluginByPosition("preview")}
                                 </Styled.PreviewContainer>
@@ -88,7 +86,9 @@ export default class Page extends React.Component<Props, State> {
                     {this.props.actions.ApplicationAction.loadPluginByPosition("mainTool")}
                 </Styled.RightContainer>
 
-                <Modal show={this.props.stores.ApplicationStore.isShowModal}>
+                <Modal
+                    visible={this.props.stores.ApplicationStore.isShowModal}
+                >
                     <Styled.ModalTitleContainer>
                         <Styled.ModalTitle>
                             {this.props.stores.ApplicationStore.modalTitle}

@@ -3,7 +3,6 @@ import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import Icon from "../../components/icon/src"
-import { TabPanel, Tabs } from "../../components/tabs/src/"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
@@ -35,10 +34,10 @@ class MainToolEditor extends React.Component<Props, State> {
       return (
         <Styled.EmptyContainer>
           <Styled.EmptyTitle>
-            未选中元素
+            No component selected
           </Styled.EmptyTitle>
           <Styled.EmptyDescription>
-            在左侧区选择一个元素，以开启编辑功能
+            Click one component in the left of the screen.
           </Styled.EmptyDescription>
         </Styled.EmptyContainer>
       )

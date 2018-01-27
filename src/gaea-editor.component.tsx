@@ -1,12 +1,16 @@
 import { Provider } from "dob-react"
-import gaeaBasicComponents from "gaea-basic-components"
 import * as React from "react"
 import { BoxEditor } from "./components/box-editor/src/"
 import { Props, State } from "./gaea-editor.type"
 import Page from "./page/page.component"
 import { IActionsOrStores, Store } from "./stores"
 
-// 所有内置插件
+import gaeaBasicComponents from "gaea-basic-components"
+
+// tslint:disable-next-line:no-submodule-imports
+import "antd/dist/antd.css"
+
+// plug-in plugins
 const builtInPlugins: IPlugin[] = []
 
 declare const require: any
@@ -47,8 +51,8 @@ export default class GaeaEditor extends React.Component<Props, State> {
         this.stores.getStore().actions.EventAction.on(this.stores.getStore().stores.EventStore.emitEditorCallback, this.handleCallback)
 
         // 根据默认值设置页面初始属性
-        if (this.props.value) {
-            this.stores.getStore().actions.ApplicationAction.initApplication(this.props.value)
+        if (this.props.defaultValue) {
+            this.stores.getStore().actions.ApplicationAction.initApplication(this.props.defaultValue)
         } else {
             // 初始化一个空页面
             this.stores.getStore().actions.ViewportAction.initViewport()
@@ -63,9 +67,11 @@ export default class GaeaEditor extends React.Component<Props, State> {
     }
 
     public render() {
+        const allComponentClasses = gaeaBasicComponents.concat(this.props.componentClasses)
+
         return (
             <Provider {...this.stores.getStore() }>
-                <Page componentClasses={this.props.componentClasses} />
+                <Page componentClasses={allComponentClasses} />
             </Provider>
         )
     }

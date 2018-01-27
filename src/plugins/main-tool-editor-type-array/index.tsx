@@ -1,10 +1,9 @@
+import { Tooltip } from "antd"
 import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import Icon from "../../components/icon/src"
-import { Input } from "../../components/input/src"
-import { Tooltip } from "../../components/tooltip/src"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
@@ -39,7 +38,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
             editors,
             realField: this.props.realField + "." + index
           })}
-          <Tooltip title="移除此项" position="left">
+          <Tooltip title="Remove this one" placement="left">
             <Styled.RemoveIconContainer onClick={this.handleRemove.bind(this, index)}>
               <Icon type="remove" size={14} />
             </Styled.RemoveIconContainer>
@@ -50,7 +49,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
 
     return (
       <Styled.Container>
-        <Tooltip title="新增一项" position="right">
+        <Tooltip title="Add new one" placement="right">
           <Styled.AddButton onClick={this.handleAdd}>
             <Icon type="add" size={14} />
           </Styled.AddButton>

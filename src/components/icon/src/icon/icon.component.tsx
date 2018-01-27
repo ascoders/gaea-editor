@@ -1,4 +1,3 @@
-import * as classNames from "classnames"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import * as Styled from "./icon.style"

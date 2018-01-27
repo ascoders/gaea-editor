@@ -11,7 +11,7 @@ export interface IActionsOrStores {
     [x: string]: any
 }
 
-export class StoreProps<Actions, Stores> {
+export class StoreProps<Actions= {}, Stores= {}> {
     public actions?: {
         ApplicationAction: ApplicationAction
         ViewportAction: ViewportAction

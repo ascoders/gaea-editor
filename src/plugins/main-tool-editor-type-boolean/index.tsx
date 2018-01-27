@@ -1,9 +1,8 @@
+import { Switch } from "antd"
 import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import { Input } from "../../components/input/src"
-import { Switch } from "../../components/switch/src"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
@@ -28,7 +27,7 @@ class MainToolEditorBoolean extends React.Component<Props, State> {
 
     return (
       <Styled.Container>
-        <Switch value={currentValue} onChange={this.handleChange} />
+        <Switch checked={currentValue} onChange={this.handleChange} />
       </Styled.Container>
     )
   }

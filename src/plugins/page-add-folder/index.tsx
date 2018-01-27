@@ -1,10 +1,9 @@
+import { Input, Select } from "antd"
 import { Connect } from "dob-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom";
 import Icon from "../../components/icon/src"
-import { Input } from "../../components/input/src"
-import { Select } from "../../components/select/src"
-import { TabPanel, Tabs } from "../../components/tabs/src"
+import { pipeEvent } from "../../utils/functional"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
@@ -24,15 +23,16 @@ class PageAddFolder extends React.Component<Props, State> {
 
     const allChilds = this.props.actions.ApplicationAction.getPageAllChilds(this.props.stores.ApplicationStore.currentEditPageKey)
 
-    const folderSelectOptions = this.props.stores.ApplicationStore.pageFolderList
+    const FolderSelectOptions = this.props.stores.ApplicationStore.pageFolderList
       .filter(pageKey => pageKey !== this.props.stores.ApplicationStore.currentEditPageKey)
       .filter(pageKey => !allChilds.some(eachChild => eachChild === pageKey))
       .map(pageKey => {
         const folderInfo = this.props.stores.ApplicationStore.pages.get(pageKey)
-        return {
-          key: pageKey,
-          value: folderInfo.name || "未命名"
-        }
+        return (
+          <Select.Option key={pageKey} value={pageKey}>
+            {folderInfo.name || "未命名"}
+          </Select.Option>
+        )
       })
 
     return (
@@ -54,13 +54,18 @@ class PageAddFolder extends React.Component<Props, State> {
         </Styled.Title>
 
         <Styled.FormTitle>名称</Styled.FormTitle>
-        <Input value={this.pageInfo.name} onChange={this.handleChangeName} />
+        <Input value={this.pageInfo.name} onChange={pipeEvent(this.handleChangeName)} />
 
         <Styled.FormTitle>路径名</Styled.FormTitle>
-        <Input value={this.pageInfo.path} onChange={this.handleChangePath} />
+        <Input value={this.pageInfo.path} onChange={pipeEvent(this.handleChangePath)} />
 
         <Styled.FormTitle>父级文件夹</Styled.FormTitle>
-        <Select options={folderSelectOptions} value={this.pageInfo.parentKey} onChange={this.handleSelectParentFolder} />
+        <Select
+          value={this.pageInfo.parentKey}
+          onChange={this.handleSelectParentFolder}
+        >
+          {FolderSelectOptions}
+        </Select>
 
         {this.props.stores.ApplicationStore.currentCreatedPageKey &&
           <Styled.Button onClick={this.handleCreate}>

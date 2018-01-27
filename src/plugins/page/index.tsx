@@ -1,9 +1,8 @@
+import { Tree } from "antd"
 import { Connect } from "dob-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom";
 import Icon from "../../components/icon/src"
-import { TabPanel, Tabs } from "../../components/tabs/src"
-import { Tree } from "../../components/tree/src"
 import PageAction from "./action"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"

@@ -1,4 +1,17 @@
-import styled from "styled-components"
+import styled, { injectGlobal } from "styled-components"
+
+// tslint:disable-next-line:no-unused-expression
+injectGlobal`
+  .main-tool-editor-type-color {
+    .ant-tooltip-inner {
+      background-color: transparent;
+      box-shadow: none;
+    }
+    .ant-tooltip-arrow {
+      display: none;
+    }
+  }
+`
 
 export const Container = styled.div`
   padding: 5px 0 5px 0;

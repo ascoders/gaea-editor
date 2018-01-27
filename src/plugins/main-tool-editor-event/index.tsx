@@ -1,10 +1,9 @@
+import { Tooltip } from "antd"
 import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import Icon from "../../components/icon/src"
-import { TabPanel, Tabs } from "../../components/tabs/src/"
-import { Tooltip } from "../../components/tooltip/src"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
@@ -43,7 +42,7 @@ class MainToolEditorEvent extends React.Component<Props, State> {
             })}
           </Styled.EventRight>
 
-          <Tooltip title="移除此项" position="left">
+          <Tooltip title="Remove this event" placement="left">
             <Styled.RemoveIconContainer onClick={this.handleRemove.bind(this, index)}>
               <Icon type="remove" size={14} />
             </Styled.RemoveIconContainer>
@@ -55,8 +54,8 @@ class MainToolEditorEvent extends React.Component<Props, State> {
     return (
       <Styled.Container>
         <Styled.TabTitle>
-          <span>事件</span>
-          <Tooltip title="新增事件" position="right">
+          Event
+          <Tooltip title="Add new event" placement="right">
             <Styled.AddButton onClick={this.handleAdd}>
               <Icon type="add" size={14} />
             </Styled.AddButton>

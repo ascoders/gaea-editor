@@ -1,10 +1,9 @@
+import { Tooltip } from "antd"
 import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import { ChromePicker, ColorResult } from "react-color"
 import * as ReactDOM from "react-dom"
-import { Input } from "../../components/input/src"
-import { Tooltip } from "../../components/tooltip/src"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
@@ -32,11 +31,9 @@ class MainToolEditorColor extends React.Component<Props, State> {
     return (
       <Styled.Container>
         <Tooltip
-          type="click"
-          showArrow={false}
-          position="bottom"
-          width={225}
-          height={241.75}
+          trigger="click"
+          placement="bottom"
+          overlayClassName="main-tool-editor-type-color"
           title={() =>
             <ChromePicker
               color={currentValue}

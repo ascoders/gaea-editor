@@ -1,7 +1,7 @@
+import { Tooltip } from "antd"
 import { Connect } from "dob-react"
 import * as React from "react"
 import Icon from "../../components/icon/src"
-import { Tooltip } from "../../components/tooltip/src"
 import { StoreProps } from "../../stores"
 import * as Styled from "./style"
 
@@ -20,7 +20,7 @@ class DragMenuButton extends React.Component<Props, State> {
 
     public render() {
         return (
-            <Tooltip title="添加组件">
+            <Tooltip title="Pick Component" placement="right">
                 <Styled.Container onClick={this.handleClick} theme={{ active: this.props.stores.ApplicationStore.leftTool === "dragMenu" }}>
                     <Icon type="component" />
                 </Styled.Container>

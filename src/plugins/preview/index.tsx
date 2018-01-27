@@ -11,7 +11,7 @@ class Preview extends React.Component<Props, State> {
     public render() {
         return (
             <Styled.Container onClick={this.handleClick}>
-                {this.props.stores.ApplicationStore.isPreview ? "取消" : "预览"}
+                {this.props.stores.ApplicationStore.isPreview ? "Cancel" : "Preview"}
             </Styled.Container>
         )
     }

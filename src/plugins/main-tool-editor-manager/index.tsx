@@ -1,10 +1,9 @@
+import { Tooltip } from "antd"
 import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import Icon from "../../components/icon/src"
-import { TabPanel, Tabs } from "../../components/tabs/src/"
-import { Tooltip } from "../../components/tooltip/src"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
 
@@ -73,7 +72,7 @@ class MainToolEditorManager extends React.Component<Props, State> {
           return (
             <Styled.EditorContainer key={index} theme={{ isObjectType: isObjectType && !isVariable }}>
               <Styled.Label theme={{ isObjectType: isObjectType && !isVariable }}>
-                <span>{editor.label}</span>
+                <span>{editor.text}</span>
               </Styled.Label>
 
               <Styled.EditorBoxContainer>
