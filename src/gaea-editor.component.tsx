@@ -5,8 +5,6 @@ import { Props, State } from "./gaea-editor.type"
 import Page from "./page/page.component"
 import { IActionsOrStores, Store } from "./stores"
 
-import gaeaBasicComponents from "gaea-basic-components"
-
 // tslint:disable-next-line:no-submodule-imports
 import "antd/dist/antd.css"
 
@@ -42,7 +40,7 @@ export default class GaeaEditor extends React.Component<Props, State> {
         })
 
         // 将默认组件与用户自定义组件的 Class 保存在数据流
-        gaeaBasicComponents.concat(this.props.componentClasses).forEach(componentClass => {
+        this.props.componentClasses.forEach(componentClass => {
             // 添加 componentClass
             this.stores.getStore().actions.ApplicationAction.addComponentClass(componentClass)
         })
@@ -67,7 +65,7 @@ export default class GaeaEditor extends React.Component<Props, State> {
     }
 
     public render() {
-        const allComponentClasses = gaeaBasicComponents.concat(this.props.componentClasses)
+        const allComponentClasses = this.props.componentClasses
 
         return (
             <Provider {...this.stores.getStore() }>

@@ -41,7 +41,7 @@ class MainToolTree extends React.Component<Props, State> {
         </Styled.TreeContainer>
 
         <Styled.AbsoluteContainer>
-          实例数:{this.props.stores.ViewportStore.instances.size}
+          Instance count: {this.props.stores.ViewportStore.instances.size}
         </Styled.AbsoluteContainer>
       </Styled.Container>
     )

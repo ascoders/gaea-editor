@@ -27,7 +27,7 @@ class PageAddPage extends React.Component<Props, State> {
         const folderInfo = this.props.stores.ApplicationStore.pages.get(pageKey)
         return (
           <Select.Option key={pageKey} value={pageKey}>
-            {folderInfo.name || "未命名"}
+            {folderInfo.name || "Unnamed"}
           </Select.Option>
         )
       })
@@ -37,7 +37,7 @@ class PageAddPage extends React.Component<Props, State> {
         <Styled.Title >
           <Styled.TitleLeftContainer>
             <span>
-              {this.props.stores.ApplicationStore.currentCreatedPageKey ? "添加页面" : "编辑页面"}
+              {this.props.stores.ApplicationStore.currentCreatedPageKey ? "Add page" : "Edit page"}
             </span>
             {this.props.stores.ApplicationStore.currentCreatedPageKey !== this.props.stores.ApplicationStore.currentEditPageKey && !this.pageInfo.isHomePage && this.props.stores.ApplicationStore.currentViewportPageKey !== this.props.stores.ApplicationStore.currentEditPageKey &&
               < Styled.RemoveButtonContainer onClick={this.handleRemove}>
@@ -50,14 +50,14 @@ class PageAddPage extends React.Component<Props, State> {
           </Styled.CloseContainer>
         </Styled.Title>
 
-        <Styled.FormTitle>名称</Styled.FormTitle>
+        <Styled.FormTitle>Name</Styled.FormTitle>
         <Input
           disabled={this.pageInfo.isHomePage}
           value={this.pageInfo.name}
           onChange={pipeEvent(this.handleChangeName)}
         />
 
-        <Styled.FormTitle>路径名</Styled.FormTitle>
+        <Styled.FormTitle>Path</Styled.FormTitle>
         <Input
           disabled={this.pageInfo.isHomePage}
           value={this.pageInfo.path}
@@ -65,12 +65,12 @@ class PageAddPage extends React.Component<Props, State> {
         />
 
         <Styled.Description>
-          页面路径：<Styled.RealPath>/{this.props.stores.ApplicationStore.currentEditPageRealPath}</Styled.RealPath>
+          Path: <Styled.RealPath>/{this.props.stores.ApplicationStore.currentEditPageRealPath}</Styled.RealPath>
         </Styled.Description>
 
         {!this.pageInfo.isHomePage &&
           [
-            <Styled.FormTitle key="add-page-parent-title">父级文件夹</Styled.FormTitle>,
+            <Styled.FormTitle key="add-page-parent-title">Parent folder</Styled.FormTitle>,
             <Select
               key="add-page-parent-select"
               value={this.pageInfo.parentKey}
@@ -83,7 +83,7 @@ class PageAddPage extends React.Component<Props, State> {
 
         {this.props.stores.ApplicationStore.currentCreatedPageKey &&
           <Styled.Button onClick={this.handleCreate}>
-            创建
+            Create
           </Styled.Button>
         }
       </Styled.Container >

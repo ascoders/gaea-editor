@@ -25,4 +25,5 @@ export const ScrollContainer = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   height: 100%;
+  width: 300px;
 `

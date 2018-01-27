@@ -1,8 +1,8 @@
-import { Tree } from "antd"
 import { Connect } from "dob-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import Icon from "../../../components/icon/src"
+import { TreeNode } from "../../../components/tree/src"
 import * as Styled from "./tree-node.style"
 import * as typings from "./tree-node.type"
 
@@ -42,13 +42,13 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
           <Styled.Content theme={{ editted: currentEditPageKey === this.props.pageKey }}>
             <Styled.Title theme={{ isHome: this.pageInfo.isHomePage }}>
               {pageName === "" ?
-                <Styled.UnNamed>&lt;未命名&gt;</Styled.UnNamed> : pageName}
+                <Styled.UnNamed>&lt;Unnamed&gt;</Styled.UnNamed> : pageName}
             </Styled.Title>
 
             <Styled.RightContainer>
               {currentViewportPageKey === this.props.pageKey &&
                 <Styled.InUseTag>
-                  使用中
+                  Using
                 </Styled.InUseTag>
               }
               {currentCreatedPageKey !== this.props.pageKey &&
@@ -67,7 +67,7 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
 
     return (
       <Styled.Container>
-        {React.createElement(Tree.TreeNode, childProps, childs)}
+        {React.createElement(TreeNode, childProps, childs)}
       </Styled.Container>
     )
   }

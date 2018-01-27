@@ -30,7 +30,7 @@ class PageAddFolder extends React.Component<Props, State> {
         const folderInfo = this.props.stores.ApplicationStore.pages.get(pageKey)
         return (
           <Select.Option key={pageKey} value={pageKey}>
-            {folderInfo.name || "未命名"}
+            {folderInfo.name || "Unnamed"}
           </Select.Option>
         )
       })
@@ -40,7 +40,7 @@ class PageAddFolder extends React.Component<Props, State> {
         <Styled.Title >
           <Styled.TitleLeftContainer>
             <span>
-              {this.props.stores.ApplicationStore.currentCreatedPageKey ? "添加文件夹" : "编辑文件夹"}
+              {this.props.stores.ApplicationStore.currentCreatedPageKey ? "Add folder" : "Edit folder"}
             </span>
             {this.props.stores.ApplicationStore.currentCreatedPageKey !== this.props.stores.ApplicationStore.currentEditPageKey &&
               <Styled.RemoveButtonContainer onClick={this.handleRemove}>
@@ -53,13 +53,13 @@ class PageAddFolder extends React.Component<Props, State> {
           </Styled.CloseContainer>
         </Styled.Title>
 
-        <Styled.FormTitle>名称</Styled.FormTitle>
+        <Styled.FormTitle>Name</Styled.FormTitle>
         <Input value={this.pageInfo.name} onChange={pipeEvent(this.handleChangeName)} />
 
-        <Styled.FormTitle>路径名</Styled.FormTitle>
+        <Styled.FormTitle>Path</Styled.FormTitle>
         <Input value={this.pageInfo.path} onChange={pipeEvent(this.handleChangePath)} />
 
-        <Styled.FormTitle>父级文件夹</Styled.FormTitle>
+        <Styled.FormTitle>Parent folder</Styled.FormTitle>
         <Select
           value={this.pageInfo.parentKey}
           onChange={this.handleSelectParentFolder}
@@ -69,7 +69,7 @@ class PageAddFolder extends React.Component<Props, State> {
 
         {this.props.stores.ApplicationStore.currentCreatedPageKey &&
           <Styled.Button onClick={this.handleCreate}>
-            创建
+            Create
           </Styled.Button>
         }
       </Styled.Container>

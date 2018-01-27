@@ -1,8 +1,8 @@
-import { Tree } from "antd"
 import { Connect } from "dob-react"
 import * as React from "react"
 import * as ReactDOM from "react-dom";
 import Icon from "../../components/icon/src"
+import { Tree } from "../../components/tree/src"
 import PageAction from "./action"
 import * as Styled from "./index.style"
 import { Props, State } from "./index.type"
@@ -29,7 +29,7 @@ class Page extends React.Component<Props, State> {
       <Styled.Container>
         <Styled.Title >
           <Styled.TitleLeftContainer>
-            <div>配置页面</div>
+            <div>Page configuration</div>
             <Styled.CloseContainer onClick={this.handleCloseLeftBar}>
               <Icon type="close" size={15} />
             </Styled.CloseContainer>
@@ -53,10 +53,10 @@ class Page extends React.Component<Props, State> {
         {this.props.stores.ApplicationStore.pages.size === 1 &&
           <Styled.EmptyContainer>
             <Styled.EmptyTitle>
-              添加新页面
+              Add new Page
           </Styled.EmptyTitle>
             <Styled.EmptyDescription>
-              点击右上角按钮，创建文件夹或页面，应用默认拥有首页
+              Click the top right button, create a folder or page, and apply the default home page.
           </Styled.EmptyDescription>
           </Styled.EmptyContainer>
         }

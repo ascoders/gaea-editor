@@ -21,9 +21,6 @@ export const AbsoluteContainer = styled.div`
   bottom: 0;
   right: 0;
   padding: 5px;
-  border-top: 1px solid #ddd;
-  border-left: 1px solid #ddd;
-  border-top-left-radius: 3px;
   background-color: white;
   font-size: 12px;
   color: #666;

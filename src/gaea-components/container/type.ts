@@ -1,23 +1,23 @@
 export class Props {
   public gaeaSetting = {
     key: "gaea-container",
-    name: "容器",
+    name: "Container",
     isContainer: true,
     editors: [
-      "布局",
+      "Container",
       {
-        text: "边距",
+        text: "Box editor",
         type: "box-editor"
       },
-      "基本",
+      "Style",
       {
         field: "style.backgroundColor",
-        text: "背景颜色",
+        text: "BackgroundColor",
         type: "color"
       },
       {
         field: "style.opacity",
-        text: "透明度",
+        text: "Opacity",
         type: "number",
         data: {
           useSlider: true,
