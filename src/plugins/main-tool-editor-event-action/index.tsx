@@ -10,10 +10,10 @@ import { Props, State } from "./index.type"
 
 const ActionOptions = [{
   key: "none",
-  value: "无"
+  value: "Do nothing"
 }, {
   key: "passingSiblingNodes",
-  value: "传给同级"
+  value: "Pass value to brother node"
 }].map((each, index) => {
   return (
     <Select.Option key={index} value={each.key}>
@@ -61,7 +61,7 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
       <Styled.Container>
         <Styled.HeaderContainer>
           <Styled.Label>
-            动作
+            Action
           </Styled.Label>
           <Select
             value={this.currentEventInfo.action}

@@ -30,17 +30,17 @@ class MainToolEditorEvent extends React.Component<Props, State> {
     const Events = this.instanceInfo.data && this.instanceInfo.data.events && this.instanceInfo.data.events.map((event, index) => {
       return (
         <Styled.EventContainer key={index}>
-          <Styled.EventLeft>
+          <Styled.EventTrigger>
             {this.props.actions.ApplicationAction.loadPluginByPosition(`mainToolEditorEventTrigger`, {
               index
             })}
-          </Styled.EventLeft>
+          </Styled.EventTrigger>
 
-          <Styled.EventRight>
+          <Styled.EventAction>
             {this.props.actions.ApplicationAction.loadPluginByPosition(`mainToolEditorEventAction`, {
               index
             })}
-          </Styled.EventRight>
+          </Styled.EventAction>
 
           <Tooltip title="Remove this event" placement="left">
             <Styled.RemoveIconContainer onClick={this.handleRemove.bind(this, index)}>

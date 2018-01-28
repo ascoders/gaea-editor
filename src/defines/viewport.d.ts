@@ -3,7 +3,7 @@
  */
 declare interface InstanceInfo {
     /**
-     * Gaea key, use it can find componentClass, and access defaultProps.gaeaSetting
+     * Gaea key, use it can find componentClass, and access defaultProps.editSetting
      */
     gaeaKey: string
     /**

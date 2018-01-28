@@ -71,9 +71,11 @@ class MainToolEditorManager extends React.Component<Props, State> {
 
           return (
             <Styled.EditorContainer key={index} theme={{ isObjectType: isObjectType && !isVariable }}>
-              <Styled.Label theme={{ isObjectType: isObjectType && !isVariable }}>
-                <span>{editor.text}</span>
-              </Styled.Label>
+              {editor.text &&
+                <Styled.Label theme={{ isObjectType: isObjectType && !isVariable }}>
+                  <span>{editor.text}</span>
+                </Styled.Label>
+              }
 
               <Styled.EditorBoxContainer>
                 {child}

@@ -1,9 +1,9 @@
-import { InputNumber } from "antd"
+import { InputNumber, Slider } from "antd"
 import { Connect } from "dob-react"
 import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import * as Styled from "./index.style"
+import * as S from "./index.style"
 import { Props, State } from "./index.type"
 
 // 根据 inputRange outputRange 转换值
@@ -66,25 +66,27 @@ class MainToolEditorNumber extends React.Component<Props, State> {
     currentValue = parseInputToOutRange(currentValue, this.numberData.outputRange, this.numberData.inputRange)
 
     return (
-      <Styled.Container>
+      <S.Container>
         {currentValue !== null && this.numberData.useSlider &&
-          <input
-            min={this.numberData.inputRange[0]}
-            max={this.numberData.inputRange[1]}
-            step={this.numberData.step}
-            value={currentValue || 0}
-            onChange={this.handleSliderChange}
-            type="range"
-          />
+          <S.SliderContainer>
+            <Slider
+              min={this.numberData.inputRange[0]}
+              max={this.numberData.inputRange[1]}
+              step={this.numberData.step}
+              value={currentValue || 0}
+              onChange={this.handleSliderChange}
+            />
+          </S.SliderContainer>
         }
 
         <InputNumber
+          size="small"
           value={currentValue}
           onChange={this.handleChange}
           min={this.numberData.inputRange[0]}
           max={this.numberData.inputRange[1]}
         />
-      </Styled.Container>
+      </S.Container>
     )
   }
 
@@ -95,8 +97,7 @@ class MainToolEditorNumber extends React.Component<Props, State> {
     this.props.actions.ViewportAction.setInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.realField, value)
   }
 
-  private handleSliderChange = (event: React.FormEvent<HTMLInputElement>) => {
-    const value = Number(event.currentTarget.value)
+  private handleSliderChange = (value: number) => {
     this.handleChange(value)
   }
 }

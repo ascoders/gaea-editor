@@ -1,12 +1,11 @@
 export class Props {
-  public gaeaSetting = {
+  public editSetting = {
     key: "gaea-icon",
     name: "Icon",
     editors: [
       "Layout",
       {
         text: "Box editor",
-        type: "box-editor"
       },
       "Function",
       {

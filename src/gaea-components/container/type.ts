@@ -1,12 +1,14 @@
 export class Props {
-  public gaeaSetting = {
+  public editSetting = {
     key: "gaea-container",
     name: "Container",
     isContainer: true,
     editors: [
-      "Container",
+      "Layout",
       {
-        text: "Box editor",
+        type: "display"
+      },
+      {
         type: "box-editor"
       },
       "Style",

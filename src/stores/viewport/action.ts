@@ -8,7 +8,7 @@ import EventStore from "../event/store"
 import ViewportStore from "./store"
 
 /**
- * gaeaKey 指组件 class 防止重复的 props.gaeaSetting.key
+ * gaeaKey 指组件 class 防止重复的 props.editSetting.key
  * instanceKey 是 viewport 给每个组件实例的唯一标识
  */
 
@@ -182,7 +182,7 @@ export default class ViewportAction {
 
         // 如果和 defaultProps 相同，就把字段置空
         if (value === _.get(defaultProps, key)) {
-            delete instance.data.props[key]
+            _.unset(instance.data.props, key)
 
             // 强制刷新组件
             this.eventAction.emit(`${this.eventStore.instanceUpdate}.${instanceKey}`)

@@ -1,32 +1,91 @@
-# GaeaEditor
+# Gaea Editor &middot; [![CircleCI Status](https://img.shields.io/travis/ascoders/gaea-editor/master.svg?style=flat)](https://travis-ci.org/dobjs/dob) [![npm version](https://img.shields.io/npm/v/gaea-editor.svg?style=flat)](https://www.npmjs.com/package/dob) [![code coverage](https://img.shields.io/codecov/c/github/ascoders/gaea-editor/master.svg)](https://codecov.io/github/dobjs/dob)
 
-A scalable web page editor, written by typescript, using symbol and proxy, support modern browsers, not support ie11.
+<p align="center">
+    <img src="./docs/images/home-snapshot.png" height=300/>
+    <h3 align="center">gaea-editor</h3>
+    <p align="center">
+        <i>
+            Help develops build a scalable website visualization builder.
+        </i>
+    <p>
+    <p align="center">
+        <i>
+            <a target="_blank" href="https://jsfiddle.net/gjLqweam/6/">Try it online.</a>.
+        </i>
+    </p>
+</p>
 
-- **Adaptation**: Support all react components. Add a few lines of configuration, you can let your components in the edit menu display, and can be dragged into the view area, and edit its properties.
-- **Scalable**: Support plug-ins to expand the editor for any function. Plug-ins can be inserted into any part of the editor, plug-ins can also provide slots for other plug-ins, plug-ins can create and share data flow editor, call the editor arbitrary function.
-
-> [LiveDemo](https://jsfiddle.net/gjLqweam/6/)
-
-# Quick start
+## Quick start
 
 ```bash
 npm i gaea-editor --save
 ```
 
-You can start it quickly:
+And then, it's easy to use:
 
 ```typescript
 import Editor from "gaea-editor"
 
 ReactDOM.render(
-    <Editor />,
+    <div style={{width: '100vw', height: '100vh'}}>
+        <Editor />
+    </div>,
     document.getElementById("react-root")
 )
 ```
 
-# Options
+## Add custom component to the drag menu
 
-You can add custom components, custom plugins, save callback, and read saved progress.
+You can add any react components to the drag menu, through the following line of code:
+
+```typescript
+<Editor componentClasses={[CustomComponent1, CustomComponent2]} />
+```
+
+Add `editSetting` to each component props, to let the editor know how to edit it visualizations:
+
+```typescript
+defaultProps = {
+    editSetting: {
+        key: 'my-custom-key', // Unique key.
+        name: 'Custom one', // The name shown in drag menu.
+        editors: [{
+            field: "title",
+            text: "Text",
+            type: "string"
+        }] // Tell gaea-editor, which props can be edited and how to edit it.
+    }
+}
+```
+
+## More about `editors`
+
+gaea-editor provides several built-in type editing props. If you need to expand it, you can refer to [custom plugin](./docs/custom-plugin.md).
+
+common field:
+
+- `field`: which props to edit. EX: `value` `visible` `style.backgroundColor`.
+- `text`: If exist, will appear in the form label to prompt the user.
+
+The following are the built-in types:
+
+### string
+
+![](./docs/images/string.png)
+
+Suitable for any string editing.
+
+```typescript
+{
+    type: 'string',
+    text: 'Text',
+    field: 'value'
+}
+```
+
+## Options
+
+You can add custom components, custom plugins, save callback, and read saved data.
 
 | Props | Type | Description |
 | -------- | -------- | -------- |

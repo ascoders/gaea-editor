@@ -25,7 +25,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(this.props.stores.ViewportStore.currentEditInstanceKey)
 
     // 数组配置
-    const editors = this.props.editor.editors as IEditorOptionArray
+    const editors = this.props.editor.data as IEditor[]
 
     // 当前控制数组的值
     const currentValue: any[] = this.props.actions.ViewportAction.getInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.realField) || []
@@ -38,7 +38,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
             editors,
             realField: this.props.realField + "." + index
           })}
-          <Tooltip title="Remove this one" placement="left">
+          <Tooltip title="Remove" placement="left">
             <Styled.RemoveIconContainer onClick={this.handleRemove.bind(this, index)}>
               <Icon type="remove" size={14} />
             </Styled.RemoveIconContainer>
@@ -49,7 +49,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
 
     return (
       <Styled.Container>
-        <Tooltip title="Add new one" placement="right">
+        <Tooltip title="New" placement="left">
           <Styled.AddButton onClick={this.handleAdd}>
             <Icon type="add" size={14} />
           </Styled.AddButton>
@@ -69,7 +69,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
 
     const assignValue = [...currentValue]
 
-    if (typeof this.props.editor.editors === "string") {
+    if (typeof this.props.editor.data === "string") {
       assignValue.push(null)
     } else {
       // 对象类型

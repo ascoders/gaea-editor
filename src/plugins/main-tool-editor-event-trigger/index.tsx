@@ -9,7 +9,7 @@ import { Props, State } from "./index.type"
 
 const triggerOptions = [{
   key: "init",
-  value: "初始化"
+  value: "Init"
 }]
 
 @Connect
@@ -79,7 +79,7 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
       <Styled.Container>
         <Styled.HeaderContainer>
           <Styled.Label>
-            触发
+            Trigger
           </Styled.Label>
           <Select
             value={this.currentEventInfo.trigger as string}
@@ -129,7 +129,7 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
     return triggerData.data.map((param, index) => {
       return (
         <Styled.CallbackItem key={index}>
-          <span>提供</span>
+          <span>Provider</span>
           <Styled.ParamLabel>{param.name}</Styled.ParamLabel>
         </Styled.CallbackItem>
       )

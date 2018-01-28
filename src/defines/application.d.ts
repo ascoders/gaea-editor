@@ -28,7 +28,7 @@ declare interface IPlugin {
  * Drag source's props should extends this interface
  */
 declare interface IGaeaProps extends React.HTMLProps<any> {
-    gaeaSetting: IGaeaSetting
+    editSetting: IGaeaSetting
 }
 
 declare interface IGaeaSetting {
@@ -79,18 +79,10 @@ declare interface IEditor {
      */
     text: string
     /**
-     * 当类型为非普通类型时，允许添加额外配置
-     * 当其为字符串时，对数组时，表示每一项都使用一种类型编辑
-     * 当其为对象时，对数组时，表示每一项都是对象，再设定每个对象的编辑方式
-     */
-    editors?: IEditorOptionArray | string
-    /**
      * 特殊类型的额外描述信息
      */
-    data?: IEditorNumberData | IEditorSelectData | any
+    data?: IEditor[] | IEditor | IEditorNumberData | IEditorSelectData | number | string
 }
-
-declare type IEditorOptionArray = IEditor[]
 
 declare interface IEditorNumberData {
     /**
@@ -108,7 +100,7 @@ declare interface IEditorNumberData {
     /**
      * 输出范围
      */
-    outputRange: number[]
+    outputRange?: number[]
 }
 
 declare type IEditorSelectData = Array<{

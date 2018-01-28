@@ -26,7 +26,7 @@ class MainToolEditorObject extends React.Component<Props, State> {
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(this.props.stores.ViewportStore.currentEditInstanceKey)
 
     // 对象配置
-    const editors = this.props.editor.editors as IEditorOptionArray
+    const editors = this.props.editor.data as IEditor[]
 
     const Editors = editors.map((editor, index) => {
       return (

@@ -28,7 +28,6 @@ export const TabTitle = styled.div`
 export const EditorContainer = styled.div`
   display: flex;
   position: relative;
-  padding-left: 10px;
   justify-content: space-between;
   ${(props: any) => props.theme.isObjectType && `
     flex-direction: column;
@@ -37,11 +36,14 @@ export const EditorContainer = styled.div`
 `
 
 export const EditorBoxContainer = styled.div`
-
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
 `
 
 export const Variable = styled.div`
-  display: flex;
+  display: none;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   position: absolute;
@@ -76,6 +78,7 @@ export const Label = styled.div`
   color: #666;
   white-space: nowrap;
   padding: 5px 0;
+  margin-left: 10px;
   ${(props: any) => props.theme.isObjectType && `
     align-items: flex-start;
   `}

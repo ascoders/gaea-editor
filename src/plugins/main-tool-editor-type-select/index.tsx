@@ -25,7 +25,7 @@ class MainToolEditorSelect extends React.Component<Props, State> {
 
     const currentValue: string = this.props.actions.ViewportAction.getInstanceProps(this.props.stores.ViewportStore.currentEditInstanceKey, this.props.realField)
 
-    const data: IEditorSelectData = this.props.editor.data
+    const data = this.props.editor.data as IEditorSelectData
 
     return (
       <Styled.Container>

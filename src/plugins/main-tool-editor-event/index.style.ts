@@ -30,24 +30,24 @@ export const AddButton = styled.div`
 export const EventContainer = styled.div`
   position: relative;
   display: flex;
-  padding: 10px 0 10px 25px;
+  height: 100px;
+  padding: 10px;
+  flex-direction: column;
   &:not(:last-child) {
     border-bottom: 1px solid #ddd;
   }
 `
 
-export const EventLeft = styled.div`
+export const EventTrigger = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  flex-basis: 0;
 `
 
-export const EventRight = styled.div`
+export const EventAction = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  flex-basis: 0;
 `
 
 export const EventList = styled.div`
@@ -57,8 +57,8 @@ export const EventList = styled.div`
 
 export const RemoveIconContainer = styled.div`
   position: absolute;
-  left: 5px;
-  top: 18px;
+  left: 10px;
+  top: 40px;
   fill: #999;
   cursor: pointer;
   transition: color .3s;
