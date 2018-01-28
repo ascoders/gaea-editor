@@ -1,7 +1,7 @@
 # Gaea Editor &middot; [![CircleCI Status](https://img.shields.io/travis/ascoders/gaea-editor/master.svg?style=flat)](https://travis-ci.org/dobjs/dob) [![npm version](https://img.shields.io/npm/v/gaea-editor.svg?style=flat)](https://www.npmjs.com/package/dob) [![code coverage](https://img.shields.io/codecov/c/github/ascoders/gaea-editor/master.svg)](https://codecov.io/github/dobjs/dob)
 
 <p align="center">
-    <img src="./docs/images/home-snapshot.png" height=300/>
+    <img src="./docs/images/home-snapshot.png" height=400/>
     <h3 align="center">gaea-editor</h3>
     <p align="center">
         <i>
