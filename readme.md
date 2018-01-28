@@ -173,6 +173,62 @@ Because this type will edit multiple props properties, such as `margin` `padding
 }
 ```
 
+### array
+
+![](./docs/images/array.png)
+
+**Super type**, allow visualizations to edit a array type props.
+
+Each field in `data` describes how the key should be edited in the object in array.
+
+> Each field in `data` is a `editor` type. You can even nested `array` or `object` type inside.
+
+```typescript
+{
+    type: 'array',
+    text: 'Options',
+    data: [{
+        field: "value",
+        type: "string",
+        text: "Value"
+    }, {
+        field: "text",
+        type: "string",
+        text: "Text"
+    }, {
+        field: "disabled",
+        type: "boolean",
+        text: "Disabled"
+    }]
+}
+```
+
+### object
+
+![](./docs/images/object.png)
+
+**Super type**, allow visualizations to edit a object type props.
+
+Each field in `data` describes how the key should be edited in this object.
+
+> Each field in `data` is a `editor` type. You can even nested `array` or `object` type inside.
+
+```typescript
+{
+    type: 'object',
+    text: 'Text',
+    data: [{
+        field: "name",
+        type: "string",
+        text: "Name"
+    }, {
+        field: "age",
+        type: "number",
+        text: "Age"
+    }]
+}
+```
+
 ## Options
 
 You can add custom components, custom plugins, save callback, and read saved data.
