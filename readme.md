@@ -10,7 +10,7 @@
     <p>
     <p align="center">
         <i>
-            <a target="_blank" href="https://jsfiddle.net/gjLqweam/6/">Try it online.</a>.
+            <a target="_blank" href="https://jsfiddle.net/gjLqweam/6/">Try it online.</a>
         </i>
     </p>
 </p>
@@ -73,13 +73,103 @@ The following are the built-in types:
 
 ![](./docs/images/string.png)
 
-Suitable for any string editing.
+Suitable for any string editing scene.
 
 ```typescript
 {
     type: 'string',
     text: 'Text',
     field: 'value'
+}
+```
+
+### number
+
+![](./docs/images/number.png)
+
+Suitable for any number editing scene.
+
+In many cases, it is suggested that `inputRange` and `outputRange` be set to the same value.
+
+```typescript
+{
+    type: 'number',
+    text: 'Text',
+    field: 'value',
+    data: {
+        useSlider: true,
+        step: 1,
+        inputRange: [0, 100],
+        outputRange: [0, 1]
+    }
+}
+```
+
+### select
+
+![](./docs/images/select.png)
+
+Suitable for enumable editing scene.
+
+```typescript
+{
+    type: 'select',
+    text: 'Text',
+    field: 'value',
+    data: [{
+        text: 'Default',
+        value: 0
+    }, {
+        text: 'Small',
+        value: 1
+    }, {
+        text: 'Large',
+        value: 2
+    }]
+}
+```
+
+### color
+
+![](./docs/images/color.png)
+
+Suitable for color picker editing scene.
+
+```typescript
+{
+    type: 'color',
+    text: 'Text',
+    field: 'style.backgroundColor',
+}
+```
+
+### display
+
+![](./docs/images/display.png)
+
+Suitable for layout editing scene.
+
+Because this type will edit multiple props properties, such as `style.display` `style.flexDirection`, so don't need to specify the `field` field.
+
+```typescript
+{
+    type: 'display',
+    text: 'Text'
+}
+```
+
+### box-editor
+
+![](./docs/images/box-editor.png)
+
+Suitable for margin-padding editing scene.
+
+Because this type will edit multiple props properties, such as `margin` `padding`, so don't need to specify the `field` field.
+
+```typescript
+{
+    type: 'box-editor',
+    text: 'Text'
 }
 ```
 
