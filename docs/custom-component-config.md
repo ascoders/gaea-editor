@@ -26,13 +26,13 @@ class Props {
     editors: [
       "normal",
       {
-        label: "boxEditor",
+        text: "boxEditor",
         type: "box-editor"
       },
       "basic",
       {
         field: "defaultValue",
-        label: "defaultValue",
+        text: "defaultValue",
         type: "string"
       },
       {
@@ -42,11 +42,11 @@ class Props {
         editors: [{
           field: "value",
           type: "string",
-          label: "value"
+          text: "value"
         }, {
           field: "name",
           type: "string",
-          label: "optionName"
+          text: "optionName"
         }]
       }
     ],
@@ -110,16 +110,16 @@ Array example:
 ```javascript
 {
   field: "options",
-  label: "some label",
+  text: "some label",
   type: "array",
-  editors: [{
+  data: [{
     field: "value",
     type: "string",
-    label: "some label"
+    text: "some label"
   }, {
     field: "name",
     type: "string",
-    label: "some label"
+    text: "some label"
   }]
 }
 
@@ -134,9 +134,9 @@ props.options = [{
 ```javascript
 {
   field: "options",
-  label: "some label",
+  text: "some label",
   type: "array",
-  editors: "number"
+  data: "number"
 }
 
 // -->
@@ -149,16 +149,16 @@ Object example:
 ```javascript
 {
   field: "options",
-  label: "some label",
+  text: "some label",
   type: "object",
-  editors: [{
+  data: [{
     field: "name",
     type: "string",
-    label: "some label"
+    text: "some label"
   }, {
     field: "age",
     type: "number",
-    label: "some label"
+    text: "some label"
   }]
 }
 

@@ -105,6 +105,20 @@ In many cases, it is suggested that `inputRange` and `outputRange` be set to the
 }
 ```
 
+### boolean
+
+![](./docs/images/boolean.png)
+
+Suitable for any boolean editing scene.
+
+```typescript
+{
+    type: 'boolean',
+    text: 'Checked',
+    field: 'value'
+}
+```
+
 ### select
 
 ![](./docs/images/select.png)
@@ -175,7 +189,25 @@ Because this type will edit multiple props properties, such as `margin` `padding
 
 ### array
 
-![](./docs/images/array.png)
+![](./docs/images/array-string.png)
+
+**Super type**, allow visualizations to edit a array type props.
+
+```typescript
+{
+    type: 'array',
+    text: 'values',
+    data: 'string'
+}
+```
+
+You can change `string` to `boolean`, than it can edit boolean array:
+
+![](./docs/images/array-boolean.png)
+
+### object array
+
+![](./docs/images/array-object.png)
 
 **Super type**, allow visualizations to edit a array type props.
 

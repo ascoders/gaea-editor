@@ -8,6 +8,9 @@
     "entrys": [
       "src/develop-entry/index"
     ],
+    "productionEntrys": [
+      "src/index"
+    ],
     "rules": [
       {
         "test": ".css$",
@@ -58,7 +61,7 @@
     "babel-preset-stage-0": "^6.22.0",
     "css-loader": "^0.28.9",
     "pre-commit": "^1.2.2",
-    "run-react": "^2.2.2",
+    "run-react": "^2.2.3",
     "style-loader": "^0.19.1",
     "tslint": "^5.7.0",
     "typescript": "^2.5.2",
