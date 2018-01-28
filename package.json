@@ -1,8 +1,8 @@
 {
   "name": "gaea-editor",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "",
-  "main": "built/index.js",
+  "main": "built/src/index.js",
   "types": "src/index.ts",
   "run-react": {
     "entrys": [
