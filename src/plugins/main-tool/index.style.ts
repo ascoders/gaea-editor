@@ -18,6 +18,7 @@ export const Container = styled.div.withConfig({ componentId: "main-tool-contain
   .ant-tabs-bar {
     margin-bottom: 0;
     height: 40px;
+    min-height: 40px;
   }
 `
 
