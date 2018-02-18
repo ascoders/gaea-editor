@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "",
   "main": "built/src/index.js",
   "types": "src/index.ts",
@@ -40,7 +40,7 @@
     "dob": "^2.5.7",
     "dob-react": "^2.4.7",
     "gaea-basic-components": "^1.0.18",
-    "gaea-render": "^1.0.12",
+    "gaea-render": "^1.0.13",
     "lodash": "^4.17.4",
     "lz-string": "^1.4.4",
     "react": "^16.0.0",
