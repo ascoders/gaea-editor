@@ -10,7 +10,7 @@
     <p>
     <p align="center">
         <i>
-            <a target="_blank" href="https://jsfiddle.net/gjLqweam/6/">Try it online.</a>
+            <a target="_blank" href="https://gaeajs.github.io/gaea-site/">Try it online.</a>
         </i>
     </p>
 </p>
