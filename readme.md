@@ -34,6 +34,8 @@ ReactDOM.render(
 )
 ```
 
+- For vue - [gaea-editor-vue](https://github.com/CharlieLau/gaea-editor-vue), thanks [CharlieLau](https://github.com/CharlieLau).
+
 ## Add custom component to the drag menu
 
 You can add any react components to the drag menu, through the following line of code:
