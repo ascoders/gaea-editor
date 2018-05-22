@@ -1,23 +1,16 @@
 {
   "name": "gaea-editor",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "",
   "main": "built/src/index.js",
   "types": "src/index.ts",
   "run-react": {
-    "entrys": [
-      "src/develop-entry/index"
-    ],
-    "productionEntrys": [
-      "src/index"
-    ],
+    "entrys": ["src/develop-entry/index"],
+    "productionEntrys": ["src/index"],
     "rules": [
       {
         "test": ".css$",
-        "use": [
-          "style-loader",
-          "css-loader"
-        ]
+        "use": ["style-loader", "css-loader"]
       }
     ],
     "production": {
@@ -28,7 +21,8 @@
   "scripts": {
     "start": "run-react develop",
     "tslint": "tslint './src/**/*.?(ts|tsx)'",
-    "prepublish": "rm -rf built && tsc && babel built --out-dir built && npm run build",
+    "prepublish":
+      "rm -rf built && tsc && babel built --out-dir built && npm run build",
     "build": "run-react production"
   },
   "dependencies": {
@@ -69,7 +63,5 @@
   },
   "author": "",
   "license": "ISC",
-  "pre-commit": [
-    "tslint"
-  ]
+  "pre-commit": ["tslint"]
 }

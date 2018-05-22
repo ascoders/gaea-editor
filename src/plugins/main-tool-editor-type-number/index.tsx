@@ -54,7 +54,7 @@ class MainToolEditorNumber extends React.Component<Props, State> {
     this.numberData = {
       useSlider: false,
       step: 1,
-      inputRange: [-9999999, 9999999], ...(this.props.editor.data || {})
+      inputRange: [-9999999, 9999999], ...(this.props.editor.data as any || {})
     }
 
     // 如果只设置了 inputRange, 默认 outputRange 要与其相同

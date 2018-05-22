@@ -21,7 +21,7 @@ export default class Guideline extends React.Component<typings.Props, typings.St
     }
 
     // 让 dom 树外层滚动到这个元素上
-    const nodeDom = ReactDOM.findDOMNode(this.props.stores.TreeStore.currentHoverTreeDom)
+    const nodeDom = ReactDOM.findDOMNode(this.props.stores.TreeStore.currentHoverTreeDom) as HTMLElement
     const nodeDomRect = nodeDom.getBoundingClientRect()
     const containerDom = this.props.stores.TreeStore.treeRootDom
     const containerDomRect = containerDom.getBoundingClientRect()
