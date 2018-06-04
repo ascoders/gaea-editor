@@ -1,8 +1,8 @@
 {
   "name": "gaea-editor",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "description": "",
-  "main": "built/src/index.js",
+  "main": "built/index.js",
   "types": "src/index.ts",
   "run-react": {
     "entrys": ["src/develop-entry/index"],
@@ -31,7 +31,7 @@
     "@types/react-color": "^2.13.0",
     "antd": "^3.1.4",
     "dependency-inject": "^1.1.4",
-    "dob": "^2.5.7",
+    "dob": "^2.5.9",
     "dob-react": "^2.4.7",
     "gaea-basic-components": "^1.0.18",
     "gaea-render": "^1.0.15",
