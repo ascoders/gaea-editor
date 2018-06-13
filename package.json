@@ -6,12 +6,11 @@
   "types": "src/index.tsx",
   "scripts": {
     "start": "pri dev",
-    "prepublish": "rm -rf built && tsc && babel built --out-dir built && npm run build",
     "build": "pri build",
     "preview": "pri preview",
     "analyse": "pri analyse",
     "test": "pri test",
-    "publish": "npm run build && npm publish",
+    "prepublishOnly": "npm run build",
     "lint": "echo 'Pre-commit checks...' && tslint --fix './src/**/*.?(ts|tsx)'",
     "prettier": "prettier --write './src/**/*.?(ts|tsx)'",
     "format": "npm run lint && npm run prettier"
