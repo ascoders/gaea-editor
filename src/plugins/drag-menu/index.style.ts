@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export const Component = styled.div`
   display: flex;
@@ -9,19 +9,19 @@ export const Component = styled.div`
   font-size: 14px;
   color: #666;
   background-color: #eee;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
   &:hover {
     background-color: white;
   }
   border-bottom: 1px solid #ddd;
-`
+`;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: whitesmoke;
   flex-grow: 1;
-`
+`;
 
 export const Title = styled.div`
   display: flex;
@@ -33,7 +33,7 @@ export const Title = styled.div`
   color: #777;
   font-weight: bold;
   border-bottom: 1px solid #ddd;
-`
+`;
 
 export const CloseContainer = styled.div`
   padding: 5px;
@@ -43,7 +43,7 @@ export const CloseContainer = styled.div`
   &:hover {
     fill: #333;
   }
-`
+`;
 
 export const SearchInput = styled.input`
   outline: none;
@@ -55,17 +55,17 @@ export const SearchInput = styled.input`
   border-top: none;
   border-bottom: 1px solid #ddd;
   background-color: #fbfbfb;
-  &:focus{
+  &:focus {
     background-color: white;
     color: #333;
   }
-  &::-webkit-input-placeholder{
+  &::-webkit-input-placeholder {
     color: #999;
   }
-`
+`;
 
 export const ListContainer = styled.div`
   overflow-y: auto;
   flex-grow: 1;
   flex-basis: 0;
-`
+`;

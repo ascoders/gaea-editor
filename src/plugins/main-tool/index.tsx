@@ -1,20 +1,20 @@
-import { Tabs } from "antd"
-import { observe } from "dob"
-import { Connect } from "dob-react"
-import * as React from "react"
-import * as S from "./index.style"
-import { Props, State } from "./index.type"
+import { Tabs } from 'antd';
+import { observe } from 'dob';
+import { Connect } from 'dob-react';
+import * as React from 'react';
+import * as S from './index.style';
+import { Props, State } from './index.type';
 
 @Connect
 class MainTool extends React.Component<Props, State> {
-  public static defaultProps = new Props()
-  public state = new State()
+  public static defaultProps = new Props();
+  public state = new State();
 
   public handleChange = (activeKey: string) => {
     this.setState({
       activeKey
-    })
-  }
+    });
+  };
 
   public render() {
     return (
@@ -22,21 +22,21 @@ class MainTool extends React.Component<Props, State> {
         <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
           <Tabs.TabPane tab="Editor" key="editor">
             <S.ScrollContainer>
-              {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditor")}
+              {this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditor')}
             </S.ScrollContainer>
           </Tabs.TabPane>
           <Tabs.TabPane tab="Tree" key="tree">
             <S.ScrollContainer>
-              {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolTree")}
+              {this.props.actions.ApplicationAction.loadPluginByPosition('mainToolTree')}
             </S.ScrollContainer>
           </Tabs.TabPane>
         </Tabs>
       </S.Container>
-    )
+    );
   }
 }
 
 export default {
-  position: "mainTool",
+  position: 'mainTool',
   class: MainTool
-}
+};

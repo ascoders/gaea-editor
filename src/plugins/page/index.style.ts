@@ -1,11 +1,11 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: whitesmoke;
   flex-grow: 1;
-`
+`;
 
 export const Title = styled.div`
   display: flex;
@@ -17,17 +17,17 @@ export const Title = styled.div`
   color: #777;
   font-weight: bold;
   border-bottom: 1px solid #ddd;
-`
+`;
 
 export const TitleLeftContainer = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 export const TitleRightContainer = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 export const CloseContainer = styled.div`
   padding: 5px;
@@ -37,7 +37,7 @@ export const CloseContainer = styled.div`
   &:hover {
     fill: #333;
   }
-`
+`;
 
 export const AddIcon = styled.div`
   display: flex;
@@ -49,19 +49,19 @@ export const AddIcon = styled.div`
   border-radius: 3px;
   fill: #555;
   cursor: pointer;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
   &:hover {
     background-color: white;
   }
-  &+& {
+  & + & {
     margin-left: 5px;
   }
-`
+`;
 
 export const EmptyContainer = styled.div`
   flex-grow: 1;
   background-color: whitesmoke;
-`
+`;
 
 export const EmptyTitle = styled.div`
   display: flex;
@@ -71,7 +71,7 @@ export const EmptyTitle = styled.div`
   padding: 10px;
   margin-top: 10px;
   font-size: 14px;
-`
+`;
 
 export const EmptyDescription = styled.div`
   margin: 15px 10px 0 10px;
@@ -81,4 +81,4 @@ export const EmptyDescription = styled.div`
   border-radius: 3px;
   font-size: 13px;
   background-color: #e8e8e8;
-`
+`;

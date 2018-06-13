@@ -1,6 +1,6 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
-export const Container = styled.div.withConfig({ componentId: "main-tool-container" }) `
+export const Container = styled.div.withConfig({ componentId: 'main-tool-container' })`
   display: flex;
   flex-grow: 1;
   height: 100%;
@@ -20,7 +20,7 @@ export const Container = styled.div.withConfig({ componentId: "main-tool-contain
     height: 40px;
     min-height: 40px;
   }
-`
+`;
 
 export const ScrollContainer = styled.div`
   display: block;
@@ -28,4 +28,4 @@ export const ScrollContainer = styled.div`
   overflow-y: auto;
   height: 100%;
   width: 300px;
-`
+`;

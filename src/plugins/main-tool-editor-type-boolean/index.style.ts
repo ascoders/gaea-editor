@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export const Container = styled.div`
   padding: 5px 30px 5px 0;
@@ -6,4 +6,4 @@ export const Container = styled.div`
   align-items: center;
   justify-content: flex-end;
   flex-grow: 1;
-`
+`;

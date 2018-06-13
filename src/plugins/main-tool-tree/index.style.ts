@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
@@ -7,14 +7,14 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const TreeContainer = styled.div`
   position: relative;
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-`
+`;
 
 export const AbsoluteContainer = styled.div`
   position: absolute;
@@ -24,4 +24,4 @@ export const AbsoluteContainer = styled.div`
   background-color: white;
   font-size: 12px;
   color: #666;
-`
+`;

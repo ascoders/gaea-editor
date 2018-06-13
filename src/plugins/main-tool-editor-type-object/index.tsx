@@ -1,53 +1,51 @@
-import { Tooltip } from "antd"
-import { Connect } from "dob-react"
-import * as _ from "lodash"
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-import Icon from "../../components/icon/src"
-import { pipeEvent } from "../../utils/functional"
-import * as Styled from "./index.style"
-import { Props, State } from "./index.type"
+import { Tooltip } from 'antd';
+import { Connect } from 'dob-react';
+import * as _ from 'lodash';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import Icon from '../../components/icon/src';
+import { pipeEvent } from '../../utils/functional';
+import * as Styled from './index.style';
+import { Props, State } from './index.type';
 
 @Connect
 class MainToolEditorObject extends React.Component<Props, State> {
-  public static defaultProps = new Props()
-  public state = new State()
+  public static defaultProps = new Props();
+  public state = new State();
 
   /**
    * 组件实例的信息
    */
-  private instanceInfo: InstanceInfo
+  private instanceInfo: InstanceInfo;
 
   public render() {
     if (!this.props.stores.ViewportStore.instances.has(this.props.stores.ViewportStore.currentEditInstanceKey)) {
-      return null
+      return null;
     }
 
-    this.instanceInfo = this.props.stores.ViewportStore.instances.get(this.props.stores.ViewportStore.currentEditInstanceKey)
+    this.instanceInfo = this.props.stores.ViewportStore.instances.get(
+      this.props.stores.ViewportStore.currentEditInstanceKey
+    );
 
     // 对象配置
-    const editors = this.props.editor.data as IEditor[]
+    const editors = this.props.editor.data as IEditor[];
 
     const Editors = editors.map((editor, index) => {
       return (
         <Styled.EachItem key={index}>
-          {this.props.actions.ApplicationAction.loadPluginByPosition("mainToolEditorManager", {
+          {this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorManager', {
             editors: [editor],
-            realField: this.props.realField + "." + editor.field
+            realField: this.props.realField + '.' + editor.field
           })}
         </Styled.EachItem>
-      )
-    })
+      );
+    });
 
-    return (
-      <Styled.Container>
-        {Editors}
-      </Styled.Container>
-    )
+    return <Styled.Container>{Editors}</Styled.Container>;
   }
 }
 
 export default {
-  position: "mainToolEditorTypeObject",
+  position: 'mainToolEditorTypeObject',
   class: MainToolEditorObject
-}
+};

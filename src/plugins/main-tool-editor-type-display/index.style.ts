@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -15,34 +15,34 @@ export const Container = styled.div`
   }
 
   .rotate-90 {
-      transform: rotate(90deg);
+    transform: rotate(90deg);
   }
 
   .rotate-135 {
-      transform: rotate(135deg);
+    transform: rotate(135deg);
   }
 
   .rotate-180 {
-      transform: rotate(180deg);
+    transform: rotate(180deg);
   }
 
   .rotate-270 {
-      transform: rotate(270deg);
+    transform: rotate(270deg);
   }
-`
+`;
 
 export const DisplayContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-`
+  display: flex;
+  justify-content: space-between;
+`;
 
 export const FlexContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 
 export const FlexRow = styled.div`
-    display: flex;
-    justify-content: space-between;
-`
+  display: flex;
+  justify-content: space-between;
+`;

@@ -1,16 +1,16 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   align-items: stretch;
   flex-grow: 1;
   background-color: whitesmoke;
-`
+`;
 
 export const AutoWidthContainer = styled.div`
   display: flex;
   align-items: stretch;
-`
+`;
 
 export const FooterItem = styled.div`
   position: relative;
@@ -27,7 +27,7 @@ export const FooterItem = styled.div`
   &:last-child {
     color: #146f8c;
   }
-`
+`;
 
 export const rightIconContainer = styled.div`
   overflow: hidden;
@@ -35,7 +35,7 @@ export const rightIconContainer = styled.div`
   width: 20px;
   height: 25px;
   margin-left: 5px;
-`
+`;
 
 export const rightIcon = styled.div`
   position: absolute;
@@ -44,4 +44,4 @@ export const rightIcon = styled.div`
   transform: rotate(45deg);
   right: 7px;
   border: 1px solid #ddd;
-`
+`;

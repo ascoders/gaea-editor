@@ -1,11 +1,11 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: whitesmoke;
   flex-grow: 1;
-`
+`;
 
 export const Title = styled.div`
   display: flex;
@@ -16,12 +16,12 @@ export const Title = styled.div`
   align-items: center;
   color: #666;
   border-bottom: 1px solid #ddd;
-`
+`;
 
 export const TitleLeftContainer = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 export const RemoveButtonContainer = styled.div`
   fill: #666;
@@ -30,12 +30,12 @@ export const RemoveButtonContainer = styled.div`
   &:hover {
     fill: #333;
   }
-`
+`;
 
 export const TitleRightContainer = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 export const CloseContainer = styled.div`
   padding: 5px;
@@ -45,14 +45,14 @@ export const CloseContainer = styled.div`
   &:hover {
     fill: #333;
   }
-`
+`;
 
 export const FormTitle = styled.div`
   padding: 15px 10px;
   font-size: 15px;
   font-weight: bold;
   color: #666;
-`
+`;
 
 export const Button = styled.div`
   width: 70px;
@@ -74,4 +74,4 @@ export const Button = styled.div`
     color: #333;
   }
 }
-`
+`;

@@ -1,2 +1,4 @@
-declare module "styled-components"
-declare module "sortablejs"
+declare module 'sortablejs';
+declare module 'lz-string';
+declare module 'react-color';
+declare module 'styled-components';

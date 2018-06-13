@@ -1,4 +1,8 @@
-built/
-node_modules/
-.npm-debug.log
-.awcache/
+/node_modules
+/.cache
+/.vscode
+/.temp
+/dist
+/.DS_Store
+/coverage
+/.nyc_output

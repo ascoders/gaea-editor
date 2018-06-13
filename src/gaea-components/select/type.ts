@@ -1,88 +1,102 @@
 export class Props {
   public editSetting = {
-    key: "gaea-select",
-    name: "Select",
+    key: 'gaea-select',
+    name: 'Select',
     isContainer: true,
     editors: [
-      "Layout",
+      'Layout',
       {
-        type: "box-editor"
+        type: 'box-editor'
       },
-      "Function",
+      'Function',
       {
-        field: "options",
-        text: "Options",
-        type: "array",
-        data: [{
-          field: "value",
-          type: "string",
-          text: "Value"
-        }, {
-          field: "text",
-          type: "string",
-          text: "Text"
-        }, {
-          field: "disabled",
-          type: "boolean",
-          text: "Disabled"
-        }]
+        field: 'options',
+        text: 'Options',
+        type: 'array',
+        data: [
+          {
+            field: 'value',
+            type: 'string',
+            text: 'Value'
+          },
+          {
+            field: 'text',
+            type: 'string',
+            text: 'Text'
+          },
+          {
+            field: 'disabled',
+            type: 'boolean',
+            text: 'Disabled'
+          }
+        ]
       },
       {
-        field: "disabled",
-        text: "Disabled",
-        type: "boolean"
+        field: 'disabled',
+        text: 'Disabled',
+        type: 'boolean'
       },
       {
-        field: "autoFocus",
-        text: "AutoFocus",
-        type: "boolean"
+        field: 'autoFocus',
+        text: 'AutoFocus',
+        type: 'boolean'
       },
-      "Style",
+      'Style',
       {
-        field: "size",
-        text: "Size",
-        type: "select",
-        data: [{
-          value: "default",
-          text: "Default"
-        }, {
-          value: "small",
-          text: "Small"
-        }, {
-          value: "large",
-          text: "Large"
-        }]
+        field: 'size',
+        text: 'Size',
+        type: 'select',
+        data: [
+          {
+            value: 'default',
+            text: 'Default'
+          },
+          {
+            value: 'small',
+            text: 'Small'
+          },
+          {
+            value: 'large',
+            text: 'Large'
+          }
+        ]
       }
     ],
-    events: [{
-      text: "onSelect",
-      field: "onSelect",
-      data: [{
-        text: "Selected Value"
-      }]
-    }]
-  }
+    events: [
+      {
+        text: 'onSelect',
+        field: 'onSelect',
+        data: [
+          {
+            text: 'Selected Value'
+          }
+        ]
+      }
+    ]
+  };
 
-  public size: "small" | "large" | "default" = "default"
-  public disabled = false
-  public autoFocus = false
-  public style: React.CSSProperties = {}
-  public options: IOption[] = [{
-    value: null,
-    text: "Banana",
-    disabled: false
-  }]
+  public size: 'small' | 'large' | 'default' = 'default';
+  public disabled = false;
+  public autoFocus = false;
+  public style: React.CSSProperties = {};
+  public options: IOption[] = [
+    {
+      value: null,
+      text: 'Banana',
+      disabled: false
+    }
+  ];
   public onSelect = (value?: string) => {
     //
-  }
+  };
 }
 
 export class State {
-  public selectedValue: any = null
+  public selectedValue: any = null;
 }
 
 export interface IOption {
-  value: string
-  text: string
-  disabled: boolean
+  value: string;
+  text: string;
+  disabled: boolean;
 }

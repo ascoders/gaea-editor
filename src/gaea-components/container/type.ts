@@ -1,26 +1,26 @@
 export class Props {
   public editSetting = {
-    key: "gaea-container",
-    name: "Container",
+    key: 'gaea-container',
+    name: 'Container',
     isContainer: true,
     editors: [
-      "Layout",
+      'Layout',
       {
-        type: "display"
+        type: 'display'
       },
       {
-        type: "box-editor"
+        type: 'box-editor'
       },
-      "Style",
+      'Style',
       {
-        field: "style.backgroundColor",
-        text: "BackgroundColor",
-        type: "color"
+        field: 'style.backgroundColor',
+        text: 'BackgroundColor',
+        type: 'color'
       },
       {
-        field: "style.opacity",
-        text: "Opacity",
-        type: "number",
+        field: 'style.opacity',
+        text: 'Opacity',
+        type: 'number',
         data: {
           useSlider: true,
           step: 1,
@@ -29,13 +29,13 @@ export class Props {
         }
       }
     ]
-  }
+  };
 
   public style: React.CSSProperties = {
-    display: "flex",
+    display: 'flex',
     minWidth: 100,
     minHeight: 100
-  }
+  };
 }
 
-export class State { }
+export class State {}

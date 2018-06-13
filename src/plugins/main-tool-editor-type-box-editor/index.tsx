@@ -1,9 +1,9 @@
-import { Connect } from "dob-react";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { BoxEditor } from "../../components/box-editor/src/";
-import * as Styled from "./index.style";
-import { Props, State } from "./index.type";
+import { Connect } from 'dob-react';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { BoxEditor } from '../../components/box-editor/src/';
+import * as Styled from './index.style';
+import { Props, State } from './index.type';
 
 @Connect
 class MainToolEditorColor extends React.Component<Props, State> {
@@ -16,11 +16,7 @@ class MainToolEditorColor extends React.Component<Props, State> {
   private instanceInfo: InstanceInfo;
 
   public render() {
-    if (
-      !this.props.stores.ViewportStore.instances.has(
-        this.props.stores.ViewportStore.currentEditInstanceKey
-      )
-    ) {
+    if (!this.props.stores.ViewportStore.instances.has(this.props.stores.ViewportStore.currentEditInstanceKey)) {
       return null;
     }
 
@@ -31,7 +27,7 @@ class MainToolEditorColor extends React.Component<Props, State> {
     const style: React.CSSProperties =
       this.props.actions.ViewportAction.getInstanceProps(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        "style"
+        'style'
       ) || {};
 
     return (
@@ -71,6 +67,6 @@ class MainToolEditorColor extends React.Component<Props, State> {
 }
 
 export default {
-  position: "mainToolEditorTypeBoxEditor",
+  position: 'mainToolEditorTypeBoxEditor',
   class: MainToolEditorColor
 };

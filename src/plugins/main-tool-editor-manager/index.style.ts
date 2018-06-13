@@ -1,11 +1,11 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   background-color: whitesmoke;
-`
+`;
 
 export const ComponentName = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ export const ComponentName = styled.div`
   color: #666;
   font-weight: bold;
   border-bottom: 1px solid #ddd;
-`
+`;
 
 export const TabTitle = styled.div`
   padding: 5px 10px;
@@ -23,23 +23,25 @@ export const TabTitle = styled.div`
   background-color: #eee;
   width: 100%;
   font-weight: bold;
-`
+`;
 
 export const EditorContainer = styled.div`
   display: flex;
   position: relative;
   justify-content: space-between;
-  ${(props: any) => props.theme.isObjectType && `
+  ${(props: any) =>
+    props.theme.isObjectType &&
+    `
     flex-direction: column;
     justify-content: flex-start;
-  `}
-`
+  `};
+`;
 
 export const EditorBoxContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   flex-grow: 1;
-`
+`;
 
 export const Variable = styled.div`
   display: none;
@@ -62,13 +64,15 @@ export const Variable = styled.div`
     background-color: white;
     fill: #333;
   }
-  ${(props: any) => props.theme.isVariable && `
+  ${(props: any) =>
+    props.theme.isVariable &&
+    `
     background-color: #cef1ff;
     &:hover {
       background-color: #e4f7ff;
     }
-  `}
-`
+  `};
+`;
 
 export const Label = styled.div`
   display: flex;
@@ -79,17 +83,19 @@ export const Label = styled.div`
   white-space: nowrap;
   padding: 5px 0;
   margin-left: 10px;
-  ${(props: any) => props.theme.isObjectType && `
+  ${(props: any) =>
+    props.theme.isObjectType &&
+    `
     align-items: flex-start;
-  `}
-`
+  `};
+`;
 
 export const AddButton = styled.div`
   margin-left: 10px;
   fill: #666;
   cursor: pointer;
-  transition: color .3s;
+  transition: color 0.3s;
   &:hover {
     fill: #333;
   }
-`
+`;

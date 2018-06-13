@@ -1,4 +1,4 @@
-import styled, { injectGlobal } from "styled-components"
+import styled, { injectGlobal } from 'styled-components';
 
 export const injectGlob = () => injectGlobal`
   .gaea-container {
@@ -8,4 +8,4 @@ export const injectGlob = () => injectGlobal`
   .gaea-draggable {
 
   }
-`
+`;

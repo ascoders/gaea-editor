@@ -1,1 +1,1 @@
-export { BoxEditor } from "./box-editor/box-editor.component"
+export { BoxEditor } from './box-editor/box-editor.component';

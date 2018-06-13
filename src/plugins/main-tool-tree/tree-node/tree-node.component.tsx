@@ -1,9 +1,9 @@
-import { Connect } from "dob-react";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { TreeNode } from "../../../components/tree/src";
-import * as Styled from "./tree-node.style";
-import * as typings from "./tree-node.type";
+import { Connect } from 'dob-react';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { TreeNode } from '../../../components/tree/src';
+import * as Styled from './tree-node.style';
+import * as typings from './tree-node.type';
 
 class CustomTreeNode extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props();
@@ -31,34 +31,23 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
 
   public componentWillMount() {
     // 从 store 找到自己信息
-    this.instanceInfo = this.props.stores.ViewportStore.instances.get(
-      this.props.instanceKey
-    );
-    this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(
-      this.instanceInfo.gaeaKey
-    );
-    this.setting = this.props.actions.ApplicationAction.getSettingByInstance(
-      this.instanceInfo
-    );
+    this.instanceInfo = this.props.stores.ViewportStore.instances.get(this.props.instanceKey);
+    this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey);
+    this.setting = this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo);
   }
 
   public componentDidMount() {
     this.health++;
 
-    this.props.actions.TreeAction.addTreeDom(
-      this.props.instanceKey,
-      ReactDOM.findDOMNode(this) as HTMLElement
-    );
+    this.props.actions.TreeAction.addTreeDom(this.props.instanceKey, ReactDOM.findDOMNode(this) as HTMLElement);
 
     // 如果自己是布局元素, 给子元素绑定 sortable
     if (this.setting.isContainer) {
       // 添加可排序拖拽
       this.props.actions.ViewportAction.registerInnerDrag(
         this.props.instanceKey,
-        (ReactDOM.findDOMNode(this) as HTMLElement).getElementsByClassName(
-          "childs-container"
-        )[0] as HTMLElement,
-        "gaea-tree-container"
+        (ReactDOM.findDOMNode(this) as HTMLElement).getElementsByClassName('childs-container')[0] as HTMLElement,
+        'gaea-tree-container'
       );
     }
   }
@@ -77,10 +66,7 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
    * 更新此元素的 dom 信息
    */
   public updateDom = () => {
-    this.props.actions.TreeAction.addTreeDom(
-      this.props.instanceKey,
-      ReactDOM.findDOMNode(this) as HTMLElement
-    );
+    this.props.actions.TreeAction.addTreeDom(this.props.instanceKey, ReactDOM.findDOMNode(this) as HTMLElement);
   };
 
   public handleRenderTitle = () => {
@@ -104,16 +90,12 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
 
   public handleMouseOver = (event: MouseEvent) => {
     event.stopPropagation();
-    this.props.actions.ViewportAction.setCurrentHoverInstanceKey(
-      this.props.instanceKey
-    );
+    this.props.actions.ViewportAction.setCurrentHoverInstanceKey(this.props.instanceKey);
   };
 
   public handleClick = (event: MouseEvent) => {
     event.stopPropagation();
-    this.props.actions.ViewportAction.setCurrentEditInstanceKey(
-      this.props.instanceKey
-    );
+    this.props.actions.ViewportAction.setCurrentEditInstanceKey(this.props.instanceKey);
   };
 
   public render() {
@@ -122,13 +104,11 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
 
     if (this.setting.isContainer && this.instanceInfo.childs) {
       childs = this.instanceInfo.childs.map(childKey => {
-        return (
-          <ConnectedCustomTreeNode key={childKey} instanceKey={childKey} />
-        );
+        return <ConnectedCustomTreeNode key={childKey} instanceKey={childKey} />;
       });
     }
 
-    const childProps = {
+    const childProps: any = {
       render: this.handleRenderTitle,
       defaultExpendAll: true,
       toggleByArrow: true,

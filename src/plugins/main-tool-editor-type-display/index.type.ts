@@ -1,10 +1,10 @@
-import { StoreProps } from "../../stores"
+import { StoreProps } from '../../stores';
 
 export class Props extends StoreProps<void, void> {
   /**
    * injected
    */
-  public realField?: string
+  public realField?: string;
 }
 
-export class State { }
+export class State {}

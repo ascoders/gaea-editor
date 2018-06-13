@@ -1,30 +1,30 @@
 export class Props {
   public editSetting = {
-    key: "gaea-icon",
-    name: "Icon",
+    key: 'gaea-icon',
+    name: 'Icon',
     editors: [
-      "Layout",
+      'Layout',
       {
-        text: "Box editor",
+        text: 'Box editor'
       },
-      "Function",
+      'Function',
       {
-        field: "type",
-        text: "Type",
-        type: "string"
+        field: 'type',
+        text: 'Type',
+        type: 'string'
       },
-      "Style",
+      'Style',
       {
-        field: "spin",
-        text: "Spin",
-        type: "boolean"
+        field: 'spin',
+        text: 'Spin',
+        type: 'boolean'
       }
     ]
-  }
+  };
 
-  public style: React.CSSProperties = {}
-  public type: string = "search"
-  public spin = false
+  public style: React.CSSProperties = {};
+  public type: string = 'search';
+  public spin = false;
 }
 
-export class State { }
+export class State {}

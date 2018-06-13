@@ -1,8 +1,8 @@
-import * as React from "react"
+import * as React from 'react';
 
 export default (size: number) => (
   <svg viewBox="0 0 1024 1024" width={size} height={size}>
     <path d="M512 0C229.248 0 0 229.248 0 512s229.248 512 512 512 512-229.248 512-512S794.752 0 512 0zM512 960C265 960 64 759 64 512S265 64 512 64s448 201 448 448S759 960 512 960z" />
     <path d="M768 448 256 448c-35.312 0-64 28.688-64 64s28.688 64 64 64l512 0c35.312 0 64-28.688 64-64S803.312 448 768 448z" />
   </svg>
-)
+);
