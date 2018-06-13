@@ -24,14 +24,14 @@ npm i gaea-editor --save
 And then, it's easy to use:
 
 ```typescript
-import Editor from "gaea-editor"
+import Editor from 'gaea-editor';
 
 ReactDOM.render(
-    <div style={{width: '100vw', height: '100vh'}}>
-        <Editor />
-    </div>,
-    document.getElementById("react-root")
-)
+  <div style={{ width: '100vw', height: '100vh' }}>
+    <Editor />
+  </div>,
+  document.getElementById('react-root')
+);
 ```
 
 - For vue - [gaea-editor-vue](https://github.com/CharlieLau/gaea-editor-vue), thanks [CharlieLau](https://github.com/CharlieLau).
@@ -48,16 +48,18 @@ Add `editSetting` to each component props, to let the editor know how to edit it
 
 ```typescript
 defaultProps = {
-    editSetting: {
-        key: 'my-custom-key', // Unique key.
-        name: 'Custom one', // The name shown in drag menu.
-        editors: [{
-            field: "title",
-            text: "Text",
-            type: "string"
-        }] // Tell gaea-editor, which props can be edited and how to edit it.
-    }
-}
+  editSetting: {
+    key: 'my-custom-key', // Unique key.
+    name: 'Custom one', // The name shown in drag menu.
+    editors: [
+      {
+        field: 'title',
+        text: 'Text',
+        type: 'string'
+      }
+    ] // Tell gaea-editor, which props can be edited and how to edit it.
+  }
+};
 ```
 
 ## More about `editors`
@@ -267,22 +269,25 @@ Each field in `data` describes how the key should be edited in this object.
 
 You can add custom components, custom plugins, save callback, and read saved data.
 
-| Props | Type | Description |
-| -------- | -------- | -------- |
-| onSave | `(info?: string) => void` | When you click the Save button, feed back to you to save the information |
-| value | `string` | Editor initial value, you can pass the value of the onSave callback and resume the draft |
+| Props            | Type                                      | Description                                                                                                                                                                                    |
+| ---------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| onSave           | `(info?: string) => void`                 | When you click the Save button, feed back to you to save the information                                                                                                                       |
+| value            | `string`                                  | Editor initial value, you can pass the value of the onSave callback and resume the draft                                                                                                       |
 | componentClasses | `Array<React.ComponentClass<IGaeaProps>>` | React classes. Any react component is supported, but you need some configuration information to tell the editor how to edit it. see [custom-component-config](docs/custom-component-config.md) |
-| plugins | `IPlugin[]` | Advanced usage for custom editor functionality. TODO |
+| plugins          | `IPlugin[]`                               | Advanced usage for custom editor functionality. TODO                                                                                                                                           |
+| locale           | string                                    | `zh` or `cn`                                                                                                                                                                                   |
 
 ## Parameter: `onSave`
 
 ```typescript
 export function renderGaeaEditor() {
-    return (
-        <Editor onSave={ value => {
-            // send the value data to your server.
-        } }/>
-    )
+  return (
+    <Editor
+      onSave={value => {
+        // send the value data to your server.
+      }}
+    />
+  );
 }
 ```
 
@@ -292,9 +297,7 @@ The `value` came from `onSave`.
 
 ```typescript
 export function renderGaeaEditor() {
-    return (
-        <Editor value={value} />
-    )
+  return <Editor value={value} />;
 }
 ```
 
@@ -302,15 +305,13 @@ export function renderGaeaEditor() {
 
 ```typescript
 class MyInput extends React.Component {
-    render() {
-        return <input />
-    }
+  render() {
+    return <input />;
+  }
 }
 
 export function renderGaeaEditor() {
-    return (
-        <Editor componentClasses={[ MyInput ]}/>
-    )
+  return <Editor componentClasses={[MyInput]} />;
 }
 ```
 
@@ -331,7 +332,7 @@ import { Connect } from 'dob-react'
 
 @Connect
 class Plugin extends React.Component {
-  render() {	
+  render() {
   	return 'plugin'
   }
 }

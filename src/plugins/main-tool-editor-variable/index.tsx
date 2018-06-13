@@ -78,7 +78,7 @@ class MainToolEditorVariable extends React.Component<Props, State> {
 
     if (siblingOptions.length > 0) {
       options.push({
-        groupValue: '当前层级',
+        groupValue: this.props.stores.ApplicationStore.setLocale('当前层级', 'Current group'),
         children: siblingOptions
       });
     }

@@ -1,10 +1,9 @@
 import { Provider } from 'dob-react';
 import * as React from 'react';
-import { BoxEditor } from './components/box-editor/src/';
 import GaeaComponents from './gaea-components';
 import { Props, State } from './gaea-editor.type';
 import Page from './page/page.component';
-import { IActionsOrStores, Store } from './stores';
+import { Store } from './stores';
 
 // tslint:disable-next-line:no-submodule-imports
 import 'antd/dist/antd.css';
@@ -73,9 +72,11 @@ export default class GaeaEditor extends React.Component<Props, State> {
   public state = new State();
 
   private stores = new Store();
-  private pluginStores = {};
 
   public componentWillMount() {
+    // 设置国际化
+    this.stores.getStore().actions.ApplicationAction.setLocale(this.props.locale);
+
     // 收集插件, 后续用来在不同地方展示
     builtInPlugins.concat(this.props.plugins).forEach(plugin => {
       this.stores.getStore().actions.ApplicationAction.addPlugin(plugin);

@@ -1,5 +1,5 @@
 // tslint:disable-next-line:no-reference
-/// <reference path="./define.d.ts"/>
+/// <reference path="./defines/npm.d.ts"/>
 // tslint:disable-next-line:no-reference
 /// <reference path="./defines/application.d.ts"/>
 // tslint:disable-next-line:no-reference

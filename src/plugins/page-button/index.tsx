@@ -16,7 +16,7 @@ class PageButton extends React.Component<Props, State> {
 
   public render() {
     return (
-      <Tooltip title="Page configure" placement="right">
+      <Tooltip title={this.props.stores.ApplicationStore.setLocale('页面配置', 'Page configure')} placement="right">
         <Styled.Container
           onClick={this.handleClick}
           theme={{ active: this.props.stores.ApplicationStore.leftTool === 'page' }}

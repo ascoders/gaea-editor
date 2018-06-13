@@ -35,22 +35,26 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
 
     const childProps = {
       render: () => {
-        return (
-          <Styled.Content theme={{ editted: currentEditPageKey === this.props.pageKey }}>
+        return <Styled.Content theme={{ editted: currentEditPageKey === this.props.pageKey }}>
             <Styled.Title theme={{ isHome: this.pageInfo.isHomePage }}>
-              {pageName === '' ? <Styled.UnNamed>&lt;Unnamed&gt;</Styled.UnNamed> : pageName}
+              {pageName === '' ? (
+                <Styled.UnNamed>
+                  &lt;{this.props.stores.ApplicationStore.setLocale('未命名', 'unnamed')}&gt;
+                </Styled.UnNamed>
+              ) : (
+                pageName
+              )}
             </Styled.Title>
 
             <Styled.RightContainer>
-              {currentViewportPageKey === this.props.pageKey && <Styled.InUseTag>Using</Styled.InUseTag>}
-              {currentCreatedPageKey !== this.props.pageKey && (
-                <Styled.Setting onClick={this.handleEdit}>
+              {currentViewportPageKey === this.props.pageKey && <Styled.InUseTag>
+                  {this.props.stores.ApplicationStore.setLocale('使用', 'Using')}
+                </Styled.InUseTag>}
+              {currentCreatedPageKey !== this.props.pageKey && <Styled.Setting onClick={this.handleEdit}>
                   <Icon type="setting" size={15} />
-                </Styled.Setting>
-              )}
+                </Styled.Setting>}
             </Styled.RightContainer>
-          </Styled.Content>
-        );
+          </Styled.Content>;
       },
       defaultExpendAll: true,
       toggleByArrow: true,

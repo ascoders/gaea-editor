@@ -82,7 +82,7 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
     return (
       <Styled.Container>
         <Styled.HeaderContainer>
-          <Styled.Label>Trigger</Styled.Label>
+          <Styled.Label>{this.props.stores.ApplicationStore.setLocale('触发', 'Trigger')}</Styled.Label>
           <Select value={this.currentEventInfo.trigger as string} onChange={this.handleChange as any}>
             {MergedTriggerOptions}
           </Select>

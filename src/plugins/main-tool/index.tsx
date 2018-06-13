@@ -20,12 +20,12 @@ class MainTool extends React.Component<Props, State> {
     return (
       <S.Container>
         <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
-          <Tabs.TabPane tab="Editor" key="editor">
+          <Tabs.TabPane tab={this.props.stores.ApplicationStore.setLocale('编辑', 'Editor')} key="editor">
             <S.ScrollContainer>
               {this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditor')}
             </S.ScrollContainer>
           </Tabs.TabPane>
-          <Tabs.TabPane tab="Tree" key="tree">
+          <Tabs.TabPane tab={this.props.stores.ApplicationStore.setLocale('树状图', 'Tree')} key="tree">
             <S.ScrollContainer>
               {this.props.actions.ApplicationAction.loadPluginByPosition('mainToolTree')}
             </S.ScrollContainer>

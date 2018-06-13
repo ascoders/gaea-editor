@@ -60,18 +60,16 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
       return null;
     }
 
-    return (
-      <Styled.Container>
+    return <Styled.Container>
         <Styled.HeaderContainer>
-          <Styled.Label>Action</Styled.Label>
+          <Styled.Label>{this.props.stores.ApplicationStore.setLocale('动作', 'Action')}</Styled.Label>
           <Select value={this.currentEventInfo.action} onChange={this.handleChangeAction as any}>
             {ActionOptions}
           </Select>
         </Styled.HeaderContainer>
 
         <Styled.BodyContainer>{this.renderActionBody()}</Styled.BodyContainer>
-      </Styled.Container>
-    );
+      </Styled.Container>;
   }
 
   private handleChangeAction = (value: InstanceInfoEventAction) => {

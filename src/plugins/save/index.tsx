@@ -9,7 +9,11 @@ class Save extends React.Component<Props, State> {
   public state = new State();
 
   public render() {
-    return <Styled.Container onClick={this.handleClick}>Save</Styled.Container>;
+    return (
+      <Styled.Container onClick={this.handleClick}>
+        {this.props.stores.ApplicationStore.setLocale('保存', 'Save')}
+      </Styled.Container>
+    );
   }
 
   private handleClick = () => {

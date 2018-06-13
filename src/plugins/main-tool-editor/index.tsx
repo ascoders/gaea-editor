@@ -31,12 +31,14 @@ class MainToolEditor extends React.Component<Props, State> {
     const instanceKey = this.props.stores.ViewportStore.currentEditInstanceKey;
 
     if (!instanceKey) {
-      return (
-        <Styled.EmptyContainer>
-          <Styled.EmptyTitle>No component selected</Styled.EmptyTitle>
-          <Styled.EmptyDescription>Click one component in the left of the screen.</Styled.EmptyDescription>
-        </Styled.EmptyContainer>
-      );
+      return <Styled.EmptyContainer>
+          <Styled.EmptyTitle>
+            {this.props.stores.ApplicationStore.setLocale('没有选择的组件', 'No component selected')}
+          </Styled.EmptyTitle>
+          <Styled.EmptyDescription>
+            {this.props.stores.ApplicationStore.setLocale('在屏幕左侧点击一个组件', 'Click one component in the left of the screen.')}
+          </Styled.EmptyDescription>
+        </Styled.EmptyContainer>;
     }
 
     if (!this.props.stores.ViewportStore.instances.has(instanceKey)) {
@@ -51,16 +53,17 @@ class MainToolEditor extends React.Component<Props, State> {
     this.setting = this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo);
 
     if (!this.setting || !this.setting.editors || this.setting.editors.length === 0) {
-      return (
-        <Styled.EmptyContainer>
-          <Styled.EmptyTitle>无编辑信息</Styled.EmptyTitle>
+      return <Styled.EmptyContainer>
+          <Styled.EmptyTitle>
+            {this.props.stores.ApplicationStore.setLocale('无编辑信息', 'No edit info')}
+          </Styled.EmptyTitle>
           <Styled.EmptyDescription>
-            该组件还未添加编辑信息，<a href="https://github.com/ascoders/gaea-editor" target="_blank">
-              点击了解如何添加
+            {this.props.stores.ApplicationStore.setLocale('该组件还未添加编辑信息，', 'This component has no edit info yet,')}
+            <a href="https://github.com/ascoders/gaea-editor" target="_blank">
+              {this.props.stores.ApplicationStore.setLocale('点击了解如何添加', 'Click to know learn it')}
             </a>
           </Styled.EmptyDescription>
-        </Styled.EmptyContainer>
-      );
+        </Styled.EmptyContainer>;
     }
 
     return (

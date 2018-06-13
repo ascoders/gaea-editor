@@ -38,39 +38,40 @@ class PageAddFolder extends React.Component<Props, State> {
         );
       });
 
-    return (
-      <Styled.Container>
+    return <Styled.Container>
         <Styled.Title>
           <Styled.TitleLeftContainer>
-            <span>{this.props.stores.ApplicationStore.currentCreatedPageKey ? 'Add folder' : 'Edit folder'}</span>
-            {this.props.stores.ApplicationStore.currentCreatedPageKey !==
-              this.props.stores.ApplicationStore.currentEditPageKey && (
-              <Styled.RemoveButtonContainer onClick={this.handleRemove}>
+            <span>
+              {this.props.stores.ApplicationStore.currentCreatedPageKey
+                ? this.props.stores.ApplicationStore.setLocale('添加文件夹', 'Add folder')
+                : this.props.stores.ApplicationStore.setLocale('编辑文件夹', 'Edit folder')}
+            </span>
+            {this.props.stores.ApplicationStore.currentCreatedPageKey !== this.props.stores.ApplicationStore.currentEditPageKey && <Styled.RemoveButtonContainer onClick={this.handleRemove}>
                 <Icon type="remove" size={16} />
-              </Styled.RemoveButtonContainer>
-            )}
+              </Styled.RemoveButtonContainer>}
           </Styled.TitleLeftContainer>
           <Styled.CloseContainer onClick={this.handleCloseRightBar}>
             <Icon type="close" size={15} />
           </Styled.CloseContainer>
         </Styled.Title>
 
-        <Styled.FormTitle>Name</Styled.FormTitle>
+        <Styled.FormTitle>{this.props.stores.ApplicationStore.setLocale('名称', 'Name')}</Styled.FormTitle>
         <Input value={this.pageInfo.name} onChange={pipeEvent(this.handleChangeName)} />
 
-        <Styled.FormTitle>Path</Styled.FormTitle>
+        <Styled.FormTitle>{this.props.stores.ApplicationStore.setLocale('路径', 'Path')}</Styled.FormTitle>
         <Input value={this.pageInfo.path} onChange={pipeEvent(this.handleChangePath)} />
 
-        <Styled.FormTitle>Parent folder</Styled.FormTitle>
+        <Styled.FormTitle>
+          {this.props.stores.ApplicationStore.setLocale('父级文件夹', 'Parent folder')}
+        </Styled.FormTitle>
         <Select value={this.pageInfo.parentKey} onChange={this.handleSelectParentFolder}>
           {FolderSelectOptions}
         </Select>
 
-        {this.props.stores.ApplicationStore.currentCreatedPageKey && (
-          <Styled.Button onClick={this.handleCreate}>Create</Styled.Button>
-        )}
-      </Styled.Container>
-    );
+        {this.props.stores.ApplicationStore.currentCreatedPageKey && <Styled.Button onClick={this.handleCreate}>
+            {this.props.stores.ApplicationStore.setLocale('创建', 'Create')}
+          </Styled.Button>}
+      </Styled.Container>;
   }
 
   private handleCloseRightBar = () => {

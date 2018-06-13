@@ -143,4 +143,20 @@ export default class ApplicationStore {
    * GaeaEditor props: onComponentDragStart
    */
   public onComponentDragStart: IOnComponentDragStart = Static(() => null as any);
+
+  /**
+   * Locale
+   */
+  public locale?: 'zh' | 'en' = null;
+
+  public setLocale = (zh: string, en: string) => {
+    switch (this.locale) {
+      case 'zh':
+        return zh;
+      case 'en':
+        return en;
+      default:
+        return null;
+    }
+  };
 }

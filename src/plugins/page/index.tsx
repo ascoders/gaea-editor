@@ -27,7 +27,7 @@ class Page extends React.Component<Props, State> {
       <Styled.Container>
         <Styled.Title>
           <Styled.TitleLeftContainer>
-            <div>Page configuration</div>
+            <div>{this.props.stores.ApplicationStore.setLocale('页面配置', 'Page configuration')}</div>
             <Styled.CloseContainer onClick={this.handleCloseLeftBar}>
               <Icon type="close" size={15} />
             </Styled.CloseContainer>
@@ -46,9 +46,14 @@ class Page extends React.Component<Props, State> {
 
         {this.props.stores.ApplicationStore.pages.size === 1 && (
           <Styled.EmptyContainer>
-            <Styled.EmptyTitle>Add new Page</Styled.EmptyTitle>
+            <Styled.EmptyTitle>
+              {this.props.stores.ApplicationStore.setLocale('添加新页面', 'Add new Page')}
+            </Styled.EmptyTitle>
             <Styled.EmptyDescription>
-              Click the top right button, create a folder or page, and apply the default home page.
+              {this.props.stores.ApplicationStore.setLocale(
+                '点击右上角的按钮，创建一个文件夹或页面',
+                'Click the top right button, create a folder or page.'
+              )}
             </Styled.EmptyDescription>
           </Styled.EmptyContainer>
         )}

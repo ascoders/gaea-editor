@@ -45,7 +45,10 @@ class MainToolEditorEvent extends React.Component<Props, State> {
               })}
             </Styled.EventAction>
 
-            <Tooltip title="Remove this event" placement="left">
+            <Tooltip
+              title={this.props.stores.ApplicationStore.setLocale('移除此事件', 'Remove this event')}
+              placement="left"
+            >
               <Styled.RemoveIconContainer onClick={this.handleRemove.bind(this, index)}>
                 <Icon type="remove" size={14} />
               </Styled.RemoveIconContainer>
@@ -57,8 +60,11 @@ class MainToolEditorEvent extends React.Component<Props, State> {
     return (
       <Styled.Container>
         <Styled.TabTitle>
-          Event
-          <Tooltip title="Add new event" placement="right">
+          {this.props.stores.ApplicationStore.setLocale('事件', 'Event')}
+          <Tooltip
+            title={this.props.stores.ApplicationStore.setLocale('添加新事件', 'Add new event')}
+            placement="right"
+          >
             <Styled.AddButton onClick={this.handleAdd}>
               <Icon type="add" size={14} />
             </Styled.AddButton>

@@ -20,13 +20,17 @@ class DragMenu extends React.Component<Props, State> {
     return (
       <Styled.Container>
         <Styled.Title>
-          <div>Drag Component</div>
+          <div>{this.props.stores.ApplicationStore.setLocale('拖拽组件', 'Drag Component')}</div>
           <Styled.CloseContainer onClick={this.handleCloseLeftBar}>
             <Icon type="close" size={15} />
           </Styled.CloseContainer>
         </Styled.Title>
 
-        <Styled.SearchInput value={this.state.searchContent} onChange={this.handleSearch} placeholder="Search.." />
+        <Styled.SearchInput
+          value={this.state.searchContent}
+          onChange={this.handleSearch}
+          placeholder={this.props.stores.ApplicationStore.setLocale('搜索..', 'Search..')}
+        />
 
         <Styled.ListContainer ref={(ref: React.ReactInstance) => (this.listContainer = ref)}>
           {this.getList()}

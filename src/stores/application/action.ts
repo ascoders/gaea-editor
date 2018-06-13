@@ -463,4 +463,12 @@ export default class ApplicationAction {
   public setOnComponentDragStart(fn: any) {
     this.store.onComponentDragStart = fn;
   }
+
+  /**
+   * 设置国际化信息
+   */
+  @Action
+  public setLocale(locale: 'en' | 'zh') {
+    this.store.locale = locale;
+  }
 }

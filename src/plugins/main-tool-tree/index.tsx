@@ -38,7 +38,8 @@ class MainToolTree extends React.Component<Props, State> {
         </Styled.TreeContainer>
 
         <Styled.AbsoluteContainer>
-          Instance count: {this.props.stores.ViewportStore.instances.size}
+          {this.props.stores.ApplicationStore.setLocale('实例数量', 'Instance count')}:{' '}
+          {this.props.stores.ViewportStore.instances.size}
         </Styled.AbsoluteContainer>
       </Styled.Container>
     );
