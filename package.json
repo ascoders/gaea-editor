@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "",
   "main": "dist/src/index.js",
   "types": "src/index.tsx",
@@ -26,7 +26,6 @@
     "gaea-basic-components": "^1.1.0",
     "gaea-render": "^1.0.15",
     "lodash": "^4.17.10",
-    "lz-string": "^1.4.4",
     "react-color": "^2.14.1",
     "sortablejs": "^1.7.0",
     "styled-components": "^3.3.2"

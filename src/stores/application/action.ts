@@ -1,6 +1,5 @@
 import { Action, inject } from 'dob';
 import * as _ from 'lodash';
-import * as LZString from 'lz-string';
 import * as React from 'react';
 import ViewportStore from '../viewport/store';
 import ApplicationStore from './store';
@@ -324,8 +323,7 @@ export default class ApplicationAction {
    * 初始化页面
    */
   @Action
-  public initApplication(value: string) {
-    const info: IAllInformation = JSON.parse(LZString.decompressFromBase64(value));
+  public initApplication(info: IAllInformation) {
     this.store.rootPageKeys = info.rootPageKeys;
     this.store.persistenceData = info.persistenceData || {};
     Object.keys(info.pages).forEach(pageKey => {
@@ -385,10 +383,7 @@ export default class ApplicationAction {
     const instancesArray: InstancesArray = [];
 
     Array.from(this.store.pageInstances).forEach(([pageKey, instances], index) => {
-      instancesArray.push({
-        pageKey,
-        instances: { ...instances }
-      });
+      instancesArray.push({ pageKey, instances: { ...instances } });
     });
 
     return JSON.parse(
@@ -399,11 +394,6 @@ export default class ApplicationAction {
         persistenceData: this.store.persistenceData
       })
     );
-  }
-
-  @Action
-  public getFullInformationGzipped() {
-    return LZString.compressToBase64(JSON.stringify(this.getAllInformation()));
   }
 
   /**

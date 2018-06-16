@@ -12,7 +12,11 @@ export default class Page extends React.PureComponent<Props, State> {
   public render() {
     return (
       <div style={{ width: '100vw', height: '100vh' }}>
-        <Component />
+        <Component
+          onSave={info => {
+            console.log(info);
+          }}
+        />
       </div>
     );
   }

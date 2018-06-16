@@ -155,7 +155,7 @@ declare type InstancesArray = Array<{
 /**
  * Page store structor
  */
-declare interface IAllInformation {
+declare interface   IAllInformation {
   /**
    * All page info
    */
