@@ -397,7 +397,7 @@ import Editor from 'gaea-editor';
 import Render from 'gaea-render';
 
 ReactDOM.render(<Editor componentClasses={myCustomComponents} />, document.getElementById('react-editor'));
-ReactDOM.render(<Render componentClasses={myCustomComponents} />, document.getElementById('react-ender;
+ReactDOM.render(<Render componentClasses={myCustomComponents} />, document.getElementById('react-render'));
 ```
 
 Or `concat` `gaea-basic-components`:
@@ -405,8 +405,14 @@ Or `concat` `gaea-basic-components`:
 ```tsx
 import Editor from 'gaea-editor';
 import Render from 'gaea-render';
-import BasicComponents from 'gaea-basic-components'
+import BasicComponents from 'gaea-basic-components';
 
-ReactDOM.render(<Editor componentClasses={BasicComponents.concat(myCustomComponents)} />, document.getElementById('react-editor'));
-ReactDOM.render(<Render componentClasses={BasicComponents.concat(myCustomComponents)} />, document.getElementById('react-ender;
+ReactDOM.render(
+  <Editor componentClasses={BasicComponents.concat(myCustomComponents)} />,
+  document.getElementById('react-editor')
+);
+ReactDOM.render(
+  <Render componentClasses={BasicComponents.concat(myCustomComponents)} />,
+  document.getElementById('react-render')
+);
 ```
