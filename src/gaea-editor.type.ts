@@ -1,8 +1,10 @@
+import GaeaComponents from 'gaea-basic-components';
+
 export class Props {
   /**
    * React class you want to drag with.
    */
-  public componentClasses?: Array<React.ComponentClass<IGaeaProps>> = [];
+  public componentClasses?: Array<React.ComponentClass<IGaeaProps>> = GaeaComponents;
 
   /**
    * Custom plugins include jsx and stores.

@@ -23,7 +23,7 @@
     "antd": "^3.6.2",
     "dob": "^2.5.9",
     "dob-react": "^2.4.15",
-    "gaea-basic-components": "^1.0.18",
+    "gaea-basic-components": "^1.1.0",
     "gaea-render": "^1.0.15",
     "lodash": "^4.17.10",
     "lz-string": "^1.4.4",

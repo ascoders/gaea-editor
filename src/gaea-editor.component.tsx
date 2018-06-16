@@ -1,6 +1,5 @@
 import { Provider } from 'dob-react';
 import * as React from 'react';
-import GaeaComponents from './gaea-components';
 import { Props, State } from './gaea-editor.type';
 import Page from './page/page.component';
 import { Store } from './stores';
@@ -92,7 +91,7 @@ export default class GaeaEditor extends React.Component<Props, State> {
     });
 
     // 将默认组件与用户自定义组件的 Class 保存在数据流
-    this.props.componentClasses.concat(GaeaComponents).forEach(componentClass => {
+    this.props.componentClasses.forEach(componentClass => {
       // 添加 componentClass
       this.stores.getStore().actions.ApplicationAction.addComponentClass(componentClass);
     });
@@ -121,11 +120,9 @@ export default class GaeaEditor extends React.Component<Props, State> {
   }
 
   public render() {
-    const allComponentClasses = this.props.componentClasses.concat(GaeaComponents);
-
     return (
       <Provider {...this.stores.getStore()}>
-        <Page componentClasses={allComponentClasses} />
+        <Page componentClasses={this.props.componentClasses} />
       </Provider>
     );
   }
