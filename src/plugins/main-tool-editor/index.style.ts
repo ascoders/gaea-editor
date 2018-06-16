@@ -34,3 +34,20 @@ export const TabTitle = styled.div`
   color: #666;
   background-color: #eee;
 `;
+
+export const Nav = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+`;
+
+export const Name = styled.div`
+  font-weight: bold;
+`;
+
+export const RightContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  flex-basis: 0;
+  flex-grow: 1;
+`;

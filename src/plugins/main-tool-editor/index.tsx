@@ -1,8 +1,6 @@
+import { Button, Tooltip } from 'antd';
 import { Connect } from 'dob-react';
-import * as _ from 'lodash';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import Icon from '../../components/icon/src';
 import * as Styled from './index.style';
 import { Props, State } from './index.type';
 
@@ -31,14 +29,19 @@ class MainToolEditor extends React.Component<Props, State> {
     const instanceKey = this.props.stores.ViewportStore.currentEditInstanceKey;
 
     if (!instanceKey) {
-      return <Styled.EmptyContainer>
+      return (
+        <Styled.EmptyContainer>
           <Styled.EmptyTitle>
             {this.props.stores.ApplicationStore.setLocale('没有选择的组件', 'No component selected')}
           </Styled.EmptyTitle>
           <Styled.EmptyDescription>
-            {this.props.stores.ApplicationStore.setLocale('在屏幕左侧点击一个组件', 'Click one component in the left of the screen.')}
+            {this.props.stores.ApplicationStore.setLocale(
+              '在屏幕左侧点击一个组件',
+              'Click one component in the left of the screen.'
+            )}
           </Styled.EmptyDescription>
-        </Styled.EmptyContainer>;
+        </Styled.EmptyContainer>
+      );
     }
 
     if (!this.props.stores.ViewportStore.instances.has(instanceKey)) {
@@ -52,28 +55,53 @@ class MainToolEditor extends React.Component<Props, State> {
     // 优先从 preGaeaKey 取配置，因为可能是一个预设组件
     this.setting = this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo);
 
+    return (
+      <Styled.Container>
+        <Styled.Nav>
+          <Styled.Name>{this.setting.name}</Styled.Name>
+          <Styled.RightContainer>
+            {this.instanceInfo.parentInstanceKey !== null && (
+              <Tooltip title={this.props.stores.ApplicationStore.setLocale('删除此实例', 'Delete this instance')}>
+                <Button shape="circle" icon="delete" onClick={this.removeCurrentInstance} />
+              </Tooltip>
+            )}
+          </Styled.RightContainer>
+        </Styled.Nav>
+        {this.renderEditor(this.setting)}
+      </Styled.Container>
+    );
+  }
+
+  private renderEditor(setting: IGaeaSetting) {
     if (!this.setting || !this.setting.editors || this.setting.editors.length === 0) {
-      return <Styled.EmptyContainer>
+      return (
+        <Styled.EmptyContainer>
           <Styled.EmptyTitle>
             {this.props.stores.ApplicationStore.setLocale('无编辑信息', 'No edit info')}
           </Styled.EmptyTitle>
           <Styled.EmptyDescription>
-            {this.props.stores.ApplicationStore.setLocale('该组件还未添加编辑信息，', 'This component has no edit info yet,')}
+            {this.props.stores.ApplicationStore.setLocale(
+              '该组件还未添加编辑信息，',
+              'This component has no edit info yet,'
+            )}
             <a href="https://github.com/ascoders/gaea-editor" target="_blank">
               {this.props.stores.ApplicationStore.setLocale('点击了解如何添加', 'Click to know learn it')}
             </a>
           </Styled.EmptyDescription>
-        </Styled.EmptyContainer>;
+        </Styled.EmptyContainer>
+      );
     }
 
-    return (
-      <Styled.Container>
-        {this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorManager')}
-        {this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorEvent')}
-        {this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorAddon')}
-      </Styled.Container>
-    );
+    return [
+      this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorManager'),
+      this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorEvent'),
+      this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorAddon')
+    ];
   }
+
+  private removeCurrentInstance = () => {
+    this.props.actions.ViewportAction.removeInstance(this.props.stores.ViewportStore.currentEditInstanceKey);
+  };
 }
 
 export default {

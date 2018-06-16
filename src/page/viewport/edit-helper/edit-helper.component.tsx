@@ -1,3 +1,4 @@
+import { observe } from 'dob';
 import { Connect } from 'dob-react';
 import * as _ from 'lodash';
 import * as React from 'react';
@@ -47,6 +48,11 @@ class EditHelper extends React.Component<Props, State> {
    */
   private defaultProps: IDefaultProps;
 
+  /**
+   * 是否在高亮中
+   */
+  private isInHighlight = false;
+
   public componentWillMount() {
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(this.props.instanceKey);
     this.componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(this.instanceInfo.gaeaKey);
@@ -81,6 +87,13 @@ class EditHelper extends React.Component<Props, State> {
       `${this.props.stores.EventStore.instanceUpdate}.${this.props.instanceKey}`,
       this.forceRender
     );
+
+    // 监听当前编辑 key，如果不是自己，则取消高亮
+    observe(() => {
+      if (this.props.stores.ViewportStore.currentEditInstanceKey !== this.props.instanceKey) {
+        this.cancelHighlight();
+      }
+    });
   }
 
   public componentWillUnmount() {
@@ -108,10 +121,10 @@ class EditHelper extends React.Component<Props, State> {
   public handleClick = (event: MouseEvent) => {
     event.stopPropagation();
 
-    const setting = this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo);
-
     // 将当前组件设置为正在编辑状态
     this.props.actions.ViewportAction.setCurrentEditInstanceKey(this.props.instanceKey);
+
+    this.setHighlight();
   };
 
   /**
@@ -147,6 +160,26 @@ class EditHelper extends React.Component<Props, State> {
 
     return React.createElement(this.componentClass, wrapProps, childs);
   }
+
+  private setHighlight = () => {
+    if (this.isInHighlight) {
+      return;
+    }
+
+    addClass(this.domInstance, 'gaea-highlight');
+
+    this.isInHighlight = true;
+  };
+
+  private cancelHighlight = () => {
+    if (!this.isInHighlight) {
+      return;
+    }
+
+    removeClass(this.domInstance, 'gaea-highlight');
+
+    this.isInHighlight = false;
+  };
 }
 
 const ConnectedEditHelper = Connect(EditHelper);

@@ -8,4 +8,9 @@ export const injectGlob = () => injectGlobal`
   .gaea-draggable {
 
   }
+
+  .gaea-highlight {
+    outline-offset: -1px !important;
+    outline: 1px solid #75b1ff !important;
+  }
 `;
