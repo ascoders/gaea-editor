@@ -358,7 +358,7 @@ What is `position`? What can i do with plugin? See more in [custom-plugin](docs/
 ```bash
 git clone https://github.com/ascoders/gaea-editor.git
 cd gaea-editor
-yarn
+npm i
 npm start
 ```
 
@@ -366,6 +366,47 @@ Will automatically open the default browser.
 
 # Deploy
 
-The page configured with the editor cannot be used as a production environment, and we provide [gaea-app](https://github.com/ascoders/gaea-app) to deploy it:
+Step 1, get value by `onSave` method in `gaea-editor`:
 
-Render application with routes, the value of the gaea-editor `onSave` callback is required.
+```tsx
+import Editor from 'gaea-editor';
+
+ReactDOM.render(<Editor onChange={value => saveToServer(value)} />, document.getElementById('react-root'));
+```
+
+step 2, install `gaea-render`, and pass value to it:
+
+```bash
+npm i gaea-render
+```
+
+```tsx
+import Render from 'gaea-render';
+
+const value = getValueFromServer(); // <Editor onChange={value => // From here. } />
+
+ReactDOM.render(<Render value={value} />, document.getElementById('react-root'));
+```
+
+## Custom component
+
+By default, both `gaea-editor` and `gaea-render` using `gaea-basic-components`. You can overwrite it by these code:
+
+```tsx
+import Editor from 'gaea-editor';
+import Render from 'gaea-render';
+
+ReactDOM.render(<Editor componentClasses={myCustomComponents} />, document.getElementById('react-editor'));
+ReactDOM.render(<Render componentClasses={myCustomComponents} />, document.getElementById('react-ender;
+```
+
+Or `concat` `gaea-basic-components`:
+
+```tsx
+import Editor from 'gaea-editor';
+import Render from 'gaea-render';
+import BasicComponents from 'gaea-basic-components'
+
+ReactDOM.render(<Editor componentClasses={BasicComponents.concat(myCustomComponents)} />, document.getElementById('react-editor'));
+ReactDOM.render(<Render componentClasses={BasicComponents.concat(myCustomComponents)} />, document.getElementById('react-ender;
+```
