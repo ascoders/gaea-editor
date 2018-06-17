@@ -9,6 +9,11 @@ export default class ApplicationAction {
 
   @inject(ViewportStore) private viewportStore: ViewportStore;
 
+  @Action
+  public clearPlugin() {
+    this.store.plugins = [];
+  }
+
   /**
    * 添加插件
    */

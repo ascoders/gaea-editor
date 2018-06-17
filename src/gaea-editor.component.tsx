@@ -77,6 +77,7 @@ export default class GaeaEditor extends React.Component<Props, State> {
     this.stores.getStore().actions.ApplicationAction.setLocale(this.props.locale);
 
     // 收集插件, 后续用来在不同地方展示
+    this.stores.getStore().actions.ApplicationAction.clearPlugin();
     builtInPlugins.concat(this.props.plugins).forEach(plugin => {
       this.stores.getStore().actions.ApplicationAction.addPlugin(plugin);
 

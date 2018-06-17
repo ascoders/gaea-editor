@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Component from '../../src/index';
+import Component from '../src/index';
 
 class Props {}
 
@@ -10,14 +10,6 @@ export default class Page extends React.PureComponent<Props, State> {
   public state = new State();
 
   public render() {
-    return (
-      <div style={{ width: '100vw', height: '100vh' }}>
-        <Component
-          onSave={info => {
-            console.log(info);
-          }}
-        />
-      </div>
-    );
+    return <Component />;
   }
 }

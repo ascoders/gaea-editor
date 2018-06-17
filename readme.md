@@ -359,7 +359,7 @@ What is `position`? What can i do with plugin? See more in [custom-plugin](docs/
 git clone https://github.com/ascoders/gaea-editor.git
 cd gaea-editor
 npm i
-npm start
+npm run docs
 ```
 
 Will automatically open the default browser.
