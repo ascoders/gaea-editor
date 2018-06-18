@@ -10,6 +10,6 @@ export default class Page extends React.PureComponent<Props, State> {
   public state = new State();
 
   public render() {
-    return <Component />;
+    return <Component locale="en" />;
   }
 }

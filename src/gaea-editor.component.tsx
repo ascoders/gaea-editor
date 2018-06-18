@@ -33,6 +33,7 @@ import pageAddPage from './plugins/page-add-page';
 import pageButton from './plugins/page-button';
 import preview from './plugins/preview';
 import save from './plugins/save';
+import viewMode from './plugins/view-mode';
 import viewportGuideline from './plugins/viewport-guideline';
 
 // plug-in plugins
@@ -61,6 +62,7 @@ const builtInPlugins: IPlugin[] = [
   pageAddFolder,
   pageAddPage,
   pageButton,
+  viewMode,
   preview,
   save,
   viewportGuideline

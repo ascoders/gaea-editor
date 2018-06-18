@@ -1,4 +1,5 @@
 import { observable, Static } from 'dob';
+import * as React from 'react';
 
 @observable
 export default class ApplicationStore {
@@ -17,7 +18,7 @@ export default class ApplicationStore {
   /**
    * Viewport style
    */
-  public viewportStyle = {};
+  public viewportStyle: React.CSSProperties = {};
   /**
    * All gaea plugins
    */

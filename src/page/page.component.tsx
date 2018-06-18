@@ -21,8 +21,7 @@ export default class Page extends PureComponent<Props, State> {
   public state = new State();
 
   public render() {
-    return (
-      <Styled.Container>
+    return <Styled.Container>
         <Styled.LeftContainer>
           <Styled.NavbarContainer style={{ height: this.props.stores.ApplicationStore.navbarHeight }}>
             <Styled.NavbarContainerLeft>
@@ -42,10 +41,7 @@ export default class Page extends PureComponent<Props, State> {
               </Styled.ViewportContainerLeftBottom>
             </Styled.ViewportContainerLeft>
 
-            <Styled.ViewportContainerRight
-              theme={{ showLeft: this.props.stores.ApplicationStore.leftTool }}
-              style={{ ...this.props.stores.ApplicationStore.viewportContainerStyle }}
-            >
+            <Styled.ViewportContainerRight theme={{ showLeft: this.props.stores.ApplicationStore.leftTool }} style={{ ...this.props.stores.ApplicationStore.viewportContainerStyle }}>
               <Styled.ToolsContainer theme={{ fullScreen: this.props.stores.ApplicationStore.rightTool }}>
                 <Styled.ToolsContainerLeft>
                   {this.props.actions.ApplicationAction.loadPluginByPosition(
@@ -59,29 +55,19 @@ export default class Page extends PureComponent<Props, State> {
                 </Styled.ToolsContainerRight>
               </Styled.ToolsContainer>
 
-              <Styled.ViewportContainerBox
-                theme={{ hidden: this.props.stores.ApplicationStore.rightTool }}
-                style={{
-                  ...this.props.stores.ApplicationStore.viewportStyle,
-                  display: this.props.stores.ApplicationStore.isPreview ? 'none' : null
-                }}
-              >
-                <Viewport />
-                {this.props.actions.ApplicationAction.loadPluginByPosition('viewport')}
-              </Styled.ViewportContainerBox>
+              <Styled.ViewportBackground>
+                <Styled.ViewportAndPreviewContainer style={this.props.stores.ApplicationStore.viewportStyle}>
+                  <Styled.ViewportContainerBox theme={{ hidden: this.props.stores.ApplicationStore.rightTool }} style={{ ...this.props.stores.ApplicationStore.viewportStyle, display: this.props.stores.ApplicationStore.isPreview ? 'none' : null }}>
+                    <Viewport />
+                    {this.props.actions.ApplicationAction.loadPluginByPosition('viewport')}
+                  </Styled.ViewportContainerBox>
 
-              {this.props.stores.ApplicationStore.isPreview && (
-                <Styled.PreviewContainer
-                  theme={{ hidden: this.props.stores.ApplicationStore.rightTool }}
-                  style={{ ...this.props.stores.ApplicationStore.viewportStyle }}
-                >
-                  <Render
-                    value={this.props.stores.ViewportStore.currentFullInformation}
-                    componentClasses={this.props.componentClasses}
-                  />
-                  {this.props.actions.ApplicationAction.loadPluginByPosition('preview')}
-                </Styled.PreviewContainer>
-              )}
+                  {this.props.stores.ApplicationStore.isPreview && <Styled.PreviewContainer theme={{ hidden: this.props.stores.ApplicationStore.rightTool }} style={{ ...this.props.stores.ApplicationStore.viewportStyle }}>
+                      <Render value={this.props.stores.ViewportStore.currentFullInformation} componentClasses={this.props.componentClasses} />
+                      {this.props.actions.ApplicationAction.loadPluginByPosition('preview')}
+                    </Styled.PreviewContainer>}
+                </Styled.ViewportAndPreviewContainer>
+              </Styled.ViewportBackground>
             </Styled.ViewportContainerRight>
           </Styled.ViewportContainer>
 
@@ -103,8 +89,7 @@ export default class Page extends PureComponent<Props, State> {
           </Styled.ModalTitleContainer>
           {this.props.actions.ApplicationAction.renderModalContent()}
         </Modal>
-      </Styled.Container>
-    );
+      </Styled.Container>;
   }
 
   private handleModalClick = () => {

@@ -466,4 +466,9 @@ export default class ApplicationAction {
   public setLocale(locale: 'en' | 'zh') {
     this.store.locale = locale;
   }
+
+  @Action
+  public setViewportStyle(style: React.CSSProperties) {
+    this.store.viewportStyle = style;
+  }
 }
