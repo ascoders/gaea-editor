@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@types/classnames": "*",
-    "pri": "^0.9.5"
+    "pri": "^0.9.9"
   },
   "author": "",
   "license": "ISC",
