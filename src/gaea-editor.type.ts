@@ -13,11 +13,11 @@ export class Props {
   /**
    * Trigger when onSave button clicked.
    */
-  public onSave?: (value?: IFullInformation) => void;
+  public onSave?: (value?: IAllInformation) => void;
   /**
    * Default value.
    */
-  public defaultValue?: IFullInformation = null;
+  public defaultValue?: IAllInformation = null;
   /**
    * Locale
    */
