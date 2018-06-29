@@ -377,7 +377,7 @@ Step 1, get value by `onSave` method in `gaea-editor`:
 ```tsx
 import Editor from 'gaea-editor';
 
-ReactDOM.render(<Editor onChange={value => saveToServer(value)} />, document.getElementById('react-root'));
+ReactDOM.render(<Editor onSave={value => saveToServer(value)} />, document.getElementById('react-root'));
 ```
 
 step 2, install `gaea-render`, and pass value to it:
@@ -389,7 +389,7 @@ npm i gaea-render
 ```tsx
 import Render from 'gaea-render';
 
-const value = getValueFromServer(); // <Editor onChange={value => // From here. } />
+const value = getValueFromServer(); // <Editor onSave={value => // From here. } />
 
 ReactDOM.render(<Render value={value} />, document.getElementById('react-root'));
 ```
