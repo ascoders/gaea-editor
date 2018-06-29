@@ -27,10 +27,6 @@ import mainToolEditorTypeSelect from './plugins/main-tool-editor-type-select';
 import mainToolEditorTypeString from './plugins/main-tool-editor-type-string';
 import mainToolEditorVariable from './plugins/main-tool-editor-variable';
 import mainToolTree from './plugins/main-tool-tree';
-import page from './plugins/page';
-import pageAddFolder from './plugins/page-add-folder';
-import pageAddPage from './plugins/page-add-page';
-import pageButton from './plugins/page-button';
 import preview from './plugins/preview';
 import save from './plugins/save';
 import viewMode from './plugins/view-mode';
@@ -58,10 +54,6 @@ const builtInPlugins: IPlugin[] = [
   mainToolEditorTypeString,
   mainToolEditorVariable,
   mainToolTree,
-  page,
-  pageAddFolder,
-  pageAddPage,
-  pageButton,
   viewMode,
   preview,
   save,

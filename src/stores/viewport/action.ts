@@ -370,12 +370,6 @@ export default class ViewportAction {
       display: 'block',
       flexGrow: 1
     });
-
-    // 设置首页，如果没有的话
-    if (this.applicationStore.pages.size === 0) {
-      const homePageKey = this.applicationAction.createHomePage();
-      this.applicationAction.changeCurrentViewportPageKey(homePageKey);
-    }
   }
 
   /**

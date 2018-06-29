@@ -152,30 +152,6 @@ declare type InstancesArray = Array<{
   };
 }>;
 
-/**
- * Page store structor
- */
-declare interface   IAllInformation {
-  /**
-   * All page info
-   */
-  pages: IPages;
-  /**
-   * Root page keys
-   */
-  rootPageKeys: string[];
-  /**
-   * All instance info
-   */
-  instancesArray: InstancesArray;
-  /**
-   * 用户自定义数据
-   */
-  persistenceData?: {
-    [x: string]: any;
-  };
-}
-
 declare interface IPreComponent {
   /**
    * gaea Key
