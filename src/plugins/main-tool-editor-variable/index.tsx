@@ -65,12 +65,13 @@ class MainToolEditorVariable extends React.Component<Props, State> {
         instance.data.events.forEach(event => {
           const params = this.props.actions.ViewportAction.eventGetSiblingParam(event);
           if (params) {
-            params.forEach(param => {
-              siblingOptions.push({
-                key: 'sibling:' + param,
-                value: param
-              });
-            });
+            // TODO:
+            // params.forEach(param => {
+            //   siblingOptions.push({
+            //     key: 'sibling:' + param,
+            //     value: param
+            //   });
+            // });
           }
         });
       }

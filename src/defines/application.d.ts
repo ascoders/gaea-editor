@@ -56,7 +56,10 @@ declare interface IGaeaSetting {
    * 自定义事件
    * 组件设置的事件，只支持回调事件
    */
-  events?: ISettingEvent[];
+  events?: Array<{
+    text: string;
+    field: string;
+  }>;
 }
 
 declare interface IDefaultProps {
@@ -161,24 +164,6 @@ declare interface IPreComponent {
    * Pre-setting props
    */
   props: any;
-}
-
-declare interface ISettingEvent {
-  /**
-   * 名称
-   */
-  text?: string;
-  /**
-   * 对应 props，在 callback 时主要使用
-   */
-  field?: string;
-  /**
-   * 触发提供的参数
-   */
-  data?: Array<{
-    // 第 index 个回调参数名称
-    name: string;
-  }>;
 }
 
 declare type IOnComponentDragStart = (

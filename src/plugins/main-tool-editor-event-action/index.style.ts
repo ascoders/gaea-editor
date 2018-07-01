@@ -16,6 +16,7 @@ export const Label = styled.div`
 export const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
+  flex-basis: 0;
 `;
 
 export const HeaderContainer = styled.div`
@@ -24,13 +25,7 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const ActionSiblingContainer = styled.div`
-  display: flex;
-  padding-top: 5px;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-export const IconContainer = styled.div`
-  fill: #666;
+export const DataContainer = styled.div`
+  margin-top: 10px;
+  flex-basis: 0;
 `;

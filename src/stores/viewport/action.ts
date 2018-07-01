@@ -229,7 +229,6 @@ export default class ViewportAction {
   @Action
   public setInstanceEvent(instanceKey: string, key: string, value: any) {
     const instance = this.store.instances.get(instanceKey);
-    const instanceClass = this.applicationStore.componentClasses.get(instance.gaeaKey);
     _.set(instance.data, `events.${key}`, value);
   }
 
@@ -691,8 +690,12 @@ export default class ViewportAction {
 
     // 为事件新增一项
     instance.data.events.push({
-      trigger: 'init',
-      action: 'none'
+      trigger: {
+        type: 'init'
+      },
+      action: {
+        type: 'none'
+      }
     });
   }
 
@@ -733,18 +736,19 @@ export default class ViewportAction {
   @Action
   public eventGetSiblingParam(event: InstanceInfoEvent) {
     // 只有动作是传入同层级，才会记录
-    if (event.action !== 'passingSiblingNodes') {
+    if (event.action.type !== 'passingSiblingNodes') {
       return null;
     }
 
-    switch (event.trigger) {
+    switch (event.trigger.type) {
       case 'callback':
-        return event.actionData.data.map(data => {
-          return data.name;
-        });
+      // TODO:
+      // return event.action.data.map(data => {
+      //   return data.name;
+      // });
     }
 
-    return null;
+    return null as any;
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////

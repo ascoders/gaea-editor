@@ -36,7 +36,13 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
   /**
    * callback 的配置列表
    */
-  private indexMapCallbackEvent = new Map<number, ISettingEvent>();
+  private indexMapCallbackEvent = new Map<
+    number,
+    {
+      text: string;
+      field: string;
+    }
+  >();
 
   /**
    * 当前事件数据
@@ -87,7 +93,7 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
       <S.Container>
         <S.HeaderContainer>
           <S.Label>{this.props.stores.ApplicationStore.setLocale('触发', 'Trigger')}</S.Label>
-          <Select value={this.currentEventInfo.trigger as string} onChange={this.handleChange as any}>
+          <Select value={this.currentEventInfo.trigger.type} onSelect={this.handleChangeTrigger as any}>
             {MergedTriggerOptions}
           </Select>
         </S.HeaderContainer>
@@ -97,35 +103,50 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
     );
   }
 
-  private handleChange = (value: InstanceInfoEventTrigger, index: number) => {
+  private handleChangeTrigger = (value: string) => {
     this.props.actions.ViewportAction.instanceSetEvent(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       this.props.index,
       {
         // Refresh trigger and triggerData only.
         ...this.currentEventInfo,
-        trigger: value,
-        triggerData: {}
+        trigger: {
+          type: value as any
+        }
       }
     );
     return;
   };
 
   private renderTriggerBody = () => {
-    const triggerData = this.instanceInfo.data.events[this.props.index].triggerData;
-
-    if (!triggerData || !triggerData.data) {
-      return null;
+    switch (this.currentEventInfo.trigger.type) {
+      case 'init':
+        return null;
+      case 'callback':
+        return null;
+      case 'subscribe':
+        return (
+          <S.DataContainer>
+            <Select
+              style={{ width: '100%' }}
+              mode="multiple"
+              placeholder={this.props.stores.ApplicationStore.setLocale('事件名称', 'Event name')}
+              value={this.currentEventInfo.trigger.name}
+              onSelect={this.handleChangeTriggerData.bind(this, 'name')}
+            />
+          </S.DataContainer>
+        );
+      default:
+        return null;
     }
+  };
 
-    return triggerData.data.map((param, index) => {
-      return (
-        <S.CallbackItem key={index}>
-          <span>Provider</span>
-          <S.ParamLabel>{param.name}</S.ParamLabel>
-        </S.CallbackItem>
-      );
-    });
+  private handleChangeTriggerData = (key: string, value: string) => {
+    this.props.actions.ViewportAction.setInstanceEvent(
+      this.props.stores.ViewportStore.currentEditInstanceKey,
+      `${this.props.index}.trigger.${key}`,
+      value
+    );
   };
 }
 

@@ -25,7 +25,6 @@ export const EmptyDescription = styled.div`
 
 export const Container = styled.div`
   flex-grow: 1;
-  overflow-y: auto;
 `;
 
 export const TabTitle = styled.div`

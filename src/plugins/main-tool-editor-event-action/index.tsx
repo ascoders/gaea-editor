@@ -8,15 +8,26 @@ import { pipeEvent } from '../../utils/functional';
 import * as S from './index.style';
 import { Props, State } from './index.type';
 
+// TODO:
+const SelectAny = Select as any;
+
 const ActionOptions = [
   {
     key: 'none',
     value: 'Do nothing'
   },
   {
-    key: 'passingSiblingNodes',
-    value: 'Pass value to brother node'
+    key: 'emit',
+    value: 'Trigger Event'
+  },
+  {
+    key: 'jump',
+    value: 'Jump url'
   }
+  // {
+  //   key: 'passingSiblingNodes',
+  //   value: 'Pass value to brother node'
+  // }
 ].map((each, index) => {
   return (
     <Select.Option key={index} value={each.key}>
@@ -64,7 +75,7 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
       <S.Container>
         <S.HeaderContainer>
           <S.Label>{this.props.stores.ApplicationStore.setLocale('动作', 'Action')}</S.Label>
-          <Select value={this.currentEventInfo.action} onChange={this.handleChangeAction as any}>
+          <Select value={this.currentEventInfo.action.type} onChange={this.handleChangeAction as any}>
             {ActionOptions}
           </Select>
         </S.HeaderContainer>
@@ -74,44 +85,58 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
     );
   }
 
-  private handleChangeAction = (value: InstanceInfoEventAction) => {
+  private handleChangeAction = (value: string) => {
     this.props.actions.ViewportAction.instanceSetEvent(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       this.props.index,
       {
         ...this.currentEventInfo,
-        action: value
+        action: {
+          type: value as any
+        }
       }
     );
   };
 
   private renderActionBody = () => {
-    const actionData = this.instanceInfo.data.events[this.props.index].actionData;
-
-    if (!actionData || !actionData.data) {
-      return null;
+    switch (this.currentEventInfo.action.type) {
+      case 'emit':
+        return (
+          <S.DataContainer>
+            <SelectAny
+              style={{ width: '100%' }}
+              mode="combobox"
+              defaultActiveFirstOption={false}
+              value={this.currentEventInfo.action.name}
+              showArrow={false}
+              filterOption={false}
+              placeholder={this.props.stores.ApplicationStore.setLocale('事件名称', 'Event name')}
+              onChange={this.handleChangeActionData.bind(this, 'name')}
+            />
+          </S.DataContainer>
+        );
+      case 'passingSiblingNodes':
+        return null;
+      case 'jump':
+        return (
+          <S.DataContainer>
+            <Input
+              placeholder={this.props.stores.ApplicationStore.setLocale('URL 路径', 'URL path')}
+              value={this.currentEventInfo.action.url}
+              onChange={pipeEvent(this.handleChangeActionData.bind(this, 'url'))}
+            />
+          </S.DataContainer>
+        );
+      case 'none':
+      default:
+        return null;
     }
-
-    return actionData.data.map((param, index) => {
-      return (
-        <S.ActionSiblingContainer key={index}>
-          <S.IconContainer>
-            <Icon type="rightArrow" size={12} />
-          </S.IconContainer>
-          <Input
-            style={{ height: 25, fontSize: 13 }}
-            value={param.name}
-            onChange={pipeEvent(this.handleChangeTriggerData.bind(this, index))}
-          />
-        </S.ActionSiblingContainer>
-      );
-    });
   };
 
-  private handleChangeTriggerData = (index: number, value: string) => {
+  private handleChangeActionData = (key: string, value: string) => {
     this.props.actions.ViewportAction.setInstanceEvent(
       this.props.stores.ViewportStore.currentEditInstanceKey,
-      `${this.props.index}.actionData.data.${index}.name`,
+      `${this.props.index}.action.${key}`,
       value
     );
   };

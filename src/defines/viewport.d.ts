@@ -106,34 +106,3 @@ declare interface IDragInfoViewport {
 declare interface IFullInformation {
   [instanceKey: string]: InstanceInfo;
 }
-
-declare interface InstanceInfoEvent {
-  /**
-   * 触发
-   */
-  trigger: InstanceInfoEventTrigger;
-  triggerData?: ISettingEvent;
-  /**
-   * 动作
-   */
-  action: InstanceInfoEventAction;
-  actionData?: InstanceInfoEventTriggerAction;
-}
-
-declare type InstanceInfoEventTrigger = 'init' | 'callback' | 'subscribe';
-
-declare type InstanceInfoEventAction = 'none' | 'emit' | 'passingSiblingNodes';
-
-declare interface InstanceInfoEventTriggerAction {
-  /**
-   * 名称
-   */
-  name?: string;
-  /**
-   * 触发提供的参数
-   */
-  data?: Array<{
-    // 第 index 个回调参数名称
-    name: string;
-  }>;
-}
