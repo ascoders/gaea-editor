@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "",
   "main": "dist/src/index.js",
   "types": "src/index.tsx",
@@ -21,6 +21,7 @@
     "react-dom": ">=16.0.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.51",
     "antd": "^3.6.2",
     "dob": "^2.5.9",
     "dob-react": "^2.4.15",

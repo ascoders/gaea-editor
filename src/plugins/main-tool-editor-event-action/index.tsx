@@ -5,7 +5,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Icon from '../../components/icon/src';
 import { pipeEvent } from '../../utils/functional';
-import * as Styled from './index.style';
+import * as S from './index.style';
 import { Props, State } from './index.type';
 
 const ActionOptions = [
@@ -60,16 +60,18 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
       return null;
     }
 
-    return <Styled.Container>
-        <Styled.HeaderContainer>
-          <Styled.Label>{this.props.stores.ApplicationStore.setLocale('动作', 'Action')}</Styled.Label>
+    return (
+      <S.Container>
+        <S.HeaderContainer>
+          <S.Label>{this.props.stores.ApplicationStore.setLocale('动作', 'Action')}</S.Label>
           <Select value={this.currentEventInfo.action} onChange={this.handleChangeAction as any}>
             {ActionOptions}
           </Select>
-        </Styled.HeaderContainer>
+        </S.HeaderContainer>
 
-        <Styled.BodyContainer>{this.renderActionBody()}</Styled.BodyContainer>
-      </Styled.Container>;
+        <S.BodyContainer>{this.renderActionBody()}</S.BodyContainer>
+      </S.Container>
+    );
   }
 
   private handleChangeAction = (value: InstanceInfoEventAction) => {
@@ -92,16 +94,16 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
 
     return actionData.data.map((param, index) => {
       return (
-        <Styled.ActionSiblingContainer key={index}>
-          <Styled.IconContainer>
+        <S.ActionSiblingContainer key={index}>
+          <S.IconContainer>
             <Icon type="rightArrow" size={12} />
-          </Styled.IconContainer>
+          </S.IconContainer>
           <Input
             style={{ height: 25, fontSize: 13 }}
             value={param.name}
             onChange={pipeEvent(this.handleChangeTriggerData.bind(this, index))}
           />
-        </Styled.ActionSiblingContainer>
+        </S.ActionSiblingContainer>
       );
     });
   };

@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Icon from '../../components/icon/src';
-import * as Styled from './index.style';
+import * as S from './index.style';
 import { Props, State } from './index.type';
 
 @Connect
@@ -32,47 +32,47 @@ class MainToolEditorEvent extends React.Component<Props, State> {
       this.instanceInfo.data.events &&
       this.instanceInfo.data.events.map((event, index) => {
         return (
-          <Styled.EventContainer key={index}>
-            <Styled.EventTrigger>
+          <S.EventContainer key={index}>
+            <S.EventTrigger>
               {this.props.actions.ApplicationAction.loadPluginByPosition(`mainToolEditorEventTrigger`, {
                 index
               })}
-            </Styled.EventTrigger>
+            </S.EventTrigger>
 
-            <Styled.EventAction>
+            <S.EventAction>
               {this.props.actions.ApplicationAction.loadPluginByPosition(`mainToolEditorEventAction`, {
                 index
               })}
-            </Styled.EventAction>
+            </S.EventAction>
 
             <Tooltip
               title={this.props.stores.ApplicationStore.setLocale('移除此事件', 'Remove this event')}
               placement="left"
             >
-              <Styled.RemoveIconContainer onClick={this.handleRemove.bind(this, index)}>
-                <Icon type="remove" size={14} />
-              </Styled.RemoveIconContainer>
+              <S.RemoveIconContainer onClick={this.handleRemove.bind(this, index)}>
+                <Icon type="close" size={14} />
+              </S.RemoveIconContainer>
             </Tooltip>
-          </Styled.EventContainer>
+          </S.EventContainer>
         );
       });
 
     return (
-      <Styled.Container>
-        <Styled.TabTitle>
+      <S.Container>
+        <S.TabTitle>
           {this.props.stores.ApplicationStore.setLocale('事件', 'Event')}
           <Tooltip
             title={this.props.stores.ApplicationStore.setLocale('添加新事件', 'Add new event')}
             placement="right"
           >
-            <Styled.AddButton onClick={this.handleAdd}>
+            <S.AddButton onClick={this.handleAdd}>
               <Icon type="add" size={14} />
-            </Styled.AddButton>
+            </S.AddButton>
           </Tooltip>
-        </Styled.TabTitle>
+        </S.TabTitle>
 
-        <Styled.EventList>{Events}</Styled.EventList>
-      </Styled.Container>
+        <S.EventList>{Events}</S.EventList>
+      </S.Container>
     );
   }
 

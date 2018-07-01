@@ -7,16 +7,16 @@ export const Container = styled.div`
 `;
 
 export const Label = styled.div`
-  font-size: 14px;
+  font-size: 13px;
   color: #666;
-  margin-right: 5px;
+  margin-bottom: 5px;
   white-space: nowrap;
 `;
 
 export const HeaderContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
 `;
 
 export const BodyContainer = styled.div`

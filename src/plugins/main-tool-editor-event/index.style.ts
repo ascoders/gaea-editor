@@ -32,9 +32,9 @@ export const EventContainer = styled.div`
   display: flex;
   height: 100px;
   padding: 10px;
-  flex-direction: column;
+  flex-direction: row;
   &:not(:last-child) {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px dotted #ddd;
   }
 `;
 
@@ -42,12 +42,15 @@ export const EventTrigger = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  flex-basis: 0;
+  margin-right: 5px;
 `;
 
 export const EventAction = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  flex-basis: 0;
 `;
 
 export const EventList = styled.div`
@@ -57,8 +60,8 @@ export const EventList = styled.div`
 
 export const RemoveIconContainer = styled.div`
   position: absolute;
-  left: 10px;
-  top: 40px;
+  right: 10px;
+  top: 12px;
   fill: #999;
   cursor: pointer;
   transition: color 0.3s;

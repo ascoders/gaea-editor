@@ -4,13 +4,17 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Icon from '../../components/icon/src';
-import * as Styled from './index.style';
+import * as S from './index.style';
 import { Props, State } from './index.type';
 
 const triggerOptions = [
   {
     key: 'init',
     value: 'Init'
+  },
+  {
+    key: 'subscribe',
+    value: 'Listen event'
   }
 ];
 
@@ -80,48 +84,31 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
     });
 
     return (
-      <Styled.Container>
-        <Styled.HeaderContainer>
-          <Styled.Label>{this.props.stores.ApplicationStore.setLocale('触发', 'Trigger')}</Styled.Label>
+      <S.Container>
+        <S.HeaderContainer>
+          <S.Label>{this.props.stores.ApplicationStore.setLocale('触发', 'Trigger')}</S.Label>
           <Select value={this.currentEventInfo.trigger as string} onChange={this.handleChange as any}>
             {MergedTriggerOptions}
           </Select>
-        </Styled.HeaderContainer>
+        </S.HeaderContainer>
 
-        <Styled.BodyContainer>{this.renderTriggerBody()}</Styled.BodyContainer>
-      </Styled.Container>
+        <S.BodyContainer>{this.renderTriggerBody()}</S.BodyContainer>
+      </S.Container>
     );
   }
 
   private handleChange = (value: InstanceInfoEventTrigger, index: number) => {
-    if (value === 'callback') {
-      const event = this.indexMapCallbackEvent.get(index);
-
-      this.props.actions.ViewportAction.instanceSetEvent(
-        this.props.stores.ViewportStore.currentEditInstanceKey,
-        this.props.index,
-        {
-          ...this.currentEventInfo,
-          trigger: value,
-          triggerData: _.cloneDeep(event),
-          actionData: {
-            data: _.cloneDeep(event.data)
-          }
-        }
-      );
-      return;
-    }
-
     this.props.actions.ViewportAction.instanceSetEvent(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       this.props.index,
       {
+        // Refresh trigger and triggerData only.
         ...this.currentEventInfo,
-        triggerData: {},
-        actionData: {},
-        trigger: value
+        trigger: value,
+        triggerData: {}
       }
     );
+    return;
   };
 
   private renderTriggerBody = () => {
@@ -133,10 +120,10 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
 
     return triggerData.data.map((param, index) => {
       return (
-        <Styled.CallbackItem key={index}>
+        <S.CallbackItem key={index}>
           <span>Provider</span>
-          <Styled.ParamLabel>{param.name}</Styled.ParamLabel>
-        </Styled.CallbackItem>
+          <S.ParamLabel>{param.name}</S.ParamLabel>
+        </S.CallbackItem>
       );
     });
   };
