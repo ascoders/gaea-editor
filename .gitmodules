@@ -1,0 +1,3 @@
+[submodule "gaea-render"]
+	path = packages/gaea-render
+	url = https://github.com/ascoders/gaea-render.git
