@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "2.3.4",
+  "version": "2.3.5",
   "description": "",
   "main": "dist/src/index.js",
   "types": "src/index.tsx",
@@ -26,6 +26,7 @@
     "dob-react": "^2.4.15",
     "gaea-basic-components": "^1.1.0",
     "gaea-render": "^1.0.15",
+    "keymaster": "^1.6.2",
     "lodash": "^4.17.10",
     "react-color": "^2.14.1",
     "sortablejs": "^1.7.0",
@@ -33,7 +34,7 @@
   },
   "devDependencies": {
     "@types/classnames": "*",
-    "pri": "^0.9.9"
+    "pri": "^0.9.11"
   },
   "author": "",
   "license": "ISC",

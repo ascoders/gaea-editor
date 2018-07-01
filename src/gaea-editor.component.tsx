@@ -7,7 +7,9 @@ import { Store } from './stores';
 // tslint:disable-next-line:no-submodule-imports
 import 'antd/dist/antd.css';
 
+import copyPasteKeyboard from './plugins/copy-paste-keyboard';
 import crumbs from './plugins/crumbs';
+import deleteKeyboard from './plugins/delete-keyboard';
 import dragMenu from './plugins/drag-menu';
 import dragMenuButton from './plugins/drag-menu-button';
 import mainTool from './plugins/main-tool';
@@ -57,7 +59,9 @@ const builtInPlugins: IPlugin[] = [
   viewMode,
   preview,
   save,
-  viewportGuideline
+  viewportGuideline,
+  copyPasteKeyboard,
+  deleteKeyboard
 ];
 
 export default class GaeaEditor extends React.Component<Props, State> {
@@ -96,12 +100,12 @@ export default class GaeaEditor extends React.Component<Props, State> {
       .getStore()
       .actions.EventAction.on(this.stores.getStore().stores.EventStore.emitEditorCallback, this.handleCallback);
 
+    // 初始化一个空页面
+    this.stores.getStore().actions.ViewportAction.initViewport();
+
     // 根据默认值设置页面初始属性
     if (this.props.defaultValue) {
-      this.stores.getStore().actions.ApplicationAction.initApplication(this.props.defaultValue);
-    } else {
-      // 初始化一个空页面
-      this.stores.getStore().actions.ViewportAction.initViewport();
+      this.stores.getStore().actions.ViewportAction.resetViewport(this.props.defaultValue);
     }
 
     // 将 onComponentDragStart 放到 applicationStore
@@ -117,7 +121,7 @@ export default class GaeaEditor extends React.Component<Props, State> {
   public render() {
     return (
       <Provider {...this.stores.getStore()}>
-        <Page componentClasses={this.props.componentClasses} />
+        <Page componentClasses={this.props.componentClasses} ViewportRender={this.props.ViewportRender} />
       </Provider>
     );
   }

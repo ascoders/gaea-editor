@@ -23,7 +23,7 @@ export default class ViewportStore {
   public instanceUpdate = 'instanceUpdate';
 
   /**
-   * 页面冲渲染
+   * 页面重渲染
    */
   public refreshPage = 'refreshPage';
 

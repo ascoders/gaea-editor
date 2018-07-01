@@ -18,10 +18,9 @@ const NavbarContainerLeftAndNavbarContainerRight = css`
 `;
 
 const ViewportContainerBoxAndPreviewContainer = css`
-  display: flex;
+  display: block;
   position: relative;
-  flex-basis: 0%;
-  flex-grow: 1;
+  height: 100%;
   ${(props: any) =>
     props.theme.hidden &&
     `
@@ -156,6 +155,9 @@ export const ViewportContainerRight = styled.div`
 `;
 
 export const ViewportBackground = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -239,5 +241,5 @@ export const ModalTitleClose = styled.div`
 
 export const ViewportAndPreviewContainer = styled.div`
   background-color: white;
-  margin: 0 auto;
+  margin: auto;
 `;

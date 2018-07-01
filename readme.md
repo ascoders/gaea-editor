@@ -274,8 +274,9 @@ You can add custom components, custom plugins, save callback, and read saved dat
 | onSave           | `(info?: string) => void`                 | When you click the Save button, feed back to you to save the information                                                                                                                       |
 | defaultValue     | `object`                                  | Editor initial value, you can pass the value of the onSave callback and resume the draft                                                                                                       |
 | componentClasses | `Array<React.ComponentClass<IGaeaProps>>` | React classes. Any react component is supported, but you need some configuration information to tell the editor how to edit it. see [custom-component-config](docs/custom-component-config.md) |
-| plugins          | `IPlugin[]`                               | Advanced usage for custom editor functionality. TODO                                                                                                                                           |
+| plugins          | `IPlugin[]`                               | Advanced usage for custom editor functionality.                                                                                                                                                |
 | locale           | string                                    | `zh` or `cn`                                                                                                                                                                                   |
+| ViewportRender   | React.ReactElement\<any\>                 | You can rewrite viewport element.                                                                                                                                                              |
 
 ## Parameter: `onSave`
 

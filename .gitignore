@@ -6,3 +6,4 @@
 /.DS_Store
 /coverage
 /.nyc_output
+/npm-debug.log

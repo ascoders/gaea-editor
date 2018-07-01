@@ -7,6 +7,14 @@ import EventAction from '../event/action';
 import EventStore from '../event/store';
 import ViewportStore from './store';
 
+function guidGenerator() {
+  const S4 = () => {
+    // tslint:disable-next-line:no-bitwise
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  };
+  return S4() + S4();
+}
+
 /**
  * gaeaKey 指组件 class 防止重复的 props.editSetting.key
  * instanceKey 是 viewport 给每个组件实例的唯一标识
@@ -35,8 +43,18 @@ export default class ViewportAction {
    * 生成唯一的 instance key
    */
   @Action
-  public createNewInstanceKey() {
-    return _.uniqueId('gaea_instance_');
+  public createNewInstanceKey(existInstances: string[] = []) {
+    let key: string = null;
+
+    while (
+      key === null ||
+      Array.from(this.store.instances.keys()).find(eachKey => eachKey === key) ||
+      existInstances.find(eachKey => eachKey === key)
+    ) {
+      key = 'gaea_instance_' + guidGenerator();
+    }
+
+    return key;
   }
 
   /**
@@ -221,7 +239,6 @@ export default class ViewportAction {
    */
   public getInstanceProps(instanceKey: string, key: string): any {
     const instance = this.store.instances.get(instanceKey);
-    const instanceClass = this.applicationStore.componentClasses.get(instance.gaeaKey);
     const defaultProps = this.applicationAction.getDefaultPropsByInstance(instance);
 
     const dataResult = _.get(instance.data, `props.${key}`);
@@ -368,7 +385,7 @@ export default class ViewportAction {
     // 设置根节点属性
     this.setInstanceProps(rootInstanceKey, 'style', {
       display: 'block',
-      flexGrow: 1
+      height: '100%'
     });
   }
 

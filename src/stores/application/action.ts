@@ -135,20 +135,6 @@ export default class ApplicationAction {
   }
 
   /**
-   * 初始化页面
-   */
-  @Action
-  public initApplication(info: IFullInformation) {
-    Object.keys(info).forEach(instanceKey => {
-      this.viewportStore.instances.set(instanceKey, info[instanceKey]);
-
-      if (info[instanceKey].parentInstanceKey === null) {
-        this.viewportStore.rootInstanceKey = instanceKey;
-      }
-    });
-  }
-
-  /**
    * 重置应用状态，将当前状态全部清空，适合做一些动作前清场
    */
   @Action
