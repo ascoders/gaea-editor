@@ -41,8 +41,12 @@ ReactDOM.render(
 You can add any react components to the drag menu, through the following line of code:
 
 ```typescript
-<Editor componentClasses={[CustomComponent1, CustomComponent2]} />
+import BasicComponents from 'gaea-basic-components';
+<Editor componentClasses={[...BasicComponents, CustomComponent1, CustomComponent2]} />
 ```
+
+> `BasicComponents` support `container`, `button`, `icon`, `select`, `switch`. And there must be at least one component to set `isContainer=true` that can be used as outer container.
+> Generally speaking, with `BasicComponents` concat is ok, because the component `container` `BasicComponents` offered is a container.
 
 Add `editSetting` to each component props, to let the editor know how to edit it visualizations:
 
@@ -415,11 +419,11 @@ import Render from 'gaea-render';
 import BasicComponents from 'gaea-basic-components';
 
 ReactDOM.render(
-  <Editor componentClasses={BasicComponents.concat(myCustomComponents)} />,
+  <Editor componentClasses={[...BasicComponents, myCustomComponents]} />,
   document.getElementById('react-editor')
 );
 ReactDOM.render(
-  <Render componentClasses={BasicComponents.concat(myCustomComponents)} />,
+  <Render componentClasses={[...BasicComponents, myCustomComponents]} />,
   document.getElementById('react-render')
 );
 ```

@@ -3,6 +3,8 @@
 Your can add custom component to draggable menu like this:
 
 ```typescript
+import BasicComponents from 'gaea-basic-components';
+
 class MyInput extends React.Component {
     render() {
         return <input />
@@ -11,7 +13,7 @@ class MyInput extends React.Component {
 
 export function renderGaeaEditor() {
     return (
-        <Editor componentClasses={[ MyInput ]}/>
+        <Editor componentClasses={[ ...BasicComponents, MyInput ]}/>
     )
 }
 ```
