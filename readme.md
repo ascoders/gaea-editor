@@ -56,6 +56,7 @@ defaultProps = {
   editSetting: {
     key: 'my-custom-key', // Unique key.
     name: 'Custom one', // The name shown in drag menu.
+    isContainer: false, // Can be dragged in.
     editors: [
       {
         field: 'title',
