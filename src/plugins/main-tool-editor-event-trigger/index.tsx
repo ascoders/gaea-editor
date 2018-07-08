@@ -34,17 +34,6 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
   private setting: IGaeaSetting;
 
   /**
-   * callback 的配置列表
-   */
-  private indexMapCallbackEvent = new Map<
-    number,
-    {
-      text: string;
-      field: string;
-    }
-  >();
-
-  /**
    * 当前事件数据
    */
   private currentEventInfo: InstanceInfoEvent = null;
@@ -74,11 +63,7 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
 
     const mergedTriggerOptions = triggerOptions.concat(
       (this.setting.events || []).map((event, index) => {
-        this.indexMapCallbackEvent.set(index + triggerOptions.length, event);
-        return {
-          key: 'callback',
-          value: event.text
-        };
+        return { key: `callback-${event.field}`, value: event.text };
       })
     );
     const MergedTriggerOptions = mergedTriggerOptions.map((each, index) => {
@@ -104,17 +89,35 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
   }
 
   private handleChangeTrigger = (value: string) => {
+    let type = value;
+    let field = '';
+
+    if (type.startsWith('callback-')) {
+      field = type.slice(9);
+      type = 'callback';
+    }
+
+    const eventInfo: InstanceInfoEvent = {
+      // Refresh trigger and triggerData only.
+      ...this.currentEventInfo,
+      trigger: {
+        type: type as any
+      }
+    };
+
+    switch (type) {
+      case 'callback':
+        (eventInfo.trigger as InstanceEventTriggerCallback).field = field;
+        break;
+      default:
+    }
+
     this.props.actions.ViewportAction.instanceSetEvent(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       this.props.index,
-      {
-        // Refresh trigger and triggerData only.
-        ...this.currentEventInfo,
-        trigger: {
-          type: value as any
-        }
-      }
+      eventInfo
     );
+
     return;
   };
 
@@ -142,6 +145,7 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
   };
 
   private handleChangeTriggerData = (key: string, value: string) => {
+    console.log(123213, key, value);
     this.props.actions.ViewportAction.setInstanceEvent(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       `${this.props.index}.trigger.${key}`,

@@ -23,10 +23,6 @@ declare interface InstanceEventTriggerSubscribe {
 declare interface InstanceEventTriggerCallback {
   type: 'callback';
   /**
-   * Name.
-   */
-  text?: string;
-  /**
    * Callback field.
    */
   field?: string;
