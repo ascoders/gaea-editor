@@ -145,7 +145,6 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
   };
 
   private handleChangeTriggerData = (key: string, value: string) => {
-    console.log(123213, key, value);
     this.props.actions.ViewportAction.setInstanceEvent(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       `${this.props.index}.trigger.${key}`,
