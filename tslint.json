@@ -13,13 +13,13 @@
     "trailing-comma": [
       false
     ],
-    "no-string-literal": false,
+    "no-string-literal": true,
     "arrow-parens": false,
-    "no-var-requires": false,
+    "no-var-requires": true,
     "prefer-conditional-expression": false,
     "no-implicit-dependencies": false,
     "no-object-literal-type-assertion": false,
     "no-submodule-imports": false,
-    "no-empty": false
+    "no-empty": true
   }
 }

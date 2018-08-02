@@ -1,5 +1,5 @@
 import { Connect } from 'dob-react';
-import * as keymaster from 'keymaster';
+import keymaster from 'keymaster';
 import * as React from 'react';
 import { PureComponent } from '../../utils/react-helper';
 import { CopyPasteAction } from './action';

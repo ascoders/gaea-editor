@@ -21,9 +21,6 @@
       "pri/*": [
         "pri",
         ".temp/types/*"
-      ],
-      "gaea-render": [
-        "packages/gaea-render"
       ]
     }
   },

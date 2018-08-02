@@ -1,3 +1,4 @@
+import { InputNumber } from 'antd';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as Styled from './box-editor.style';
@@ -322,11 +323,12 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
    * 输入框调用的修改
    */
   private handleChange = (name: typings.MarginPaddingField, event: any) => {
+    const value = Number(event.target.value) || 0;
     this.setState({
-      [name]: Number(event.target.value)
+      [name]: value
     });
-    this.props.onChange(name, Number(event.target.value));
-    this.props.onFinalChange(name, Number(event.target.value));
+    this.props.onChange(name, value);
+    this.props.onFinalChange(name, value);
   };
 
   private renderTriangle = (position: string, name: string, extendStyle: React.CSSProperties = {}) => {

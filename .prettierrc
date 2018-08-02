@@ -1,6 +1,5 @@
 {
   "printWidth": 120,
-  "proseWrap": "never",
   "semi": true,
   "singleQuote": true,
   "tabWidth": 2,
