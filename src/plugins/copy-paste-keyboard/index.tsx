@@ -1,10 +1,12 @@
 import { Connect } from 'dob-react';
-import keymaster from 'keymaster';
 import * as React from 'react';
 import { PureComponent } from '../../utils/react-helper';
 import { CopyPasteAction } from './action';
 import { Props, State } from './index.type';
 import { CopyPasteStore } from './store';
+
+// tslint:disable-next-line:no-var-requires
+const keymaster = require('keymaster');
 
 @Connect
 class CopyPaste extends PureComponent<Props, State> {
