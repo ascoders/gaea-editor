@@ -74,11 +74,17 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
       );
     });
 
+    let triggerValue: string = this.currentEventInfo.trigger.type;
+
+    if (this.currentEventInfo.trigger.type === 'callback') {
+      triggerValue = 'callback-' + this.currentEventInfo.trigger.field;
+    }
+
     return (
       <S.Container>
         <S.HeaderContainer>
           <S.Label>{this.props.stores.ApplicationStore.setLocale('触发', 'Trigger')}</S.Label>
-          <Select value={this.currentEventInfo.trigger.type} onSelect={this.handleChangeTrigger as any}>
+          <Select value={triggerValue} onSelect={this.handleChangeTrigger as any}>
             {MergedTriggerOptions}
           </Select>
         </S.HeaderContainer>

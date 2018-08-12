@@ -1,4 +1,5 @@
 import { Provider } from 'dob-react';
+import { kebabCase } from 'lodash';
 import * as React from 'react';
 import { Props, State } from './gaea-editor.type';
 import Page from './page/page.component';
@@ -34,34 +35,33 @@ import save from './plugins/save';
 import viewMode from './plugins/view-mode';
 import viewportGuideline from './plugins/viewport-guideline';
 
-// plug-in plugins
-const builtInPlugins: IPlugin[] = [
-  crumbs,
-  dragMenu,
-  dragMenuButton,
-  mainTool,
-  mainToolEditor,
-  mainToolEditorEvent,
-  mainToolEditorEventAction,
-  mainToolEditorEventTrigger,
-  mainToolEditorManager,
-  mainToolEditorTypeArray,
-  mainToolEditorTypeBoolean,
-  mainToolEditorTypeBoxEditor,
-  mainToolEditorTypeColor,
-  mainToolEditorTypeDisplay,
-  mainToolEditorTypeNumber,
-  mainToolEditorTypeObject,
-  mainToolEditorTypeSelect,
-  mainToolEditorTypeString,
-  mainToolEditorVariable,
-  mainToolTree,
-  viewMode,
-  preview,
-  save,
-  viewportGuideline,
-  copyPasteKeyboard,
-  deleteKeyboard
+const allPlugins: Array<[string, any]> = [
+  ['crumbs', crumbs],
+  ['copyPasteKeyboard', copyPasteKeyboard],
+  ['deleteKeyboard', deleteKeyboard],
+  ['dragMenu', dragMenu],
+  ['dragMenuButton', dragMenuButton],
+  ['mainTool', mainTool],
+  ['mainToolEditor', mainToolEditor],
+  ['mainToolEditorEvent', mainToolEditorEvent],
+  ['mainToolEditorEventAction', mainToolEditorEventAction],
+  ['mainToolEditorEventTrigger', mainToolEditorEventTrigger],
+  ['mainToolEditorManager', mainToolEditorManager],
+  ['mainToolEditorTypeArray', mainToolEditorTypeArray],
+  ['mainToolEditorTypeBoolean', mainToolEditorTypeBoolean],
+  ['mainToolEditorTypeBoxEditor', mainToolEditorTypeBoxEditor],
+  ['mainToolEditorTypeColor', mainToolEditorTypeColor],
+  ['mainToolEditorTypeDisplay', mainToolEditorTypeDisplay],
+  ['mainToolEditorTypeNumber', mainToolEditorTypeNumber],
+  ['mainToolEditorTypeObject', mainToolEditorTypeObject],
+  ['mainToolEditorTypeSelect', mainToolEditorTypeSelect],
+  ['mainToolEditorTypeString', mainToolEditorTypeString],
+  ['mainToolEditorVariable', mainToolEditorVariable],
+  ['mainToolTree', mainToolTree],
+  ['preview', preview],
+  ['save', save],
+  ['viewMode', viewMode],
+  ['viewportGuideline', viewportGuideline]
 ];
 
 export default class GaeaEditor extends React.Component<Props, State> {
@@ -71,6 +71,13 @@ export default class GaeaEditor extends React.Component<Props, State> {
   private stores = new Store();
 
   public componentWillMount() {
+    // plug-in plugins
+    const builtInPlugins: IPlugin[] = allPlugins
+      .filter(each => {
+        return !this.props.disableBuiltInPlugin.find(disablePluginName => disablePluginName === kebabCase(each[0]));
+      })
+      .map(each => each[1]);
+
     // 设置国际化
     this.stores.getStore().actions.ApplicationAction.setLocale(this.props.locale);
 

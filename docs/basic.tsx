@@ -12,6 +12,7 @@ export default class Page extends React.PureComponent<Props, State> {
   public render() {
     return (
       <Component
+        disableBuiltInPlugin={['preview']}
         onSave={data => {
           // tslint:disable-next-line:no-console
           console.log(JSON.stringify(data, null, 2));
