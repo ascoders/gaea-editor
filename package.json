@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "2.3.12",
+  "version": "2.3.13",
   "description": "",
   "main": "dist/src/index.js",
   "types": "src/index.tsx",
@@ -26,8 +26,8 @@
     "antd": "^3.6.2",
     "dob": "^2.5.9",
     "dob-react": "^2.4.15",
-    "gaea-basic-components": "^1.1.0",
-    "gaea-render": "^1.0.15",
+    "gaea-basic-components": "^1.1.2",
+    "gaea-render": "^1.0.18",
     "keymaster": "^1.6.2",
     "lodash": "^4.17.10",
     "react-color": "^2.14.1",
