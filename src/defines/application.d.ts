@@ -159,7 +159,7 @@ declare interface IPreComponent {
   /**
    * gaea Key
    */
-  key: string;
+  name: string;
   /**
    * Pre-setting props
    */

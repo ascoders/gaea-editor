@@ -78,6 +78,13 @@ export default class GaeaEditor extends React.Component<Props, State> {
       })
       .map(each => each[1]);
 
+    // 设置预设组件
+    this.props.preComponents.forEach(preComponent => {
+      preComponent.components.forEach(eachComponent => {
+        this.stores.getStore().actions.ApplicationAction.setPreComponent(preComponent.gaeaKey, eachComponent);
+      });
+    });
+
     // 设置国际化
     this.stores.getStore().actions.ApplicationAction.setLocale(this.props.locale);
 

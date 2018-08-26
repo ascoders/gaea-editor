@@ -78,9 +78,7 @@ class DragMenu extends React.Component<Props, State> {
             [],
             preComponentInfos
               .filter(preComponentInfo => {
-                const setting = this.props.stores.ApplicationStore.componentSetting.has(preComponentInfo.key)
-                  ? this.props.stores.ApplicationStore.componentSetting.get(preComponentInfo.key)
-                  : this.props.stores.ApplicationStore.componentSetting.get(gaeaKey);
+                const setting = this.props.stores.ApplicationStore.componentSetting.get(gaeaKey);
 
                 // 如果搜索框没有输入，展示
                 if (this.state.searchContent === '') {
@@ -90,18 +88,16 @@ class DragMenu extends React.Component<Props, State> {
                 return new RegExp(this.state.searchContent).test(setting.name);
               })
               .map((preComponentInfo, childIndex) => {
-                const setting = this.props.stores.ApplicationStore.componentSetting.has(preComponentInfo.key)
-                  ? this.props.stores.ApplicationStore.componentSetting.get(preComponentInfo.key)
-                  : this.props.stores.ApplicationStore.componentSetting.get(gaeaKey);
+                const setting = this.props.stores.ApplicationStore.componentSetting.get(gaeaKey);
 
                 return (
                   <Styled.Component
                     key={'preSetting' + index + '&' + childIndex}
                     data-gaea-key={componentClass.defaultProps.editSetting.key}
                     data-props={JSON.stringify(preComponentInfo.props)}
-                    data-pre-gaea-key={preComponentInfo.key}
+                    data-pre-gaea-key={gaeaKey}
                   >
-                    {setting.name}
+                    {preComponentInfo.name}
                   </Styled.Component>
                 );
               })

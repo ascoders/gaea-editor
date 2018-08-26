@@ -5,9 +5,11 @@ import ViewportStore from '../viewport/store';
 import ApplicationStore from './store';
 
 export default class ApplicationAction {
-  @inject(ApplicationStore) private store: ApplicationStore;
+  @inject(ApplicationStore)
+  private store: ApplicationStore;
 
-  @inject(ViewportStore) private viewportStore: ViewportStore;
+  @inject(ViewportStore)
+  private viewportStore: ViewportStore;
 
   @Action
   public clearPlugin() {

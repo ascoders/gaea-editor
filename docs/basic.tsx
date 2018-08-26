@@ -13,6 +13,21 @@ export default class Page extends React.PureComponent<Props, State> {
     return (
       <Component
         disableBuiltInPlugin={['preview']}
+        preComponents={[
+          {
+            gaeaKey: 'gaea-button',
+            components: [
+              {
+                name: 'gaea-button1',
+                props: { text: '123' }
+              },
+              {
+                name: 'gaea-button2',
+                props: { text: '456' }
+              }
+            ]
+          }
+        ]}
         onSave={data => {
           // tslint:disable-next-line:no-console
           console.log(JSON.stringify(data, null, 2));
