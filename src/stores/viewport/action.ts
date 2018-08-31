@@ -21,15 +21,20 @@ function guidGenerator() {
  */
 
 export default class ViewportAction {
-  @inject(ViewportStore) private store: ViewportStore;
+  @inject(ViewportStore)
+  private store: ViewportStore;
 
-  @inject(ApplicationStore) private applicationStore: ApplicationStore;
+  @inject(ApplicationStore)
+  private applicationStore: ApplicationStore;
 
-  @inject(ApplicationAction) private applicationAction: ApplicationAction;
+  @inject(ApplicationAction)
+  private applicationAction: ApplicationAction;
 
-  @inject(EventAction) private eventAction: EventAction;
+  @inject(EventAction)
+  private eventAction: EventAction;
 
-  @inject(EventStore) private eventStore: EventStore;
+  @inject(EventStore)
+  private eventStore: EventStore;
 
   /**
    * 设置视图区域 dom 对象

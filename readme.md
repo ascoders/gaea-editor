@@ -300,13 +300,13 @@ export function renderGaeaEditor() {
 }
 ```
 
-## Parameter: `value`
+## Parameter: `defaultValue`
 
-The `value` came from `onSave`.
+The `defaultValue` came from `onSave`.
 
 ```typescript
 export function renderGaeaEditor() {
-  return <Editor value={value} />;
+  return <Editor defaultValue={value} />;
 }
 ```
 
