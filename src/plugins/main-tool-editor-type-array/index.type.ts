@@ -5,4 +5,6 @@ export class Props extends StoreProps<void, void> {
   public realField?: string = '';
 }
 
-export class State {}
+export class State {
+  public currentValue : any[];
+}
