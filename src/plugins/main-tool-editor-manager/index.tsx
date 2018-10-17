@@ -75,7 +75,7 @@ class MainToolEditorManager extends React.Component<Props, State> {
             });
           }
 
-          const isObjectType = /array/.test(editor.type) || /object/.test(editor.type);
+          const isObjectType = editor.type === 'array' || editor.type === 'object';
 
           return (
             <Styled.EditorContainer key={index} theme={{ isObjectType: isObjectType && !isVariable }}>
