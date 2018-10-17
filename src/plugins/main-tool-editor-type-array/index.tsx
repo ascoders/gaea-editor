@@ -16,6 +16,16 @@ class MainToolEditorArray extends React.Component<Props, State> {
    * 组件实例的信息
    */
   private instanceInfo: InstanceInfo;
+  
+  componentWillMount() {
+    // 当前控制数组的值
+    this.setState({
+      currentValue: this.props.actions.ViewportAction.getInstanceProps(
+        this.props.stores.ViewportStore.currentEditInstanceKey,
+        this.props.realField
+      ) || []
+    })
+  }
 
   public render() {
     if (!this.props.stores.ViewportStore.instances.has(this.props.stores.ViewportStore.currentEditInstanceKey)) {
@@ -30,11 +40,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
     const editors = this.props.editor.data as IEditor[];
 
     // 当前控制数组的值
-    const currentValue: any[] =
-      this.props.actions.ViewportAction.getInstanceProps(
-        this.props.stores.ViewportStore.currentEditInstanceKey,
-        this.props.realField
-      ) || [];
+    const currentValue: any[] = this.state.currentValue;
 
     // 增加 删除
     const Editors = currentValue.map((eachValue, index) => {
@@ -87,6 +93,8 @@ class MainToolEditorArray extends React.Component<Props, State> {
       this.props.realField,
       assignValue
     );
+    
+    this.setState({ currentValue: _.fill(Array(currentValue.length + 1), '') })
   };
 
   private handleRemove = (index: number) => {
@@ -106,6 +114,8 @@ class MainToolEditorArray extends React.Component<Props, State> {
       this.props.realField,
       assignValue
     );
+    
+    this.setState({ currentValue: _.fill(Array(currentValue.length - 1), '') })
   };
 }
 
