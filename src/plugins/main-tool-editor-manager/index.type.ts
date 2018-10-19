@@ -7,4 +7,9 @@ export class Props extends StoreProps<void, void> {
   public realField?: string = '';
   public editors?: IEditor[];
 }
-export class State {}
+export class State {
+  /**
+   * 展开状态
+   */
+  public isExpand: Boolean = true; 
+}

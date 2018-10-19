@@ -1,4 +1,4 @@
-import { Tooltip } from 'antd';
+import { Tooltip, Button } from 'antd';
 import { Connect } from 'dob-react';
 import * as _ from 'lodash';
 import * as React from 'react';
@@ -82,10 +82,15 @@ class MainToolEditorManager extends React.Component<Props, State> {
               {editor.text && (
                 <Styled.Label theme={{ isObjectType: isObjectType && !isVariable }}>
                   <span>{editor.text}</span>
+                  {
+                    isObjectType && (<Button shape="circle" icon={this.state.isExpand ? "down" : "up"} size="small" onClick={this.handleToggleExpand} style={{ position: "absolute", right: 10 }} />)
+                  }
                 </Styled.Label>
               )}
 
-              <Styled.EditorBoxContainer>{child}</Styled.EditorBoxContainer>
+              {
+                this.state.isExpand && (<Styled.EditorBoxContainer>{child}</Styled.EditorBoxContainer>)
+              }
 
               <Styled.Variable theme={{ isVariable }} onClick={this.handleToggleValueType.bind(this, realField)}>
                 {isVariable ? <Icon type="database" size={14} /> : <Icon type="keybroad" />}
@@ -129,6 +134,13 @@ class MainToolEditorManager extends React.Component<Props, State> {
     }
 
     this.forceUpdate();
+  };
+
+  /**
+   * 切换展开状态
+   */
+  private handleToggleExpand = () => {
+    this.setState({ isExpand: !this.state.isExpand })
   };
 }
 
