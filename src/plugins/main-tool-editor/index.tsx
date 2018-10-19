@@ -56,7 +56,7 @@ class MainToolEditor extends React.Component<Props, State> {
     this.setting = this.props.actions.ApplicationAction.getSettingByInstance(this.instanceInfo);
 
     return (
-      <Styled.Container key={instanceKey}>
+      <Styled.Container>
         <Styled.Nav>
           <Styled.Name>{this.setting.name}</Styled.Name>
           <Styled.RightContainer>
