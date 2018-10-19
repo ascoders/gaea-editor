@@ -96,7 +96,7 @@ class MainToolEditorManager extends React.Component<Props, State> {
       });
     }
 
-    return <div>{EditorFields}</div>;
+    return <div key={instanceKey}>{EditorFields}</div>;
   }
 
   /**
