@@ -10,6 +10,6 @@ export const Container = styled.div`
 `;
 
 export const SliderContainer = styled.div`
-  width: 100px;
+  width: 100%;
   margin-right: 5px;
 `;
