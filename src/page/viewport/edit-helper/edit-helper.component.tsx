@@ -148,7 +148,7 @@ class EditHelper extends React.Component<Props, State> {
     }
 
     const wrapProps: any = _.merge(
-      {},
+      { instanceKey: this.props.instanceKey },
       this.defaultProps,
       { ...this.instanceInfo.data.props },
       {
