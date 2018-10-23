@@ -9,7 +9,8 @@ export class Props extends StoreProps<void, void> {
 }
 export class State {
   /**
-   * 展开状态
+   * 记录 array object 等类型数据展开状态
+   * 属性 key 形成规则 `${type}_${field}`       
    */
-  public isExpand: Boolean = true; 
+  public expandStates: Map<String, Boolean> = new Map<String, Boolean>();
 }

@@ -17,6 +17,10 @@ class MainToolEditorManager extends React.Component<Props, State> {
    */
   private instanceInfo: InstanceInfo;
 
+  public shouldComponentUpdate(nextProps: any, nextState: any) {
+    return _.isEqual(this.props, nextProps) || _.isEqual(this.state, nextState)
+  }
+
   public render() {
     // 当前编辑组件的 key
     const instanceKey = this.props.stores.ViewportStore.currentEditInstanceKey;
@@ -77,20 +81,40 @@ class MainToolEditorManager extends React.Component<Props, State> {
 
           const isObjectType = editor.type === 'array' || editor.type === 'object';
 
-          return (
-            <Styled.EditorContainer key={index} theme={{ isObjectType: isObjectType && !isVariable }}>
-              {editor.text && (
-                <Styled.Label theme={{ isObjectType: isObjectType && !isVariable }}>
+          let editorBoxContainer = <React.Fragment>
+            {
+              editor.text && (
+                <Styled.Label theme={{ isObjectType: !isVariable }}>
                   <span>{editor.text}</span>
-                  {
-                    isObjectType && (<Button shape="circle" icon={this.state.isExpand ? "down" : "up"} size="small" onClick={this.handleToggleExpand} style={{ position: "absolute", right: 10 }} />)
-                  }
                 </Styled.Label>
-              )}
+              )
+            }
+
+            <Styled.EditorBoxContainer>{child}</Styled.EditorBoxContainer>
+          </React.Fragment>
+
+          if (isObjectType) {
+            // 获取当前 editor 展开状态 key
+            const expandKey = `${editor.type}_${editor.field}`
+
+            const isExpand = this.state.expandStates.get(expandKey)
+
+            editorBoxContainer = <React.Fragment>
+              <Styled.Label theme={{ isObjectType }}>
+                {editor.text && (<span>{editor.text}</span>)}
+              <Button shape="circle" icon={isExpand ? "down" : "up"} size="small" onClick={() => this.handleToggleExpand(expandKey)} style={{ position: "absolute", right: 10 }} />
+                
+              </Styled.Label>
 
               {
-                this.state.isExpand && (<Styled.EditorBoxContainer>{child}</Styled.EditorBoxContainer>)
+                isExpand && (<Styled.EditorBoxContainer>{child}</Styled.EditorBoxContainer>)
               }
+            </React.Fragment>
+          }
+
+          return (
+            <Styled.EditorContainer key={index} theme={{ isObjectType: isObjectType && !isVariable }}>
+              {editorBoxContainer}
 
               <Styled.Variable theme={{ isVariable }} onClick={this.handleToggleValueType.bind(this, realField)}>
                 {isVariable ? <Icon type="database" size={14} /> : <Icon type="keybroad" />}
@@ -139,8 +163,10 @@ class MainToolEditorManager extends React.Component<Props, State> {
   /**
    * 切换展开状态
    */
-  private handleToggleExpand = () => {
-    this.setState({ isExpand: !this.state.isExpand })
+  private handleToggleExpand = (key: string) => {
+    const expandStates = this.state.expandStates
+    expandStates.set(key,!expandStates.get(key))
+    this.setState({ expandStates })
   };
 }
 
