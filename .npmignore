@@ -7,3 +7,6 @@
 /.nyc_output
 /npm-debug.log
 /tests
+/.idea
+/package-lock.json
+/packages

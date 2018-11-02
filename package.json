@@ -15,14 +15,15 @@
     "prettier": "prettier --write './src/**/*.?(ts|tsx)'",
     "format": "tslint --fix './src/**/*.?(ts|tsx)' && prettier --write './src/**/*.?(ts|tsx)'",
     "docs": "pri docs",
-    "bundle": "pri bundle"
+    "bundle": "pri bundle",
+    "release": "npm publish"
   },
   "peerDependencies": {
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0"
   },
   "dependencies": {
-    "@babel/runtime": "7.0.0-beta.56",
+    "@babel/runtime": "^7.0.0",
     "antd": "^3.6.2",
     "dob": "^2.5.9",
     "dob-react": "^2.4.15",

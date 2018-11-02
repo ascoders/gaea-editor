@@ -27,8 +27,8 @@
   "include": [
     ".temp/**/*",
     "src/**/*",
-    "config/**/*",
-    "tests/**/*"
+    "tests/**/*",
+    "docs/**/*"
   ],
   "exclude": [
     "node_modules",
