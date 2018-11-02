@@ -20,7 +20,6 @@ const NavbarContainerLeftAndNavbarContainerRight = css`
 const ViewportContainerBoxAndPreviewContainer = css`
   display: block;
   position: relative;
-  height: 100%;
   ${(props: any) =>
     props.theme.hidden &&
     `
@@ -205,7 +204,7 @@ export const ToolsContainerRight = styled.div`
 `;
 
 export const ViewportContainerBox = styled.div`
-  ${ViewportContainerBoxAndPreviewContainer} overflow-x: hidden;
+  ${ViewportContainerBoxAndPreviewContainer} overflow: hidden;
 `;
 
 export const PreviewContainer = styled.div`
