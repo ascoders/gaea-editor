@@ -50,7 +50,7 @@ class MainToolEditorManager extends React.Component<Props, State> {
         if (typeof editor === 'string') {
           return <Styled.TabTitle key={index}>{editor}</Styled.TabTitle>;
         } else {
-          const realField = this.props.realField === '' ? editor.field : this.props.realField + '.' + editor.field;
+          const realField = this.props.realField === '' ? editor.field : this.props.realField + (editor.field === ''? '' : '.') + editor.field;
 
           let child: React.ReactNode = null;
           const isVariable = this.props.actions.ViewportAction.instanceFieldIsVariable(
