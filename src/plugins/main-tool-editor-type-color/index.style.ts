@@ -1,7 +1,20 @@
-import styled, { injectGlobal } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 // tslint:disable-next-line:no-unused-expression
-injectGlobal`
+export const GlobalStyle = createGlobalStyle`
+  .gaea-container {
+    border: 1px dotted #ccc;
+  }
+
+  .gaea-draggable {
+
+  }
+
+  .gaea-highlight {
+    outline-offset: -1px !important;
+    outline: 1px solid #75b1ff !important;
+  }
+
   .main-tool-editor-type-color {
     .ant-tooltip-inner {
       background-color: transparent;
