@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "2.3.17",
+  "version": "2.3.18",
   "description": "",
   "main": "dist/src/index.js",
   "types": "src/index.tsx",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@types/classnames": "*",
-    "pri": "^1.0.0-beta50"
+    "pri": "^1.0.0-beta52"
   },
   "author": "",
   "license": "ISC",
