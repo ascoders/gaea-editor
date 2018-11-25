@@ -142,7 +142,6 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
 
         <Styled.NumberBox style={numberOuterLeftStyle}>
           <Styled.Input
-            ref="marginLeftInput"
             onMouseEnter={this.handleInputEnter.bind(this, 'marginLeft')}
             onMouseLeave={this.handleInputLeave.bind(this, 'marginLeft')}
             onChange={this.handleChange.bind(this, 'marginLeft')}
@@ -151,7 +150,6 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
         </Styled.NumberBox>
         <Styled.NumberBox style={numberOuterTopStyle}>
           <Styled.Input
-            ref="marginTopInput"
             onMouseEnter={this.handleInputEnter.bind(this, 'marginTop')}
             onMouseLeave={this.handleInputLeave.bind(this, 'marginTop')}
             onChange={this.handleChange.bind(this, 'marginTop')}
@@ -160,7 +158,6 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
         </Styled.NumberBox>
         <Styled.NumberBox style={numberOuterRightStyle}>
           <Styled.Input
-            ref="marginRightInput"
             onMouseEnter={this.handleInputEnter.bind(this, 'marginRight')}
             onMouseLeave={this.handleInputLeave.bind(this, 'marginRight')}
             onChange={this.handleChange.bind(this, 'marginRight')}
@@ -169,7 +166,6 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
         </Styled.NumberBox>
         <Styled.NumberBox style={numberOuterBottomStyle}>
           <Styled.Input
-            ref="marginBottomInput"
             onMouseEnter={this.handleInputEnter.bind(this, 'marginBottom')}
             onMouseLeave={this.handleInputLeave.bind(this, 'marginBottom')}
             onChange={this.handleChange.bind(this, 'marginBottom')}
@@ -179,7 +175,6 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
 
         <Styled.NumberBox style={numberInnerLeftStyle}>
           <Styled.Input
-            ref="paddingLeftInput"
             onMouseEnter={this.handleInputEnter.bind(this, 'paddingLeft')}
             onMouseLeave={this.handleInputLeave.bind(this, 'paddingLeft')}
             onChange={this.handleChange.bind(this, 'paddingLeft')}
@@ -188,7 +183,6 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
         </Styled.NumberBox>
         <Styled.NumberBox style={numberInnerTopStyle}>
           <Styled.Input
-            ref="paddingTopInput"
             onMouseEnter={this.handleInputEnter.bind(this, 'paddingTop')}
             onMouseLeave={this.handleInputLeave.bind(this, 'paddingTop')}
             onChange={this.handleChange.bind(this, 'paddingTop')}
@@ -197,7 +191,6 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
         </Styled.NumberBox>
         <Styled.NumberBox style={numberInnerRightStyle}>
           <Styled.Input
-            ref="paddingRightInput"
             onMouseEnter={this.handleInputEnter.bind(this, 'paddingRight')}
             onMouseLeave={this.handleInputLeave.bind(this, 'paddingRight')}
             onChange={this.handleChange.bind(this, 'paddingRight')}
@@ -206,7 +199,6 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
         </Styled.NumberBox>
         <Styled.NumberBox style={numberInnerBottomStyle}>
           <Styled.Input
-            ref="paddingBottomInput"
             onMouseEnter={this.handleInputEnter.bind(this, 'paddingBottom')}
             onMouseLeave={this.handleInputLeave.bind(this, 'paddingBottom')}
             onChange={this.handleChange.bind(this, 'paddingBottom')}
@@ -412,7 +404,7 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
           draggable={false}
           onMouseDown={this.handleMouseDown.bind(this, name)}
           style={style}
-          themes={{ position }}
+          theme={{ position }}
         />
       </Styled.ButtonContainer>
     );

@@ -52,9 +52,9 @@ export class TreeNode extends React.Component<typings.Props, typings.State> {
 
     return (
       <Styled.Container>
-        <Styled.Title onClick={this.handleContainerClick.bind(this)} onMouseOver={this.props.onMouseOver}>
+        <Styled.Title onClick={this.handleContainerClick.bind(this)} onMouseOver={this.props.onMouseOver as any}>
           {React.Children.count(this.props.children) > 0 ? (
-            <Styled.TitleCaret themes={{ down: this.state.showChildren }} onClick={this.handleArrowClick.bind(this)}>
+            <Styled.TitleCaret theme={{ down: this.state.showChildren }} onClick={this.handleArrowClick.bind(this)}>
               {renderCaret()}
             </Styled.TitleCaret>
           ) : (

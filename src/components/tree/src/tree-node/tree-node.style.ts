@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div.withConfig({ componentId: 'tree-node-container' })`
+export const Container = (styled.div as any).withConfig({ componentId: 'tree-node-container' })`
   flex-grow: 1;
 `;
 
@@ -25,7 +25,7 @@ export const TitleCaret = styled.div`
   fill: #666;
   transition: all 0.2s;
   ${(props: any) =>
-    props.themes.down &&
+    props.theme.down &&
     `
     transform: rotate(90deg);
   `};
@@ -35,7 +35,7 @@ export const EmptyCaret = styled.div`
   width: 25px;
 `;
 
-export const Children = styled.div.withConfig({ componentId: 'childs-container' })`
+export const Children = (styled.div as any).withConfig({ componentId: 'childs-container' })`
   display: none;
   padding-left: 10px;
 `;

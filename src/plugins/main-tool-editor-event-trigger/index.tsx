@@ -68,7 +68,7 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
     );
     const MergedTriggerOptions = mergedTriggerOptions.map((each, index) => {
       return (
-        <Select.Option key={index} value={each.key}>
+        <Select.Option key={index.toString()} value={each.key}>
           {each.value}
         </Select.Option>
       );

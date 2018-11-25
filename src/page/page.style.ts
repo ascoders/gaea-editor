@@ -28,21 +28,21 @@ const ViewportContainerBoxAndPreviewContainer = css`
     `};
 `;
 
-export const Container = styled.div.withConfig({ componentId: 'Container' })`
+export const Container = (styled.div as any).withConfig({ componentId: 'Container' })`
   display: flex;
   width: 100%;
   height: 100%;
   overflow: hidden;
 `;
 
-export const LeftContainer = styled.div.withConfig({ componentId: 'LeftContainer' })`
+export const LeftContainer = (styled.div as any).withConfig({ componentId: 'LeftContainer' })`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   width: 0;
 `;
 
-export const RightContainer = styled.div.withConfig({ componentId: 'RightContainer' })`
+export const RightContainer = (styled.div as any).withConfig({ componentId: 'RightContainer' })`
   display: flex;
   width: 300px;
   z-index: 2;

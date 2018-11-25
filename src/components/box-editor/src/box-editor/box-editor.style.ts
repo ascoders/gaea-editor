@@ -60,7 +60,7 @@ export const ButtonTriangle = styled.div`
   transition: all 0.2s;
   user-select: none;
   ${(props: any) => {
-    switch (props.themes.position) {
+    switch (props.theme.position) {
       case 'left':
         return `
           border-right-color: #666;
