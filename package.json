@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "2.3.18",
+  "version": "2.3.19",
   "description": "",
   "main": "dist/src/index.js",
   "types": "src/index.tsx",
@@ -14,8 +14,7 @@
     "prettier": "prettier --write './src/**/*.?(ts|tsx)'",
     "format": "tslint --fix './src/**/*.?(ts|tsx)' && prettier --write './src/**/*.?(ts|tsx)'",
     "docs": "pri docs",
-    "bundle": "pri bundle",
-    "publish": "npm run build && npm publish"
+    "bundle": "pri bundle"
   },
   "peerDependencies": {
     "react": ">=16.0.0",
