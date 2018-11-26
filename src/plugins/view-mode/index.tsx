@@ -37,7 +37,7 @@ const selections: Array<{
 ];
 
 @Connect
-class Save extends React.Component<Props, State> {
+class ViewMode extends React.Component<Props, State> {
   public static defaultProps = new Props();
   public state = new State();
 
