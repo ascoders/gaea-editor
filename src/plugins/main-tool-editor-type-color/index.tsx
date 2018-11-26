@@ -35,6 +35,7 @@ class MainToolEditorColor extends React.Component<Props, State> {
 
     return (
       <Styled.Container>
+        <Styled.GlobalStyle />
         <Tooltip
           trigger="click"
           placement="bottom"

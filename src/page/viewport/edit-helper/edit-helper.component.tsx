@@ -4,11 +4,7 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { addClass, hasClass, removeClass } from '../../../utils/dom';
-import * as Style from './edit-helper.style';
 import { Props, State } from './edit-helper.type';
-
-// 注入全局样式，辅助编辑器
-Style.injectGlob();
 
 /**
  * 一个辅助编辑状态的外壳，内部包裹实际渲染的组件

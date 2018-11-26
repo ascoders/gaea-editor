@@ -1,5 +1,3 @@
-import test from 'ava';
-
-test('Example', t => {
-  t.true(true);
+test('Example', () => {
+  expect(true).toBe(true);
 });

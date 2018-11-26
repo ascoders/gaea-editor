@@ -30,7 +30,7 @@ const ActionOptions = [
   // }
 ].map((each, index) => {
   return (
-    <Select.Option key={index} value={each.key}>
+    <Select.Option key={index.toString()} value={each.key}>
       {each.value}
     </Select.Option>
   );

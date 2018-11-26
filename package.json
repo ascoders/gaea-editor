@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "2.3.16",
+  "version": "2.3.19",
   "description": "",
   "main": "dist/src/index.js",
   "types": "src/index.tsx",
@@ -10,13 +10,11 @@
     "preview": "pri preview",
     "analyse": "pri analyse",
     "test": "pri test",
-    "prepublishOnly": "npm run build",
     "lint": "echo 'Pre-commit checks...' && tslint --fix './src/**/*.?(ts|tsx)'",
     "prettier": "prettier --write './src/**/*.?(ts|tsx)'",
     "format": "tslint --fix './src/**/*.?(ts|tsx)' && prettier --write './src/**/*.?(ts|tsx)'",
     "docs": "pri docs",
-    "bundle": "pri bundle",
-    "release": "npm publish"
+    "bundle": "pri bundle"
   },
   "peerDependencies": {
     "react": ">=16.0.0",
@@ -24,6 +22,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
+    "@types/styled-components": "^4.1.0",
     "antd": "^3.6.2",
     "dob": "^2.5.9",
     "dob-react": "^2.4.15",
@@ -33,11 +32,11 @@
     "lodash": "^4.17.10",
     "react-color": "^2.14.1",
     "sortablejs": "^1.7.0",
-    "styled-components": "^3.3.2"
+    "styled-components": "^4.1.1"
   },
   "devDependencies": {
     "@types/classnames": "*",
-    "pri": "^1.0.0-beta42"
+    "pri": "^1.0.0-beta52"
   },
   "author": "",
   "license": "ISC",
