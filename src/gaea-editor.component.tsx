@@ -120,6 +120,7 @@ export default class GaeaEditor extends React.Component<Props, State> {
     // 根据默认值设置页面初始属性
     if (this.props.defaultValue) {
       this.stores.getStore().actions.ViewportAction.resetViewport(this.props.defaultValue);
+      this.stores.getStore().stores.ViewportStore.dragStartDataReady = true;
     }
 
     // 将 onComponentDragStart 放到 applicationStore
