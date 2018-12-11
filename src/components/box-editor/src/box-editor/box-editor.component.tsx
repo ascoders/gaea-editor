@@ -245,49 +245,49 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
     switch (this.currentHolding) {
       case 'marginLeft':
         this.setState({
-          marginLeft: (this.state.marginLeft -= diffX)
+          marginLeft: this.state.marginLeft - diffX
         });
         this.props.onChange(this.currentHolding, this.state.marginLeft);
         break;
       case 'paddingLeft':
         this.setState({
-          paddingLeft: (this.state.paddingLeft -= diffX)
+          paddingLeft: this.state.paddingLeft - diffX
         });
         this.props.onChange(this.currentHolding, this.state.paddingLeft);
         break;
       case 'marginRight':
         this.setState({
-          marginRight: (this.state.marginRight += diffX)
+          marginRight: this.state.marginRight + diffX
         });
         this.props.onChange(this.currentHolding, this.state.marginRight);
         break;
       case 'paddingRight':
         this.setState({
-          paddingRight: (this.state.paddingRight += diffX)
+          paddingRight: this.state.paddingRight + diffX
         });
         this.props.onChange(this.currentHolding, this.state.paddingRight);
         break;
       case 'marginTop':
         this.setState({
-          marginTop: (this.state.marginTop -= diffY)
+          marginTop: this.state.marginTop - diffY
         });
         this.props.onChange(this.currentHolding, this.state.marginTop);
         break;
       case 'paddingTop':
         this.setState({
-          paddingTop: (this.state.paddingTop -= diffY)
+          paddingTop: this.state.paddingTop - diffY
         });
         this.props.onChange(this.currentHolding, this.state.paddingTop);
         break;
       case 'marginBottom':
         this.setState({
-          marginBottom: (this.state.marginBottom += diffY)
+          marginBottom: this.state.marginBottom + diffY
         });
         this.props.onChange(this.currentHolding, this.state.marginBottom);
         break;
       case 'paddingBottom':
         this.setState({
-          paddingBottom: (this.state.paddingBottom += diffY)
+          paddingBottom: this.state.paddingBottom + diffY
         });
         this.props.onChange(this.currentHolding, this.state.paddingBottom);
         break;
