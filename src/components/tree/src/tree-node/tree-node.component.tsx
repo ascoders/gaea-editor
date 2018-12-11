@@ -8,17 +8,17 @@ export class TreeNode extends React.Component<typings.Props, typings.State> {
   public state = new typings.State();
 
   public componentWillMount() {
-    this.setState({
-      showChildren: this.props.defaultExpendAll || this.props.showChildren
-    });
+    this.setState((_, props) => ({
+      showChildren: props.defaultExpendAll || props.showChildren
+    }));
   }
 
   public handleContainerClick = (event: Event) => {
     this.props.onClick(event);
     if (!this.props.toggleByArrow) {
-      this.setState({
-        showChildren: !this.state.showChildren
-      });
+      this.setState(state => ({
+        showChildren: !state.showChildren
+      }));
       if (this.props.onToggleShow) {
         this.props.onToggleShow(event);
       }
@@ -28,9 +28,9 @@ export class TreeNode extends React.Component<typings.Props, typings.State> {
   public handleArrowClick = (event: Event) => {
     event.stopPropagation();
 
-    this.setState({
-      showChildren: !this.state.showChildren
-    });
+    this.setState(state => ({
+      showChildren: !state.showChildren
+    }));
     if (this.props.onToggleShow) {
       this.props.onToggleShow(event);
     }
