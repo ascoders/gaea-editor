@@ -107,5 +107,5 @@ class ViewMode extends React.Component<Props, State> {
 
 export default {
   position: 'navbarRight',
-  class: Save
+  class: ViewMode
 };
