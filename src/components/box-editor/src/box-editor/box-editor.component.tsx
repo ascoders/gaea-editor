@@ -415,7 +415,9 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
       return;
     }
     const inputElement = ReactDOM.findDOMNode(this.refs[name + 'Input']) as HTMLInputElement;
-    inputElement.blur();
+    if (inputElement) {
+      inputElement.blur();
+    }
   };
 
   private handleInputEnter = (name: typings.MarginPaddingField) => {
@@ -423,7 +425,9 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
       return;
     }
     const inputElement = ReactDOM.findDOMNode(this.refs[name + 'Input']) as HTMLInputElement;
-    inputElement.focus();
-    inputElement.select();
+    if (inputElement) {
+      inputElement.focus();
+      inputElement.select();
+    }
   };
 }
