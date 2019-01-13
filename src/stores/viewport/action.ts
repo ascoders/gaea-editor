@@ -86,7 +86,8 @@ export default class ViewportAction {
     this.store.instances.set(newInstanceKey, {
       gaeaKey: params.gaeaKey,
       data: {
-        props: params.props
+        // 参数属性优先。否则从 defaultProps 中提取数据结构，以保证数组结构的数据操作。
+        props: params.props || this.applicationAction.getDefaultMirrorPropsByKey(params.gaeaKey)
       },
       childs: [],
       parentInstanceKey: params.parentInstanceKey,

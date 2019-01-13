@@ -143,7 +143,20 @@ class EditHelper extends React.Component<Props, State> {
       });
     }
 
-    const wrapProps: any = _.merge(
+    // 数组属性要以组件属性为基础进行合并，默认属性中多余的数据需要进行切除。
+    const arraySliceMerge = (objValue: any, srcValue: any): any => {
+      if (_.isArray(srcValue) && _.isArray(objValue)) {
+        return _.mergeWith(
+          new Array(srcValue.length).fill(undefined),
+          objValue.slice(0, srcValue.length),
+          srcValue,
+          arraySliceMerge
+        );
+      }
+    };
+
+    // 将组件属性与默认属性合并。数组类型属性需要特殊处理。
+    const wrapProps: any = _.mergeWith(
       { instanceKey: this.props.instanceKey },
       this.defaultProps,
       { ...this.instanceInfo.data.props },
@@ -151,7 +164,8 @@ class EditHelper extends React.Component<Props, State> {
         ref: (ref: React.ReactInstance) => {
           this.wrappedInstance = ref;
         }
-      }
+      },
+      arraySliceMerge
     );
 
     return React.createElement(this.componentClass, wrapProps, childs);
