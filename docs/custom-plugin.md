@@ -18,6 +18,15 @@
 - [color](../src/plugins/main-tool-editor-type-color/index.tsx)
 - ...
 
+## Usage
+
+```tsx
+import Editor from 'gaea-editor';
+import MyPlugin from './my-plugin';
+
+export default () => <Editor plugins={[MyPlugin]} />;
+```
+
 ## Features
 
 - use `Connect` decorator from 'dob-react', then you can access all [built-in stores and actions](../src/stores). [Demo](../src/plugins/main-tool-editor-type-string/index.tsx#L20).
