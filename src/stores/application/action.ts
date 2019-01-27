@@ -184,6 +184,35 @@ export default class ApplicationAction {
     }
   }
 
+  /**
+   * 根据组件 key 获取 defaultProps 的镜像结构。为确保能正确嵌套数组的数据，数组的数据将被完整保留，其它仅保留数据结构。
+   * @param gaeaOrPreKey 组件 gaeakey 或 preGaeakey
+   */
+  public getDefaultMirrorPropsByKey(gaeaOrPreKey: string): IDefaultProps {
+    if (!this.store.componentDefaultProps.has(gaeaOrPreKey)) {
+      return null;
+    }
+
+    const rawDefaultProps = this.store.componentDefaultProps.get(gaeaOrPreKey).$raw;
+    const buildArrayMirror = (prop: any): IDefaultProps => {
+      return _.entries(prop).reduce((memo: any, [key, val]) => {
+        if (key === 'editSetting') {
+          return memo;
+        }
+
+        if (_.isArray(val)) {
+          memo[key] = val;
+        } else if (_.isObjectLike(val)) {
+          memo[key] = buildArrayMirror(val);
+        }
+
+        return memo;
+      }, {});
+    };
+
+    return buildArrayMirror(rawDefaultProps);
+  }
+
   @Action
   public setOnComponentDragStart(fn: any) {
     this.store.onComponentDragStart = fn;
