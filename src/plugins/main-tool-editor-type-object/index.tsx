@@ -35,7 +35,7 @@ class MainToolEditorObject extends React.Component<Props, State> {
         <Styled.EachItem key={index}>
           {this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorManager', {
             editors: [editor],
-            realField: this.props.realField + '.' + editor.field
+            realField: this.props.realField
           })}
         </Styled.EachItem>
       );
