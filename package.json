@@ -2,7 +2,7 @@
   "name": "gaea-editor",
   "version": "2.3.22",
   "description": "",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "types": "src/index.tsx",
   "scripts": {
     "start": "pri dev",
@@ -15,21 +15,22 @@
     "prettier": "prettier --write './src/**/*.?(ts|tsx)'",
     "format": "tslint --fix './src/**/*.?(ts|tsx)' && prettier --write './src/**/*.?(ts|tsx)'",
     "docs": "pri docs",
-    "bundle": "pri bundle"
+    "bundle": "pri bundle",
+    "prepublishOnly": "npm run build && npm run bundle --skipLint"
   },
   "peerDependencies": {
-    "react": ">=16.0.0",
-    "react-dom": ">=16.0.0"
+    "react": "16.8.3",
+    "react-dom": "16.8.3"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "antd": "^3.6.2",
-    "dob": "^2.5.9",
-    "dob-react": "^2.4.15",
+    "antd": "3.13.6",
+    "dob": "2.5.10",
+    "dob-react": "2.4.17",
     "gaea-basic-components": "^1.1.2",
     "gaea-render": "^1.0.18",
     "keymaster": "^1.6.2",
-    "lodash": "^4.17.10",
+    "lodash": "4.17.11",
     "react-color": "^2.14.1",
     "sortablejs": "^1.7.0",
     "styled-components": "^4.1.1"
@@ -41,5 +42,10 @@
   "license": "ISC",
   "pri": {
     "type": "component"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
   }
 }
