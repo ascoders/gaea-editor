@@ -29,12 +29,14 @@ export default class ApplicationAction {
    */
   @Action
   public loadPluginByPosition(position: string, props?: any) {
-    return this.store.plugins.filter(plugin => plugin.position === position).map((plugin, index) => {
-      return React.createElement(plugin.class, {
-        key: index,
-        ...props
+    return this.store.plugins
+      .filter(plugin => plugin.position === position)
+      .map((plugin, index) => {
+        return React.createElement(plugin.class, {
+          key: index,
+          ...props
+        });
       });
-    });
   }
 
   /**

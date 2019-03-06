@@ -6,15 +6,13 @@ Your can add custom component to draggable menu like this:
 import BasicComponents from 'gaea-basic-components';
 
 class MyInput extends React.Component {
-    render() {
-        return <input />
-    }
+  render() {
+    return <input />;
+  }
 }
 
 export function renderGaeaEditor() {
-    return (
-        <Editor componentClasses={[ ...BasicComponents, MyInput ]}/>
-    )
+  return <Editor componentClasses={[...BasicComponents, MyInput]} />;
 }
 ```
 
@@ -23,52 +21,59 @@ You can customize the editor controls by increase the `gaeaEditor` field in `pro
 ```typescript
 class Props {
   public gaeaSetting = {
-    key: "my-select-component",
-    name: "my-select-component",
+    key: 'my-select-component',
+    name: 'my-select-component',
     editors: [
-      "normal",
+      'normal',
       {
-        text: "boxEditor",
-        type: "box-editor"
+        text: 'boxEditor',
+        type: 'box-editor'
       },
-      "basic",
+      'basic',
       {
-        field: "defaultValue",
-        text: "defaultValue",
-        type: "string"
+        field: 'defaultValue',
+        text: 'defaultValue',
+        type: 'string'
       },
       {
-        field: "options",
-        label: "options",
-        type: "array",
-        editors: [{
-          field: "value",
-          type: "string",
-          text: "value"
-        }, {
-          field: "name",
-          type: "string",
-          text: "optionName"
-        }]
+        field: 'options',
+        label: 'options',
+        type: 'array',
+        editors: [
+          {
+            field: 'value',
+            type: 'string',
+            text: 'value'
+          },
+          {
+            field: 'name',
+            type: 'string',
+            text: 'optionName'
+          }
+        ]
       }
     ],
-    events: [{
-      name: "onChange",
-      field: "onChange",
-      data: [{
-        name: "newValue"
-      }]
-    }]
-  }
+    events: [
+      {
+        name: 'onChange',
+        field: 'onChange',
+        data: [
+          {
+            name: 'newValue'
+          }
+        ]
+      }
+    ]
+  };
 }
 
 class MyInput extends React.Component {
-    // `gaeaEditor` read editor controls option in defaultProps.gaeaSetting field
-    static defaultProps = new Props()
+  // `gaeaEditor` read editor controls option in defaultProps.gaeaSetting field
+  static defaultProps = new Props();
 
-    render() {
-        return <input />
-    }
+  render() {
+    return <input />;
+  }
 }
 ```
 
@@ -100,12 +105,12 @@ The title of the editing area, usually used for grouping.
 
 Tell the editor how a field should be edited.
 
-| property | type | description |
-|----|----|----|
-| field | string | The name of the field affected by the editor, eg: `text` will effect `props.text`, support `style.background` |
-| label | string | Form label |
-| type | string | What type of editor is used? BuiltIn enum: `string` `number` `boolean` `color` `array` `object` `box-editor`. You can [add edit types by expanding plug-ins](custom-plugin.md) |
-| editors | array | When the type is `array` or `object`, describe how each item in the interior is edited, and the type is the same as editor. |
+| property | type   | description                                                                                                                                                                    |
+| -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| field    | string | The name of the field affected by the editor, eg: `text` will effect `props.text`, support `style.background`                                                                  |
+| label    | string | Form label                                                                                                                                                                     |
+| type     | string | What type of editor is used? BuiltIn enum: `string` `number` `boolean` `color` `array` `object` `box-editor`. You can [add edit types by expanding plug-ins](custom-plugin.md) |
+| editors  | array  | When the type is `array` or `object`, describe how each item in the interior is edited, and the type is the same as editor.                                                    |
 
 Array example:
 
@@ -176,9 +181,8 @@ props.options = {
 
 Component response event.
 
-| property | type | description |
-|----|----|----|
-| name | string | Form label |
-| field | string | Callback name, eg: `onClick`, the `onClick` event will be trigger when the component fires `onClick`  |
-| data | array | The value provided by this event. The first value of the array corresponds to the first parameter of the callback function. |
-
+| property | type   | description                                                                                                                 |
+| -------- | ------ | --------------------------------------------------------------------------------------------------------------------------- |
+| name     | string | Form label                                                                                                                  |
+| field    | string | Callback name, eg: `onClick`, the `onClick` event will be trigger when the component fires `onClick`                        |
+| data     | array  | The value provided by this event. The first value of the array corresponds to the first parameter of the callback function. |

@@ -378,7 +378,7 @@ export default class ViewportAction {
   @Action
   public initViewport() {
     this.clearViewport();
-    
+
     const RootClass = this.applicationAction.getComponentClassByKey('gaea-container');
 
     const rootInstanceKey = this.addInstance({

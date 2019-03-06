@@ -74,18 +74,17 @@ class MainToolEditorNumber extends React.Component<Props, State> {
 
     return (
       <S.Container>
-        {currentValue !== null &&
-          this.numberData.useSlider && (
-            <S.SliderContainer>
-              <Slider
-                min={this.numberData.inputRange[0]}
-                max={this.numberData.inputRange[1]}
-                step={this.numberData.step}
-                value={currentValue || 0}
-                onChange={this.handleSliderChange}
-              />
-            </S.SliderContainer>
-          )}
+        {currentValue !== null && this.numberData.useSlider && (
+          <S.SliderContainer>
+            <Slider
+              min={this.numberData.inputRange[0]}
+              max={this.numberData.inputRange[1]}
+              step={this.numberData.step}
+              value={currentValue || 0}
+              onChange={this.handleSliderChange}
+            />
+          </S.SliderContainer>
+        )}
 
         <InputNumber
           size="small"
