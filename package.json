@@ -8,6 +8,7 @@
     "start": "pri dev",
     "build": "pri build",
     "preview": "pri preview",
+    "posttest": "codecov -f coverage/*.json -t c5e24697-a432-447e-81ab-2a642de423c2",
     "analyse": "pri analyse",
     "test": "pri test",
     "lint": "echo 'Pre-commit checks...' && tslint --fix './src/**/*.?(ts|tsx)'",
@@ -22,7 +23,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "@types/styled-components": "^4.1.0",
     "antd": "^3.6.2",
     "dob": "^2.5.9",
     "dob-react": "^2.4.15",
@@ -35,8 +35,7 @@
     "styled-components": "^4.1.1"
   },
   "devDependencies": {
-    "@types/classnames": "*",
-    "pri": "^1.0.0-beta52"
+    "pri": "~2.0.64"
   },
   "author": "",
   "license": "ISC",

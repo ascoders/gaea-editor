@@ -1,0 +1,9 @@
+language: node_js
+os:
+  - linux
+install:
+  - npm install
+node_js:
+  - 10
+script:
+  - npm test
