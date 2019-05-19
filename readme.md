@@ -206,7 +206,7 @@ Because this type will edit multiple props properties, such as `margin` `padding
 
 ![](./docs/images/array-string.png)
 
-**Super type**, allow visualizations to edit a array type props.
+**Super type**, allow visualizations to edit an array type props.
 
 ```typescript
 {
@@ -224,7 +224,7 @@ You can change `string` to `boolean`, than it can edit boolean array:
 
 ![](./docs/images/array-object.png)
 
-**Super type**, allow visualizations to edit a array type props.
+**Super type**, allow visualizations to edit an array type props.
 
 Each field in `data` describes how the key should be edited in the object in array.
 
