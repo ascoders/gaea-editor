@@ -13,7 +13,7 @@
     "test": "pri test",
     "lint": "echo 'Pre-commit checks...' && tslint --fix './src/**/*.?(ts|tsx)'",
     "prettier": "prettier --write './src/**/*.?(ts|tsx)'",
-    "format": "tslint --fix './src/**/*.?(ts|tsx)' && prettier --write './src/**/*.?(ts|tsx)'",
+    "format": "tslint --fix './?(src|docs|tests)/**/*.?(ts|tsx)' && prettier --write './?(src|docs|tests)/**/*.?(ts|tsx)'",
     "docs": "pri docs",
     "bundle": "pri bundle",
     "prepublishOnly": "npm run build && npm run bundle --skipLint"

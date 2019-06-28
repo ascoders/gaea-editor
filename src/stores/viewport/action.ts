@@ -1,5 +1,6 @@
 import { Action, inject } from 'dob';
 import * as _ from 'lodash';
+import * as ReactDOM from 'react-dom';
 import * as Sortable from 'sortablejs';
 import ApplicationAction from '../application/action';
 import ApplicationStore from '../application/store';
@@ -597,7 +598,6 @@ export default class ViewportAction {
       delay: 0,
       onStart: (event: any) => {
         lastDragStartIndex = event.oldIndex as number;
-
         if (event.item.dataset.source) {
           // this.startDrag({
           //     type: 'combo',

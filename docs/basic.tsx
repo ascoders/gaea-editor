@@ -1,5 +1,7 @@
 import GaeaComponents from 'gaea-basic-components';
+
 import * as React from 'react';
+import AntdComponents from '../src/components/antd/index';
 import Component from '../src/index';
 
 class Props {}
@@ -24,6 +26,13 @@ export default class Page extends React.PureComponent<Props, State> {
   public state = new State();
 
   public render() {
-    return <Component componentClasses={[TestComponent, ...GaeaComponents]} />;
+    return (
+      <Component
+        componentClasses={[GaeaComponents[0], ...AntdComponents]}
+        onSave={value => {
+          console.log(JSON.stringify(value));
+        }}
+      />
+    );
   }
 }
