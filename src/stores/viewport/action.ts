@@ -1,6 +1,5 @@
 import { Action, inject } from 'dob';
 import * as _ from 'lodash';
-import * as ReactDOM from 'react-dom';
 import * as Sortable from 'sortablejs';
 import ApplicationAction from '../application/action';
 import ApplicationStore from '../application/store';

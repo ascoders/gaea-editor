@@ -1,4 +1,4 @@
-import { Tag, Tree } from 'antd';
+import { Tree } from 'antd';
 import { Connect } from 'dob-react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -6,6 +6,20 @@ import Icon from '../../components/icon/src';
 import * as Styled from './index.style';
 import { Props, State } from './index.type';
 
+/**
+ * 添加组件的分类,目前有一下分类
+ *
+ * general            -> 通用
+ * layout             -> 布局
+ * navigation         -> 导航
+ * data-entry         -> 数据录入
+ * data-display       -> 数据展示
+ * feedback           -> 反馈
+ * other              -> 其他
+ * undefined-grouping -> 未定义
+ *
+ * 在editSetting里面设置group字段的文本信息,如果没有设置group属性,或者group属性为空,则分配到未定义组件
+ */
 @Connect
 class DragMenu extends React.Component<Props, State> {
   public static defaultProps = new Props();
@@ -60,7 +74,7 @@ class DragMenu extends React.Component<Props, State> {
     const expandedKeys = this.groups
       .filter((element: any) => {
         // 如果没有组件则不需要显示分组信息
-        if (this.getComponentTreeNode(element.name).length == 0) {
+        if (this.getComponentTreeNode(element.name).length === 0) {
           return false;
         }
         return true;
@@ -99,7 +113,7 @@ class DragMenu extends React.Component<Props, State> {
     return this.groups
       .filter((element: any) => {
         // 如果没有组件则不需要显示分组信息
-        if (this.getComponentTreeNode(element.name).length == 0) {
+        if (this.getComponentTreeNode(element.name).length === 0) {
           return false;
         }
 
@@ -112,7 +126,7 @@ class DragMenu extends React.Component<Props, State> {
             title={element.label}
             ref={(ref: React.ReactInstance) => {
               const htmlDom: any = ReactDOM.findDOMNode(ref) || null;
-              if (htmlDom != null && htmlDom.children != null && htmlDom.children.length == 3) {
+              if (htmlDom != null && htmlDom.children != null && htmlDom.children.length === 3) {
                 this.listContainer.push(htmlDom.children[2]);
               }
             }}
@@ -141,16 +155,16 @@ class DragMenu extends React.Component<Props, State> {
         const currentGroupName: string = setting.group || 'undefined-grouping';
 
         // Container 为基础组件
-        if (setting.name == 'Container' && grouName == 'layout') {
+        if (setting.name === 'Container' && grouName === 'layout') {
           return false;
         }
 
-        if (setting.name == 'Container' && grouName == 'undefined-grouping') {
+        if (setting.name === 'Container' && grouName === 'undefined-grouping') {
           return false;
         }
         // end
 
-        if (currentGroupName != grouName) {
+        if (currentGroupName !== grouName) {
           return false;
         }
 
@@ -171,72 +185,6 @@ class DragMenu extends React.Component<Props, State> {
         );
       });
   }
-
-  /*
-  private getList = () => {
-    return Array.from(this.props.stores.ApplicationStore.componentClasses)
-      .filter(([gaeaKey, componentClass]) => {
-        const setting = this.props.stores.ApplicationStore.componentSetting.get(gaeaKey);
-
-        // 如果被设置为了预设组件，过滤掉
-        if (
-          Array.from(this.props.stores.ApplicationStore.preComponents.keys()).some(
-            preGaeaKey => preGaeaKey === setting.key
-          )
-        ) {
-          return false;
-        }
-
-        // 如果搜索框没有输入，展示
-        if (this.state.searchContent === '') {
-          return true;
-        }
-
-        return new RegExp(this.state.searchContent).test(setting.name);
-      })
-      .map(([gaeaKey, componentClass], index) => {
-        const setting = this.props.stores.ApplicationStore.componentSetting.get(gaeaKey);
-        return (
-          <Styled.Component key={'standard' + index} data-gaea-key={setting.key}>
-            {setting.name}
-          </Styled.Component>
-        );
-      })
-
-    .concat(
-      Array.from(this.props.stores.ApplicationStore.preComponents).map(([gaeaKey, preComponentInfos], index) => {
-        const componentClass = this.props.stores.ApplicationStore.componentClasses.get(gaeaKey);
-        return Array.prototype.concat.apply(
-          [],
-          preComponentInfos
-            .filter(preComponentInfo => {
-              const setting = this.props.stores.ApplicationStore.componentSetting.get(gaeaKey);
-
-              // 如果搜索框没有输入，展示
-              if (this.state.searchContent === '') {
-                return true;
-              }
-
-              return new RegExp(this.state.searchContent).test(setting.name);
-            })
-            .map((preComponentInfo, childIndex) => {
-              const setting = this.props.stores.ApplicationStore.componentSetting.get(gaeaKey);
-
-              return (
-                <Styled.Component
-                  key={'preSetting' + index + '&' + childIndex}
-                  data-gaea-key={componentClass.defaultProps.editSetting.key}
-                  data-props={JSON.stringify(preComponentInfo.props)}
-                  data-pre-gaea-key={gaeaKey}
-                >
-                  {preComponentInfo.name}
-                </Styled.Component>
-              );
-            })
-        );
-      })
-    );
-  };*/
 
   private handleCloseLeftBar = () => {
     this.props.actions.ApplicationAction.setLeftTool(null);

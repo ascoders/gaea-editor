@@ -4,9 +4,9 @@ import * as React from 'react';
 import AntdComponents from '../src/components/antd/index';
 import Component from '../src/index';
 
-class Props {}
+class Props { }
 
-class State {}
+class State { }
 
 class TestComponent extends React.PureComponent {
   public static defaultProps = {
@@ -26,13 +26,6 @@ export default class Page extends React.PureComponent<Props, State> {
   public state = new State();
 
   public render() {
-    return (
-      <Component
-        componentClasses={[GaeaComponents[0], ...AntdComponents]}
-        onSave={value => {
-          console.log(JSON.stringify(value));
-        }}
-      />
-    );
+    return <Component componentClasses={[TestComponent, GaeaComponents[0], ...AntdComponents]} />;
   }
 }
