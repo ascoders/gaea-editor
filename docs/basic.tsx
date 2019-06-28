@@ -4,9 +4,9 @@ import * as React from 'react';
 import AntdComponents from '../src/components/antd/index';
 import Component from '../src/index';
 
-class Props { }
+class Props {}
 
-class State { }
+class State {}
 
 class TestComponent extends React.PureComponent {
   public static defaultProps = {
