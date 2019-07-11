@@ -49,4 +49,4 @@ export class Props {
   public onComponentDragStart?: IOnComponentDragStart = () => null;
 }
 
-export class State { }
+export class State {}

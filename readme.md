@@ -289,7 +289,8 @@ You can add custom components, custom plugins, save callback, and read saved dat
 | locale               | string                                                   | `zh` or `cn`                                                                                                                                                                                   |
 | ViewportRender       | React.ReactElement\<any\>                                | You can rewrite viewport element.                                                                                                                                                              |
 | disableBuiltInPlugin | string[]                                                 | Disable built in plugins.                                                                                                                                                                      |
-| preComponents        | Array<{ gaeaKey: string; components: IPreComponent[]; }> | See docs/basic.tsx                                                                                                                                                                             |
+| preComponents        | Array<{ gaeaKey: string; components: IPreComponent[]; }> | See docs/basic.tsx                                                                                                                                                                        |
+| value                 | `object`                                                |  Editor initial value, you can pass the value of the onSave (use this.setState chanage its value)
 
 ## Parameter: `onSave`
 
