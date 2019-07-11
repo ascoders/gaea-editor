@@ -10,7 +10,7 @@ export class Row extends React.Component<Props, State> {
   public render() {
     return (
       <ARow gutter={this.props.gutter} style={this.props.style}>
-        {this.props.children}{' '}
+        {this.props.children}
       </ARow>
     );
   }

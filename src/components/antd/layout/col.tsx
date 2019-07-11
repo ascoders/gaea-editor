@@ -10,7 +10,7 @@ export class Col extends React.Component<Props, State> {
   public render() {
     return (
       <ACol span={this.props.span} style={this.props.style}>
-        {this.props.children}{' '}
+        {this.props.children}
       </ACol>
     );
   }

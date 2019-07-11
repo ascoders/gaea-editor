@@ -7,6 +7,8 @@ import EventAction from '../event/action';
 import EventStore from '../event/store';
 import ViewportStore from './store';
 
+import * as ReactDOM from 'react-dom';
+
 function guidGenerator() {
   const S4 = () => {
     // tslint:disable-next-line:no-bitwise
@@ -82,7 +84,7 @@ export default class ViewportAction {
     preGaeaKey?: string;
   }) {
     const newInstanceKey = this.createNewInstanceKey();
-
+    const parentInstance = this.store.instances.get(params.parentInstanceKey);
     this.store.instances.set(newInstanceKey, {
       gaeaKey: params.gaeaKey,
       data: {
@@ -96,7 +98,28 @@ export default class ViewportAction {
 
     // add instanceKey to parent instance's childs
     if (params.parentInstanceKey !== null) {
-      const parentInstance = this.store.instances.get(params.parentInstanceKey);
+      /*
+      if (parentInstance.gaeaKey === 'Form') {
+
+        // const dom = ReactDOM.findDOMNode(parentInstance)
+        // 如果为Form组件,则添加对应的form
+        const param = params.props || this.applicationAction.getDefaultMirrorPropsByKey(params.gaeaKey)
+        this.store.instances.set(newInstanceKey, {
+          gaeaKey: params.gaeaKey,
+          data: {
+            // 参数属性优先。否则从 defaultProps 中提取数据结构，以保证数组结构的数据操作。
+            props: {
+              ...param,
+              form: this.getInstanceProps(params.parentInstanceKey, 'form')
+            }
+          },
+          childs: [],
+          parentInstanceKey: params.parentInstanceKey,
+          preGaeaKey: params.preGaeaKey
+        });
+      }
+      */
+
       parentInstance.childs.splice(params.indexPosition, 0, newInstanceKey);
 
       // 如果父级和自身都是 gaea-container，且父级是 display:flex，那么子元素默认 flexDirection 与父级元素相反

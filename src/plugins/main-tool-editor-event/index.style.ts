@@ -54,6 +54,7 @@ export const EventAction = styled.div`
 `;
 
 export const EventList = styled.div`
+  height: 1px;
   display: flex;
   flex-direction: column;
 `;

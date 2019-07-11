@@ -4,7 +4,9 @@ export class Props {
     name: 'Col',
     isContainer: true,
     group: 'layout',
-    editors: [
+    editors: ['Margin', {
+      type: 'box-editor'
+    }, 'attribute',
       {
         field: 'span',
         text: 'span',
@@ -19,4 +21,4 @@ export class Props {
   };
 }
 
-export class State {}
+export class State { }
