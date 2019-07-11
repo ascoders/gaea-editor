@@ -7,8 +7,6 @@ import EventAction from '../event/action';
 import EventStore from '../event/store';
 import ViewportStore from './store';
 
-import * as ReactDOM from 'react-dom';
-
 function guidGenerator() {
   const S4 = () => {
     // tslint:disable-next-line:no-bitwise

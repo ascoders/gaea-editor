@@ -71,7 +71,7 @@ export default class GaeaEditor extends React.Component<Props, State> {
   private stores = new Store();
 
   public componentDidUpdate(prevProps) {
-    if (this.props.defaultValue !== prevProps.defaultValue){
+    if (this.props.defaultValue !== prevProps.defaultValue) {
       // 根据默认值设置页面初始属性
       if (this.props.defaultValue) {
         this.stores.getStore().actions.ViewportAction.resetViewport(this.props.defaultValue);

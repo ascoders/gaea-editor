@@ -4,9 +4,12 @@ export class Props {
     name: 'Row',
     isContainer: true,
     group: 'layout',
-    editors: ['Margin', {
-      type: 'box-editor'
-    }, 'attribute',
+    editors: [
+      'Margin',
+      {
+        type: 'box-editor'
+      },
+      'attribute',
       {
         field: 'gutter',
         text: 'gutter',
@@ -21,4 +24,4 @@ export class Props {
   };
 }
 
-export class State { }
+export class State {}

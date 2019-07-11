@@ -7,10 +7,6 @@ export class Form extends React.Component<Props, State> {
   public state = new State();
 
   public render() {
-    return (
-      <AForm style={this.props.style}>
-        {this.props.children}
-      </AForm>
-    );
+    return <AForm style={this.props.style}>{this.props.children}</AForm>;
   }
 }
