@@ -13,6 +13,11 @@ export class Props {
    * Default value.
    */
   public defaultValue?: IFullInformation = null;
+
+  /**
+   * Controlled value, which is invalid if the default value is set
+   */
+  public value?: IFullInformation = null;
   /**
    * Custom plugins include jsx and stores.
    */
@@ -44,4 +49,4 @@ export class Props {
   public onComponentDragStart?: IOnComponentDragStart = () => null;
 }
 
-export class State {}
+export class State { }

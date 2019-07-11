@@ -70,17 +70,15 @@ export default class GaeaEditor extends React.Component<Props, State> {
 
   private stores = new Store();
 
-  public componentDidUpdate(prevProps) {
-    if (this.props.defaultValue !== prevProps.defaultValue) {
+  public componentDidUpdate(prevProps: any) {
+
+    if (this.props.value !== prevProps.value) {
       // 根据默认值设置页面初始属性
-      if (this.props.defaultValue) {
-        this.stores.getStore().actions.ViewportAction.resetViewport(this.props.defaultValue);
+      if (this.props.value) {
+        this.stores.getStore().actions.ViewportAction.resetViewport(this.props.value);
         this.stores.getStore().stores.ViewportStore.dragStartDataReady = true;
-      } else {
-        this.stores.getStore().actions.ViewportAction.resetViewport({});
-        this.stores.getStore().stores.ViewportStore.dragStartDataReady = false;
-        // this.stores.getStore().actions.ViewportAction.removeInstanceAll()
       }
+      // 如果值为null则不进行任何操作
     }
   }
 
@@ -132,13 +130,11 @@ export default class GaeaEditor extends React.Component<Props, State> {
     this.stores.getStore().actions.ViewportAction.initViewport();
 
     // 根据默认值设置页面初始属性
-
-    /*
     if (this.props.defaultValue) {
       this.stores.getStore().actions.ViewportAction.resetViewport(this.props.defaultValue);
       this.stores.getStore().stores.ViewportStore.dragStartDataReady = true;
     }
-    */
+
 
     // 将 onComponentDragStart 放到 applicationStore
     this.stores.getStore().actions.ApplicationAction.setOnComponentDragStart(this.props.onComponentDragStart);
