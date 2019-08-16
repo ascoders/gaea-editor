@@ -1,4 +1,6 @@
-export class Props {
+import { LayoutStyleProps } from '../layout/layoutStyle';
+
+export class Props extends LayoutStyleProps {
   public editSetting = {
     key: 'Form',
     name: 'Form',
@@ -51,10 +53,6 @@ export class Props {
 
   public labelAlign: string = 'left';
   public layout: string = 'inline';
-  public style: React.CSSProperties = {
-    minWidth: 100,
-    minHeight: 100
-  };
 }
 
 export class State {}

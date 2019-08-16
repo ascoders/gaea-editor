@@ -1,4 +1,6 @@
-export class Props {
+import { LayoutStyleProps } from './layoutStyle';
+
+export class Props extends LayoutStyleProps {
   public editSetting = {
     key: 'Row',
     name: 'Row',
@@ -18,10 +20,6 @@ export class Props {
     ]
   };
   public gutter: number = 16;
-  public style: React.CSSProperties = {
-    minWidth: 100,
-    minHeight: 100
-  };
 }
 
 export class State {}

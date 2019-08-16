@@ -1,5 +1,4 @@
 import { Container } from 'dependency-inject';
-import * as React from 'react';
 import ApplicationAction from './application/action';
 import ApplicationStore from './application/store';
 import EventAction from './event/action';

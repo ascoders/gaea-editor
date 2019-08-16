@@ -30,7 +30,7 @@ import mainToolEditorTypeSelect from './plugins/main-tool-editor-type-select';
 import mainToolEditorTypeString from './plugins/main-tool-editor-type-string';
 import mainToolEditorVariable from './plugins/main-tool-editor-variable';
 import mainToolTree from './plugins/main-tool-tree';
-import preview from './plugins/preview';
+// import preview from './plugins/preview';
 import save from './plugins/save';
 import viewMode from './plugins/view-mode';
 import viewportGuideline from './plugins/viewport-guideline';
@@ -58,7 +58,8 @@ const allPlugins: Array<[string, any]> = [
   ['mainToolEditorTypeString', mainToolEditorTypeString],
   ['mainToolEditorVariable', mainToolEditorVariable],
   ['mainToolTree', mainToolTree],
-  ['preview', preview],
+  // 删除预览插件，理由： 和布局类的边框显示有冲突
+  // ['preview', preview],
   ['save', save],
   ['viewMode', viewMode],
   ['viewportGuideline', viewportGuideline]
@@ -136,6 +137,21 @@ export default class GaeaEditor extends React.Component<Props, State> {
 
     // 将 onComponentDragStart 放到 applicationStore
     this.stores.getStore().actions.ApplicationAction.setOnComponentDragStart(this.props.onComponentDragStart);
+
+    // 用户按下Del键则删除当前节点数据
+    document.onkeydown = (event: any) => {
+      if (event.keyCode === 46) {
+        const currentEditInstanceKey = this.stores.getStore().stores.ViewportStore.currentEditInstanceKey;
+        if (currentEditInstanceKey !== null) {
+          // 删除组件，如果组件为跟组件，则直接抛出错误，并且结束逻辑
+          try {
+            this.stores.getStore().actions.ViewportAction.removeInstance(currentEditInstanceKey);
+          } catch (error) {
+            return;
+          }
+        }
+      }
+    };
   }
 
   public componentWillUnmount() {
