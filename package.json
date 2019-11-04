@@ -1,6 +1,6 @@
 {
   "name": "gaea-editor",
-  "version": "2.3.25",
+  "version": "2.3.26",
   "description": "",
   "main": "dist/main",
   "types": "declaration/index.d.ts",
