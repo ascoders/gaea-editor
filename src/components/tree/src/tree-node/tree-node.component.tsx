@@ -5,11 +5,12 @@ import * as typings from './tree-node.type';
 
 export class TreeNode extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props();
+
   public state = new typings.State();
 
   public componentWillMount() {
     this.setState((_, props) => ({
-      showChildren: props.defaultExpendAll || props.showChildren
+      showChildren: props.defaultExpendAll || props.showChildren,
     }));
   }
 
@@ -17,7 +18,7 @@ export class TreeNode extends React.Component<typings.Props, typings.State> {
     this.props.onClick(event);
     if (!this.props.toggleByArrow) {
       this.setState(state => ({
-        showChildren: !state.showChildren
+        showChildren: !state.showChildren,
       }));
       if (this.props.onToggleShow) {
         this.props.onToggleShow(event);
@@ -29,7 +30,7 @@ export class TreeNode extends React.Component<typings.Props, typings.State> {
     event.stopPropagation();
 
     this.setState(state => ({
-      showChildren: !state.showChildren
+      showChildren: !state.showChildren,
     }));
     if (this.props.onToggleShow) {
       this.props.onToggleShow(event);
@@ -38,14 +39,14 @@ export class TreeNode extends React.Component<typings.Props, typings.State> {
 
   public render() {
     const childrenStyle = {
-      display: this.state.showChildren ? 'block' : null
+      display: this.state.showChildren ? 'block' : null,
     };
 
     const Children = React.Children.map(this.props.children, (item: any) => {
       if (item) {
         return React.cloneElement(item, {
           defaultExpendAll: this.props.defaultExpendAll,
-          toggleByArrow: this.props.toggleByArrow
+          toggleByArrow: this.props.toggleByArrow,
         });
       }
     });
@@ -63,7 +64,7 @@ export class TreeNode extends React.Component<typings.Props, typings.State> {
           {this.props.title || this.props.render()}
         </Styled.Title>
 
-        <Styled.Children style={childrenStyle}>{Children ? Children : null}</Styled.Children>
+        <Styled.Children style={childrenStyle}>{Children || null}</Styled.Children>
       </Styled.Container>
     );
   }

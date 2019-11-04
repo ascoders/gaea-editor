@@ -13,6 +13,7 @@ const sep = ':';
 @Connect
 class MainToolEditorVariable extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -26,7 +27,7 @@ class MainToolEditorVariable extends React.Component<Props, State> {
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(
-      this.props.stores.ViewportStore.currentEditInstanceKey
+      this.props.stores.ViewportStore.currentEditInstanceKey,
     );
 
     let value = null;
@@ -52,14 +53,14 @@ class MainToolEditorVariable extends React.Component<Props, State> {
     const options = [];
 
     // 先看看是否存在当前层级的变量
-    const siblingOptions: Array<{
+    const siblingOptions: {
       key: string;
       value: string;
-    }> = [];
+    }[] = [];
 
     // 从同级实例中查找
     this.props.actions.ViewportAction.getSiblingInstances(
-      this.props.stores.ViewportStore.currentEditInstanceKey
+      this.props.stores.ViewportStore.currentEditInstanceKey,
     ).forEach(instance => {
       if (instance.data.events) {
         instance.data.events.forEach(event => {
@@ -80,7 +81,7 @@ class MainToolEditorVariable extends React.Component<Props, State> {
     if (siblingOptions.length > 0) {
       options.push({
         groupValue: this.props.stores.ApplicationStore.setLocale('当前层级', 'Current group'),
-        children: siblingOptions
+        children: siblingOptions,
       });
     }
 
@@ -97,13 +98,13 @@ class MainToolEditorVariable extends React.Component<Props, State> {
       this.props.realField,
       {
         type,
-        key
-      }
+        key,
+      },
     );
   };
 }
 
 export default {
   position: 'mainToolEditorVariable',
-  class: MainToolEditorVariable
+  class: MainToolEditorVariable,
 };

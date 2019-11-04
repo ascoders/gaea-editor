@@ -2,7 +2,7 @@ import { Connect } from 'dob-react';
 import * as React from 'react';
 import { PureComponent } from '../../utils/react-helper';
 
-// tslint:disable-next-line:no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const keymaster = require('keymaster');
 
 @Connect
@@ -29,5 +29,5 @@ class Delete extends PureComponent {
 
 export default {
   position: 'navbarRight',
-  class: Delete
+  class: Delete,
 };

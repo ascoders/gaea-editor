@@ -2,8 +2,8 @@
   "name": "gaea-editor",
   "version": "2.3.24",
   "description": "",
-  "main": "dist/index.js",
-  "types": "src/index.tsx",
+  "main": "dist/main",
+  "types": "declaration/index.d.ts",
   "scripts": {
     "start": "pri dev",
     "build": "pri build",
@@ -11,41 +11,40 @@
     "posttest": "codecov -f coverage/*.json -t c5e24697-a432-447e-81ab-2a642de423c2",
     "analyse": "pri analyse",
     "test": "pri test",
-    "lint": "echo 'Pre-commit checks...' && tslint --fix './src/**/*.?(ts|tsx)'",
+    "lint": "pri lint",
     "prettier": "prettier --write './src/**/*.?(ts|tsx)'",
-    "format": "tslint --fix './src/**/*.?(ts|tsx)' && prettier --write './src/**/*.?(ts|tsx)'",
+    "format": "pri lint",
     "docs": "pri docs",
     "bundle": "pri bundle",
-    "prepublishOnly": "npm run build && npm run bundle --skipLint"
+    "prepublishOnly": "npm run build && npm run bundle --skipLint",
+    "publish": "pri publish"
   },
-  "peerDependencies": {
-    "react": "16.8.3",
-    "react-dom": "16.8.3"
-  },
+  "peerDependencies": {},
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "antd": "3.13.6",
-    "dob": "2.5.10",
-    "dob-react": "2.4.17",
+    "antd": "3.16.1",
+    "dob": "^2.5.10",
+    "dob-react": "^2.4.17",
     "gaea-basic-components": "^1.1.2",
     "gaea-render": "^1.0.18",
     "keymaster": "^1.6.2",
-    "lodash": "4.17.11",
+    "lodash": "^4.17.11",
     "react-color": "^2.14.1",
     "sortablejs": "^1.7.0",
     "styled-components": "^4.1.1"
   },
   "devDependencies": {
-    "pri": "~2.0.65"
+    "pri": "^3.3.25"
   },
   "author": "",
   "license": "ISC",
-  "pri": {
-    "type": "component"
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test"
+      "pre-commit": "npm test -- --package root"
     }
-  }
+  },
+  "tnpm": {
+    "mode": "npm"
+  },
+  "module": "dist/module"
 }

@@ -17,6 +17,7 @@ export class StoreProps<Actions = {}, Stores = {}> {
     ViewportAction: ViewportAction;
     EventAction: EventAction;
   } & Actions;
+
   public stores?: {
     ApplicationStore: ApplicationStore;
     ViewportStore: ViewportStore;
@@ -28,15 +29,17 @@ export class Store {
   private container = new Container();
 
   private actions: IActionsOrStores = {};
+
   private stores: IActionsOrStores = {};
 
   /**
    * 全局 actions + stores 映射
    */
   private allActions = new Map<string, any>();
+
   private allStores = new Map<string, any>();
 
-  constructor() {
+  public constructor() {
     this.container = new Container();
 
     this.allActions.set('ApplicationAction', ApplicationAction);
@@ -46,12 +49,12 @@ export class Store {
     this.allActions.set('EventAction', EventAction);
     this.allStores.set('EventStore', EventStore);
 
-    this.allActions.forEach((actionClass, actionName) => {
-      this.container.set(actionClass, new actionClass());
+    this.allActions.forEach((ActionClass, actionName) => {
+      this.container.set(ActionClass, new ActionClass());
     });
 
-    this.allStores.forEach((storeClass, storeName) => {
-      this.container.set(storeClass, new storeClass());
+    this.allStores.forEach((StoreClass, storeName) => {
+      this.container.set(StoreClass, new StoreClass());
     });
   }
 
@@ -82,7 +85,7 @@ export class Store {
 
     return {
       actions: this.actions,
-      stores: this.stores
+      stores: this.stores,
     };
   }
 }

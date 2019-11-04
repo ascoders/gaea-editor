@@ -7,6 +7,7 @@ import { Props, State } from './index.type';
 @Connect
 class MainToolEditor extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -37,7 +38,7 @@ class MainToolEditor extends React.Component<Props, State> {
           <Styled.EmptyDescription>
             {this.props.stores.ApplicationStore.setLocale(
               '在屏幕左侧点击一个组件',
-              'Click one component in the left of the screen.'
+              'Click one component in the left of the screen.',
             )}
           </Styled.EmptyDescription>
         </Styled.EmptyContainer>
@@ -82,9 +83,9 @@ class MainToolEditor extends React.Component<Props, State> {
           <Styled.EmptyDescription>
             {this.props.stores.ApplicationStore.setLocale(
               '该组件还未添加编辑信息，',
-              'This component has no edit info yet,'
+              'This component has no edit info yet,',
             )}
-            <a href="https://github.com/ascoders/gaea-editor" target="_blank">
+            <a href="https://github.com/ascoders/gaea-editor" target="_blank" rel="noopener noreferrer">
               {this.props.stores.ApplicationStore.setLocale('点击了解如何添加', 'Click to know learn it')}
             </a>
           </Styled.EmptyDescription>
@@ -95,7 +96,7 @@ class MainToolEditor extends React.Component<Props, State> {
     return [
       this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorManager'),
       this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorEvent'),
-      this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorAddon')
+      this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorAddon'),
     ];
   }
 
@@ -106,5 +107,5 @@ class MainToolEditor extends React.Component<Props, State> {
 
 export default {
   position: 'mainToolEditor',
-  class: MainToolEditor
+  class: MainToolEditor,
 };

@@ -7,6 +7,7 @@ import * as typings from './tree-node.type';
 
 class CustomTreeNode extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props();
+
   public state = new typings.State();
 
   /**
@@ -37,7 +38,7 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
   }
 
   public componentDidMount() {
-    this.health++;
+    this.health += 1;
 
     this.props.actions.TreeAction.addTreeDom(this.props.instanceKey, ReactDOM.findDOMNode(this) as HTMLElement);
 
@@ -47,13 +48,13 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
       this.props.actions.ViewportAction.registerInnerDrag(
         this.props.instanceKey,
         (ReactDOM.findDOMNode(this) as HTMLElement).getElementsByClassName('childs-container')[0] as HTMLElement,
-        'gaea-tree-container'
+        'gaea-tree-container',
       );
     }
   }
 
   public componentWillUnmount() {
-    this.health--;
+    this.health -= 1;
 
     // 因为一个组件跨层级拖动，会先生成再销毁，这时组件没有死亡，所以不要把监听移除
     if (this.health === 0) {
@@ -100,7 +101,7 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
 
   public render() {
     // 子元素
-    let childs: Array<React.ReactElement<any>> = null;
+    let childs: React.ReactElement<any>[] = null;
 
     if (this.setting.isContainer && this.instanceInfo.childs) {
       childs = this.instanceInfo.childs.map(childKey => {
@@ -113,7 +114,7 @@ class CustomTreeNode extends React.Component<typings.Props, typings.State> {
       defaultExpendAll: true,
       toggleByArrow: true,
       onMouseOver: this.handleMouseOver,
-      onClick: this.handleClick
+      onClick: this.handleClick,
     };
 
     return React.createElement(TreeNode, childProps, childs);

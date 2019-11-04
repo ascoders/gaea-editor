@@ -10,6 +10,7 @@ import { Props, State } from './index.type';
 @Connect
 class MainToolEditorManager extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -44,91 +45,89 @@ class MainToolEditorManager extends React.Component<Props, State> {
             `mainToolEditorType${_.upperFirst(_.camelCase(editors))}`,
             {
               editor: editors,
-              realField: this.props.realField
-            }
+              realField: this.props.realField,
+            },
           )}
         </Styled.EditorContainer>
       );
-    } else {
-      EditorFields = editors.map((editor, index) => {
-        if (typeof editor === 'string') {
-          return <Styled.TabTitle key={index}>{editor}</Styled.TabTitle>;
-        } else {
-          const realField = this.props.realField === '' ? editor.field : this.props.realField + '.' + editor.field;
-
-          let child: React.ReactNode = null;
-          const isVariable = this.props.actions.ViewportAction.instanceFieldIsVariable(
-            this.props.stores.ViewportStore.currentEditInstanceKey,
-            realField
-          );
-
-          if (!isVariable) {
-            // 正常编辑
-            child = this.props.actions.ApplicationAction.loadPluginByPosition(
-              `mainToolEditorType${_.upperFirst(_.camelCase(editor.type))}`,
-              {
-                editor,
-                realField
-              }
-            );
-          } else {
-            // 变量模式
-            child = this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorVariable', {
-              editor,
-              realField
-            });
-          }
-
-          const isObjectType = editor.type === 'array' || editor.type === 'object';
-
-          let editorBoxContainer = (
-            <React.Fragment>
-              {editor.text && (
-                <Styled.Label theme={{ isObjectType: !isVariable }}>
-                  <span>{editor.text}</span>
-                </Styled.Label>
-              )}
-
-              <Styled.EditorBoxContainer>{child}</Styled.EditorBoxContainer>
-            </React.Fragment>
-          );
-
-          if (isObjectType) {
-            // 获取当前 editor 展开状态 key
-            const expandKey = `${editor.type}_${editor.field}`;
-
-            const isExpand = this.state.expandStates.get(expandKey);
-
-            editorBoxContainer = (
-              <React.Fragment>
-                <Styled.Label theme={{ isObjectType }}>
-                  {editor.text && <span>{editor.text}</span>}
-                  <Button
-                    shape="circle"
-                    icon={isExpand ? 'up' : 'down'}
-                    size="small"
-                    onClick={() => this.handleToggleExpand(expandKey)}
-                    style={{ position: 'absolute', right: 10 }}
-                  />
-                </Styled.Label>
-
-                {isExpand && <Styled.EditorBoxContainer>{child}</Styled.EditorBoxContainer>}
-              </React.Fragment>
-            );
-          }
-
-          return (
-            <Styled.EditorContainer key={index} theme={{ isObjectType: isObjectType && !isVariable }}>
-              {editorBoxContainer}
-
-              <Styled.Variable theme={{ isVariable }} onClick={this.handleToggleValueType.bind(this, realField)}>
-                {isVariable ? <Icon type="database" size={14} /> : <Icon type="keybroad" />}
-              </Styled.Variable>
-            </Styled.EditorContainer>
-          );
-        }
-      });
     }
+    EditorFields = editors.map((editor, index) => {
+      if (typeof editor === 'string') {
+        return <Styled.TabTitle key={index}>{editor}</Styled.TabTitle>;
+      }
+      const realField = this.props.realField === '' ? editor.field : `${this.props.realField}.${editor.field}`;
+
+      let child: React.ReactNode = null;
+      const isVariable = this.props.actions.ViewportAction.instanceFieldIsVariable(
+        this.props.stores.ViewportStore.currentEditInstanceKey,
+        realField,
+      );
+
+      if (!isVariable) {
+        // 正常编辑
+        child = this.props.actions.ApplicationAction.loadPluginByPosition(
+          `mainToolEditorType${_.upperFirst(_.camelCase(editor.type))}`,
+          {
+            editor,
+            realField,
+          },
+        );
+      } else {
+        // 变量模式
+        child = this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorVariable', {
+          editor,
+          realField,
+        });
+      }
+
+      const isObjectType = editor.type === 'array' || editor.type === 'object';
+
+      let editorBoxContainer = (
+        <React.Fragment>
+          {editor.text && (
+            <Styled.Label theme={{ isObjectType: !isVariable }}>
+              <span>{editor.text}</span>
+            </Styled.Label>
+          )}
+
+          <Styled.EditorBoxContainer>{child}</Styled.EditorBoxContainer>
+        </React.Fragment>
+      );
+
+      if (isObjectType) {
+        // 获取当前 editor 展开状态 key
+        const expandKey = `${editor.type}_${editor.field}`;
+
+        const isExpand = this.state.expandStates.get(expandKey);
+
+        editorBoxContainer = (
+          <React.Fragment>
+            <Styled.Label theme={{ isObjectType }}>
+              {editor.text && <span>{editor.text}</span>}
+              <Button
+                shape="circle"
+                icon={isExpand ? 'up' : 'down'}
+                size="small"
+                onClick={() => this.handleToggleExpand(expandKey)}
+                style={{ position: 'absolute', right: 10 }}
+              />
+            </Styled.Label>
+
+            {isExpand && <Styled.EditorBoxContainer>{child}</Styled.EditorBoxContainer>}
+          </React.Fragment>
+        );
+      }
+
+      return (
+        <Styled.EditorContainer key={index} theme={{ isObjectType: isObjectType && !isVariable }}>
+          {editorBoxContainer}
+
+          <Styled.Variable theme={{ isVariable }} onClick={this.handleToggleValueType.bind(this, realField)}>
+            {isVariable ? <Icon type="database" size={14} /> : <Icon type="keybroad" />}
+          </Styled.Variable>
+        </Styled.EditorContainer>
+      );
+    });
 
     return <div key={instanceKey}>{EditorFields}</div>;
   }
@@ -139,14 +138,14 @@ class MainToolEditorManager extends React.Component<Props, State> {
   private handleToggleValueType = (realField: string) => {
     const isVariable = this.props.actions.ViewportAction.instanceFieldIsVariable(
       this.props.stores.ViewportStore.currentEditInstanceKey,
-      realField
+      realField,
     );
 
     if (isVariable) {
       // 取消变量模式
       this.props.actions.ViewportAction.instanceDisableVariable(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        realField
+        realField,
       );
 
       // TODO:
@@ -155,7 +154,7 @@ class MainToolEditorManager extends React.Component<Props, State> {
       // 设置为变量模式
       this.props.actions.ViewportAction.instanceEnableVariable(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        realField
+        realField,
       );
 
       // TODO:
@@ -177,5 +176,5 @@ class MainToolEditorManager extends React.Component<Props, State> {
 
 export default {
   position: 'mainToolEditorManager',
-  class: MainToolEditorManager
+  class: MainToolEditorManager,
 };

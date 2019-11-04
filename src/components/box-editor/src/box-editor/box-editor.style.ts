@@ -89,6 +89,7 @@ export const ButtonTriangle = styled.div`
               border-top-color: black;
           }
         `;
+      default:
     }
   }};
 `;

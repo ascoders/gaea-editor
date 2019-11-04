@@ -10,6 +10,7 @@ import { Props, State } from './index.type';
 @Connect
 class MainToolEditorEvent extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -35,13 +36,13 @@ class MainToolEditorEvent extends React.Component<Props, State> {
           <S.EventContainer key={index}>
             <S.EventTrigger>
               {this.props.actions.ApplicationAction.loadPluginByPosition(`mainToolEditorEventTrigger`, {
-                index
+                index,
               })}
             </S.EventTrigger>
 
             <S.EventAction>
               {this.props.actions.ApplicationAction.loadPluginByPosition(`mainToolEditorEventAction`, {
-                index
+                index,
               })}
             </S.EventAction>
 
@@ -83,12 +84,12 @@ class MainToolEditorEvent extends React.Component<Props, State> {
   private handleRemove = (index: number) => {
     this.props.actions.ViewportAction.instanceRemoveEvent(
       this.props.stores.ViewportStore.currentEditInstanceKey,
-      index
+      index,
     );
   };
 }
 
 export default {
   position: 'mainToolEditorEvent',
-  class: MainToolEditorEvent
+  class: MainToolEditorEvent,
 };

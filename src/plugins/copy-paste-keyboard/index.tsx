@@ -5,7 +5,7 @@ import { CopyPasteAction } from './action';
 import { Props, State } from './index.type';
 import { CopyPasteStore } from './store';
 
-// tslint:disable-next-line:no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const keymaster = require('keymaster');
 
 @Connect
@@ -37,9 +37,9 @@ export default {
   position: 'navbarRight',
   class: CopyPaste,
   actions: {
-    CopyPasteAction
+    CopyPasteAction,
   },
   stores: {
-    CopyPasteStore
-  }
+    CopyPasteStore,
+  },
 };

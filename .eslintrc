@@ -1,0 +1,157 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "jest": true,
+    "browser": true
+  },
+  "settings": {
+    "react": {
+      "version": "16.8"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx",
+          ".eslintrc"
+        ]
+      },
+      "webpack": {
+        "config": {
+          "resolve": {
+            "alias": {
+              "src": "src"
+            }
+          }
+        }
+      }
+    }
+  },
+  "plugins": [
+    "babel",
+    "@typescript-eslint",
+    "react-hooks"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "airbnb-base",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 120,
+        "semi": true,
+        "singleQuote": true,
+        "tabWidth": 2,
+        "useTabs": false,
+        "trailingComma": "all"
+      }
+    ],
+    "func-names": 0,
+    "one-var": [
+      1,
+      "never"
+    ],
+    "prefer-const": 1,
+    "no-unused-expressions": 1,
+    "new-cap": 2,
+    "prefer-arrow-callback": 2,
+    "arrow-body-style": 0,
+    "max-len": [
+      1,
+      {
+        "code": 120,
+        "ignoreStrings": true,
+        "ignoreUrls": true,
+        "ignoreRegExpLiterals": true
+      }
+    ],
+    "consistent-return": "off",
+    "default-case": 2,
+    "prefer-rest-params": 2,
+    "no-script-url": 0,
+    "no-console": [
+      2,
+      {
+        "allow": [
+          "info",
+          "error",
+          "warn"
+        ]
+      }
+    ],
+    "no-duplicate-imports": 2,
+    "newline-per-chained-call": 2,
+    "no-underscore-dangle": 2,
+    "eol-last": 2,
+    "no-useless-rename": 2,
+    "class-methods-use-this": 0,
+    "prefer-destructuring": 0,
+    "no-unused-vars": 0,
+    "@typescript-eslint/no-unused-vars": 1,
+    "react/self-closing-comp": 2,
+    "react/jsx-indent-props": [
+      2,
+      2
+    ],
+    "no-plusplus": 0,
+    "react/jsx-uses-vars": 1,
+    "react/no-multi-comp": [
+      2,
+      {
+        "ignoreStateless": true
+      }
+    ],
+    "react/jsx-uses-react": 2,
+    "react/react-in-jsx-scope": 2,
+    "react/sort-comp": 1,
+    "react/jsx-tag-spacing": 2,
+    "react/jsx-no-bind": 0,
+    "react/jsx-closing-bracket-location": 2,
+    "react/prefer-stateless-function": 0,
+    "react/display-name": 0,
+    "react/prop-types": 0,
+    "import/prefer-default-export": 0,
+    "import/no-dynamic-require": 2,
+    "@typescript-eslint/no-var-requires": 2,
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false
+      }
+    ],
+    "@typescript-eslint/no-use-before-define": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/interface-name-prefix": 0,
+    "no-invalid-this": 0,
+    "babel/no-invalid-this": 2,
+    "no-await-in-loop": "off",
+    "array-callback-return": "off",
+    "no-restricted-syntax": "off",
+    "@typescript-eslint/no-explicit-any": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "@typescript-eslint/no-object-literal-type-assertion": 0,
+    "react/no-find-dom-node": 1,
+    "no-param-reassign": [
+      2,
+      {
+        "props": false
+      }
+    ]
+  }
+}

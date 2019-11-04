@@ -23,7 +23,7 @@ export default class EventAction {
   public on(eventType: EventType, callback: ICallback, context?: any) {
     const event: IEvent = {
       callback,
-      context
+      context,
     };
 
     if (this.events.get(eventType)) {

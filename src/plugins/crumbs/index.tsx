@@ -6,15 +6,16 @@ import * as typings from './index.type';
 @Connect
 class Crumbs extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props();
+
   public state = new typings.State();
 
   public render() {
-    let childs: Array<React.ReactElement<any>>;
+    let childs: React.ReactElement<any>[];
 
     if (this.props.stores.ViewportStore.currentEditInstanceKey) {
       // 递归寻找这个组件父元素
       childs = this.props.actions.ViewportAction.getInstancePath(
-        this.props.stores.ViewportStore.currentEditInstanceKey
+        this.props.stores.ViewportStore.currentEditInstanceKey,
       ).map((instanceKey, index) => {
         const instance = this.props.stores.ViewportStore.instances.get(instanceKey);
         const componentClass = this.props.actions.ApplicationAction.getComponentClassByKey(instance.gaeaKey);
@@ -58,5 +59,5 @@ class Crumbs extends React.Component<typings.Props, typings.State> {
 
 export default {
   position: 'bottomBar',
-  class: Crumbs
+  class: Crumbs,
 };

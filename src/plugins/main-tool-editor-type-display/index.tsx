@@ -2,7 +2,7 @@ import { Button, Input, InputNumber, Switch, Tooltip } from 'antd';
 import { Connect } from 'dob-react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { BoxEditor } from '../../components/box-editor/src/';
+import { BoxEditor } from '../../components/box-editor/src';
 import Icon from '../../components/icon/src';
 import { pipeEvent } from '../../utils/functional';
 import * as S from './index.style';
@@ -22,6 +22,7 @@ const ActiveButton = (props: any) => {
 @Connect
 class MainToolDisplay extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -35,13 +36,13 @@ class MainToolDisplay extends React.Component<Props, State> {
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(
-      this.props.stores.ViewportStore.currentEditInstanceKey
+      this.props.stores.ViewportStore.currentEditInstanceKey,
     );
 
     const display =
       this.props.actions.ViewportAction.getInstanceProps(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        'style.display'
+        'style.display',
       ) || 'block';
 
     return (
@@ -56,7 +57,7 @@ class MainToolDisplay extends React.Component<Props, State> {
     this.props.actions.ViewportAction.setInstanceProps(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       field,
-      value
+      value,
     );
   };
 
@@ -101,22 +102,22 @@ class MainToolDisplay extends React.Component<Props, State> {
     const flexDirection =
       this.props.actions.ViewportAction.getInstanceProps(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        'style.flexDirection'
+        'style.flexDirection',
       ) || 'row';
     const flexGrow =
       this.props.actions.ViewportAction.getInstanceProps(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        'style.flexGrow'
+        'style.flexGrow',
       ) || 0;
     const alignItems =
       this.props.actions.ViewportAction.getInstanceProps(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        'style.alignItems'
+        'style.alignItems',
       ) || 'stretch';
     const justifyContent =
       this.props.actions.ViewportAction.getInstanceProps(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        'style.justifyContent'
+        'style.justifyContent',
       ) || 'flex-start';
 
     // 判断是否逆序
@@ -134,6 +135,7 @@ class MainToolDisplay extends React.Component<Props, State> {
       case 'column-reverse':
         isReverse = true;
         break;
+      default:
     }
 
     const isRow = flexDirection === 'row' || flexDirection === 'row-reverse';
@@ -275,7 +277,7 @@ class MainToolDisplay extends React.Component<Props, State> {
     const display =
       this.props.actions.ViewportAction.getInstanceProps(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        'style.display'
+        'style.display',
       ) || 'block';
 
     return (
@@ -331,5 +333,5 @@ class MainToolDisplay extends React.Component<Props, State> {
 
 export default {
   position: 'mainToolEditorTypeDisplay',
-  class: MainToolDisplay
+  class: MainToolDisplay,
 };

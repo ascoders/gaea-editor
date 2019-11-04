@@ -9,6 +9,7 @@ import { Props, State } from './index.type';
 @Connect
 class MainToolEditorBoolean extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -22,12 +23,12 @@ class MainToolEditorBoolean extends React.Component<Props, State> {
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(
-      this.props.stores.ViewportStore.currentEditInstanceKey
+      this.props.stores.ViewportStore.currentEditInstanceKey,
     );
 
     const currentValue = !!this.props.actions.ViewportAction.getInstanceProps(
       this.props.stores.ViewportStore.currentEditInstanceKey,
-      this.props.realField
+      this.props.realField,
     );
 
     return (
@@ -41,12 +42,12 @@ class MainToolEditorBoolean extends React.Component<Props, State> {
     this.props.actions.ViewportAction.setInstanceProps(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       this.props.realField,
-      value
+      value,
     );
   };
 }
 
 export default {
   position: 'mainToolEditorTypeBoolean',
-  class: MainToolEditorBoolean
+  class: MainToolEditorBoolean,
 };

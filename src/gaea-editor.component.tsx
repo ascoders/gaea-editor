@@ -35,7 +35,7 @@ import save from './plugins/save';
 import viewMode from './plugins/view-mode';
 import viewportGuideline from './plugins/viewport-guideline';
 
-const allPlugins: Array<[string, any]> = [
+const allPlugins: [string, any][] = [
   ['crumbs', crumbs],
   ['copyPasteKeyboard', copyPasteKeyboard],
   ['deleteKeyboard', deleteKeyboard],
@@ -61,11 +61,12 @@ const allPlugins: Array<[string, any]> = [
   ['preview', preview],
   ['save', save],
   ['viewMode', viewMode],
-  ['viewportGuideline', viewportGuideline]
+  ['viewportGuideline', viewportGuideline],
 ];
 
 export default class GaeaEditor extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   private stores = new Store();

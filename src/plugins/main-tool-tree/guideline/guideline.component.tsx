@@ -8,6 +8,7 @@ import * as typings from './guideline.type';
 @Connect
 export default class Guideline extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props();
+
   public state = new typings.State();
 
   public componentWillReact() {
@@ -58,7 +59,7 @@ export default class Guideline extends React.Component<typings.Props, typings.St
       width: hoverBoundingClientRect.width - 4,
       height: hoverBoundingClientRect.height - 4,
       left: hoverBoundingClientRect.left - rootBoundingClientRect.left,
-      top: hoverBoundingClientRect.top - rootBoundingClientRect.top + this.props.stores.TreeStore.treeRootDom.scrollTop
+      top: hoverBoundingClientRect.top - rootBoundingClientRect.top + this.props.stores.TreeStore.treeRootDom.scrollTop,
     };
 
     return <Styled.Container style={style} />;

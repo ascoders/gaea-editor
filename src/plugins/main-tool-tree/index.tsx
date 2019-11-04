@@ -12,6 +12,7 @@ import CustomTreeNode from './tree-node/tree-node.component';
 @Connect
 class MainToolTree extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   private treeContainer: React.ReactInstance;
@@ -30,7 +31,12 @@ class MainToolTree extends React.Component<Props, State> {
 
     return (
       <Styled.Container>
-        <Styled.TreeContainer onMouseLeave={this.handleMouseLeave} ref={(ref: any) => (this.treeContainer = ref)}>
+        <Styled.TreeContainer
+          onMouseLeave={this.handleMouseLeave}
+          ref={(ref: any) => {
+            this.treeContainer = ref;
+          }}
+        >
           <Tree defaultExpendAll={true} toggleByArrow={true}>
             <CustomTreeNode key={rootInstanceKey} instanceKey={rootInstanceKey} />
           </Tree>
@@ -50,9 +56,9 @@ export default {
   position: 'mainToolTree',
   class: MainToolTree,
   actions: {
-    TreeAction
+    TreeAction,
   },
   stores: {
-    TreeStore
-  }
+    TreeStore,
+  },
 };

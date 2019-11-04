@@ -20,6 +20,7 @@ export default class TreeAction {
   public addTreeDom(instanceKey: string, dom: HTMLElement) {
     this.store.treeDoms.set(instanceKey, dom);
   }
+
   /**
    * 移除树 dom
    */

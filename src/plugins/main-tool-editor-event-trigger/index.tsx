@@ -10,17 +10,18 @@ import { Props, State } from './index.type';
 const triggerOptions = [
   {
     key: 'init',
-    value: 'Init'
+    value: 'Init',
   },
   {
     key: 'subscribe',
-    value: 'Listen event'
-  }
+    value: 'Listen event',
+  },
 ];
 
 @Connect
 class MainToolEditorEventTrigger extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -64,7 +65,7 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
     const mergedTriggerOptions = triggerOptions.concat(
       (this.setting.events || []).map((event, index) => {
         return { key: `callback-${event.field}`, value: event.text };
-      })
+      }),
     );
     const MergedTriggerOptions = mergedTriggerOptions.map((each, index) => {
       return (
@@ -77,7 +78,7 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
     let triggerValue: string = this.currentEventInfo.trigger.type;
 
     if (this.currentEventInfo.trigger.type === 'callback') {
-      triggerValue = 'callback-' + this.currentEventInfo.trigger.field;
+      triggerValue = `callback-${this.currentEventInfo.trigger.field}`;
     }
 
     return (
@@ -107,8 +108,8 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
       // Refresh trigger and triggerData only.
       ...this.currentEventInfo,
       trigger: {
-        type: type as any
-      }
+        type: type as any,
+      },
     };
 
     switch (type) {
@@ -121,10 +122,8 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
     this.props.actions.ViewportAction.instanceSetEvent(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       this.props.index,
-      eventInfo
+      eventInfo,
     );
-
-    return;
   };
 
   private renderTriggerBody = () => {
@@ -154,12 +153,12 @@ class MainToolEditorEventTrigger extends React.Component<Props, State> {
     this.props.actions.ViewportAction.setInstanceEvent(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       `${this.props.index}.trigger.${key}`,
-      value
+      value,
     );
   };
 }
 
 export default {
   position: 'mainToolEditorEventTrigger',
-  class: MainToolEditorEventTrigger
+  class: MainToolEditorEventTrigger,
 };

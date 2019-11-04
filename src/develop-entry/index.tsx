@@ -6,5 +6,5 @@ ReactDOM.render(
   <div style={{ width: '100vw', height: '100vh' }}>
     <GaeaEditor />
   </div>,
-  document.getElementById('react-dom')
+  document.getElementById('react-dom'),
 );

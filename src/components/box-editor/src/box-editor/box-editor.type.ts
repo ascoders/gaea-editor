@@ -21,18 +21,25 @@ export class Props {
    * paddingLeft 初始值
    */
   public paddingLeft?: number = 0;
+
   // paddingTop 初始值
   public paddingTop?: number = 0;
+
   // paddingRight 初始值
   public paddingRight?: number = 0;
+
   // paddingBottom 初始值
   public paddingBottom?: number = 0;
+
   // marginLeft 初始值
   public marginLeft?: number = 0;
+
   // marginTop 初始值
   public marginTop?: number = 0;
+
   // marginRight 初始值
   public marginRight?: number = 0;
+
   // marginBottom 初始值
   public marginBottom?: number = 0;
 
@@ -61,12 +68,18 @@ export class Props {
 
 export class State {
   public paddingLeft?: number;
+
   public paddingTop?: number;
+
   public paddingRight?: number;
+
   public paddingBottom?: number;
+
   public marginLeft?: number;
+
   public marginTop?: number;
+
   public marginRight?: number;
+
   public marginBottom?: number;
-  [x: string]: any;
 }

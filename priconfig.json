@@ -1,1 +1,5 @@
-{ "useHttps": false }
+{
+  "useHttps": false,
+  "type": "component",
+  "packageLock": true
+}

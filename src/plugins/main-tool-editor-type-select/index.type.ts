@@ -5,6 +5,7 @@ export class Props extends StoreProps<void, void> {
    * Real value field
    */
   public realField?: string;
+
   /**
    * Editor
    */

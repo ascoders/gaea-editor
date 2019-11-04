@@ -6,6 +6,7 @@ import * as Styled from './style';
 @Connect
 class Preview extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   public render() {
@@ -27,5 +28,5 @@ class Preview extends React.Component<Props, State> {
 
 export default {
   position: 'navbarRight',
-  class: Preview
+  class: Preview,
 };

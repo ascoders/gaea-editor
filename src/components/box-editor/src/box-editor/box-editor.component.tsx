@@ -6,10 +6,12 @@ import * as typings from './box-editor.type';
 
 export class BoxEditor extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props();
+
   public state = new typings.State();
 
   // 上一次鼠标 x, y 位置
   private lastX: number = null as any;
+
   private lastY: number = null as any;
 
   // 当前按住的类型
@@ -42,83 +44,83 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
 
     const containerStyle = {
       width: this.props.size,
-      height: this.props.size - this.props.size / 5
+      height: this.props.size - this.props.size / 5,
     };
 
     const leftStyle = {
       left: specialBorderWidth,
-      top: this.props.size / 2 - normalBorderWidth - this.props.size / 10
+      top: this.props.size / 2 - normalBorderWidth - this.props.size / 10,
     };
 
     const topStyle = {
       top: specialBorderWidth,
-      left: this.props.size / 2 - normalBorderWidth
+      left: this.props.size / 2 - normalBorderWidth,
     };
 
     const rightStyle = {
       right: specialBorderWidth,
-      top: this.props.size / 2 - normalBorderWidth - this.props.size / 10
+      top: this.props.size / 2 - normalBorderWidth - this.props.size / 10,
     };
 
     const bottomStyle = {
       bottom: specialBorderWidth,
-      left: this.props.size / 2 - normalBorderWidth
+      left: this.props.size / 2 - normalBorderWidth,
     };
 
     const numberOuterLeftStyle = {
       width: specialBorderWidth,
       height: specialBorderWidth,
       left: 0,
-      top: this.props.size / 2 - specialBorderWidth / 2 - this.props.size / 10
+      top: this.props.size / 2 - specialBorderWidth / 2 - this.props.size / 10,
     };
 
     const numberOuterTopStyle = {
       width: specialBorderWidth,
       height: specialBorderWidth,
       top: 0,
-      left: this.props.size / 2 - specialBorderWidth / 2
+      left: this.props.size / 2 - specialBorderWidth / 2,
     };
 
     const numberOuterRightStyle = {
       width: specialBorderWidth,
       height: specialBorderWidth,
       right: 0,
-      top: this.props.size / 2 - specialBorderWidth / 2 - this.props.size / 10
+      top: this.props.size / 2 - specialBorderWidth / 2 - this.props.size / 10,
     };
 
     const numberOuterBottomStyle = {
       width: specialBorderWidth,
       height: specialBorderWidth,
       bottom: 0,
-      left: this.props.size / 2 - specialBorderWidth / 2
+      left: this.props.size / 2 - specialBorderWidth / 2,
     };
 
     const numberInnerLeftStyle = {
       width: specialBorderWidth,
       height: specialBorderWidth,
       left: this.props.size / 3 - specialBorderWidth / 2,
-      top: this.props.size / 2 - specialBorderWidth / 2 - this.props.size / 10
+      top: this.props.size / 2 - specialBorderWidth / 2 - this.props.size / 10,
     };
 
     const numberInnerTopStyle = {
       width: specialBorderWidth,
       height: specialBorderWidth,
       top: this.props.size / 3 - specialBorderWidth / 2,
-      left: this.props.size / 2 - specialBorderWidth / 2
+      left: this.props.size / 2 - specialBorderWidth / 2,
     };
 
     const numberInnerRightStyle = {
       width: specialBorderWidth,
       height: specialBorderWidth,
       right: this.props.size / 3 - specialBorderWidth / 2,
-      top: this.props.size / 2 - specialBorderWidth / 2 - this.props.size / 10
+      top: this.props.size / 2 - specialBorderWidth / 2 - this.props.size / 10,
     };
 
     const numberInnerBottomStyle = {
       width: specialBorderWidth,
       height: specialBorderWidth,
       bottom: this.props.size / 3 - specialBorderWidth / 2,
-      left: this.props.size / 2 - specialBorderWidth / 2
+      left: this.props.size / 2 - specialBorderWidth / 2,
     };
 
     return (
@@ -221,7 +223,7 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
       marginLeft: props.marginLeft,
       marginTop: props.marginTop,
       marginRight: props.marginRight,
-      marginBottom: props.marginBottom
+      marginBottom: props.marginBottom,
     });
   };
 
@@ -245,52 +247,53 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
     switch (this.currentHolding) {
       case 'marginLeft':
         this.setState(state => ({
-          marginLeft: state.marginLeft - diffX
+          marginLeft: state.marginLeft - diffX,
         }));
         this.props.onChange(this.currentHolding, this.state.marginLeft);
         break;
       case 'paddingLeft':
         this.setState(state => ({
-          paddingLeft: state.paddingLeft - diffX
+          paddingLeft: state.paddingLeft - diffX,
         }));
         this.props.onChange(this.currentHolding, this.state.paddingLeft);
         break;
       case 'marginRight':
         this.setState(state => ({
-          marginRight: state.marginRight + diffX
+          marginRight: state.marginRight + diffX,
         }));
         this.props.onChange(this.currentHolding, this.state.marginRight);
         break;
       case 'paddingRight':
         this.setState(state => ({
-          paddingRight: state.paddingRight + diffX
+          paddingRight: state.paddingRight + diffX,
         }));
         this.props.onChange(this.currentHolding, this.state.paddingRight);
         break;
       case 'marginTop':
         this.setState(state => ({
-          marginTop: state.marginTop - diffY
+          marginTop: state.marginTop - diffY,
         }));
         this.props.onChange(this.currentHolding, this.state.marginTop);
         break;
       case 'paddingTop':
         this.setState(state => ({
-          paddingTop: state.paddingTop - diffY
+          paddingTop: state.paddingTop - diffY,
         }));
         this.props.onChange(this.currentHolding, this.state.paddingTop);
         break;
       case 'marginBottom':
         this.setState(state => ({
-          marginBottom: state.marginBottom + diffY
+          marginBottom: state.marginBottom + diffY,
         }));
         this.props.onChange(this.currentHolding, this.state.marginBottom);
         break;
       case 'paddingBottom':
         this.setState(state => ({
-          paddingBottom: state.paddingBottom + diffY
+          paddingBottom: state.paddingBottom + diffY,
         }));
         this.props.onChange(this.currentHolding, this.state.paddingBottom);
         break;
+      default:
     }
     this.lastX = event.clientX;
     this.lastY = event.clientY;
@@ -306,7 +309,7 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
     this.hasMouseDown = false;
 
     // 清空前，调用低频修改
-    this.props.onFinalChange(this.currentHolding, this.state[this.currentHolding]);
+    this.props.onFinalChange(this.currentHolding, (this.state as any)[this.currentHolding]);
 
     this.currentHolding = '';
   };
@@ -317,7 +320,7 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
   private handleChange = (name: typings.MarginPaddingField, event: any) => {
     const value = Number(event.target.value) || 0;
     this.setState({
-      [name]: value
+      [name]: value,
     });
     this.props.onChange(name, value);
     this.props.onFinalChange(name, value);
@@ -327,7 +330,7 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
     const style: React.CSSProperties = {
       ...extendStyle,
       width: 0,
-      height: 0
+      height: 0,
     };
     const outerStyle: React.CSSProperties = {};
 
@@ -365,6 +368,7 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
         style.borderTopWidth = specialBorderWidth;
         outerStyle.height = outerWidth;
         break;
+      default:
     }
 
     switch (name) {
@@ -396,13 +400,14 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
       case 'paddingBottom':
         style.marginTop = -specialBorderWidth / 2;
         break;
+      default:
     }
 
     return (
       <Styled.ButtonContainer style={outerStyle}>
         <Styled.ButtonTriangle
           draggable={false}
-          onMouseDown={this.handleMouseDown.bind(this, name)}
+          onMouseDown={this.handleMouseDown.bind(this, name as any)}
           style={style}
           theme={{ position }}
         />
@@ -414,7 +419,8 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
     if (this.currentHolding !== '') {
       return;
     }
-    const inputElement = ReactDOM.findDOMNode(this.refs[name + 'Input']) as HTMLInputElement;
+    // eslint-disable-next-line react/no-string-refs
+    const inputElement = ReactDOM.findDOMNode(this.refs[`${name}Input`]) as HTMLInputElement;
     if (inputElement) {
       inputElement.blur();
     }
@@ -424,7 +430,8 @@ export class BoxEditor extends React.Component<typings.Props, typings.State> {
     if (this.currentHolding !== '') {
       return;
     }
-    const inputElement = ReactDOM.findDOMNode(this.refs[name + 'Input']) as HTMLInputElement;
+    // eslint-disable-next-line react/no-string-refs
+    const inputElement = ReactDOM.findDOMNode(this.refs[`${name}Input`]) as HTMLInputElement;
     if (inputElement) {
       inputElement.focus();
       inputElement.select();

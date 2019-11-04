@@ -34,7 +34,7 @@ export default class ApplicationAction {
       .map((plugin, index) => {
         return React.createElement(plugin.class, {
           key: index,
-          ...props
+          ...props,
         });
       });
   }
@@ -133,9 +133,8 @@ export default class ApplicationAction {
   public renderModalContent() {
     if (typeof this.store.modalContentRender === 'function') {
       return this.store.modalContentRender(this.closeModal);
-    } else {
-      return null;
     }
+    return null;
   }
 
   /**
@@ -169,9 +168,8 @@ export default class ApplicationAction {
   public getSettingByInstance(instance: InstanceInfo) {
     if (this.store.componentSetting.has(instance.preGaeaKey)) {
       return this.store.componentSetting.get(instance.preGaeaKey);
-    } else {
-      return this.store.componentSetting.get(instance.gaeaKey);
     }
+    return this.store.componentSetting.get(instance.gaeaKey);
   }
 
   /**
@@ -181,9 +179,8 @@ export default class ApplicationAction {
   public getDefaultPropsByInstance(instance: InstanceInfo) {
     if (this.store.componentDefaultProps.has(instance.preGaeaKey)) {
       return this.store.componentDefaultProps.get(instance.preGaeaKey);
-    } else {
-      return this.store.componentDefaultProps.get(instance.gaeaKey);
     }
+    return this.store.componentDefaultProps.get(instance.gaeaKey);
   }
 
   /**

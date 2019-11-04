@@ -11,6 +11,7 @@ import { Props, State } from './index.type';
 @Connect
 class MainToolEditorObject extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -24,7 +25,7 @@ class MainToolEditorObject extends React.Component<Props, State> {
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(
-      this.props.stores.ViewportStore.currentEditInstanceKey
+      this.props.stores.ViewportStore.currentEditInstanceKey,
     );
 
     // 对象配置
@@ -35,7 +36,7 @@ class MainToolEditorObject extends React.Component<Props, State> {
         <Styled.EachItem key={index}>
           {this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorManager', {
             editors: [editor],
-            realField: this.props.realField
+            realField: this.props.realField,
           })}
         </Styled.EachItem>
       );
@@ -47,5 +48,5 @@ class MainToolEditorObject extends React.Component<Props, State> {
 
 export default {
   position: 'mainToolEditorTypeObject',
-  class: MainToolEditorObject
+  class: MainToolEditorObject,
 };

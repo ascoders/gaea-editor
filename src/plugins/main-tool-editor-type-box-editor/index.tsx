@@ -1,13 +1,14 @@
 import { Connect } from 'dob-react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { BoxEditor } from '../../components/box-editor/src/';
+import { BoxEditor } from '../../components/box-editor/src';
 import * as Styled from './index.style';
 import { Props, State } from './index.type';
 
 @Connect
 class MainToolEditorColor extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -21,13 +22,13 @@ class MainToolEditorColor extends React.Component<Props, State> {
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(
-      this.props.stores.ViewportStore.currentEditInstanceKey
+      this.props.stores.ViewportStore.currentEditInstanceKey,
     );
 
     const style: React.CSSProperties =
       this.props.actions.ViewportAction.getInstanceProps(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        'style'
+        'style',
       ) || {};
 
     return (
@@ -57,7 +58,7 @@ class MainToolEditorColor extends React.Component<Props, State> {
     this.props.actions.ViewportAction.setInstanceProps(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       `style.${name}`,
-      value
+      value,
     );
   };
 
@@ -68,5 +69,5 @@ class MainToolEditorColor extends React.Component<Props, State> {
 
 export default {
   position: 'mainToolEditorTypeBoxEditor',
-  class: MainToolEditorColor
+  class: MainToolEditorColor,
 };

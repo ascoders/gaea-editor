@@ -9,7 +9,8 @@ import * as Styled from './page.style';
 import Viewport from './viewport/viewport.component';
 
 class Props {
-  public componentClasses?: Array<React.ComponentClass<IGaeaProps>> = [];
+  public componentClasses?: React.ComponentClass<IGaeaProps>[] = [];
+
   public ViewportRender = Styled.ViewportAndPreviewContainer;
 }
 
@@ -18,6 +19,7 @@ class State {}
 @Connect
 export default class Page extends PureComponent<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   public render() {
@@ -50,12 +52,12 @@ export default class Page extends PureComponent<Props, State> {
               <Styled.ToolsContainer theme={{ fullScreen: this.props.stores.ApplicationStore.rightTool }}>
                 <Styled.ToolsContainerLeft>
                   {this.props.actions.ApplicationAction.loadPluginByPosition(
-                    `toolContainerLeft${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.leftTool))}`
+                    `toolContainerLeft${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.leftTool))}`,
                   )}
                 </Styled.ToolsContainerLeft>
                 <Styled.ToolsContainerRight theme={{ show: this.props.stores.ApplicationStore.rightTool }}>
                   {this.props.actions.ApplicationAction.loadPluginByPosition(
-                    `toolContainerRight${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.rightTool))}`
+                    `toolContainerRight${_.upperFirst(_.camelCase(this.props.stores.ApplicationStore.rightTool))}`,
                   )}
                 </Styled.ToolsContainerRight>
               </Styled.ToolsContainer>

@@ -1,6 +1,6 @@
 import { Action, inject } from 'dob';
 import * as _ from 'lodash';
-import * as Sortable from 'sortablejs';
+import Sortable from 'sortablejs';
 import ApplicationAction from '../application/action';
 import ApplicationStore from '../application/store';
 import EventAction from '../event/action';
@@ -10,6 +10,7 @@ import ViewportStore from './store';
 function guidGenerator() {
   const S4 = () => {
     // tslint:disable-next-line:no-bitwise
+    // eslint-disable-next-line no-bitwise
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   };
   return S4() + S4();
@@ -53,10 +54,12 @@ export default class ViewportAction {
 
     while (
       key === null ||
+      // eslint-disable-next-line no-loop-func
       Array.from(this.store.instances.keys()).find(eachKey => eachKey === key) ||
+      // eslint-disable-next-line no-loop-func
       existInstances.find(eachKey => eachKey === key)
     ) {
-      key = 'gaea_instance_' + guidGenerator();
+      key = `gaea_instance_${guidGenerator()}`;
     }
 
     return key;
@@ -87,11 +90,11 @@ export default class ViewportAction {
       gaeaKey: params.gaeaKey,
       data: {
         // 参数属性优先。否则从 defaultProps 中提取数据结构，以保证数组结构的数据操作。
-        props: params.props || this.applicationAction.getDefaultMirrorPropsByKey(params.gaeaKey)
+        props: params.props || this.applicationAction.getDefaultMirrorPropsByKey(params.gaeaKey),
       },
       childs: [],
       parentInstanceKey: params.parentInstanceKey,
-      preGaeaKey: params.preGaeaKey
+      preGaeaKey: params.preGaeaKey,
     });
 
     // add instanceKey to parent instance's childs
@@ -141,7 +144,7 @@ export default class ViewportAction {
       this.horizontalMoveInstance(
         targetParentKey,
         sourceParentInstance.childs.findIndex(childKey => childKey === sourceTargetKey),
-        targetIndex
+        targetIndex,
       );
     }
   }
@@ -154,7 +157,7 @@ export default class ViewportAction {
     const parentInstance = this.store.instances.get(parentKey);
     if (beforeIndex < afterIndex) {
       // 从左到右
-      for (let index = beforeIndex; index < afterIndex; index++) {
+      for (let index = beforeIndex; index < afterIndex; index += 1) {
         const beforeUniqueKey = parentInstance.childs[index];
         const afterUniqueKey = parentInstance.childs[index + 1];
         parentInstance.childs[index] = afterUniqueKey;
@@ -162,7 +165,7 @@ export default class ViewportAction {
       }
     } else {
       // 从右到左
-      for (let index = beforeIndex; index > afterIndex; index--) {
+      for (let index = beforeIndex; index > afterIndex; index -= 1) {
         const beforeUniqueKey = parentInstance.childs[index];
         const afterUniqueKey = parentInstance.childs[index - 1];
         parentInstance.childs[index] = afterUniqueKey;
@@ -251,9 +254,8 @@ export default class ViewportAction {
     // 如果不存在，选择 defaultProps 中的属性
     if (dataResult === undefined) {
       return _.get(defaultProps, key);
-    } else {
-      return dataResult;
     }
+    return dataResult;
   }
 
   /**
@@ -384,7 +386,7 @@ export default class ViewportAction {
     const rootInstanceKey = this.addInstance({
       gaeaKey: 'gaea-container',
       parentInstanceKey: null,
-      indexPosition: null
+      indexPosition: null,
     });
 
     this.setRootInstanceKey(rootInstanceKey);
@@ -392,7 +394,7 @@ export default class ViewportAction {
     // 设置根节点属性
     this.setInstanceProps(rootInstanceKey, 'style', {
       display: 'block',
-      height: '100%'
+      height: '100%',
     });
   }
 
@@ -433,7 +435,7 @@ export default class ViewportAction {
     parentInstanceKey: string,
     dragParentDom: HTMLElement,
     params?: any,
-    groupName = 'gaea-container'
+    groupName = 'gaea-container',
   ) {
     const instance = this.store.instances.get(parentInstanceKey);
 
@@ -444,7 +446,7 @@ export default class ViewportAction {
       group: {
         name: groupName,
         pull: true,
-        put: true
+        put: true,
       },
       onStart: (event: any) => {
         this.startDrag({
@@ -452,8 +454,8 @@ export default class ViewportAction {
           dragStartParentDom: dragParentDom,
           dragStartIndex: event.oldIndex as number,
           info: {
-            instanceKey: instance.childs[event.oldIndex as number]
-          }
+            instanceKey: instance.childs[event.oldIndex as number],
+          },
         });
       },
       onEnd: (event: any) => {
@@ -470,7 +472,7 @@ export default class ViewportAction {
         }
 
         switch (this.store.currentDragInfo.type) {
-          case 'new':
+          case 'new': {
             // 是新拖进来的, 不用管, 因为工具栏会把它收回去
             // 为什么不删掉? 因为这个元素不论是不是 clone, 都被移过来了, 不还回去 react 在更新 dom 时会无法找到
             const newInfo = this.store.currentDragInfo.info as IDragInfoNew;
@@ -480,10 +482,10 @@ export default class ViewportAction {
               parentInstanceKey,
               indexPosition: event.newIndex as number,
               props: newInfo.props && JSON.parse(newInfo.props),
-              preGaeaKey: newInfo.preGaeaKey
+              preGaeaKey: newInfo.preGaeaKey,
             });
             break;
-
+          }
           case 'viewport':
             // 这里只还原 dom，和记录拖拽源信息，不会修改 components 数据，跨层级移动在 remove 回调中修改
             // 是从视图区域另一个元素移过来，而且是新增的, 而不是同一个父级改变排序
@@ -502,7 +504,7 @@ export default class ViewportAction {
               // 插入到它下一个元素的前一个
               this.store.currentDragInfo.dragStartParentDom.insertBefore(
                 event.item,
-                this.store.currentDragInfo.dragStartParentDom.childNodes[this.store.currentDragInfo.dragStartIndex]
+                this.store.currentDragInfo.dragStartParentDom.childNodes[this.store.currentDragInfo.dragStartIndex],
               );
             }
 
@@ -523,6 +525,7 @@ export default class ViewportAction {
             //     }
             // })
             break;
+          default:
         }
       },
       onUpdate: (event: any) => {
@@ -534,20 +537,18 @@ export default class ViewportAction {
         if (this.store.currentDragInfo.dragStartParentDom.childNodes.length === oldIndex + 1) {
           // 是从最后一个元素开始拖拽的
           this.store.currentDragInfo.dragStartParentDom.appendChild(event.item);
+        } else if (newIndex > oldIndex) {
+          // 如果移到了后面
+          this.store.currentDragInfo.dragStartParentDom.insertBefore(
+            event.item,
+            this.store.currentDragInfo.dragStartParentDom.childNodes[oldIndex],
+          );
         } else {
-          if (newIndex > oldIndex) {
-            // 如果移到了后面
-            this.store.currentDragInfo.dragStartParentDom.insertBefore(
-              event.item,
-              this.store.currentDragInfo.dragStartParentDom.childNodes[oldIndex]
-            );
-          } else {
-            // 如果移到了前面
-            this.store.currentDragInfo.dragStartParentDom.insertBefore(
-              event.item,
-              this.store.currentDragInfo.dragStartParentDom.childNodes[oldIndex + 1]
-            );
-          }
+          // 如果移到了前面
+          this.store.currentDragInfo.dragStartParentDom.insertBefore(
+            event.item,
+            this.store.currentDragInfo.dragStartParentDom.childNodes[oldIndex + 1],
+          );
         }
 
         this.horizontalMoveInstance(parentInstanceKey, event.oldIndex as number, event.newIndex as number);
@@ -570,7 +571,7 @@ export default class ViewportAction {
         ];
         const dragViewportInfo = this.store.currentDragInfo.info as IDragInfoViewport;
         this.moveInstance(dragTargetKey, dragViewportInfo.targetInstanceKey, dragViewportInfo.targetIndex);
-      }
+      },
     });
   }
 
@@ -591,7 +592,7 @@ export default class ViewportAction {
       group: {
         name: 'gaea-container',
         pull: 'clone',
-        put: false
+        put: false,
       },
       sort: false,
       delay: 0,
@@ -624,7 +625,10 @@ export default class ViewportAction {
                 // 如果用户传了 props，将其设置在 dataset 中
                 if (typeof propsData.props === 'object') {
                   if (event.item.dataset.props) {
-                    propsData.props = { ...(propsData.props || {}), ...JSON.parse(event.item.dataset.props) };
+                    propsData.props = {
+                      ...(propsData.props || {}),
+                      ...JSON.parse(event.item.dataset.props),
+                    };
                   }
                   event.item.dataset.props = JSON.stringify(propsData.props);
                 }
@@ -644,8 +648,8 @@ export default class ViewportAction {
                   info: {
                     gaeaKey: event.item.dataset.gaeaKey,
                     props: event.item.dataset.props,
-                    preGaeaKey: event.item.dataset.preGaeaKey
-                  }
+                    preGaeaKey: event.item.dataset.preGaeaKey,
+                  },
                 });
 
                 // 开始拖拽完毕
@@ -673,13 +677,13 @@ export default class ViewportAction {
         } else {
           // 没拖走, 只是晃了一下, 不用管了
         }
-      }
+      },
     });
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////////////
   // 实例的事件机制
-  ///////////////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * 给实例新增一个初始化事件
@@ -699,11 +703,11 @@ export default class ViewportAction {
     // 为事件新增一项
     instance.data.events.push({
       trigger: {
-        type: 'init'
+        type: 'init',
       },
       action: {
-        type: 'none'
-      }
+        type: 'none',
+      },
     });
   }
 
@@ -750,18 +754,20 @@ export default class ViewportAction {
 
     switch (event.trigger.type) {
       case 'callback':
-      // TODO:
-      // return event.action.data.map(data => {
-      //   return data.name;
-      // });
+        // TODO:
+        // return event.action.data.map(data => {
+        //   return data.name;
+        // });
+        break;
+      default:
     }
 
     return null as any;
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////////////
   // 实例的变量机制
-  ///////////////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * 判断某个 realField 是否是变量

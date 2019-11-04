@@ -13,6 +13,7 @@ const parseInputToOutRange = (value: number | string, inputRange: number[], outp
     return null;
   }
 
+  // eslint-disable-next-line no-param-reassign
   value = Number(value);
 
   if (inputRange[0] === outputRange[0] && inputRange[1] === outputRange[1]) {
@@ -26,6 +27,7 @@ const parseInputToOutRange = (value: number | string, inputRange: number[], outp
     // 转换成 output 的长度
     const outputLength = (outputRange[1] - outputRange[0]) * percentage;
     // 数值是加上最小值
+    // eslint-disable-next-line no-param-reassign
     value = outputLength + outputRange[0];
   }
   return value;
@@ -34,6 +36,7 @@ const parseInputToOutRange = (value: number | string, inputRange: number[], outp
 @Connect
 class MainToolEditorNumber extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -49,19 +52,19 @@ class MainToolEditorNumber extends React.Component<Props, State> {
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(
-      this.props.stores.ViewportStore.currentEditInstanceKey
+      this.props.stores.ViewportStore.currentEditInstanceKey,
     );
 
     let currentValue: number = this.props.actions.ViewportAction.getInstanceProps(
       this.props.stores.ViewportStore.currentEditInstanceKey,
-      this.props.realField
+      this.props.realField,
     );
 
     this.numberData = {
       useSlider: false,
       step: 1,
       inputRange: [-9999999, 9999999],
-      ...((this.props.editor.data as any) || {})
+      ...((this.props.editor.data as any) || {}),
     };
 
     // 如果只设置了 inputRange, 默认 outputRange 要与其相同
@@ -99,12 +102,13 @@ class MainToolEditorNumber extends React.Component<Props, State> {
 
   private handleChange = (value: number | string | undefined) => {
     // 转换
+    // eslint-disable-next-line no-param-reassign
     value = parseInputToOutRange(value, this.numberData.inputRange, this.numberData.outputRange);
 
     this.props.actions.ViewportAction.setInstanceProps(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       this.props.realField,
-      value
+      value,
     );
   };
 
@@ -115,5 +119,5 @@ class MainToolEditorNumber extends React.Component<Props, State> {
 
 export default {
   position: 'mainToolEditorTypeNumber',
-  class: MainToolEditorNumber
+  class: MainToolEditorNumber,
 };

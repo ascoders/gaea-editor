@@ -4,41 +4,42 @@ import * as React from 'react';
 import { Props, State } from './index.type';
 import * as S from './style';
 
-const selections: Array<{
+const selections: {
   title: string;
   icon: string;
   width: number | string;
   height: number | string;
-}> = [
+}[] = [
   {
     title: 'PC',
     icon: 'laptop',
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   {
     title: 'Iphone6/7/8',
     icon: 'mobile',
     width: 414,
-    height: 736
+    height: 736,
   },
   {
     title: 'IphoneX',
     icon: 'mobile',
     width: 375,
-    height: 812
+    height: 812,
   },
   {
     title: 'iPad',
     icon: 'tablet',
     width: 768,
-    height: 1024
-  }
+    height: 1024,
+  },
 ];
 
 @Connect
 class ViewMode extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   public componentWillMount() {
@@ -93,19 +94,19 @@ class ViewMode extends React.Component<Props, State> {
   private changeCurrentIndex = (index: number) => {
     this.setState(
       {
-        currentIndex: index
+        currentIndex: index,
       },
       () => {
         this.props.actions.ApplicationAction.setViewportStyle({
           width: selections[this.state.currentIndex].width,
-          height: selections[this.state.currentIndex].height
+          height: selections[this.state.currentIndex].height,
         });
-      }
+      },
     );
   };
 }
 
 export default {
   position: 'navbarRight',
-  class: ViewMode
+  class: ViewMode,
 };

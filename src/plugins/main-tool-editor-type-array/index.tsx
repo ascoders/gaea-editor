@@ -10,6 +10,7 @@ import { Props, State } from './index.type';
 @Connect
 class MainToolEditorArray extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -23,7 +24,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(
-      this.props.stores.ViewportStore.currentEditInstanceKey
+      this.props.stores.ViewportStore.currentEditInstanceKey,
     );
 
     // 数组配置
@@ -33,7 +34,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
     const currentValue: any[] =
       this.props.actions.ViewportAction.getInstanceProps(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        this.props.realField
+        this.props.realField,
       ) || [];
 
     // 增加 删除
@@ -42,7 +43,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
         <Styled.EachItem key={index}>
           {this.props.actions.ApplicationAction.loadPluginByPosition('mainToolEditorManager', {
             editors,
-            realField: this.props.realField + '.' + index
+            realField: `${this.props.realField}.${index}`,
           })}
           <Tooltip title="Remove" placement="left">
             <Styled.RemoveIconContainer onClick={this.handleRemove.bind(this, index)}>
@@ -70,7 +71,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
     const currentValue: any[] =
       this.props.actions.ViewportAction.getInstanceProps(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        this.props.realField
+        this.props.realField,
       ) || [];
 
     const assignValue = [...currentValue];
@@ -85,7 +86,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
     this.props.actions.ViewportAction.setInstanceProps(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       this.props.realField,
-      assignValue
+      assignValue,
     );
   };
 
@@ -93,7 +94,7 @@ class MainToolEditorArray extends React.Component<Props, State> {
     const currentValue: any[] =
       this.props.actions.ViewportAction.getInstanceProps(
         this.props.stores.ViewportStore.currentEditInstanceKey,
-        this.props.realField
+        this.props.realField,
       ) || [];
 
     const assignValue = [...currentValue];
@@ -104,12 +105,12 @@ class MainToolEditorArray extends React.Component<Props, State> {
     this.props.actions.ViewportAction.setInstanceProps(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       this.props.realField,
-      assignValue
+      assignValue,
     );
   };
 }
 
 export default {
   position: 'mainToolEditorTypeArray',
-  class: MainToolEditorArray
+  class: MainToolEditorArray,
 };

@@ -10,6 +10,7 @@ import { Props, State } from './index.type';
 @Connect
 class MainToolEditorColor extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -23,12 +24,12 @@ class MainToolEditorColor extends React.Component<Props, State> {
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(
-      this.props.stores.ViewportStore.currentEditInstanceKey
+      this.props.stores.ViewportStore.currentEditInstanceKey,
     );
 
     let currentValue: string = this.props.actions.ViewportAction.getInstanceProps(
       this.props.stores.ViewportStore.currentEditInstanceKey,
-      this.props.realField
+      this.props.realField,
     );
 
     currentValue = currentValue ? currentValue.toString() : '';
@@ -54,12 +55,12 @@ class MainToolEditorColor extends React.Component<Props, State> {
     this.props.actions.ViewportAction.setInstanceProps(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       this.props.realField,
-      `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`
+      `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`,
     );
   };
 }
 
 export default {
   position: 'mainToolEditorTypeColor',
-  class: MainToolEditorColor
+  class: MainToolEditorColor,
 };

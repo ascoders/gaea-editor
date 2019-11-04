@@ -1,8 +1,10 @@
 export default function scrollTo(element: HTMLElement, target: number, duration: number) {
+  // eslint-disable-next-line no-param-reassign
   target = Math.round(target);
+  // eslint-disable-next-line no-param-reassign
   duration = Math.round(duration);
   if (duration < 0) {
-    return Promise.reject('bad duration');
+    return Promise.reject(Error('bad duration'));
   }
   if (duration === 0) {
     element.scrollTop = target;

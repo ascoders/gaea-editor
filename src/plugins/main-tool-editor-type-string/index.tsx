@@ -10,6 +10,7 @@ import { Props, State } from './index.type';
 @Connect
 class MainToolEditorString extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -23,12 +24,12 @@ class MainToolEditorString extends React.Component<Props, State> {
     }
 
     this.instanceInfo = this.props.stores.ViewportStore.instances.get(
-      this.props.stores.ViewportStore.currentEditInstanceKey
+      this.props.stores.ViewportStore.currentEditInstanceKey,
     );
 
     let currentValue: string = this.props.actions.ViewportAction.getInstanceProps(
       this.props.stores.ViewportStore.currentEditInstanceKey,
-      this.props.realField
+      this.props.realField,
     );
 
     currentValue = currentValue ? currentValue.toString() : '';
@@ -44,12 +45,12 @@ class MainToolEditorString extends React.Component<Props, State> {
     this.props.actions.ViewportAction.setInstanceProps(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       this.props.realField,
-      value
+      value,
     );
   };
 }
 
 export default {
   position: 'mainToolEditorTypeString',
-  class: MainToolEditorString
+  class: MainToolEditorString,
 };

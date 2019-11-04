@@ -10,3 +10,5 @@
 /.idea
 /package-lock.json
 /declaration
+/yarn.lock
+/.node

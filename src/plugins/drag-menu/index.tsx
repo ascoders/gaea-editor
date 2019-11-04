@@ -8,6 +8,7 @@ import { Props, State } from './index.type';
 @Connect
 class DragMenu extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   private listContainer: React.ReactInstance;
@@ -32,7 +33,11 @@ class DragMenu extends React.Component<Props, State> {
           placeholder={this.props.stores.ApplicationStore.setLocale('搜索..', 'Search..')}
         />
 
-        <Styled.ListContainer ref={(ref: React.ReactInstance) => (this.listContainer = ref)}>
+        <Styled.ListContainer
+          ref={(ref: React.ReactInstance) => {
+            this.listContainer = ref;
+          }}
+        >
           {this.getList()}
         </Styled.ListContainer>
 
@@ -49,7 +54,7 @@ class DragMenu extends React.Component<Props, State> {
         // 如果被设置为了预设组件，过滤掉
         if (
           Array.from(this.props.stores.ApplicationStore.preComponents.keys()).some(
-            preGaeaKey => preGaeaKey === setting.key
+            preGaeaKey => preGaeaKey === setting.key,
           )
         ) {
           return false;
@@ -66,13 +71,13 @@ class DragMenu extends React.Component<Props, State> {
         const setting = this.props.stores.ApplicationStore.componentSetting.get(gaeaKey);
 
         return (
-          <Styled.Component key={'standard' + index} data-gaea-key={setting.key}>
+          <Styled.Component key={`standard${index}`} data-gaea-key={setting.key}>
             {setting.name}
           </Styled.Component>
         );
       })
-      .concat(
-        Array.from(this.props.stores.ApplicationStore.preComponents).map(([gaeaKey, preComponentInfos], index) => {
+      .concat(Array.from(this.props.stores.ApplicationStore.preComponents).map(
+        ([gaeaKey, preComponentInfos], index) => {
           const componentClass = this.props.stores.ApplicationStore.componentClasses.get(gaeaKey);
           return Array.prototype.concat.apply(
             [],
@@ -92,7 +97,7 @@ class DragMenu extends React.Component<Props, State> {
 
                 return (
                   <Styled.Component
-                    key={'preSetting' + index + '&' + childIndex}
+                    key={`preSetting${index}&${childIndex}`}
                     data-gaea-key={componentClass.defaultProps.editSetting.key}
                     data-props={JSON.stringify(preComponentInfo.props)}
                     data-pre-gaea-key={gaeaKey}
@@ -100,10 +105,10 @@ class DragMenu extends React.Component<Props, State> {
                     {preComponentInfo.name}
                   </Styled.Component>
                 );
-              })
+              }),
           );
-        })
-      );
+        },
+      ) as any);
   };
 
   private handleCloseLeftBar = () => {
@@ -113,12 +118,12 @@ class DragMenu extends React.Component<Props, State> {
 
   private handleSearch = (event: React.FormEvent<HTMLInputElement>) => {
     this.setState({
-      searchContent: event.currentTarget.value as string
+      searchContent: event.currentTarget.value as string,
     });
   };
 }
 
 export default {
   position: 'toolContainerLeftDragMenu',
-  class: DragMenu
+  class: DragMenu,
 };

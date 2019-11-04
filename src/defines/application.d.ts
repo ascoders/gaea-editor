@@ -43,7 +43,7 @@ declare interface IGaeaSetting {
   /**
    * Edit infos
    */
-  editors?: Array<string | IEditor>;
+  editors?: (string | IEditor)[];
   /**
    * Is in preview mode
    */
@@ -56,10 +56,10 @@ declare interface IGaeaSetting {
    * 自定义事件
    * 组件设置的事件，只支持回调事件
    */
-  events?: Array<{
+  events?: {
     text: string;
     field: string;
-  }>;
+  }[];
 }
 
 declare interface IDefaultProps {
@@ -106,7 +106,7 @@ declare interface IEditorNumberData {
   outputRange?: number[];
 }
 
-declare type IEditorSelectData = Array<{
+declare type IEditorSelectData = {
   /**
    * 选择框展示的 label
    */
@@ -115,7 +115,7 @@ declare type IEditorSelectData = Array<{
    * 选择框真正的值
    */
   value: string;
-}>;
+}[];
 
 declare interface IPage {
   /**
@@ -145,7 +145,7 @@ declare interface IPages {
   [pageKey: string]: IPage;
 }
 
-declare type InstancesArray = Array<{
+declare type InstancesArray = {
   /**
    * The page instances belong to
    */
@@ -153,7 +153,7 @@ declare type InstancesArray = Array<{
   instances: {
     [instanceKey: string]: InstanceInfo;
   };
-}>;
+}[];
 
 declare interface IPreComponent {
   /**
@@ -167,7 +167,7 @@ declare interface IPreComponent {
 }
 
 declare type IOnComponentDragStart = (
-  gaeaKeyOrPreGaeaKey?: string
+  gaeaKeyOrPreGaeaKey?: string,
 ) => Promise<IOnComponentDragStartReturn> | IOnComponentDragStartReturn;
 
 declare interface IOnComponentDragStartReturn {

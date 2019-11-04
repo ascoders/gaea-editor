@@ -6,6 +6,7 @@ import * as Styled from './style';
 @Connect
 class Save extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   public render() {
@@ -19,12 +20,12 @@ class Save extends React.Component<Props, State> {
   private handleClick = () => {
     this.props.actions.EventAction.emit(this.props.stores.EventStore.emitEditorCallback, {
       funcName: 'onSave',
-      data: this.props.stores.ViewportStore.currentFullInformation.$raw
+      data: this.props.stores.ViewportStore.currentFullInformation.$raw,
     });
   };
 }
 
 export default {
   position: 'navbarRight',
-  class: Save
+  class: Save,
 };

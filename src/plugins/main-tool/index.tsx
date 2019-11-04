@@ -8,11 +8,12 @@ import { Props, State } from './index.type';
 @Connect
 class MainTool extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   public handleChange = (activeKey: string) => {
     this.setState({
-      activeKey
+      activeKey,
     });
   };
 
@@ -38,5 +39,5 @@ class MainTool extends React.Component<Props, State> {
 
 export default {
   position: 'mainTool',
-  class: MainTool
+  class: MainTool,
 };

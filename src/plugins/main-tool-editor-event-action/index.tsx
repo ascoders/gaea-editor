@@ -14,16 +14,16 @@ const SelectAny = Select as any;
 const ActionOptions = [
   {
     key: 'none',
-    value: 'Do nothing'
+    value: 'Do nothing',
   },
   {
     key: 'emit',
-    value: 'Trigger Event'
+    value: 'Trigger Event',
   },
   {
     key: 'jump',
-    value: 'Jump url'
-  }
+    value: 'Jump url',
+  },
   // {
   //   key: 'passingSiblingNodes',
   //   value: 'Pass value to brother node'
@@ -39,6 +39,7 @@ const ActionOptions = [
 @Connect
 class MainToolEditorEventAction extends React.Component<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   /**
@@ -92,9 +93,9 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
       {
         ...this.currentEventInfo,
         action: {
-          type: value as any
-        }
-      }
+          type: value as any,
+        },
+      },
     );
   };
 
@@ -137,12 +138,12 @@ class MainToolEditorEventAction extends React.Component<Props, State> {
     this.props.actions.ViewportAction.setInstanceEvent(
       this.props.stores.ViewportStore.currentEditInstanceKey,
       `${this.props.index}.action.${key}`,
-      value
+      value,
     );
   };
 }
 
 export default {
   position: 'mainToolEditorEventAction',
-  class: MainToolEditorEventAction
+  class: MainToolEditorEventAction,
 };

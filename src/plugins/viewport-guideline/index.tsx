@@ -6,6 +6,7 @@ import * as typings from './index.type';
 @Connect
 class ViewportGuideline extends React.Component<typings.Props, typings.State> {
   public static defaultProps = new typings.Props();
+
   public state = new typings.State();
 
   private timeOut: any;
@@ -40,7 +41,7 @@ class ViewportGuideline extends React.Component<typings.Props, typings.State> {
       width: targetBoundingClientRect.width - 1,
       height: targetBoundingClientRect.height - 1,
       top: targetBoundingClientRect.top - viewportBoundingClientRect.top,
-      left: targetBoundingClientRect.left - viewportBoundingClientRect.left
+      left: targetBoundingClientRect.left - viewportBoundingClientRect.left,
     };
 
     return <Styled.Container style={style} />;
@@ -79,5 +80,5 @@ class ViewportGuideline extends React.Component<typings.Props, typings.State> {
 
 export default {
   position: 'viewport',
-  class: ViewportGuideline
+  class: ViewportGuideline,
 };

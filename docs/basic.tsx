@@ -14,6 +14,7 @@ class TestComponent extends React.PureComponent {
       isContainer: false
     }
   };
+
   public render() {
     return <div>123</div>;
   }
@@ -21,9 +22,17 @@ class TestComponent extends React.PureComponent {
 
 export default class Page extends React.PureComponent<Props, State> {
   public static defaultProps = new Props();
+
   public state = new State();
 
   public render() {
-    return <Component componentClasses={[TestComponent, ...GaeaComponents]} />;
+    return (
+      <Component
+        onSave={data => {
+          console.log('data', data);
+        }}
+        componentClasses={[TestComponent, ...GaeaComponents]}
+      />
+    );
   }
 }

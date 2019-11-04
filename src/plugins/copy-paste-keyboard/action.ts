@@ -7,8 +7,11 @@ import { CopyPasteStore } from './store';
 
 export class CopyPasteAction {
   @inject(CopyPasteStore) private copyPasteStore: CopyPasteStore;
+
   @inject(ViewportAction) private viewportAction: ViewportAction;
+
   @inject(ViewportStore) private viewportStore: ViewportStore;
+
   @inject(ApplicationAction) private applicationAction: ApplicationAction;
 
   @Action
@@ -23,13 +26,13 @@ export class CopyPasteAction {
 
     allChilds.forEach(instanceKey => {
       this.copyPasteStore.currentInstances[instanceKey] = _.cloneDeep(
-        (this.viewportStore.instances.get(instanceKey) as any).$raw
+        (this.viewportStore.instances.get(instanceKey) as any).$raw,
       );
     });
 
     this.copyPasteStore.currentInstances[this.viewportStore.currentHoverInstanceKey] = {
       ...(this.viewportStore.instances.get(this.viewportStore.currentHoverInstanceKey) as any).$raw,
-      parentInstanceKey: null
+      parentInstanceKey: null,
     };
   }
 
@@ -69,7 +72,7 @@ export class CopyPasteAction {
     });
 
     const rootInstanceKey = Object.keys(pasteInstances).find(
-      instanceKey => !pasteInstances[instanceKey].parentInstanceKey
+      instanceKey => !pasteInstances[instanceKey].parentInstanceKey,
     );
 
     // Replace root instance parentKey

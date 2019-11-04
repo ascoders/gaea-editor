@@ -74,14 +74,14 @@ class EditHelper extends React.Component<Props, State> {
     if (this.setting.isContainer) {
       // 添加可排序拖拽
       this.props.actions.ViewportAction.registerInnerDrag(this.props.instanceKey, this.domInstance, {
-        draggable: '.gaea-draggable'
+        draggable: '.gaea-draggable',
       });
     }
 
     // 当组件 props 设置改变时，会触发，强制刷新
     this.props.actions.EventAction.on(
       `${this.props.stores.EventStore.instanceUpdate}.${this.props.instanceKey}`,
-      this.forceRender
+      this.forceRender,
     );
 
     // 监听当前编辑 key，如果不是自己，则取消高亮
@@ -95,7 +95,7 @@ class EditHelper extends React.Component<Props, State> {
   public componentWillUnmount() {
     this.props.actions.EventAction.off(
       `${this.props.stores.EventStore.instanceUpdate}.${this.props.instanceKey}`,
-      this.forceRender
+      this.forceRender,
     );
   }
 
@@ -108,7 +108,7 @@ class EditHelper extends React.Component<Props, State> {
 
     this.props.actions.EventAction.emit(this.props.stores.EventStore.mouseHoveringComponent, {
       instanceKey: this.props.instanceKey,
-      type: 'instance'
+      type: 'instance',
     });
 
     this.props.actions.ViewportAction.setCurrentHoverInstanceKey(this.props.instanceKey);
@@ -134,7 +134,7 @@ class EditHelper extends React.Component<Props, State> {
 
   public render() {
     // 子元素
-    let childs: Array<React.ReactElement<any>> = null;
+    let childs: React.ReactElement<any>[] = null;
 
     // 布局元素可以有子元素
     if (this.setting.isContainer) {
@@ -150,7 +150,7 @@ class EditHelper extends React.Component<Props, State> {
           new Array(srcValue.length).fill(undefined),
           objValue.slice(0, srcValue.length),
           srcValue,
-          arraySliceMerge
+          arraySliceMerge,
         );
       }
     };
@@ -163,9 +163,9 @@ class EditHelper extends React.Component<Props, State> {
       {
         ref: (ref: React.ReactInstance) => {
           this.wrappedInstance = ref;
-        }
+        },
       },
-      arraySliceMerge
+      arraySliceMerge,
     );
 
     return React.createElement(this.componentClass, wrapProps, childs);
