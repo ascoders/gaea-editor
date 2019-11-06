@@ -34,6 +34,7 @@ import preview from './plugins/preview';
 import save from './plugins/save';
 import viewMode from './plugins/view-mode';
 import viewportGuideline from './plugins/viewport-guideline';
+import { LayoutContext } from './LayoutContext';
 
 const allPlugins: [string, any][] = [
   ['crumbs', crumbs],
@@ -124,6 +125,10 @@ export default class GaeaEditor extends React.Component<Props, State> {
       this.stores.getStore().stores.ViewportStore.dragStartDataReady = true;
     }
 
+    if (this.props.layout.showDragMenu) {
+      this.stores.getStore().actions.ApplicationAction.setLeftTool('dragMenu');
+    }
+
     // 将 onComponentDragStart 放到 applicationStore
     this.stores.getStore().actions.ApplicationAction.setOnComponentDragStart(this.props.onComponentDragStart);
   }
@@ -136,9 +141,11 @@ export default class GaeaEditor extends React.Component<Props, State> {
 
   public render() {
     return (
-      <Provider {...this.stores.getStore()}>
-        <Page componentClasses={this.props.componentClasses} ViewportRender={this.props.ViewportRender as any} />
-      </Provider>
+      <LayoutContext.Provider value={this.props.layout}>
+        <Provider {...this.stores.getStore()}>
+          <Page componentClasses={this.props.componentClasses} ViewportRender={this.props.ViewportRender as any} />
+        </Provider>
+      </LayoutContext.Provider>
     );
   }
 

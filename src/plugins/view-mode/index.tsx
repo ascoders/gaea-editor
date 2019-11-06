@@ -1,8 +1,12 @@
 import { Icon } from 'antd';
 import { Connect } from 'dob-react';
 import * as React from 'react';
+import { findIndex } from 'lodash';
 import { Props, State } from './index.type';
 import * as S from './style';
+import { LayoutContext } from '../../LayoutContext';
+
+const { useContext } = React;
 
 const selections: {
   title: string;
@@ -43,7 +47,8 @@ class ViewMode extends React.Component<Props, State> {
   public state = new State();
 
   public componentWillMount() {
-    this.changeCurrentIndex(0);
+    const defaultSelectionIndex = findIndex(selections, { title: this.props.defaultViewMode });
+    this.changeCurrentIndex(defaultSelectionIndex || 0);
   }
 
   public render() {
@@ -106,7 +111,12 @@ class ViewMode extends React.Component<Props, State> {
   };
 }
 
+function ViewModeWrapper() {
+  const { defaultViewMode } = useContext(LayoutContext);
+  return <ViewMode defaultViewMode={defaultViewMode} />;
+}
+
 export default {
   position: 'navbarRight',
-  class: ViewMode,
+  class: ViewModeWrapper,
 };

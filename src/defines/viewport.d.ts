@@ -106,3 +106,5 @@ declare interface IDragInfoViewport {
 declare interface IFullInformation {
   [instanceKey: string]: InstanceInfo;
 }
+
+declare type ViewMode = 'PC' | 'Iphone6/7/8' | 'IphoneX' | 'iPad';

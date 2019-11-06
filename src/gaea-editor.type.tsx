@@ -17,6 +17,14 @@ export class Props {
   public defaultValue?: IFullInformation = null;
 
   /**
+   * Editor layout
+   */
+  public layout?: {
+    showDragMenu: boolean;
+    defaultViewMode: ViewMode;
+  } = { showDragMenu: false, defaultViewMode: 'PC' };
+
+  /**
    * Custom plugins include jsx and stores.
    */
   public plugins?: IPlugin[] = [];
