@@ -11,8 +11,8 @@ class TestComponent extends React.PureComponent {
     editSetting: {
       key: 'aaaa',
       name: '66666',
-      isContainer: false
-    }
+      isContainer: false,
+    },
   };
 
   public render() {
@@ -28,10 +28,14 @@ export default class Page extends React.PureComponent<Props, State> {
   public render() {
     return (
       <Component
-        onSave={data => {
-          console.log('data', data);
-        }}
         componentClasses={[TestComponent, ...GaeaComponents]}
+        onSave={data => {
+          console.log('data', JSON.stringify(data));
+        }}
+        layout={{
+          showDragMenu: true,
+          defaultViewMode: 'Iphone6/7/8',
+        }}
       />
     );
   }
