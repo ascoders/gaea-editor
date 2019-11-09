@@ -52,14 +52,6 @@ declare interface IGaeaSetting {
    * Container can be dragged into component
    */
   isContainer?: boolean;
-  /**
-   * 自定义事件
-   * 组件设置的事件，只支持回调事件
-   */
-  events?: {
-    text: string;
-    field: string;
-  }[];
 }
 
 declare interface IDefaultProps {

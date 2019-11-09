@@ -20,10 +20,6 @@ declare interface InstanceInfo {
     props?: {
       [prop: string]: any;
     };
-    /**
-     * Event data
-     */
-    events?: InstanceInfoEvent[];
   };
   /**
    * Children's instanceKey（only isContainer)
