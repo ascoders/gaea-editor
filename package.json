@@ -1,7 +1,7 @@
 {
-  "name": "gaea-editor",
-  "version": "2.3.26",
-  "description": "",
+  "name": "gaea-injection-editor",
+  "version": "1.0.0",
+  "description": "基于 gaea-editor 精简而成的纯 UI 编辑器。",
   "main": "dist/main",
   "types": "declaration/index.d.ts",
   "scripts": {
@@ -38,11 +38,6 @@
   },
   "author": "",
   "license": "ISC",
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test -- --package root"
-    }
-  },
   "tnpm": {
     "mode": "npm"
   },
