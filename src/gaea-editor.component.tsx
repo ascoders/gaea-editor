@@ -15,9 +15,6 @@ import dragMenu from './plugins/drag-menu';
 import dragMenuButton from './plugins/drag-menu-button';
 import mainTool from './plugins/main-tool';
 import mainToolEditor from './plugins/main-tool-editor';
-import mainToolEditorEvent from './plugins/main-tool-editor-event';
-import mainToolEditorEventAction from './plugins/main-tool-editor-event-action';
-import mainToolEditorEventTrigger from './plugins/main-tool-editor-event-trigger';
 import mainToolEditorManager from './plugins/main-tool-editor-manager';
 import mainToolEditorTypeArray from './plugins/main-tool-editor-type-array';
 import mainToolEditorTypeBoolean from './plugins/main-tool-editor-type-boolean';
@@ -44,9 +41,6 @@ const allPlugins: [string, any][] = [
   ['dragMenuButton', dragMenuButton],
   ['mainTool', mainTool],
   ['mainToolEditor', mainToolEditor],
-  ['mainToolEditorEvent', mainToolEditorEvent],
-  ['mainToolEditorEventAction', mainToolEditorEventAction],
-  ['mainToolEditorEventTrigger', mainToolEditorEventTrigger],
   ['mainToolEditorManager', mainToolEditorManager],
   ['mainToolEditorTypeArray', mainToolEditorTypeArray],
   ['mainToolEditorTypeBoolean', mainToolEditorTypeBoolean],
