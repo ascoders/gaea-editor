@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 export class Props {
   /**
    * 标题

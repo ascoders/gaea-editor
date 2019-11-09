@@ -1,4 +1,3 @@
-import * as classNames from 'classnames';
 import * as React from 'react';
 import * as Styled from './tree-node.style';
 import * as typings from './tree-node.type';
