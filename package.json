@@ -1,6 +1,6 @@
 {
   "name": "gaea-injection-editor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "基于 gaea-editor 精简而成的纯 UI 编辑器。",
   "main": "dist/main",
   "types": "declaration/index.d.ts",
