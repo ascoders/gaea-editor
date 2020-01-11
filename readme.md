@@ -371,7 +371,7 @@ What is `position`? What can i do with plugin? See more in [custom-plugin](docs/
 
 Talk to us about gaea-editor using DingDing.
 
-<img src="https://user-images.githubusercontent.com/7970947/41804817-96e20ef2-76cf-11e8-8c61-22d7c4f78b65.JPG" width=500 />
+<img src="https://img.alicdn.com/tfs/TB1O1XRtG61gK0jSZFlXXXDKFXa-1242-1602.jpg" width=500 />
 
 # Local development run
 
