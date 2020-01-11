@@ -384,6 +384,8 @@ npm run docs
 
 Will automatically open the default browser.
 
+> Unfortunately, source debugging is not support windows. Here is [way](https://github.com/ascoders/gaea-editor/issues/60) 
+
 # Deploy
 
 Step 1, get value by `onSave` method in `gaea-editor`:
