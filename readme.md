@@ -19,6 +19,7 @@
 
 - Node > 8.0
 - Typescript 3.0
+- Linux  ([Windows requires a Linux subsystem](https://github.com/ascoders/gaea-editor/issues/60))
 
 ## Quick start
 
