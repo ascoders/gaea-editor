@@ -1,3 +1,4 @@
+#Amazing Website
 # Gaea Editor &middot; [![CircleCI Status](https://img.shields.io/travis/ascoders/gaea-editor/master.svg?style=flat)](https://travis-ci.org/ascoders/gaea-editor) [![npm version](https://img.shields.io/npm/v/gaea-editor.svg?style=flat)](https://www.npmjs.com/package/ascoders/gaea-editor) [![code coverage](https://img.shields.io/codecov/c/github/ascoders/gaea-editor/master.svg)](https://codecov.io/github/ascoders/gaea-editor/ascoders/gaea-editor) [![Total alerts](https://img.shields.io/lgtm/alerts/g/ascoders/gaea-editor.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ascoders/gaea-editor/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/ascoders/gaea-editor.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ascoders/gaea-editor/context:javascript)
 
 <p align="center">
