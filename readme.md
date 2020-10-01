@@ -26,7 +26,7 @@
 npm i gaea-editor --save
 ```
 
-And then, it's easy to use:
+And then, it's easy to use,frankly speaking amazing;
 
 ```typescript
 import Editor from 'gaea-editor';
@@ -258,7 +258,7 @@ Each field in `data` describes how the key should be edited in the object in arr
 
 Each field in `data` describes how the key should be edited in this object.
 
-> Each field in `data` is a `editor` type. You can even nested `array` or `object` type inside.
+> Each field in `data` is a `editor` type. You can even nested `array` or `object` type inside.Try it out.
 
 ```typescript
 {
