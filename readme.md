@@ -4,6 +4,7 @@
     <img src="./docs/images/home-snapshot.png" height=600/>
     <h3 align="center">gaea-editor</h3>
     <p align="center">
+    
         <i>
             Help develops build a scalable website visualization builder.
         </i>
@@ -104,7 +105,7 @@ Suitable for any string editing scene.
 
 Suitable for any number editing scene.
 
-In many cases, it is suggested that `inputRange` and `outputRange` be set to the same value.
+In many case, it is suggested that `inputRange` and `outputRange` be set to the same value.
 
 ```typescript
 {
