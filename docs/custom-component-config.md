@@ -20,7 +20,7 @@ You can customize the editor controls by increase the `gaeaEditor` field in `pro
 
 ```typescript
 class Props {
-  public gaeaSetting = {
+  public editSetting = {
     key: 'my-select-component',
     name: 'my-select-component',
     editors: [
@@ -68,7 +68,7 @@ class Props {
 }
 
 class MyInput extends React.Component {
-  // `gaeaEditor` read editor controls option in defaultProps.gaeaSetting field
+  // `gaeaEditor` read editor controls option in defaultProps.editSetting field
   static defaultProps = new Props();
 
   render() {
